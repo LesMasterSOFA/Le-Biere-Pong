@@ -1,0 +1,2 @@
+F:\École\programmation\La biere pong\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
+F:\École\programmation\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache

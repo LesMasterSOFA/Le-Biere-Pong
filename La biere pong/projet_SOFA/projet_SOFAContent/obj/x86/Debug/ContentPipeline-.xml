@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Fonts\Arial20.spritefont</Source>
+      <Name>Fonts\Arial20</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial20.xnb</Output>
+      <Time>2013-11-26T09:16:14-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Arial40.spritefont</Source>
+      <Name>Fonts\Arial40</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial40.xnb</Output>
+      <Time>2016-02-01T09:50:50-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\BeerPong.jpg</Source>
+      <Name>Textures\BeerPong</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BeerPong.xnb</Output>
+      <Time>2016-02-01T09:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\BoutonBackBleu.png</Source>
+      <Name>Textures\BoutonBackBleu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleu.xnb</Output>
+      <Time>2016-02-01T09:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\BoutonBackBleuPale.png</Source>
+      <Name>Textures\BoutonBackBleuPale</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleuPale.xnb</Output>
+      <Time>2016-02-01T09:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\BoutonBleu.png</Source>
+      <Name>Textures\BoutonBleu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBleu.xnb</Output>
+      <Time>2016-02-01T09:50:40-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\BoutonBleuPale.png</Source>
+      <Name>Textures\BoutonBleuPale</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBleuPale.xnb</Output>
+      <Time>2016-02-01T09:50:40-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID Null="true" />
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFAContent\</RootDirectory>
+      <LoggerRootDirectory>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\</LoggerRootDirectory>
+      <IntermediateDirectory>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>F:\École\programmation\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2016-01-11T10:53:34.6398238-05:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
