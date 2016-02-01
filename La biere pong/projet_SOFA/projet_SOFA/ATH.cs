@@ -20,6 +20,7 @@ namespace AtelierXNA
         BoutonDeCommande BoutonLancer { get; set; }
         BoutonDeCommande BoutonRésumer { get; set; }
         BoutonDeCommande BoutonQuitter { get; set; }
+        IndicateurForce indicateurForce { get; set; }
         PlanColoré planPause { get; set; }
         string NombreDePoints { get; set; }
         int LargeurÉcran { get; set; }
@@ -46,6 +47,7 @@ namespace AtelierXNA
         {
             Game.Components.Remove(BoutonLancer);
             Game.Components.Remove(BoutonPause);
+            Game.Components.Remove(indicateurForce);
 
             Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width/2,Game.Window.ClientBounds.Height/2 - 30);
             Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width/2,Game.Window.ClientBounds.Height/2 + 30);
@@ -71,7 +73,7 @@ namespace AtelierXNA
             PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
             PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
 
-            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, false, null);
+            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
             BoutonPause = new BoutonDeCommande(Game, "Pause", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
 
             Game.Components.Add(BoutonLancer);
@@ -84,10 +86,10 @@ namespace AtelierXNA
         }
         void ActionLancer()
         {
-            Vector2 positionIndicateurForce = new Vector2(30, HauteurÉcran - 60);
-            Vector2 grandeurIndicateurForce = new Vector2(100, 50);
+            Vector2 positionIndicateurForce = new Vector2(30, HauteurÉcran - 70);
+            Vector2 grandeurIndicateurForce = new Vector2(198, 50);
 
-            IndicateurForce indicateurForce = new IndicateurForce(this.Game, positionIndicateurForce, grandeurIndicateurForce);
+            indicateurForce = new IndicateurForce(this.Game, positionIndicateurForce, grandeurIndicateurForce);
             Game.Components.Add(indicateurForce);
         }
         public override void Update(GameTime gameTime)
