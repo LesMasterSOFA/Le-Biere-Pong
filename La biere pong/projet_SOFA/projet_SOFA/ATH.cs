@@ -45,13 +45,14 @@ namespace AtelierXNA
         }
         public void MettreEnPause()
         {
-            Game.Components.Remove(BoutonLancer);
-            Game.Components.Remove(BoutonPause);
-            Game.Components.Remove(indicateurForce);
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
 
-            Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width/2,Game.Window.ClientBounds.Height/2 - 30);
-            Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width/2,Game.Window.ClientBounds.Height/2 + 30);
-            planPause = new PlanColoré(Game, 1f, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height), new Vector2(1, 1), new Color(0,0,0,175), 1f);
+            Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 - 30);
+            Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 + 30);
+            planPause = new PlanColoré(Game, 1f, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height), new Vector2(1, 1), new Color(0, 0, 0, 175), 1f);
             BoutonRésumer = new BoutonDeCommande(Game, "Résumer", "Arial20", "BoutonBleu", "BoutonBleuPale", Position1, true, MettreEnPlay);
             BoutonQuitter = new BoutonDeCommande(Game, "Quitter", "Arial20", "BoutonBleu", "BoutonBleuPale", Position2, true, Game.Exit);
 
@@ -59,16 +60,18 @@ namespace AtelierXNA
             Game.Components.Add(BoutonRésumer);
             Game.Components.Add(BoutonQuitter); 
             
-            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
-            {
-                composant.ModifierActivation();
-            }
         }
+
         public void MettreEnPlay()
         {
             Game.Components.Remove(planPause);
             Game.Components.Remove(BoutonRésumer);
             Game.Components.Remove(BoutonQuitter);
+
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
 
             PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
             PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
@@ -78,12 +81,8 @@ namespace AtelierXNA
 
             Game.Components.Add(BoutonLancer);
             Game.Components.Add(BoutonPause);
-
-            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
-            {
-                composant.ModifierActivation();
-            }
         }
+
         void ActionLancer()
         {
             Vector2 positionIndicateurForce = new Vector2(30, HauteurÉcran - 70);
