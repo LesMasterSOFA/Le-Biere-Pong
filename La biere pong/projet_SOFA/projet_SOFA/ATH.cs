@@ -55,7 +55,12 @@ namespace AtelierXNA
 
             Game.Components.Add(planPause);
             Game.Components.Add(BoutonRésumer);
-            Game.Components.Add(BoutonQuitter);
+            Game.Components.Add(BoutonQuitter); 
+            
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
         }
         public void MettreEnPlay()
         {
@@ -71,6 +76,11 @@ namespace AtelierXNA
 
             Game.Components.Add(BoutonLancer);
             Game.Components.Add(BoutonPause);
+
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
         }
         void ActionLancer()
         {
