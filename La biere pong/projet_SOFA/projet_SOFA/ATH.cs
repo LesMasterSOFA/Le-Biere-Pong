@@ -34,7 +34,7 @@ namespace AtelierXNA
 
             PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
             PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
-            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, false, ActionLancer);
+            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
             BoutonPause = new BoutonDeCommande(Game, "Pause", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
 
             Game.Components.Add(BoutonLancer);

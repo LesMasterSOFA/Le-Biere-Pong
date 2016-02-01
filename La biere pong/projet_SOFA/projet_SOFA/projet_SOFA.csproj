@@ -134,6 +134,7 @@
     <Compile Include="PartieMultijoueur.cs" />
     <Compile Include="PartieSolo.cs" />
     <Compile Include="Personnage.cs" />
+    <Compile Include="PlanColoré.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
