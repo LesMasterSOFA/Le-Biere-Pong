@@ -48,7 +48,9 @@ namespace AtelierXNA
          GestionInput = new InputManager(this);
          CaméraJeu = new CaméraSubjective(this, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
 
-         Components.Add(new Menu(this));
+         //Components.Add(new Menu(this));
+         Components.Add(new ATH(this));
+        
          Components.Add(GestionInput);
          Components.Add(CaméraJeu);
          Components.Add(new Afficheur3D(this));

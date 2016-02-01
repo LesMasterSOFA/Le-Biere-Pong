@@ -17,13 +17,25 @@ namespace AtelierXNA
         BoutonDeCommande BoutonPause { get; set; }
         BoutonDeCommande BoutonLancer { get; set; }
         string NombreDePoints { get; set; }
+        int LargeurÉcran { get; set; }
+        int HauteurÉcran { get; set; }
+        
+
+       
         public ATH(Game game)
-            : base(game){}
+            : base(game)
+        {
+
+        }
+
         public override void Initialize()
         {
-            Vector2 positionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
-            Vector2 positionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
-            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", positionBoutonLancer, false, null);
+            LargeurÉcran = Game.Window.ClientBounds.Width;
+            HauteurÉcran = Game.Window.ClientBounds.Height;
+
+            Vector2 positionBoutonLancer = new Vector2(LargeurÉcran - 60, HauteurÉcran - 40);
+            Vector2 positionBoutonPause = new Vector2(LargeurÉcran - 60, 40);
+            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", positionBoutonLancer, true, ActionLancer);
             BoutonPause = new BoutonDeCommande(Game, "Pause", "Arial20", "BoutonBleu", "BoutonBleuPale", positionBoutonPause, true, null);
             Game.Components.Add(BoutonLancer);
             Game.Components.Add(BoutonPause);
@@ -34,6 +46,15 @@ namespace AtelierXNA
         {
 
             base.Update(gameTime);
+        }
+
+        void ActionLancer()
+        {
+            Vector2 positionIndicateurForce = new Vector2(30,HauteurÉcran - 60);
+            Vector2 grandeurIndicateurForce= new Vector2(100, 50);
+
+            IndicateurForce indicateurForce = new IndicateurForce(this.Game, positionIndicateurForce, grandeurIndicateurForce);
+            Game.Components.Add(indicateurForce);
         }
     }
 }

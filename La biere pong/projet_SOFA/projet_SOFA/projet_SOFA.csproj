@@ -121,6 +121,7 @@
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
+    <Compile Include="IndicateurForce.cs" />
     <Compile Include="Jeu.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Menu.cs" />
