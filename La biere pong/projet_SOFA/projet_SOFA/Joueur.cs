@@ -12,37 +12,57 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class Joueur : Microsoft.Xna.Framework.GameComponent
+    public class Joueur : Microsoft.Xna.Framework.GameComponent, IActivable
     {
-        public Joueur(Game game)
+        Personnage Avatar { get; set; } 
+        string GamerTag { get; set; } //nom du joueur
+        Texture2D ImageJoueur { get; set; }
+        //List<GameComponent> ListeComponentsJoueurPartie { get; set; } //liste des objets du jeu //GestionPartie s'en occupe ? 
+        GestionPartie GestionnaireDeLaPartie { get; set; }
+        InputManager GestionnaireInput { get; set; }
+        string IP { get; set; }
+        bool EstActif { get; set; }
+
+        //Constructeur normal
+        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, string ip, string gamerTag)
             : base(game)
         {
-            // TODO: Construct any child components here
+            Avatar = avatar;
+            ImageJoueur = imageJoueur;
+            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
+            GestionnaireDeLaPartie = gestionnaireDeLaPartie;
+            IP = ip;
+            GamerTag = gamerTag;
+
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
+        //Temporaire en attendant que personnage soit créé
+        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, string ip, string gamerTag)
+            : base(game)
+        {
+            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
+            GestionnaireDeLaPartie = gestionnaireDeLaPartie;
+            IP = ip;
+            GamerTag = gamerTag;
+        }
+
+
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
+            GestionnaireInput = new InputManager(this.Game);
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
 
             base.Update(gameTime);
+        }
+
+        public void ModifierActivation()
+        {
+            EstActif = !EstActif;
         }
     }
 }
