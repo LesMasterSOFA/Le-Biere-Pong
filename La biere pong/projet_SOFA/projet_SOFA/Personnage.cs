@@ -12,36 +12,21 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
     public class Personnage : Microsoft.Xna.Framework.DrawableGameComponent
     {
+        ObjetDeBase PersonnageAllo { get; set; }
         public Personnage(Game game)
             : base(game)
         {
-            // TODO: Construct any child components here
         }
-
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
-
+            PersonnageAllo = new ObjetDeBase(Game, "allo", 1f, new Vector3(0, 0,-MathHelper.PiOver2), Vector3.Zero);
+            Game.Components.Add(PersonnageAllo);
             base.Initialize();
         }
-
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-
             base.Update(gameTime);
         }
     }
