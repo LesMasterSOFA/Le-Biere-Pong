@@ -52,16 +52,10 @@ namespace AtelierXNA
          Components.Add(new ATH(this));
         
          Components.Add(GestionInput);
-         Components.Add(CaméraJeu);
+         Components.Add(CaméraJeu); 
+
          Components.Add(new Afficheur3D(this));
-         //Components.Add(new GestionEnvironnement(this));
-         //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //gauche
-         //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //droite
-         //Components.Add(new PlanTexturé(this, 1f, Vector3.Zero, new Vector3(0, DIMENSION_TERRAIN / 2, -DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //avant
-         //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //arriere
-         //Components.Add(new PlanTexturé(this, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //dessus
-         //Components.Add(new PlanTexturé(this, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //dessous
-         Components.Add(new AfficheurFPS(this, "Arial20", Color.Gold, INTERVALLE_CALCUL_FPS));
+         Components.Add(new AfficheurFPS(this, "Impact20", Color.Gold, INTERVALLE_CALCUL_FPS));
 
          Services.AddService(typeof(Random), new Random());
          Services.AddService(typeof(RessourcesManager<SpriteFont>), GestionnaireDeFonts);

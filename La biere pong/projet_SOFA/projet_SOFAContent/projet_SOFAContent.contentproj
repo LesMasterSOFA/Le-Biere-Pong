@@ -46,8 +46,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Arial20.spritefont">
-      <Name>Arial20</Name>
+    <Compile Include="Fonts\Impact20.spritefont">
+      <Name>Impact20</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -82,8 +82,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Arial40.spritefont">
-      <Name>Arial40</Name>
+    <Compile Include="Fonts\Impact40.spritefont">
+      <Name>Impact40</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
