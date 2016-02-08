@@ -16,7 +16,7 @@ namespace AtelierXNA
     {
         Personnage Avatar { get; set; } 
         string GamerTag { get; set; } //nom du joueur
-        Texture2D ImageJoueur { get; set; }
+        public Texture2D ImageJoueur { get; set; } //Devrait être private set
         //List<GameComponent> ListeComponentsJoueurPartie { get; set; } //liste des objets du jeu //GestionPartie s'en occupe ? 
         GestionPartie GestionnaireDeLaPartie { get; set; }
         InputManager GestionnaireInput { get; set; }
@@ -78,6 +78,12 @@ namespace AtelierXNA
         public void ModifierActivation()
         {
             EstActif = !EstActif;
+        }
+
+        //Probablement pas ici, le joueur ne devrait pas être drawable
+        public void Draw()
+        {
+
         }
     }
 }

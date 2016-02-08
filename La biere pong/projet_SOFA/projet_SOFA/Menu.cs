@@ -110,6 +110,7 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu.Add(BoutonRejoindre);
             AjouterNouveauxBoutons();
         }
+
         void AjouterNouveauxBoutons()
         {
             foreach (BoutonDeCommande btn in ListeBoutonsCommandeMenu)
@@ -146,5 +147,32 @@ namespace AtelierXNA
             GestionSprites.End();
             base.Draw(gameTime);
         }
+
+        //n'a peut être pas lieu d'être ici
+
+        //#region Menus LAN
+        ////Va probablement devoir recevoir SignedInGamer
+        //void DessinerMenuAccueilLan()
+        //{
+        //    this.Game.GraphicsDevice.Clear(Color.CornflowerBlue);
+        //    string message = "";
+
+        //    if (SignedInGamer.SignedInGamers.Count == 0)
+        //    {
+        //        message = "No profile signed in!  \n" +
+        //            "Press the Home key on the keyboard or \n";
+        //    }
+
+        //    else
+        //    {
+        //        message += "Press A to create a new session\n" +
+        //            "X to search for sessions\nB to quit\n\n";
+        //    }
+
+        //    GestionSprites.Begin();
+        //    GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), message, new Vector2(101, 101), Color.Black);
+        //    GestionSprites.End();
+        //}
+        //#endregion
     }
 }
