@@ -17,7 +17,7 @@ namespace AtelierXNA
 {
    public delegate void FonctionÉvénemtielle();
 
-   public class BoutonDeCommande : Microsoft.Xna.Framework.DrawableGameComponent
+   public class BoutonDeCommande : Microsoft.Xna.Framework.DrawableGameComponent, IActivable
    {
       const float MARGE_BOUTON = 0.2f; // 20%
       Color COULEUR_PAR_DÉFAUT = Color.Black;
@@ -131,6 +131,10 @@ namespace AtelierXNA
          GestionSprites.DrawString(PoliceDeCaractères, Texte, PositionChaîne, CouleurTexte, 0, OrigineChaîne, 1f, SpriteEffects.None, 1);
          GestionSprites.End();
          base.Draw(gameTime);
+      }
+      public void ModifierActivation()
+      {
+          EstActif = !EstActif;
       }
    }
 }

@@ -121,6 +121,8 @@
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
+    <Compile Include="IActivable.cs" />
+    <Compile Include="IndicateurForce.cs" />
     <Compile Include="Jeu.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Menu.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="PartieMultijoueur.cs" />
     <Compile Include="PartieSolo.cs" />
     <Compile Include="Personnage.cs" />
+    <Compile Include="PlanColoré.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
