@@ -49,10 +49,12 @@ namespace AtelierXNA
          CaméraJeu = new CaméraSubjective(this, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
 
          Components.Add(new Menu(this));
+         Components.Add(new ATH(this));
+        
          Components.Add(GestionInput);
          Components.Add(CaméraJeu);
          Components.Add(new Afficheur3D(this));
-         Components.Add(new GestionEnvironnement(this));
+         //Components.Add(new GestionEnvironnement(this));
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //gauche
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //droite
          //Components.Add(new PlanTexturé(this, 1f, Vector3.Zero, new Vector3(0, DIMENSION_TERRAIN / 2, -DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //avant
