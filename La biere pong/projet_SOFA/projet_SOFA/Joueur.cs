@@ -33,6 +33,7 @@ namespace AtelierXNA
             GestionnaireDeLaPartie = gestionnaireDeLaPartie;
             IP = ip;
             GamerTag = gamerTag;
+            EstActif = true; //active le joueur
 
         }
 
@@ -44,6 +45,7 @@ namespace AtelierXNA
             GestionnaireDeLaPartie = gestionnaireDeLaPartie;
             IP = ip;
             GamerTag = gamerTag;
+            EstActif = true; //active le joueur
         }
 
 

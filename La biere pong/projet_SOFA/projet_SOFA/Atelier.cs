@@ -23,6 +23,11 @@ namespace AtelierXNA
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
       Caméra CaméraJeu { get; set; }
+      
+       //utile pour partie multijoueur
+      Viewport mainViewport; //Écran totale
+      Viewport leftViewport; //moitié écran gauche
+      Viewport rightViewport; //moitié écran droite
 
       public InputManager GestionInput { get; private set; }
 
