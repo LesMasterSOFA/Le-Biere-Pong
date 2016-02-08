@@ -12,35 +12,87 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
     public class ATH : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        public ATH(Game game)
-            : base(game)
-        {
-            // TODO: Construct any child components here
-        }
+        Vector2 PositionBoutonLancer { get; set; }
+        Vector2 PositionBoutonPause { get; set; }
+        BoutonDeCommande BoutonPause { get; set; }
+        BoutonDeCommande BoutonLancer { get; set; }
+        BoutonDeCommande BoutonRésumer { get; set; }
+        BoutonDeCommande BoutonQuitter { get; set; }
+        IndicateurForce indicateurForce { get; set; }
+        PlanColoré planPause { get; set; }
+        string NombreDePoints { get; set; }
+        int LargeurÉcran { get; set; }
+        int HauteurÉcran { get; set; }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
+        public ATH(Game game)
+            : base(game){}
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
+            LargeurÉcran = Game.Window.ClientBounds.Width;
+            HauteurÉcran = Game.Window.ClientBounds.Height;
+
+            PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
+            PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
+            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
+            BoutonPause = new BoutonDeCommande(Game, "Pause", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
+
+            Game.Components.Add(BoutonLancer);
+            Game.Components.Add(BoutonPause);
 
             base.Initialize();
         }
+        public void MettreEnPause()
+        {
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+            Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 - 30);
+            Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 + 30);
+            planPause = new PlanColoré(Game, 1f, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height), new Vector2(1, 1), new Color(0, 0, 0, 175), 1f);
+            BoutonRésumer = new BoutonDeCommande(Game, "Résumer", "Arial20", "BoutonBleu", "BoutonBleuPale", Position1, true, MettreEnPlay);
+            BoutonQuitter = new BoutonDeCommande(Game, "Quitter", "Arial20", "BoutonBleu", "BoutonBleuPale", Position2, true, Game.Exit);
+
+            Game.Components.Add(planPause);
+            Game.Components.Add(BoutonRésumer);
+            Game.Components.Add(BoutonQuitter); 
+            
+        }
+
+        public void MettreEnPlay()
+        {
+            Game.Components.Remove(planPause);
+            Game.Components.Remove(BoutonRésumer);
+            Game.Components.Remove(BoutonQuitter);
+
+            foreach (IActivable composant in Game.Components.Where(composant => composant is IActivable))
+            {
+                composant.ModifierActivation();
+            }
+
+            PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
+            PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
+
+            BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
+            BoutonPause = new BoutonDeCommande(Game, "Pause", "Arial20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
+
+            Game.Components.Add(BoutonLancer);
+            Game.Components.Add(BoutonPause);
+        }
+
+        void ActionLancer()
+        {
+            Vector2 positionIndicateurForce = new Vector2(30, HauteurÉcran - 70);
+            Vector2 grandeurIndicateurForce = new Vector2(198, 50);
+
+            indicateurForce = new IndicateurForce(this.Game, positionIndicateurForce, grandeurIndicateurForce);
+            Game.Components.Add(indicateurForce);
+        }
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
 
             base.Update(gameTime);
         }

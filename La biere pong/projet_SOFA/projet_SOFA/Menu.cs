@@ -46,7 +46,7 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu = new List<BoutonDeCommande>();
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
             PositionCentre = new Vector2(RectangleFondÉcran.X + RectangleFondÉcran.Width / 2f, RectangleFondÉcran.Y + RectangleFondÉcran.Height / 2f);
-            PositionBack = new Vector2(Game.Window.ClientBounds.Width - MARGE_BOUTONS - 20, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
+            PositionBack = new Vector2(Game.Window.ClientBounds.Width - MARGE_BOUTONS - 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
             base.Initialize();
             InitialiserMenu();
         }
