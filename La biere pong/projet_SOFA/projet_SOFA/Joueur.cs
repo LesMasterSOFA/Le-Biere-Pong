@@ -22,15 +22,17 @@ namespace AtelierXNA
         InputManager GestionnaireInput { get; set; }
         string IP { get; set; }
         bool EstActif { get; set; }
+        Viewport ÉcranDeJeu; //Défini s'il est sur l'écran totale ou une partie
 
         //Constructeur normal
-        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, string ip, string gamerTag)
+        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string ip, string gamerTag)
             : base(game)
         {
             Avatar = avatar;
             ImageJoueur = imageJoueur;
             //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
             GestionnaireDeLaPartie = gestionnaireDeLaPartie;
+            ÉcranDeJeu = écranDeJeu;
             IP = ip;
             GamerTag = gamerTag;
             EstActif = true; //active le joueur
@@ -38,13 +40,24 @@ namespace AtelierXNA
         }
 
         //Temporaire en attendant que personnage soit créé
-        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, string ip, string gamerTag)
+        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string ip, string gamerTag)
             : base(game)
         {
             //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
             GestionnaireDeLaPartie = gestionnaireDeLaPartie;
+            ÉcranDeJeu = écranDeJeu;
             IP = ip;
             GamerTag = gamerTag;
+            EstActif = true; //active le joueur
+        }
+
+        //Joueur de base sans nom ni ip
+        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu)
+            : base(game)
+        {
+            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
+            GestionnaireDeLaPartie = gestionnaireDeLaPartie;
+            ÉcranDeJeu = écranDeJeu;
             EstActif = true; //active le joueur
         }
 

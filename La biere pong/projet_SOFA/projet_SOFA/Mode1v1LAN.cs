@@ -8,41 +8,68 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
 
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
     public class Mode1v1LAN : PartieMultijoueur
     {
+        NetworkSession networkSession;
+        AvailableNetworkSessionCollection availableSessions;
+        int selectedSessionIndex;
+        PacketReader packetReader = new PacketReader();
+        PacketWriter packetWriter = new PacketWriter();
+        Viewport mainViewport { get; set; }
+
         public Mode1v1LAN(Game game)
             : base(game)
         {
-            // TODO: Construct any child components here
+
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
+
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
+
+            // Add Gamer Services
+            Game.Components.Add(new GamerServicesComponent(this.Game));
+
+            // Respond to the SignedInGamer event
+            SignedInGamer.SignedIn +=
+                new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
+
+            mainViewport = this.Game.GraphicsDevice.Viewport;
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-
+            //GestionInputGameplay(joueur, gameTime); manque un joueur
             base.Update(gameTime);
+        }
+
+        private void GestionInputGameplay(Joueur joueur, GameTime gameTime)
+        {
+            UpdateInput(joueur);
+
+            joueur.Update(gameTime);
+
+            networkSession.Update();
+        }
+
+        //s'occupe de la gestion des inputs
+        void UpdateInput(Joueur joueur)
+        {
+
+        }
+        //Crée un joueur quand un joueur se log
+        void SignedInGamer_SignedIn(object sender, SignedInEventArgs e)
+        {
+            //Ajoute un joueur dans la liste de joueur logger
+            e.Gamer.Tag = new Joueur(this.Game, new GestionPartie(this.Game), mainViewport); //instancie un joueur sans nom ni ip
         }
     }
 }

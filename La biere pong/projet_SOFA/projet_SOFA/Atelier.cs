@@ -24,10 +24,6 @@ namespace AtelierXNA
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
       Caméra CaméraJeu { get; set; }
       
-       //utile pour partie multijoueur
-      Viewport mainViewport; //Écran totale
-      Viewport leftViewport; //moitié écran gauche
-      Viewport rightViewport; //moitié écran droite
 
       public InputManager GestionInput { get; private set; }
 
@@ -77,6 +73,9 @@ namespace AtelierXNA
          Services.AddService(typeof(Caméra), CaméraJeu);
          GestionSprites = new SpriteBatch(GraphicsDevice);
          Services.AddService(typeof(SpriteBatch), GestionSprites);
+
+         
+
          base.Initialize();
       }
 
