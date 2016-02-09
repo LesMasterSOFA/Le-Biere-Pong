@@ -21,7 +21,7 @@ namespace AtelierXNA
         }
         public override void Initialize()
         {
-            PersonnageAllo = new ObjetDeBase(Game, "allo", 1f, new Vector3(0, 0,-MathHelper.PiOver2), Vector3.Zero);
+            PersonnageAllo = new ObjetDeBase(Game, "objetQuelconque", "couleurs", 1f, new Vector3(0, 0, 0), new Vector3(0,50,50));
             Game.Components.Add(PersonnageAllo);
             base.Initialize();
         }

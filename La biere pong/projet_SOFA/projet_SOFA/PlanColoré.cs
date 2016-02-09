@@ -33,7 +33,7 @@ namespace AtelierXNA
             }
          }
       }
-      protected override void AllouerTableauSommets()
+      protected override void CréerTableauSommets()
       {
          Sommets = new VertexPositionColor[NbSommets];
       }

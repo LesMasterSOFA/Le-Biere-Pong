@@ -59,7 +59,7 @@ namespace AtelierXNA
          Components.Add(CaméraJeu); 
 
          Components.Add(new Afficheur3D(this));
-         Components.Add(new AfficheurFPS(this, "Impact20", Color.Gold, INTERVALLE_CALCUL_FPS));
+         //Components.Add(new AfficheurFPS(this, INTERVALLE_CALCUL_FPS));
 
          Services.AddService(typeof(Random), new Random());
          Services.AddService(typeof(RessourcesManager<SpriteFont>), GestionnaireDeFonts);

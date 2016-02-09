@@ -1,72 +1,94 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-
 
 namespace AtelierXNA
 {
-   public class ObjetDeBase : Microsoft.Xna.Framework.DrawableGameComponent
-   {
-      string NomModèle { get; set; }
-      RessourcesManager<Model> GestionnaireDeModèles { get; set; }
-      Caméra CaméraJeu { get; set; }
-      public float Échelle { get; protected set; }
-      public Vector3 Rotation { get; protected set; }
-      public Vector3 Position { get; protected set; }
+    public class ObjetDeBase : DrawableGameComponent
+    {
+        string NomModèle { get; set; }
+        string NomTexture { get; set; }
 
-      protected Model Modèle { get; private set; }
-      protected Matrix[] TransformationsModèle { get; private set; }
-      protected Matrix Monde { get; set; }
- 
-      public ObjetDeBase(Game jeu, String nomModèle, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
-         : base(jeu)
-      {
-         NomModèle = nomModèle;
-         Position = positionInitiale;
-         Échelle = échelleInitiale;
-         Rotation = rotationInitiale;
-      }
+        RessourcesManager<Model> GestionnaireDeModèles { get; set; }
+        RessourcesManager<Texture2D> GestionTextures { get; set; }
 
-      public override void Initialize()
-      {
-         Monde = Matrix.Identity;
-         Monde *= Matrix.CreateScale(Échelle);
-         Monde *= Matrix.CreateFromYawPitchRoll(Rotation.Y, Rotation.X, Rotation.Z);
-         Monde *= Matrix.CreateTranslation(Position);
-         base.Initialize();
-      }
-      protected override void LoadContent()
-      {
-         CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
-         GestionnaireDeModèles = Game.Services.GetService(typeof(RessourcesManager<Model>)) as RessourcesManager<Model>;
-         Modèle = GestionnaireDeModèles.Find(NomModèle);
-         TransformationsModèle = new Matrix[Modèle.Bones.Count];
-         Modèle.CopyAbsoluteBoneTransformsTo(TransformationsModèle);
-         base.LoadContent();
-      }
+        Caméra CaméraJeu { get; set; }
 
-      public override void Draw(GameTime gameTime)
-      {
-         foreach (ModelMesh maille in Modèle.Meshes)
-         {
-            Matrix mondeLocal = TransformationsModèle[maille.ParentBone.Index] * GetMonde();
-            foreach (ModelMeshPart portionDeMaillage in maille.MeshParts)
+        public float Échelle { get; set; }
+
+        public Vector3 Rotation { get; set; }
+
+        public Vector3 Position { get; set; }
+
+        protected Model Modèle { get; set; }
+        protected Texture2D TextureModèle { get; set; }
+
+        protected Matrix[] TransformationsModèle { get; set; }
+
+        protected Matrix Monde { get; set; }
+
+        public ObjetDeBase(Game jeu, string nomModèle,string nomTexture, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
+            : base(jeu)
+        {
+            NomModèle = nomModèle;
+            NomTexture = nomTexture;
+            Position = positionInitiale;
+            Échelle = échelleInitiale;
+            Rotation = rotationInitiale;
+        }
+
+        public override void Initialize()
+        {
+            Monde = Matrix.Identity;
+            Monde *= Matrix.CreateScale(Échelle);
+            Monde *= Matrix.CreateFromYawPitchRoll(Rotation.Y, Rotation.X, Rotation.Z);
+            Monde *= Matrix.CreateTranslation(Position);
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
+            GestionnaireDeModèles = Game.Services.GetService(typeof(RessourcesManager<Model>)) as RessourcesManager<Model>;
+            GestionTextures = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
+            Modèle = GestionnaireDeModèles.Find(NomModèle);
+            TextureModèle = GestionTextures.Find(NomTexture);
+            TransformationsModèle = new Matrix[Modèle.Bones.Count];
+            Modèle.CopyAbsoluteBoneTransformsTo(TransformationsModèle);
+            base.LoadContent();
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            BlendState blendState = GraphicsDevice.BlendState;
+            RasterizerState rasterizerState = GraphicsDevice.RasterizerState;
+            DepthStencilState depthStencilState = GraphicsDevice.DepthStencilState;
+            foreach (ModelMesh modelMesh in Modèle.Meshes)
             {
-               BasicEffect effet = (BasicEffect)portionDeMaillage.Effect;
-               effet.EnableDefaultLighting();
-               effet.Projection = CaméraJeu.Projection;
-               effet.View = CaméraJeu.Vue;
-               effet.World = mondeLocal;
+                Matrix mondeLocal = this.TransformationsModèle[modelMesh.ParentBone.Index] * this.GetMonde();
+                foreach (ModelMeshPart modelMeshPart in modelMesh.MeshParts)
+                    InitialiserEffet((BasicEffect)modelMeshPart.Effect, mondeLocal);
+                modelMesh.Draw();
             }
-            maille.Draw();
-         }
-         base.Draw(gameTime);
-      }
+            GraphicsDevice.BlendState = blendState;
+            GraphicsDevice.RasterizerState = rasterizerState;
+            GraphicsDevice.DepthStencilState = depthStencilState;
+            base.Draw(gameTime);
+        }
 
-      public virtual Matrix GetMonde()
-      {
-         return Monde;
-      }
-   }
+        protected virtual void InitialiserEffet(BasicEffect effet, Matrix mondeLocal)
+        {
+            effet.EmissiveColor = Vector3.One;
+            effet.Projection = CaméraJeu.Projection;
+            effet.View = CaméraJeu.Vue;
+            effet.World = mondeLocal;
+            effet.EnableDefaultLighting();
+            effet.TextureEnabled = true;
+            effet.Texture = TextureModèle;
+        }
+
+        public virtual Matrix GetMonde()
+        {
+            return Monde;
+        }
+    }
 }
