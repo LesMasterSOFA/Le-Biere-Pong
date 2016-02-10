@@ -38,8 +38,8 @@ namespace AtelierXNA
       protected override void Initialize()
       {
          
-         Vector3 positionCaméra = new Vector3(0, 90, 65);
-         Vector3 cibleCaméra = new Vector3(0, 60, 0);
+         Vector3 positionCaméra = new Vector3(0, 100, 150);
+         Vector3 cibleCaméra = new Vector3(0, 80, 0);
 
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");

@@ -14,15 +14,16 @@ namespace AtelierXNA
 {
     public class Personnage : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        ObjetDeBase PersonnageAllo { get; set; }
+        ObjetDeBase PersonnagePrincipal { get; set; }
+        
         public Personnage(Game game)
             : base(game)
         {
         }
         public override void Initialize()
         {
-            PersonnageAllo = new ObjetDeBase(Game, "TOON", "texture_obj", 25f, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(0, 0,0));
-            Game.Components.Add(PersonnageAllo);
+            PersonnagePrincipal = new ObjetDeBase(Game, "TOON", "texture_obj", 50f, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(0, 0, -100));
+            Game.Components.Add(PersonnagePrincipal);
             base.Initialize();
         }
         public override void Update(GameTime gameTime)

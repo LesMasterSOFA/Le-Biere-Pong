@@ -67,14 +67,7 @@ namespace AtelierXNA
                 Matrix mondeLocal = this.TransformationsModèle[modelMesh.ParentBone.Index] * this.GetMonde();
                 foreach (ModelMeshPart modelMeshPart in modelMesh.MeshParts)
                 {
-                    BasicEffect effet = (BasicEffect)modelMeshPart.Effect;
-                    effet.EmissiveColor = Vector3.One;
-                    effet.Projection = CaméraJeu.Projection;
-                    effet.View = CaméraJeu.Vue;
-                    effet.World = mondeLocal;
-                    effet.EnableDefaultLighting();
-                    effet.TextureEnabled = true;
-                    effet.Texture = TextureModèle;
+                    InitialiserEffet(mondeLocal, (BasicEffect)modelMeshPart.Effect);
                 }
                 modelMesh.Draw();
             }
@@ -82,6 +75,21 @@ namespace AtelierXNA
             GraphicsDevice.RasterizerState = rasterizerState;
             GraphicsDevice.DepthStencilState = depthStencilState;
             base.Draw(gameTime);
+        }
+        void InitialiserEffet(Matrix mondeLocal, BasicEffect effet)
+        {
+
+            effet.EmissiveColor = Vector3.One;
+            effet.Projection = CaméraJeu.Projection;
+            effet.View = CaméraJeu.Vue;
+            effet.World = mondeLocal;
+            effet.EnableDefaultLighting();
+            effet.TextureEnabled = true;
+            effet.Texture = TextureModèle; 
+            effet.LightingEnabled = true; // turn on the lighting subsystem.
+            effet.DirectionalLight0.DiffuseColor = new Vector3(0.5f, 0, 0); // a red light
+            effet.DirectionalLight0.Direction = new Vector3(1, 0, 0);  // coming along the x-axis
+            effet.DirectionalLight0.SpecularColor = new Vector3(0, 1, 0);
         }
 
         public virtual Matrix GetMonde()
