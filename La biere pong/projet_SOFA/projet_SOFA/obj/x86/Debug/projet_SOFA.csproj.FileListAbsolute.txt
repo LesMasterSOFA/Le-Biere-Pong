@@ -90,3 +90,9 @@ C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin
 C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\gauche.xnb
 C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\droite.xnb
 C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\arriere.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\avant.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\gauche.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\droite.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plancher.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plafond.xnb
+C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\arriere.xnb

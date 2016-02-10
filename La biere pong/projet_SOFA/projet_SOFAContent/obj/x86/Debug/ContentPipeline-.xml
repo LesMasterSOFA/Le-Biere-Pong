@@ -82,6 +82,60 @@
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\FondIndicateurForce.xnb</Output>
       <Time>2016-02-10T10:00:23.2387381-05:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\avant.jpg</Source>
+      <Name>Textures\avant</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\avant.xnb</Output>
+      <Time>2016-02-10T11:30:08.2568846-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\gauche.jpg</Source>
+      <Name>Textures\gauche</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\gauche.xnb</Output>
+      <Time>2016-02-10T11:30:08.2778846-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\droite.jpg</Source>
+      <Name>Textures\droite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\droite.xnb</Output>
+      <Time>2016-02-10T11:30:08.2678846-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\plancher.jpg</Source>
+      <Name>Textures\plancher</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plancher.xnb</Output>
+      <Time>2016-02-10T11:30:08.3058846-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\plafond.jpg</Source>
+      <Name>Textures\plafond</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plafond.xnb</Output>
+      <Time>2016-02-10T11:30:08.2878846-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\arriere.jpg</Source>
+      <Name>Textures\arriere</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\arriere.xnb</Output>
+      <Time>2016-02-10T11:30:08.2468846-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
