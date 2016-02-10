@@ -37,25 +37,26 @@ namespace AtelierXNA
       protected override void Initialize()
       {
          
-
+         //Instanciation des répertoires pour les gestionnaires
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
          GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
          GestionInput = new InputManager(this);
 
+        //Ceux qu'on modifie fréquemment pour bypass les menus et tester nos trucs
          Components.Add(new Menu(this));
          //Components.Add(new ATH(this));
          //Components.Add(new Mode1v1LAN(this));
-        
-
-         Components.Add(GestionInput);
-         Components.Add(new Afficheur3D(this));
-
          //Components.Add(new GestionEnvironnement(this));
 
-         Components.Add(new AfficheurFPS(this, "Arial20", Color.Gold, INTERVALLE_CALCUL_FPS));
 
+         //Ceux qui doivent être présent
+         Components.Add(GestionInput);
+         Components.Add(new Afficheur3D(this));
+         Components.Add(new AfficheurFPS(this, "Impact20", Color.Gold, INTERVALLE_CALCUL_FPS));
+
+         //Ajout des services
          Services.AddService(typeof(Random), new Random());
          Services.AddService(typeof(RessourcesManager<SpriteFont>), GestionnaireDeFonts);
          Services.AddService(typeof(RessourcesManager<Texture2D>), GestionnaireDeTextures);
