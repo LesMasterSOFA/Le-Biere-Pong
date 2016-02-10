@@ -15,20 +15,14 @@ namespace AtelierXNA
     public class GestionEnvironnement : Microsoft.Xna.Framework.DrawableGameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-        const int DIMENSION_TERRAIN = 100;
-        Vector2 étenduePlan = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
-        Vector2 charpentePlan = new Vector2(4, 3);
-        PlanTexturé Gauche { get; set; }
-        PlanTexturé Droite { get; set; }
-        PlanTexturé Dessus { get; set; }
-        PlanTexturé Dessous { get; set; }
-        PlanTexturé Avant { get; set; }
-        PlanTexturé Arrière { get; set; }
         public Caméra CaméraJeu { get; set; }
+        string NomEnvironnement { get; set; }
+        EnvironnementDeBase THEenvironnement { get; set; }
 
-        public GestionEnvironnement(Game game)
+        public GestionEnvironnement(Game game, string nomEnvironnement)
             : base(game)
         {
+            NomEnvironnement = nomEnvironnement;
         }
 
         public override void Initialize()
@@ -38,24 +32,25 @@ namespace AtelierXNA
             CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD); 
             Game.Components.Add(CaméraJeu);
             Game.Services.AddService(typeof(Caméra), CaméraJeu);
+            InstancierEnvironnement();
             base.Initialize();
+        }
+
+        void InstancierEnvironnement()
+        {
+            switch (NomEnvironnement)
+            {
+                case "condo":
+                    THEenvironnement = new EnvironnementGarage(Game, "gauche", "droite", "plafond", "plancher", "avant", "arriere");
+                    Game.Components.Add(THEenvironnement);
+                    break;
+                default:
+                    throw new Exception();
+            }
         }
 
         protected override void LoadContent()
         {
-            Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "gauche", INTERVALLE_MAJ_STANDARD);
-            Droite = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "droite", INTERVALLE_MAJ_STANDARD);
-            Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, DIMENSION_TERRAIN / 2, -DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "avant", INTERVALLE_MAJ_STANDARD);
-            Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "arriere", INTERVALLE_MAJ_STANDARD);
-            Dessus = new PlanTexturé(Game, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN, 0), étenduePlan, charpentePlan, "plafond", INTERVALLE_MAJ_STANDARD);
-            Dessous = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlan, charpentePlan, "plancher", INTERVALLE_MAJ_STANDARD);
-            
-            Game.Components.Add(Gauche);
-            Game.Components.Add(Droite);
-            Game.Components.Add(Avant);
-            Game.Components.Add(Arrière);
-            Game.Components.Add(Dessus);
-            Game.Components.Add(Dessous);
             base.LoadContent();
         }
 
