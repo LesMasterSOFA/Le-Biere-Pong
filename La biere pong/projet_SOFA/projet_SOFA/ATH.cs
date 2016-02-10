@@ -21,7 +21,7 @@ namespace AtelierXNA
         BoutonDeCommande BoutonRésumer { get; set; }
         BoutonDeCommande BoutonQuitter { get; set; }
         IndicateurForce indicateurForce { get; set; }
-        PlanColoré planPause { get; set; }
+        RectangleColoré planPause { get; set; }
         string NombreDePoints { get; set; }
         int LargeurÉcran { get; set; }
         int HauteurÉcran { get; set; }
@@ -52,7 +52,7 @@ namespace AtelierXNA
 
             Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 - 30);
             Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 + 30);
-            planPause = new PlanColoré(Game, 1f, new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height), new Vector2(1, 1), new Color(0, 0, 0, 175), 1f);
+            planPause = new RectangleColoré(Game);
             BoutonRésumer = new BoutonDeCommande(Game, "Résumer", "Impact20", "BoutonBleu", "BoutonBleuPale", Position1, true, MettreEnPlay);
             BoutonQuitter = new BoutonDeCommande(Game, "Quitter", "Impact20", "BoutonBleu", "BoutonBleuPale", Position2, true, Game.Exit);
 

@@ -189,6 +189,15 @@
       <Output>obj\x86\Debug\Models\balle_0.xml</Output>
       <Time>2016-02-10T12:54:25.4484799-05:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\noir.jpg</Source>
+      <Name>Textures\noir</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\noir.xnb</Output>
+      <Time>2016-02-10T13:24:19.1128284-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

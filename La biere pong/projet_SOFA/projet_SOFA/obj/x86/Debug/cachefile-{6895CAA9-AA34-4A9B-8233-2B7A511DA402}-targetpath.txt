@@ -14,3 +14,4 @@ Content\Models\TOON.xnb
 Content\Models\tablebois.xnb
 Content\Models\tablebois2.xnb
 Content\Models\balle.xnb
+Content\Textures\noir.xnb
