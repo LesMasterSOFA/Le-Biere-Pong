@@ -215,7 +215,7 @@ namespace AtelierXNA
             }
 
             GestionSprites.Begin();
-            GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), message, new Vector2(101, 101), Color.Black);
+            GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), message, new Vector2(101, 101), Color.Black);
             GestionSprites.End();
         }
 
@@ -251,12 +251,12 @@ namespace AtelierXNA
             GestionSprites.Begin();
             float y = 100;
 
-            GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), "Lobby (A=ready, B=leave)",
+            GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), "Lobby (A=ready, B=leave)",
                 new Vector2(101, y + 1), Color.Black);
-            GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), "Lobby (A=ready, B=leave)",
+            GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), "Lobby (A=ready, B=leave)",
                 new Vector2(101, y), Color.White);
 
-            y += gestionnaireFont.Find("Arial20").LineSpacing * 2;
+            y += gestionnaireFont.Find("Impact20").LineSpacing * 2;
 
             foreach (NetworkGamer gamer in networkSession.AllGamers)
             {
@@ -273,9 +273,9 @@ namespace AtelierXNA
                     text += " - ready!";
 
                 GestionSprites.Draw(joueur.ImageJoueur, new Vector2(100, y), Color.White);
-                GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), text, new Vector2(170, y), Color.White);
+                GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), text, new Vector2(170, y), Color.White);
 
-                y += gestionnaireFont.Find("Arial20").LineSpacing + 64;
+                y += gestionnaireFont.Find("Impact20").LineSpacing + 64;
             }
             GestionSprites.End();
 
@@ -317,12 +317,12 @@ namespace AtelierXNA
             GestionSprites.Begin();
             float y = 100;
 
-            GestionSprites.DrawString(gestionnaireFont.Find("Arial20"),
+            GestionSprites.DrawString(gestionnaireFont.Find("Impact20"),
                 "Available sessions (A=join, B=back)",
                 new Vector2(101, y + 1), Color.Black);
-            GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), "Available sessions (A=join, B=back)", new Vector2(100, y), Color.White);
+            GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), "Available sessions (A=join, B=back)", new Vector2(100, y), Color.White);
 
-            y += gestionnaireFont.Find("Arial20").LineSpacing * 2;
+            y += gestionnaireFont.Find("Impact20").LineSpacing * 2;
 
             int selectedSessionIndex = 0;
 
@@ -336,9 +336,9 @@ namespace AtelierXNA
                 if (sessionIndex == selectedSessionIndex)
                     color = Color.Yellow;
 
-                GestionSprites.DrawString(gestionnaireFont.Find("Arial20"), availableSessions[sessionIndex].HostGamertag, new Vector2(100, y), color);
+                GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), availableSessions[sessionIndex].HostGamertag, new Vector2(100, y), color);
 
-                y += gestionnaireFont.Find("Arial20").LineSpacing;
+                y += gestionnaireFont.Find("Impact20").LineSpacing;
             }
             GestionSprites.End();
         }

@@ -32,7 +32,6 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            gestionnaireEnvironnement = new GestionEnvironnement(Game/*, Environnement*/); 
             gestionnairePartie = new GestionPartie(Game);
             EstPartieActive = false;
             base.Initialize();

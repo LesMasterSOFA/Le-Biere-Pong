@@ -25,7 +25,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            EnvironnementPartie = new GestionEnvironnement(this.Game);
+            EnvironnementPartie = new GestionEnvironnement(this.Game,"condo");
             base.Initialize();
         }
 
@@ -50,7 +50,7 @@ namespace AtelierXNA
         void MenuSélectionPersonnage()
         {
             
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Arial20", "BoutonBleu", "BoutonBleuPale", new Vector2(100,100), true, Activerpartie);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100,100), true, Activerpartie);
             Game.Components.Add(BoutonJouer);
         }
         void Activerpartie()

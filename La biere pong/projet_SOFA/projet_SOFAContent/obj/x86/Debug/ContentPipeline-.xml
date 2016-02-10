@@ -2,24 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Fonts\Arial20.spritefont</Source>
-      <Name>Fonts\Arial20</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial20.xnb</Output>
-      <Time>2016-02-10T10:14:04.182101-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Arial40.spritefont</Source>
-      <Name>Fonts\Arial40</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial40.xnb</Output>
-      <Time>2016-02-10T10:14:04.1871035-05:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\BeerPong.jpg</Source>
       <Name>Textures\BeerPong</Name>
       <Importer>TextureImporter</Importer>
@@ -71,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BarreIndicationForce.xnb</Output>
-      <Time>2016-02-10T10:14:04.236128-05:00</Time>
+      <Time>2016-02-10T12:01:28.0277461-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\FondIndicateurForce.png</Source>
@@ -89,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\avant.xnb</Output>
-      <Time>2016-02-10T11:30:08.2568846-05:00</Time>
+      <Time>2016-02-10T11:58:06.5916045-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\gauche.jpg</Source>
@@ -98,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\gauche.xnb</Output>
-      <Time>2016-02-10T11:30:08.2778846-05:00</Time>
+      <Time>2016-02-10T11:58:06.6076061-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\droite.jpg</Source>
@@ -107,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\droite.xnb</Output>
-      <Time>2016-02-10T11:30:08.2678846-05:00</Time>
+      <Time>2016-02-10T11:58:06.5986052-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\plancher.jpg</Source>
@@ -116,7 +98,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plancher.xnb</Output>
-      <Time>2016-02-10T11:30:08.3058846-05:00</Time>
+      <Time>2016-02-10T11:58:06.6206074-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\plafond.jpg</Source>
@@ -125,7 +107,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plafond.xnb</Output>
-      <Time>2016-02-10T11:30:08.2878846-05:00</Time>
+      <Time>2016-02-10T11:58:06.6126066-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\arriere.jpg</Source>
@@ -134,7 +116,25 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\arriere.xnb</Output>
-      <Time>2016-02-10T11:30:08.2468846-05:00</Time>
+      <Time>2016-02-10T11:58:06.5836037-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Impact20.spritefont</Source>
+      <Name>Fonts\Impact20</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact20.xnb</Output>
+      <Time>2016-02-10T12:01:28.0647498-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Impact40.spritefont</Source>
+      <Name>Fonts\Impact40</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact40.xnb</Output>
+      <Time>2016-02-10T12:01:28.0617495-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

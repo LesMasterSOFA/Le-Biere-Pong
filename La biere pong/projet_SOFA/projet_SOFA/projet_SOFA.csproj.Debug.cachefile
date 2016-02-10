@@ -1,5 +1,3 @@
-Content\Fonts\Arial20.xnb
-Content\Fonts\Arial40.xnb
 Content\Textures\BeerPong.xnb
 Content\Textures\BoutonBackBleu.xnb
 Content\Textures\BoutonBackBleuPale.xnb
@@ -13,3 +11,5 @@ Content\Textures\droite.xnb
 Content\Textures\plancher.xnb
 Content\Textures\plafond.xnb
 Content\Textures\arriere.xnb
+Content\Fonts\Impact20.xnb
+Content\Fonts\Impact40.xnb
