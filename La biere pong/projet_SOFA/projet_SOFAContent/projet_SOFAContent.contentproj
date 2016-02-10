@@ -100,31 +100,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\objetQuelconque.fbx">
-      <Name>objetQuelconque</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\couleurs.tga">
-      <Name>couleurs</Name>
+    <Compile Include="Textures\texture_obj.png">
+      <Name>texture_obj</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\essai.fbx">
-      <Name>essai</Name>
+    <Compile Include="Models\TOON.fbx">
+      <Name>TOON</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Untitled.png">
-      <Name>Untitled</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

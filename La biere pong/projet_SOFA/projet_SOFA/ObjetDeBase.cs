@@ -66,24 +66,22 @@ namespace AtelierXNA
             {
                 Matrix mondeLocal = this.TransformationsModèle[modelMesh.ParentBone.Index] * this.GetMonde();
                 foreach (ModelMeshPart modelMeshPart in modelMesh.MeshParts)
-                    InitialiserEffet((BasicEffect)modelMeshPart.Effect, mondeLocal);
+                {
+                    BasicEffect effet = (BasicEffect)modelMeshPart.Effect;
+                    effet.EmissiveColor = Vector3.One;
+                    effet.Projection = CaméraJeu.Projection;
+                    effet.View = CaméraJeu.Vue;
+                    effet.World = mondeLocal;
+                    effet.EnableDefaultLighting();
+                    effet.TextureEnabled = true;
+                    effet.Texture = TextureModèle;
+                }
                 modelMesh.Draw();
             }
             GraphicsDevice.BlendState = blendState;
             GraphicsDevice.RasterizerState = rasterizerState;
             GraphicsDevice.DepthStencilState = depthStencilState;
             base.Draw(gameTime);
-        }
-
-        protected virtual void InitialiserEffet(BasicEffect effet, Matrix mondeLocal)
-        {
-            effet.EmissiveColor = Vector3.One;
-            effet.Projection = CaméraJeu.Projection;
-            effet.View = CaméraJeu.Vue;
-            effet.World = mondeLocal;
-            effet.EnableDefaultLighting();
-            effet.TextureEnabled = true;
-            effet.Texture = TextureModèle;
         }
 
         public virtual Matrix GetMonde()
