@@ -22,8 +22,11 @@ namespace AtelierXNA
       RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
+<<<<<<< HEAD
       Caméra CaméraJeu { get; set; }
       
+=======
+>>>>>>> refs/remotes/origin/environnements
 
       public InputManager GestionInput { get; private set; }
 
@@ -39,23 +42,24 @@ namespace AtelierXNA
       protected override void Initialize()
       {
          
-         Vector3 positionCaméra = new Vector3(0, 90, 65);
-         Vector3 cibleCaméra = new Vector3(0, 60, 0);
 
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
          GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
          GestionInput = new InputManager(this);
-         CaméraJeu = new CaméraSubjective(this, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
 
+<<<<<<< HEAD
          Components.Add(new Menu(this));
          //Components.Add(new ATH(this));
          //Components.Add(new Mode1v1LAN(this));
         
+=======
+
+>>>>>>> refs/remotes/origin/environnements
          Components.Add(GestionInput);
-         Components.Add(CaméraJeu);
          Components.Add(new Afficheur3D(this));
+<<<<<<< HEAD
 
          //Components.Add(new GestionEnvironnement(this));
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //gauche
@@ -64,6 +68,9 @@ namespace AtelierXNA
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //arriere
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //dessus
          //Components.Add(new PlanTexturé(this, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD)); //dessous
+=======
+         Components.Add(new GestionEnvironnement(this));
+>>>>>>> refs/remotes/origin/environnements
          Components.Add(new AfficheurFPS(this, "Arial20", Color.Gold, INTERVALLE_CALCUL_FPS));
 
          Services.AddService(typeof(Random), new Random());
@@ -72,7 +79,6 @@ namespace AtelierXNA
          Services.AddService(typeof(RessourcesManager<Model>), GestionnaireDeModèles);
          Services.AddService(typeof(RessourcesManager<Effect>), GestionnaireDeShaders);
          Services.AddService(typeof(InputManager), GestionInput);
-         Services.AddService(typeof(Caméra), CaméraJeu);
          GestionSprites = new SpriteBatch(GraphicsDevice);
          Services.AddService(typeof(SpriteBatch), GestionSprites);
 

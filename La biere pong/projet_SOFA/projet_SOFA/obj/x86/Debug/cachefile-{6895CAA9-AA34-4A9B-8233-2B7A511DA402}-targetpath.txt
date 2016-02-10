@@ -7,3 +7,9 @@ Content\Textures\BoutonBleu.xnb
 Content\Textures\BoutonBleuPale.xnb
 Content\Textures\BarreIndicationForce.xnb
 Content\Textures\FondIndicateurForce.xnb
+Content\Textures\plancher.xnb
+Content\Textures\plafond.xnb
+Content\Textures\avant.xnb
+Content\Textures\gauche.xnb
+Content\Textures\droite.xnb
+Content\Textures\arriere.xnb
