@@ -1,3 +1,5 @@
+Content\Fonts\Impact20.xnb
+Content\Fonts\Impact40.xnb
 Content\Textures\BeerPong.xnb
 Content\Textures\BoutonBackBleu.xnb
 Content\Textures\BoutonBackBleuPale.xnb
@@ -5,11 +7,10 @@ Content\Textures\BoutonBleu.xnb
 Content\Textures\BoutonBleuPale.xnb
 Content\Textures\BarreIndicationForce.xnb
 Content\Textures\FondIndicateurForce.xnb
-Content\Textures\avant.xnb
-Content\Textures\gauche.xnb
-Content\Textures\droite.xnb
-Content\Textures\plancher.xnb
-Content\Textures\plafond.xnb
-Content\Textures\arriere.xnb
-Content\Fonts\Impact20.xnb
-Content\Fonts\Impact40.xnb
+Content\Textures\texture_obj.xnb
+Content\Textures\tablebois.xnb
+Content\Models\TOON.xnb
+Content\Models\tablebois.xnb
+Content\Models\tablebois2.xnb
+Content\Textures\blanc.xnb
+Content\Models\balle.xnb
