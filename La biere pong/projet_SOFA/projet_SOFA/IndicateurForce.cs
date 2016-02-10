@@ -15,6 +15,7 @@ namespace AtelierXNA
 
     public class IndicateurForce : Microsoft.Xna.Framework.DrawableGameComponent,IActivable
     {
+        Vector2 Résolution { get; set; }
         int Force { get; set; }
         Vector2 PositionFond { get; set; }
         Rectangle GrandeurFond { get; set; }
@@ -49,13 +50,16 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            PositionFond = new Vector2(30, Game.Window.ClientBounds.Height - 70);
-            GrandeurFond = new Rectangle(0,0,198, 50);
+            Résolution = new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
+
+            PositionFond = new Vector2(Résolution.X / 26.667f, Résolution.Y - Résolution.Y / 6.8571f);
+            int x=(int)(Résolution.X / 4.0404f);
+            GrandeurFond = new Rectangle((int)PositionFond.X, (int)PositionFond.Y,x ,x/4);
 
             PositionMilieu = PositionFond.X + GrandeurFond.Width / 2;
             Force = 0;
             estActifBarre = true;
-            vitesse = 0.03f;
+            VitesseBarre = GrandeurFond.X/5000f;
             GrandeurBarre = new Rectangle(0, 0, 5, GrandeurFond.Height);
             AnciennePositionBarre = new Vector2(0, 0);
             PositionBarreIndication = new Vector2(PositionFond.X + GrandeurFond.Width / 2, PositionFond.Y);
@@ -73,7 +77,7 @@ namespace AtelierXNA
             if(estActifBarre)
             {
                 AnciennePositionBarre = PositionBarreIndication;
-                PositionBarreIndication = new Vector2(AnciennePositionBarre.X + VitesseBarre, AnciennePositionBarre.Y);
+                PositionBarreIndication = new Vector2(AnciennePositionBarre.X + VitesseBarre*GrandeurFond.X, AnciennePositionBarre.Y);
                 if (PositionBarreIndication.X + GrandeurBarre.Width >= PositionFond.X + GrandeurFond.Width || PositionBarreIndication.X <= PositionFond.X)
                 {
                     VitesseBarre = -VitesseBarre;
@@ -91,7 +95,7 @@ namespace AtelierXNA
         public override void Draw(GameTime gameTime)
         {
             GestionSprites.Begin();
-            GestionSprites.Draw(ImageFondIndicateurForce, PositionFond, GrandeurFond, Color.White);
+            GestionSprites.Draw(ImageFondIndicateurForce, GrandeurFond, Color.White);
             GestionSprites.Draw(BarreIndicatrice,PositionBarreIndication, GrandeurBarre, Color.Black);
             GestionSprites.DrawString(GestionFont.Find("Impact20"), "Force : "+Force.ToString(), Vector2.Zero, Color.Black);
             GestionSprites.End();

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline" xmlns:Framework="Microsoft.Xna.Framework" xmlns:Processors="Microsoft.Xna.Framework.Content.Pipeline.Processors">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
       <Source>Fonts\Impact20.spritefont</Source>
@@ -197,6 +197,61 @@
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\noir.xnb</Output>
       <Time>2016-02-10T13:24:19.1128284-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\CHRNPCICOHER110_DIFFUSE.tga</Source>
+      <Name>Textures\CHRNPCICOHER110_DIFFUSE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\CHRNPCICOHER110_DIFFUSE.xnb</Output>
+      <Time>2016-02-10T15:06:32.1311065-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\batman hero110.fbx</Source>
+      <Name>Models\batman hero110</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\batman hero110.xnb</Output>
+      <Time>2016-02-10T15:06:08.4367373-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\batman hero110_0.xml</Key>
+        <Value>2016-02-10T15:06:10.5969533-05:00</Value>
+      </Dependency>
+      <Request>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\CHRNPCICOHER110_DIFFUSE_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\batman hero110.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\batman hero110_0.xml</Output>
+      <Time>2016-02-10T15:06:08.4367373-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\CHRNPCICOHER110_DIFFUSE.tga</Source>
+      <Name>Models\CHRNPCICOHER110_DIFFUSE</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\CHRNPCICOHER110_DIFFUSE.xnb</Output>
+      <Time>2016-02-10T15:06:47.1846117-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\CHRNPCICOHER110_DIFFUSE.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\CHRNPCICOHER110_DIFFUSE_0.xnb</Output>
+      <Time>2016-02-10T15:06:47.1846117-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
