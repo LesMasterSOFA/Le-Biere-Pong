@@ -36,18 +36,15 @@ namespace AtelierXNA
 
       protected override void Initialize()
       {
-         
-
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
          GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
          GestionInput = new InputManager(this);
 
-
          Components.Add(GestionInput);
          Components.Add(new Afficheur3D(this));
-         Components.Add(new GestionEnvironnement(this));
+         Components.Add(new GestionEnvironnement(this, "condo"));
          Components.Add(new AfficheurFPS(this, "Arial20", Color.Gold, INTERVALLE_CALCUL_FPS));
 
          Services.AddService(typeof(Random), new Random());
