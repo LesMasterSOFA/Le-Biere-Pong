@@ -129,6 +129,7 @@
     <Compile Include="CalculsPhysique.cs" />
     <Compile Include="CaméraSubjective.cs" />
     <Compile Include="EnvironnementDeBase.cs" />
+    <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
     <Compile Include="GestionnaireDeRéseau.cs" />
     <Compile Include="GestionPartie.cs" />

@@ -26,10 +26,14 @@ namespace AtelierXNA
         PlanTexturé Arrière { get; set; }
         ObjetDeBase Table { get; set; }
         ObjetDeBase Balle { get; set; }
+        public Caméra CaméraJeu { get; set; }
+        string NomEnvironnement { get; set; }
+        EnvironnementDeBase THEenvironnement { get; set; }
 
-        public GestionEnvironnement(Game game)
+        public GestionEnvironnement(Game game, string nomEnvironnement)
             : base(game)
         {
+            NomEnvironnement = nomEnvironnement;
         }
 
         public override void Initialize()
@@ -38,24 +42,30 @@ namespace AtelierXNA
             Balle = new ObjetDeBase(Game, "balle", "blanc", 0.1f, new Vector3(0, 0, 0), new Vector3(0, 100, 0));
             Game.Components.Add(Table);
             Game.Components.Add(Balle);
+            Vector3 positionCaméra = new Vector3(0, 90, 65);
+            Vector3 cibleCaméra = new Vector3(0, 60, 0);
+            CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD); 
+            Game.Components.Add(CaméraJeu);
+            Game.Services.AddService(typeof(Caméra), CaméraJeu);
+            InstancierEnvironnement();
             base.Initialize();
+        }
+
+        void InstancierEnvironnement()
+        {
+            switch (NomEnvironnement)
+            {
+                case "condo":
+                    THEenvironnement = new EnvironnementGarage(Game, "gauche", "droite", "plafond", "plancher", "avant", "arriere");
+                    Game.Components.Add(THEenvironnement);
+                    break;
+                default:
+                    throw new Exception();
+            }
         }
 
         protected override void LoadContent()
         {
-            Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            Droite = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, DIMENSION_TERRAIN / 2, -DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            Dessus = new PlanTexturé(Game, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            Dessous = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlan, charpentePlan, "BeerPong", INTERVALLE_MAJ_STANDARD);
-            
-            Game.Components.Add(Gauche);
-            Game.Components.Add(Droite);
-            Game.Components.Add(Avant);
-            Game.Components.Add(Arrière);
-            Game.Components.Add(Dessus);
-            Game.Components.Add(Dessous);
             base.LoadContent();
         }
 
