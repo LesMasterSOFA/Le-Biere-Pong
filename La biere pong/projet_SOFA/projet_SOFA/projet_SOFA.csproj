@@ -127,7 +127,6 @@
     <Compile Include="ATH.cs" />
     <Compile Include="BoutonDeCommande.cs" />
     <Compile Include="CalculsPhysique.cs" />
-    <Compile Include="CaméraSubjective.cs" />
     <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />

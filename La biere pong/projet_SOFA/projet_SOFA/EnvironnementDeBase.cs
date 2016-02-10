@@ -15,7 +15,7 @@ namespace AtelierXNA
    public class EnvironnementDeBase : Microsoft.Xna.Framework.GameComponent
    {      
        const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-       const int DIMENSION_TERRAIN = 200;
+       const int DIMENSION_TERRAIN = 300;
        Vector2 étenduePlan = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
        Vector2 charpentePlan = new Vector2(4, 3);
        PlanTexturé Gauche { get; set; }
