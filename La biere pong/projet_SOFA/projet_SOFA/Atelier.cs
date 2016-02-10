@@ -23,7 +23,6 @@ namespace AtelierXNA
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
       Caméra CaméraJeu { get; set; }
-
       public InputManager GestionInput { get; private set; }
 
       public Atelier()
@@ -38,40 +37,44 @@ namespace AtelierXNA
       protected override void Initialize()
       {
          
-         Vector3 positionCaméra = new Vector3(0, 90, 65);
-         Vector3 cibleCaméra = new Vector3(0, 60, 0);
-
+         //Instanciation des répertoires pour les gestionnaires
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
          GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
          GestionInput = new InputManager(this);
-         CaméraJeu = new CaméraSubjective(this, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
 
+        //Ceux qu'on modifie fréquemment pour bypass les menus et tester nos trucs
          Components.Add(new Menu(this));
-         Components.Add(new ATH(this));
-        
-         Components.Add(GestionInput);
-         Components.Add(CaméraJeu); 
+         //Components.Add(new ATH(this));
+         //Components.Add(new Mode1v1LAN(this));
+         //Components.Add(new GestionEnvironnement(this));
 
+
+         //Ceux qui doivent être présent
+         Components.Add(GestionInput);
          Components.Add(new Afficheur3D(this));
          Components.Add(new AfficheurFPS(this, "Impact20", Color.Gold, INTERVALLE_CALCUL_FPS));
 
+         //Ajout des services
          Services.AddService(typeof(Random), new Random());
          Services.AddService(typeof(RessourcesManager<SpriteFont>), GestionnaireDeFonts);
          Services.AddService(typeof(RessourcesManager<Texture2D>), GestionnaireDeTextures);
          Services.AddService(typeof(RessourcesManager<Model>), GestionnaireDeModèles);
          Services.AddService(typeof(RessourcesManager<Effect>), GestionnaireDeShaders);
          Services.AddService(typeof(InputManager), GestionInput);
-         Services.AddService(typeof(Caméra), CaméraJeu);
          GestionSprites = new SpriteBatch(GraphicsDevice);
          Services.AddService(typeof(SpriteBatch), GestionSprites);
+
+         
+
          base.Initialize();
       }
 
       protected override void Update(GameTime gameTime)
       {
          GérerClavier();
+         
          base.Update(gameTime);
       }
 
