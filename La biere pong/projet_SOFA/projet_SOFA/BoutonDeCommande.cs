@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-   public delegate void FonctionÉvénemtielle();
+   public delegate void FonctionÉvénementielle();
 
    public class BoutonDeCommande : Microsoft.Xna.Framework.DrawableGameComponent, IActivable
    {
@@ -40,7 +40,7 @@ namespace AtelierXNA
       InputManager GestionInput { get; set; }
       RessourcesManager<SpriteFont> GestionnaireDeFonts { get; set; }
       RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
-      FonctionÉvénemtielle OnClick { get; set; }
+      FonctionÉvénementielle OnClick { get; set; }
 
       bool estActif;
 
@@ -56,7 +56,7 @@ namespace AtelierXNA
 
 
       public BoutonDeCommande(Game jeu, string texte, string nomFont, string nomImageNormale, string nomImageEnfoncée, 
-                              Vector2 position, bool estActif, FonctionÉvénemtielle onClick)
+                              Vector2 position, bool estActif, FonctionÉvénementielle onClick)
          : base(jeu)
       {
          Texte = texte;
