@@ -15,6 +15,7 @@ namespace AtelierXNA
 
     public class ModePratique : PartieSolo
     {
+        ATH ath { get; set; }
         GestionEnvironnement EnvironnementPartie { get; set; }
         BoutonDeCommande BoutonJouer { get; set; }
         public ModePratique(Game game)
@@ -26,6 +27,7 @@ namespace AtelierXNA
         public override void Initialize()
         {
             EnvironnementPartie = new GestionEnvironnement(this.Game,"condo");
+            ath = new ATH(Game);
             base.Initialize();
         }
 
@@ -34,6 +36,7 @@ namespace AtelierXNA
             if (EstPartieActive)
             {
                 Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
             }
         }
 

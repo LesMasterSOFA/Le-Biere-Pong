@@ -23,6 +23,7 @@ namespace AtelierXNA
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
       CaméraSubjective camérajeu { get; set; }
+      Vector2 Résolution { get; set; }
 
       public InputManager GestionInput { get; private set; }
 
@@ -31,6 +32,10 @@ namespace AtelierXNA
          PériphériqueGraphique = new GraphicsDeviceManager(this);
          Content.RootDirectory = "Content";
          PériphériqueGraphique.SynchronizeWithVerticalRetrace = false;
+         Résolution = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+         PériphériqueGraphique.PreferredBackBufferWidth = (int)Résolution.X;
+         PériphériqueGraphique.PreferredBackBufferHeight = (int)Résolution.Y;
+         PériphériqueGraphique.IsFullScreen = true;
          IsFixedTimeStep = false;
          IsMouseVisible = true;
       }
