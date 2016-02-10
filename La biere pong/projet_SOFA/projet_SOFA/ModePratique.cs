@@ -12,37 +12,52 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
+
     public class ModePratique : PartieSolo
     {
+        GestionEnvironnement EnvironnementPartie { get; set; }
+        BoutonDeCommande BoutonJouer { get; set; }
         public ModePratique(Game game)
             : base(game)
         {
-            // TODO: Construct any child components here
+            MenuSélectionPersonnage();
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
-
+            EnvironnementPartie = new GestionEnvironnement(this.Game);
             base.Initialize();
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        void ActiverEnvironnement()
+        {
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+        }
+
+        void MenuSélectionPersonnage()
+        {
+            
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Arial20", "BoutonBleu", "BoutonBleuPale", new Vector2(100,100), true, Activerpartie);
+            Game.Components.Add(BoutonJouer);
+        }
+        void Activerpartie()
+        {
+            ModifierActivation();
+            ActiverEnvironnement();
+            Game.Components.Remove(BoutonJouer);
         }
     }
 }

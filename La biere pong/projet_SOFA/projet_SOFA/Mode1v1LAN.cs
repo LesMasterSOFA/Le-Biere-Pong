@@ -13,8 +13,7 @@ using Microsoft.Xna.Framework.Net;
 
 namespace AtelierXNA
 {
-    //public class Mode1v1LAN : PartieMultijoueur
-    public class Mode1v1LAN : Microsoft.Xna.Framework.DrawableGameComponent
+    public class Mode1v1LAN : PartieMultijoueur
     {
         NetworkSession networkSession;
         AvailableNetworkSessionCollection availableSessions;
@@ -58,7 +57,7 @@ namespace AtelierXNA
             SignedInGamer.SignedIn +=
                 new EventHandler<SignedInEventArgs>(SignedInGamer_SignedIn);
 
-            mainViewport = this.Game.GraphicsDevice.Viewport;
+            mainViewport = Game.GraphicsDevice.Viewport;
 
             base.Initialize();
         }
@@ -200,7 +199,7 @@ namespace AtelierXNA
         //***Reste à changer le home key on the keyboard et assigner un profil***
         void DessinerMenuAccueilLan()
         {
-            this.Game.GraphicsDevice.Clear(Color.CornflowerBlue);
+            //this.Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             string message = "";
 
             if (SignedInGamer.SignedInGamers.Count == 0)
@@ -312,7 +311,7 @@ namespace AtelierXNA
         }
 
         //Menu sessions disponibles
-        private void DrawAvailableSessions()
+        public void DrawAvailableSessions()
         {
             this.Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             GestionSprites.Begin();

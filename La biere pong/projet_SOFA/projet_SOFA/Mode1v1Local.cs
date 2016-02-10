@@ -18,6 +18,7 @@ namespace AtelierXNA
         Viewport mainViewport; //Écran totale
         Viewport leftViewport; //moitié écran gauche
         Viewport rightViewport; //moitié écran droite
+        Joueur JoueurSecondaire { get; set; }
 
         public Mode1v1Local(Game game)
             : base(game)
@@ -37,6 +38,11 @@ namespace AtelierXNA
             rightViewport.X = leftViewport.Width + 1;
 
             base.Initialize();
+        }
+        void InitialiserJouer()
+        {
+            JoueurPrincipal = new Joueur(this.Game, base.gestionnairePartie, leftViewport);
+            JoueurPrincipal = new Joueur(this.Game, base.gestionnairePartie, rightViewport);
         }
 
 
