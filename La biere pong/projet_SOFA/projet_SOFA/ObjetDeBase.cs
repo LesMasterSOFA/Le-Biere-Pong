@@ -79,17 +79,19 @@ namespace AtelierXNA
         void InitialiserEffet(Matrix mondeLocal, BasicEffect effet)
         {
 
+            effet.EnableDefaultLighting();
+            effet.LightingEnabled = true; // turn on the lighting subsystem.
             effet.EmissiveColor = Vector3.One;
+            effet.SpecularColor = new Vector3(0.5f,0.5f,0.5f);
+            effet.SpecularPower = 16f;
+            //effet.DirectionalLight0.Enabled = true;
+            //effet.DirectionalLight0.DiffuseColor = Color.White.ToVector3();
+            //effet.DirectionalLight0.Direction = Vector3.Down;
             effet.Projection = CaméraJeu.Projection;
             effet.View = CaméraJeu.Vue;
             effet.World = mondeLocal;
-            effet.EnableDefaultLighting();
             effet.TextureEnabled = true;
-            effet.Texture = TextureModèle; 
-            effet.LightingEnabled = true; // turn on the lighting subsystem.
-            effet.DirectionalLight0.DiffuseColor = new Vector3(0.5f, 0, 0); // a red light
-            effet.DirectionalLight0.Direction = new Vector3(1, 0, 0);  // coming along the x-axis
-            effet.DirectionalLight0.SpecularColor = new Vector3(0, 1, 0);
+            effet.Texture = TextureModèle;
         }
 
         public virtual Matrix GetMonde()
