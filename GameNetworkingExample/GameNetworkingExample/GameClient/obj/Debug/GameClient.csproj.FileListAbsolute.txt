@@ -15,3 +15,8 @@ C:\Users\201446925\Downloads\GameNetworkingExample\GameNetworkingExample\GameCli
 C:\Users\201446925\Downloads\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.csprojResolveAssemblyReference.cache
 C:\Users\201446925\Downloads\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.exe
 C:\Users\201446925\Downloads\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\GameNetworkingExample\GameNetworkingExample\GameClient\bin\Debug\GameClient.exe
+C:\Users\simon\Desktop\Le-Biere-Pong\GameNetworkingExample\GameNetworkingExample\GameClient\bin\Debug\GameClient.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.csprojResolveAssemblyReference.cache
+C:\Users\simon\Desktop\Le-Biere-Pong\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.exe
+C:\Users\simon\Desktop\Le-Biere-Pong\GameNetworkingExample\GameNetworkingExample\GameClient\obj\Debug\GameClient.pdb
