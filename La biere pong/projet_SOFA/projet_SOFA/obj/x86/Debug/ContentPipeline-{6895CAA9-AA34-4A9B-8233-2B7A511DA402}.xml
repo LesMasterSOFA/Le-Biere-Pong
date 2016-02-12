@@ -216,6 +216,52 @@
       <Time>2016-02-10T21:04:51.3586575-05:00</Time>
     </Item>
     <Item>
+      <Source>Textures\Stormtrooper_D.tga</Source>
+      <Name>Textures\Stormtrooper_D</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\Stormtrooper_D.xnb</Output>
+      <Time>2016-02-10T22:02:23.0055844-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Stormtrooper.fbx</Source>
+      <Name>Models\Stormtrooper</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Stormtrooper.xnb</Output>
+      <Time>2016-02-10T22:02:12.8375433-05:00</Time>
+      <Dependency>
+        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\Stormtrooper_0.xml</Key>
+        <Value>2016-02-10T22:02:57.5371334-05:00</Value>
+      </Dependency>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Stormtrooper_D_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Stormtrooper.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\Stormtrooper_0.xml</Output>
+      <Time>2016-02-10T22:02:12.8375433-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Stormtrooper_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Stormtrooper_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
       <Source>Textures\couleur_Balle.png</Source>
       <Name>Textures\couleur_Balle</Name>
       <Importer>TextureImporter</Importer>
@@ -254,33 +300,152 @@
       <Time>2016-02-10T23:13:53.1742597-05:00</Time>
     </Item>
     <Item>
-      <Source>Textures\Tex_0173_0.tga</Source>
-      <Name>Textures\Tex_0173_0</Name>
+      <Source>Textures\Batman_Torso_D.tga</Source>
+      <Name>Textures\Batman_Torso_D</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\Tex_0173_0.xnb</Output>
-      <Time>2016-02-11T22:36:49.862382-05:00</Time>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\Batman_Torso_D.xnb</Output>
+      <Time>2016-02-11T00:05:41.9238977-05:00</Time>
     </Item>
     <Item>
-      <Source>Models\untitled.fbx</Source>
-      <Name>Models\untitled</Name>
+      <Source>Models\batman.fbx</Source>
+      <Name>Models\batman</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\untitled.xnb</Output>
-      <Time>2016-02-11T23:22:51.3539646-05:00</Time>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\batman.xnb</Output>
+      <Time>2016-02-11T00:05:53.3584965-05:00</Time>
       <Dependency>
-        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\untitled_0.xml</Key>
-        <Value>2016-02-11T23:22:53.444034-05:00</Value>
+        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\batman_0.xml</Key>
+        <Value>2016-02-11T00:07:18.7185674-05:00</Value>
       </Dependency>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Cape_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Eye_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Mask_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Legs_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Mouth_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Torso_D_0.xnb</Request>
+      <Request>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Face_D_0.xnb</Request>
     </Item>
     <Item>
-      <Source>Models\untitled.fbx</Source>
+      <Source>Models\batman.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\untitled_0.xml</Output>
-      <Time>2016-02-11T23:22:51.3539646-05:00</Time>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\batman_0.xml</Output>
+      <Time>2016-02-11T00:05:53.3584965-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Cape_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Cape_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Eye_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Eye_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Mask_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Mask_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Legs_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Legs_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Mouth_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Mouth_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Torso_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Torso_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Batman_Injustice\Batman_Face_D.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Batman_Injustice\Batman_Face_D_0.xnb</Output>
+      <Time>2000-12-31T19:01:01-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

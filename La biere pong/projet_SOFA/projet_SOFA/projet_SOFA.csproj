@@ -60,6 +60,10 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caméra, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\Caméra.dll</HintPath>
+    </Reference>
     <Reference Include="ClavierEtSouris">
       <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\ClavierEtSouris.dll</HintPath>
     </Reference>
@@ -96,9 +100,8 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="OutilsXNA, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.dll</HintPath>
+    <Reference Include="OutilsXNA">
+      <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.dll</HintPath>
     </Reference>
     <Reference Include="Primitives">
       <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\Primitives.dll</HintPath>
@@ -124,8 +127,6 @@
     <Compile Include="ATH.cs" />
     <Compile Include="BoutonDeCommande.cs" />
     <Compile Include="CalculsPhysique.cs" />
-    <Compile Include="Caméra.cs" />
-    <Compile Include="CaméraSubjective.cs" />
     <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="RectangleColoré.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Caméra.dll" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
