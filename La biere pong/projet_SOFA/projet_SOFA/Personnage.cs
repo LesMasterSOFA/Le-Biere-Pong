@@ -22,7 +22,7 @@ namespace AtelierXNA
         }
         public override void Initialize()
         {
-            PersonnagePrincipal = new ObjetDeBase(Game, "batman hero110", "CHRNPCICOHER110_DIFFUSE", 20f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(0, 0, -100));
+            PersonnagePrincipal = new ObjetDeBase(Game, "superBoy", "superBoyTex", 0.20f, new Vector3(0, 0,-MathHelper.PiOver2), new Vector3(0, 0, -100));
             //PersonnagePrincipal = new ObjetDeBase(Game, "batman", "Batman_Torso_D.tga", 20f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(0, 0, -100));
             Game.Components.Add(PersonnagePrincipal);
             base.Initialize();

@@ -73,10 +73,6 @@
   <ItemGroup>
     <Compile Include="Afficheur3D.cs" />
     <Compile Include="AfficheurFPS.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Plan.cs" />
-    <Compile Include="PlanColoré.cs" />
-    <Compile Include="PlanTexturé.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
