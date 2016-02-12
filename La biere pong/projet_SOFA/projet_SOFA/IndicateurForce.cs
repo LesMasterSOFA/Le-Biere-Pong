@@ -59,7 +59,7 @@ namespace AtelierXNA
             PositionMilieu = PositionFond.X + GrandeurFond.Width / 2;
             Force = 0;
             estActifBarre = true;
-            VitesseBarre = GrandeurFond.X/5000f;
+            VitesseBarre = GrandeurFond.X/6000f;
             GrandeurBarre = new Rectangle(0, 0, 5, GrandeurFond.Height);
             AnciennePositionBarre = new Vector2(0, 0);
             PositionBarreIndication = new Vector2(PositionFond.X + GrandeurFond.Width / 2, PositionFond.Y);

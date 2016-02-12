@@ -149,20 +149,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Stormtrooper.fbx">
-      <Name>Stormtrooper</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\Stormtrooper_D.tga">
-      <Name>Stormtrooper_D</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\balle.fbx">
       <Name>balle</Name>
       <Importer>FbxImporter</Importer>
@@ -191,15 +177,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Batman_Torso_D.tga">
-      <Name>Batman_Torso_D</Name>
+    <Compile Include="Textures\Tex_0173_0.tga">
+      <Name>Tex_0173_0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\batman.fbx">
-      <Name>batman</Name>
+    <Compile Include="Models\untitled.fbx">
+      <Name>untitled</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
