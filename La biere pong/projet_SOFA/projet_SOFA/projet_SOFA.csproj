@@ -156,7 +156,6 @@
     <Compile Include="RectangleColoré.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Caméra.dll" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
