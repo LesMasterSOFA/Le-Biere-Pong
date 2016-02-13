@@ -45,7 +45,7 @@ namespace AtelierXNA
             Game.Services.AddService(typeof(Caméra), CaméraJeu);
 
             //Instanciation objets
-            Table = new ObjetDeBase(Game, "tablebois2", "tablebois", 20f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(0, 0, 0));
+            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 20f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(0, 0, 0));
             Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1f, new Vector3(0, 0, 0), new Vector3(0, 100, 0));
             personnagePrincipal = new Personnage(this.Game);
             

@@ -64,7 +64,7 @@ namespace AtelierXNA
             DepthStencilState depthStencilState = GraphicsDevice.DepthStencilState;
             foreach (ModelMesh modelMesh in Modèle.Meshes)
             {
-                Matrix mondeLocal = this.TransformationsModèle[modelMesh.ParentBone.Index] * this.GetMonde();
+                Matrix mondeLocal = TransformationsModèle[modelMesh.ParentBone.Index] * GetMonde();
                 foreach (ModelMeshPart modelMeshPart in modelMesh.MeshParts)
                 {
                     InitialiserEffet(mondeLocal, (BasicEffect)modelMeshPart.Effect);

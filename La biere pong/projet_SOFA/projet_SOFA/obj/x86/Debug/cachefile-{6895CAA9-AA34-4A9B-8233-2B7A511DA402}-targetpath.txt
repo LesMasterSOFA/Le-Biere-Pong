@@ -16,3 +16,5 @@ Content\Models\mur.xnb
 Content\Models\superBoy.xnb
 Content\Textures\superBoyTex.xnb
 Content\Textures\noir.xnb
+Content\Models\table_plastique.xnb
+Content\Textures\table_plastique.xnb
