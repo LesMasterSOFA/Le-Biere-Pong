@@ -130,7 +130,7 @@
     <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
-    <Compile Include="GestionnaireDeRéseau.cs" />
+    <Compile Include="NetworkManager.cs" />
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
