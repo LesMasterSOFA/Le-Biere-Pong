@@ -39,8 +39,6 @@ C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.exe
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.pdb
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial20.xnb
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Arial40.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BeerPong.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleu.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleuPale.xnb
@@ -107,3 +105,15 @@ C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\b
 C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Caméra.dll
 C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.pdb
 C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\noir.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact20.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact40.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\texture_obj.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\tablebois.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\blanc.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\noir.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\TOON.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois2.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\balle.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Caméra.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.pdb

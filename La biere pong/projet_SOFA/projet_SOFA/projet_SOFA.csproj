@@ -130,6 +130,7 @@
     <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
+    <Compile Include="NetworkClient.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="ModeHistoire.cs" />
     <Compile Include="ModePratique.cs" />
     <Compile Include="Modèle.cs" />
+    <Compile Include="NetworkServer.cs" />
     <Compile Include="ObjetDeBase.cs" />
     <Compile Include="Partie.cs" />
     <Compile Include="PartieMultijoueur.cs" />

@@ -18,6 +18,7 @@ namespace AtelierXNA
         public NetworkManager(Game game)
             : base(game)
         {
+             
         }
 
         public override void Initialize()

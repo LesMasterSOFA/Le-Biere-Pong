@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>toon_boy_toon_boy_EYE</Name>
     <Identity>
-      <SourceFilename>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
+      <SourceFilename>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>7.54979E-08 1 1.62920685E-07 0 -1 7.54979E-08 1.2E-14 0 0 -1.62920685E-07 1 0 0 0 0 1</Transform>
@@ -37,7 +37,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material_002</Name>
       <Identity>
-        <SourceFilename>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
+        <SourceFilename>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
@@ -50,7 +50,7 @@
     <Resource ID="#Resource2" Type="Graphics:BasicMaterialContent">
       <Name>allo</Name>
       <Identity>
-        <SourceFilename>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
+        <SourceFilename>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\TOON.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
