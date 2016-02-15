@@ -1,5 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
@@ -82,21 +90,21 @@ namespace AtelierXNA
             effet.EnableDefaultLighting();
             effet.LightingEnabled = true; // turn on the lighting subsystem.
 
-            //effet.EmissiveColor = Vector3.One;
-            //effet.SpecularColor = new Vector3(0.5f,0.5f,0.5f);
-            //effet.SpecularPower = 16f;
+            effet.EmissiveColor = new Vector3(0.8f, 0.8f, 0.8f);
+            effet.SpecularColor = new Vector3(0.2f, 0.2f, 0.2f);
+            effet.SpecularPower = 10f;
 
-            //effet.DirectionalLight0.Enabled = true;
-            //effet.DirectionalLight0.DiffuseColor = Color.White.ToVector3();
-            //effet.DirectionalLight0.Direction = new Vector3(0, -1, 1);
+            effet.DirectionalLight0.Enabled = true;
+            effet.DirectionalLight0.DiffuseColor = Color.White.ToVector3();
+            effet.DirectionalLight0.Direction = new Vector3((float)Math.Cos(0), -1, (float)Math.Sin(0));
 
-            //effet.DirectionalLight1.Enabled = true;
-            //effet.DirectionalLight1.DiffuseColor = Color.White.ToVector3();
-            //effet.DirectionalLight1.Direction = new Vector3(0, -1, -1);
+            effet.DirectionalLight1.Enabled = true;
+            effet.DirectionalLight1.DiffuseColor = Color.White.ToVector3();
+            effet.DirectionalLight1.Direction = new Vector3((float)Math.Cos(MathHelper.TwoPi / 3), -1, (float)Math.Sin(MathHelper.TwoPi / 3));
 
-            //effet.DirectionalLight2.Enabled = true;
-            //effet.DirectionalLight2.DiffuseColor = Color.White.ToVector3();
-            //effet.DirectionalLight2.Direction = new Vector3(1, -1, 0);
+            effet.DirectionalLight2.Enabled = true;
+            effet.DirectionalLight2.DiffuseColor = Color.White.ToVector3();
+            effet.DirectionalLight2.Direction = new Vector3((float)Math.Cos(2 * MathHelper.TwoPi / 3), -1, (float)Math.Sin(2*MathHelper.TwoPi / 3));
 
             effet.Projection = CaméraJeu.Projection;
             effet.View = CaméraJeu.Vue;
