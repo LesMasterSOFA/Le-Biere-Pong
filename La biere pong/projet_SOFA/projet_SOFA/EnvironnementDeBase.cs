@@ -32,6 +32,20 @@ namespace AtelierXNA
        string NomArrière { get; set; }
        ObjetDeBase EssaiMur { get; set; }
 
+       ObjetDeBase VerreJoueur1 { get; set; }
+       ObjetDeBase VerreJoueur2 { get; set; }
+       ObjetDeBase VerreJoueur3 { get; set; }
+       ObjetDeBase VerreJoueur4 { get; set; }
+       ObjetDeBase VerreJoueur5 { get; set; }
+       ObjetDeBase VerreJoueur6 { get; set; }
+
+       ObjetDeBase VerreAdversaire1 { get; set; }
+       ObjetDeBase VerreAdversaire2 { get; set; }
+       ObjetDeBase VerreAdversaire3 { get; set; }
+       ObjetDeBase VerreAdversaire4 { get; set; }
+       ObjetDeBase VerreAdversaire5 { get; set; }
+       ObjetDeBase VerreAdversaire6 { get; set; }
+
        public EnvironnementDeBase(Game game, string nomGauche, string nomDroite, string nomDessus, string nomDessous, string nomAvant, string nomArrière)
          : base(game)
       

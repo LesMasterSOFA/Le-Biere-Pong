@@ -81,12 +81,23 @@ namespace AtelierXNA
 
             effet.EnableDefaultLighting();
             effet.LightingEnabled = true; // turn on the lighting subsystem.
-            effet.EmissiveColor = Vector3.One;
-            effet.SpecularColor = new Vector3(0.5f,0.5f,0.5f);
-            effet.SpecularPower = 16f;
+
+            //effet.EmissiveColor = Vector3.One;
+            //effet.SpecularColor = new Vector3(0.5f,0.5f,0.5f);
+            //effet.SpecularPower = 16f;
+
             //effet.DirectionalLight0.Enabled = true;
             //effet.DirectionalLight0.DiffuseColor = Color.White.ToVector3();
-            //effet.DirectionalLight0.Direction = Vector3.Down;
+            //effet.DirectionalLight0.Direction = new Vector3(0, -1, 1);
+
+            //effet.DirectionalLight1.Enabled = true;
+            //effet.DirectionalLight1.DiffuseColor = Color.White.ToVector3();
+            //effet.DirectionalLight1.Direction = new Vector3(0, -1, -1);
+
+            //effet.DirectionalLight2.Enabled = true;
+            //effet.DirectionalLight2.DiffuseColor = Color.White.ToVector3();
+            //effet.DirectionalLight2.Direction = new Vector3(1, -1, 0);
+
             effet.Projection = CaméraJeu.Projection;
             effet.View = CaméraJeu.Vue;
             effet.World = mondeLocal;
