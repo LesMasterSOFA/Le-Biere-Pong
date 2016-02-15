@@ -83,44 +83,24 @@
       <Time>2016-02-12T00:29:52.5508553-05:00</Time>
     </Item>
     <Item>
-      <Source>Models\tablebois2.fbx</Source>
-      <Name>Models\tablebois2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois2.xnb</Output>
-      <Time>2016-02-12T00:30:00.3472485-05:00</Time>
-      <Dependency>
-        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\tablebois2_0.xml</Key>
-        <Value>2016-02-12T00:38:39.2163127-05:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
       <Source>Models\balle.fbx</Source>
       <Name>Models\balle</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\balle.xnb</Output>
-      <Time>2016-02-12T00:30:00.2079651-05:00</Time>
+      <Time>2016-02-15T14:14:10.6245416-05:00</Time>
       <Dependency>
         <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\balle_0.xml</Key>
-        <Value>2016-02-12T00:38:39.6355179-05:00</Value>
+        <Value>2016-02-15T14:15:05.2272218-05:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\tablebois2.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\tablebois2_0.xml</Output>
-      <Time>2016-02-12T00:30:00.3472485-05:00</Time>
     </Item>
     <Item>
       <Source>Models\balle.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\balle_0.xml</Output>
-      <Time>2016-02-12T00:30:00.2079651-05:00</Time>
+      <Time>2016-02-15T14:14:10.6245416-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\tablebois.png</Source>
@@ -170,26 +150,6 @@
       <Time>2016-02-12T00:30:00.3333311-05:00</Time>
     </Item>
     <Item>
-      <Source>Models\superBoy.fbx</Source>
-      <Name>Models\superBoy</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoy.xnb</Output>
-      <Time>2016-02-12T14:25:22.6330379-05:00</Time>
-      <Dependency>
-        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\superBoy_0.xml</Key>
-        <Value>2016-02-12T14:27:52.3901675-05:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\superBoy.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\superBoy_0.xml</Output>
-      <Time>2016-02-12T14:25:22.6330379-05:00</Time>
-    </Item>
-    <Item>
       <Source>Textures\superBoyTex.tga</Source>
       <Name>Textures\superBoyTex</Name>
       <Importer>TextureImporter</Importer>
@@ -214,10 +174,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\table_plastique.xnb</Output>
-      <Time>2016-02-13T17:11:21.6805157-05:00</Time>
+      <Time>2016-02-15T14:29:43.2741731-05:00</Time>
       <Dependency>
         <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\table_plastique_0.xml</Key>
-        <Value>2016-02-13T17:11:28.7896582-05:00</Value>
+        <Value>2016-02-15T14:29:45.0712873-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -225,7 +185,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\table_plastique_0.xml</Output>
-      <Time>2016-02-13T17:11:21.6805157-05:00</Time>
+      <Time>2016-02-15T14:29:43.2741731-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\table_plastique.tga</Source>
@@ -252,10 +212,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\verre.xnb</Output>
-      <Time>2016-02-14T18:34:30.5163475-05:00</Time>
+      <Time>2016-02-15T14:57:47.9914541-05:00</Time>
       <Dependency>
         <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\verre_0.xml</Key>
-        <Value>2016-02-14T18:34:35.3032557-05:00</Value>
+        <Value>2016-02-15T14:57:54.708234-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -263,7 +223,27 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\verre_0.xml</Output>
-      <Time>2016-02-14T18:34:30.5163475-05:00</Time>
+      <Time>2016-02-15T14:57:47.9914541-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\superBoy.fbx</Source>
+      <Name>Models\superBoy</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoy.xnb</Output>
+      <Time>2016-02-15T14:44:07.1998897-05:00</Time>
+      <Dependency>
+        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\superBoy_0.xml</Key>
+        <Value>2016-02-15T14:44:08.9411098-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\superBoy.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\superBoy_0.xml</Output>
+      <Time>2016-02-15T14:44:07.1998897-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

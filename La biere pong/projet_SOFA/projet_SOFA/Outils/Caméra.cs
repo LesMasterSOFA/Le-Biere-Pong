@@ -14,7 +14,7 @@ namespace AtelierXNA
     public abstract class Caméra : Microsoft.Xna.Framework.GameComponent
     {
         protected const float OUVERTURE_OBJECTIF = MathHelper.PiOver4;
-        protected const float DISTANCE_PLAN_RAPPROCHÉ = 1f;
+        protected const float DISTANCE_PLAN_RAPPROCHÉ = 0.01f;
         protected const float DISTANCE_PLAN_ÉLOIGNÉ = 100000f;
 
         public Matrix Vue { get; protected set; }
