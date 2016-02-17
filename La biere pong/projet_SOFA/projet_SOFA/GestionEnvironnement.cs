@@ -15,18 +15,11 @@ namespace AtelierXNA
     public class GestionEnvironnement : Microsoft.Xna.Framework.DrawableGameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-        PlanTexturé Gauche { get; set; }
-        PlanTexturé Droite { get; set; }
-        PlanTexturé Dessus { get; set; }
-        PlanTexturé Dessous { get; set; }
-        PlanTexturé Avant { get; set; }
-        PlanTexturé Arrière { get; set; }
+       
         ObjetDeBase Table { get; set; }
-        ObjetDeBase Etabli { get; set; }
         ObjetDeBase Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
         string NomEnvironnement { get; set; }
-        EnvironnementDeBase THEenvironnement { get; set; }
         Personnage personnagePrincipal { get; set; }
 
         List<ObjetDeBase> VerresJoueur { get; set; }
@@ -44,7 +37,6 @@ namespace AtelierXNA
         ObjetDeBase VerreAdversaire4 { get; set; }
         ObjetDeBase VerreAdversaire5 { get; set; }
         ObjetDeBase VerreAdversaire6 { get; set; }
-        ObjetDeBase Urinoir { get; set; }
 
         public GestionEnvironnement(Game game, string nomEnvironnement)
             : base(game)
@@ -68,17 +60,19 @@ namespace AtelierXNA
          * Centre du monsieur : a terre, au milieu
          */
         {
+            
             //Instanciation et ajout dans components de caméra
             Vector3 positionCaméra = new Vector3(0, 1.25f, 2f);
             Vector3 cibleCaméra = new Vector3(0, 1f, 0);
             CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
             Game.Components.Add(CaméraJeu);
             Game.Services.AddService(typeof(Caméra), CaméraJeu);
+            InstancierEnvironnement();
 
             //Instanciation objets
             Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f+0.02f, 0));
-            Etabli = new ObjetDeBase(Game, "etabli", "etabli", 1, new Vector3(0, MathHelper.Pi, 0), new Vector3(2.75f, -0.35f, -0.5f));
+            
             personnagePrincipal = new Personnage(this.Game);
 
             VerresJoueur = new List<ObjetDeBase>();
@@ -109,19 +103,14 @@ namespace AtelierXNA
             VerresAdversaire.Add(VerreAdversaire5);
             VerresAdversaire.Add(VerreAdversaire6);
 
-            Urinoir = new ObjetDeBase(Game, "urinoir", "urinoir", 1, new Vector3(0, MathHelper.PiOver2, -MathHelper.PiOver2), new Vector3(-3.5f, 0.5f, 0));
-            Game.Components.Add(Urinoir);
 
             
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Table);
             Game.Components.Add(Balle);
-            Game.Components.Add(Etabli);
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
-
-            InstancierEnvironnement();
             base.Initialize();
         }
         void AjouterVerresJoueur()
@@ -142,13 +131,13 @@ namespace AtelierXNA
         {
             switch (NomEnvironnement)
             {
-                case "condo":
-                    THEenvironnement = new EnvironnementGarage(Game, "gauche", "droite", "plafond", "plancher", "avant", "arriere");
+                case "Garage":
+                    EnvironnementGarage Garage = new EnvironnementGarage(Game, "BriquesGrises_COLOR", "BriquesGrises_COLOR", "BriquesGrises_COLOR", "plancherGarage", "BriquesGrises_COLOR", "BriquesGrises_COLOR");
+                    Game.Components.Add(Garage);
                     break;
                 default:
                     throw new Exception();
             }
-            Game.Components.Add(THEenvironnement);
         }
 
         protected override void LoadContent()

@@ -125,7 +125,6 @@
     <Compile Include="Outils\Caméra.cs" />
     <Compile Include="Outils\CaméraFixe.cs" />
     <Compile Include="Outils\CaméraSubjective.cs" />
-    <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
     <Compile Include="GestionnaireDeRéseau.cs" />

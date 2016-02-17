@@ -26,7 +26,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            EnvironnementPartie = new GestionEnvironnement(this.Game,"condo");
+            EnvironnementPartie = new GestionEnvironnement(this.Game,"Garage");
             ath = new ATH(Game);
             base.Initialize();
         }
