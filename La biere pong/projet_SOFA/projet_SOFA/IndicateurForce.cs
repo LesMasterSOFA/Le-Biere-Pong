@@ -13,8 +13,9 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {
 
-    public class IndicateurForce : ATH, IActivable
+    public class IndicateurForce : DrawableGameComponent, IActivable
     {
+        AffichageInfoLancer affInfo { get; set; }
         Vector2 Résolution { get; set; }
         Vector2 PositionFond { get; set; }
         Rectangle GrandeurFond { get; set; }
@@ -49,24 +50,27 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
+            estActifBarre = true;
+
             Résolution = new Vector2(Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
+            int x=(int)(Résolution.X / 4.0404f);
 
             PositionFond = new Vector2(Résolution.X / 26.667f, Résolution.Y - Résolution.Y / 6.8571f);
-            int x=(int)(Résolution.X / 4.0404f);
             GrandeurFond = new Rectangle((int)PositionFond.X, (int)PositionFond.Y,x ,x/4);
-
             PositionMilieu = PositionFond.X + GrandeurFond.Width / 2;
-            estActifBarre = true;
             VitesseBarre = GrandeurFond.X/5000f;
+
             GrandeurBarre = new Rectangle(0, 0, 5, GrandeurFond.Height);
             AnciennePositionBarre = new Vector2(0, 0);
             PositionBarreIndication = new Vector2(PositionFond.X + GrandeurFond.Width / 2, PositionFond.Y);
+
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             GestionFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
             GestionTextures = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
             BarreIndicatrice = GestionTextures.Find("BarreIndicationForce");
             ImageFondIndicateurForce = GestionTextures.Find("FondIndicateurForce");
+
             base.Initialize();
         }
 
@@ -82,8 +86,13 @@ namespace AtelierXNA
                 }
                 if (GestionInput.EstEnfoncée(Keys.Space))
                 {
+                    if (Game.Components.Contains(affInfo))
+                    {
+                        Game.Components.Remove(affInfo);
+                    }
                     estActifBarre = false;
-                    Game.Components.Add(new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X)));
+                    affInfo = new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X));
+                    Game.Components.Add(affInfo);
                     //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
                 }
             }
@@ -104,14 +113,13 @@ namespace AtelierXNA
         }
         int DéterminerForce(float postionEnX)
         {
-            float différence = PositionMilieu-postionEnX;
-            différence = Math.Abs(différence);
+            float différence = Math.Abs(PositionMilieu-postionEnX);
             float taux = (PositionMilieu-différence)/PositionMilieu * 100;
             return (int)taux;
         }
         public void ModifierActivation()
         {
-            estActifBarre = !estActifBarre;
+            estActifBarre = false;
         }
 
     }
