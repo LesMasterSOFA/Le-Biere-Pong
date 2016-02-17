@@ -245,6 +245,35 @@
       <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\superBoy_0.xml</Output>
       <Time>2016-02-15T14:44:07.1998897-05:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\urinoir.png</Source>
+      <Name>Textures\urinoir</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\urinoir.xnb</Output>
+      <Time>2016-02-16T23:01:07.0249053-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\urinoir.fbx</Source>
+      <Name>Models\urinoir</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\urinoir.xnb</Output>
+      <Time>2016-02-16T23:31:52.6694376-05:00</Time>
+      <Dependency>
+        <Key>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\urinoir_0.xml</Key>
+        <Value>2016-02-16T23:31:54.9095483-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\urinoir.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\urinoir_0.xml</Output>
+      <Time>2016-02-16T23:31:52.6694376-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{6895CAA9-AA34-4A9B-8233-2B7A511DA402}</ContentProjectGUID>

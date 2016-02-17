@@ -19,3 +19,5 @@ Content\Textures\table_plastique.xnb
 Content\Textures\verre_tex.xnb
 Content\Models\verre.xnb
 Content\Models\superBoy.xnb
+Content\Textures\urinoir.xnb
+Content\Models\urinoir.xnb

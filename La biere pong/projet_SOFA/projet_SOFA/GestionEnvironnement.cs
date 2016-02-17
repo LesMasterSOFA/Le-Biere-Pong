@@ -43,7 +43,7 @@ namespace AtelierXNA
         ObjetDeBase VerreAdversaire4 { get; set; }
         ObjetDeBase VerreAdversaire5 { get; set; }
         ObjetDeBase VerreAdversaire6 { get; set; }
-
+        ObjetDeBase Urinoir { get; set; }
 
         public GestionEnvironnement(Game game, string nomEnvironnement)
             : base(game)
@@ -106,7 +106,10 @@ namespace AtelierXNA
             VerresAdversaire.Add(VerreAdversaire4);
             VerresAdversaire.Add(VerreAdversaire5);
             VerresAdversaire.Add(VerreAdversaire6);
-            
+
+            Urinoir = new ObjetDeBase(Game, "urinoir", "urinoir", 1, new Vector3(0, MathHelper.PiOver2, -MathHelper.PiOver2), new Vector3(-3.5f, 0.5f, 0));
+            Game.Components.Add(Urinoir);
+
             
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Table);
