@@ -22,6 +22,7 @@ namespace AtelierXNA
         PlanTexturé Avant { get; set; }
         PlanTexturé Arrière { get; set; }
         ObjetDeBase Table { get; set; }
+        ObjetDeBase Etabli { get; set; }
         ObjetDeBase Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
         string NomEnvironnement { get; set; }
@@ -77,6 +78,7 @@ namespace AtelierXNA
             //Instanciation objets
             Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f+0.02f, 0));
+            Etabli = new ObjetDeBase(Game, "etabli", "etabli", 1, new Vector3(0, MathHelper.Pi, 0), new Vector3(2.75f, -0.35f, -0.5f));
             personnagePrincipal = new Personnage(this.Game);
 
             VerresJoueur = new List<ObjetDeBase>();
@@ -114,6 +116,7 @@ namespace AtelierXNA
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Table);
             Game.Components.Add(Balle);
+            Game.Components.Add(Etabli);
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
