@@ -15,8 +15,9 @@ namespace AtelierXNA
    public class EnvironnementDeBase : Microsoft.Xna.Framework.GameComponent
    {      
        const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-       const int DIMENSION_TERRAIN = 300;
-       Vector2 étenduePlan = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
+       const int DIMENSION_TERRAIN = 7;
+       Vector2 étenduePlanMur = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN-4);
+       Vector2 étenduePlanPlafond = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
        Vector2 charpentePlan = new Vector2(4, 3);
        PlanTexturé Gauche { get; set; }
        PlanTexturé Droite { get; set; }
@@ -45,12 +46,15 @@ namespace AtelierXNA
 
        public override void Initialize()
        {
-           Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3(-DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, NomGauche, INTERVALLE_MAJ_STANDARD);
-           Droite = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3(DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2, 0), étenduePlan, charpentePlan, NomDroite, INTERVALLE_MAJ_STANDARD);
-           Plafond = new PlanTexturé(Game, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN, 0), étenduePlan, charpentePlan, NomPlanfond, INTERVALLE_MAJ_STANDARD);
-           Plancher = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlan, charpentePlan, NomPlancher, INTERVALLE_MAJ_STANDARD);
-           Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, DIMENSION_TERRAIN / 2, -DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, NomAvant, INTERVALLE_MAJ_STANDARD);
-           Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, DIMENSION_TERRAIN / 2, DIMENSION_TERRAIN / 2), étenduePlan, charpentePlan, NomArrière, INTERVALLE_MAJ_STANDARD);
+
+           Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3((float)-DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN - 4) / 2, 0), étenduePlanMur, charpentePlan, "BriquesGrises_COLOR", INTERVALLE_MAJ_STANDARD);
+           Droite = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3((float)DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN-4) / 2, 0), étenduePlanMur, charpentePlan, "BriquesGrises_COLOR", INTERVALLE_MAJ_STANDARD);
+           Plafond = new PlanTexturé(Game, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN-4, 0), étenduePlanPlafond, charpentePlan, "BriquesGrises_COLOR", INTERVALLE_MAJ_STANDARD);
+           Plancher = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlanPlafond, charpentePlan, NomPlancher, INTERVALLE_MAJ_STANDARD);
+           Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, (float)(DIMENSION_TERRAIN-4) / 2, (float)-DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, "BriquesGrises_COLOR", INTERVALLE_MAJ_STANDARD);
+           Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, (float)(DIMENSION_TERRAIN-4) / 2, (float)DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, "BriquesGrises_COLOR", INTERVALLE_MAJ_STANDARD);
+
+           
 
            Game.Components.Add(Gauche);
            Game.Components.Add(Droite);
@@ -61,7 +65,6 @@ namespace AtelierXNA
 
            base.Initialize();
        }
-
        public override void Update(GameTime gameTime)
        {
            base.Update(gameTime);

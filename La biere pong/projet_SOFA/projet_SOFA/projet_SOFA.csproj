@@ -60,10 +60,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caméra, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\Caméra.dll</HintPath>
-    </Reference>
     <Reference Include="ClavierEtSouris">
       <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\ClavierEtSouris.dll</HintPath>
     </Reference>
@@ -100,11 +96,9 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="OutilsXNA">
-      <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.dll</HintPath>
-    </Reference>
-    <Reference Include="Primitives">
-      <HintPath>..\..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\Primitives.dll</HintPath>
+    <Reference Include="OutilsXNA, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -123,10 +117,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AffichageInfoLancer.cs" />
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
-    <Compile Include="BoutonDeCommande.cs" />
+    <Compile Include="Outils\BoutonDeCommande.cs" />
     <Compile Include="CalculsPhysique.cs" />
+    <Compile Include="Outils\Caméra.cs" />
+    <Compile Include="Outils\CaméraFixe.cs" />
+    <Compile Include="Outils\CaméraSubjective.cs" />
     <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
@@ -134,29 +132,29 @@
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
-    <Compile Include="IActivable.cs" />
+    <Compile Include="Outils\IActivable.cs" />
     <Compile Include="IndicateurForce.cs" />
-    <Compile Include="Jeu.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Mode1v1LAN.cs" />
     <Compile Include="Mode1v1Local.cs" />
     <Compile Include="ModeHistoire.cs" />
     <Compile Include="ModePratique.cs" />
-    <Compile Include="Modèle.cs" />
-    <Compile Include="ObjetDeBase.cs" />
+    <Compile Include="Outils\ObjetDeBase.cs" />
     <Compile Include="Partie.cs" />
     <Compile Include="PartieMultijoueur.cs" />
     <Compile Include="PartieSolo.cs" />
     <Compile Include="Personnage.cs" />
-    <Compile Include="PlanColoré.cs" />
-    <Compile Include="PlanTexturé.cs" />
+    <Compile Include="Outils\Plan.cs" />
+    <Compile Include="Outils\PlanColoré.cs" />
+    <Compile Include="Outils\PlanTexturé.cs" />
+    <Compile Include="Outils\PrimitiveDeBase.cs" />
+    <Compile Include="Outils\PrimitiveDeBaseAnimée.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="RectangleColoré.cs" />
+    <Compile Include="Outils\RectangleColoré.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Caméra.dll" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
