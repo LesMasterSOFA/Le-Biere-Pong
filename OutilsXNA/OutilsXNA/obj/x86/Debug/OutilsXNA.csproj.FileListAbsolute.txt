@@ -7,3 +7,8 @@ B:\Desktop\OutilsXNA\OutilsXNA\bin\x86\Debug\GestionDesRessources.dll
 B:\Desktop\OutilsXNA\OutilsXNA\bin\x86\Debug\Primitives.dll
 B:\Desktop\OutilsXNA\OutilsXNA\obj\x86\Debug\OutilsXNA.dll
 B:\Desktop\OutilsXNA\OutilsXNA\obj\x86\Debug\OutilsXNA.pdb
+B:\Desktop\Le-Biere-Pong\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.dll
+B:\Desktop\Le-Biere-Pong\OutilsXNA\OutilsXNA\bin\x86\Debug\OutilsXNA.pdb
+B:\Desktop\Le-Biere-Pong\OutilsXNA\OutilsXNA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+B:\Desktop\Le-Biere-Pong\OutilsXNA\OutilsXNA\obj\x86\Debug\OutilsXNA.dll
+B:\Desktop\Le-Biere-Pong\OutilsXNA\OutilsXNA\obj\x86\Debug\OutilsXNA.pdb

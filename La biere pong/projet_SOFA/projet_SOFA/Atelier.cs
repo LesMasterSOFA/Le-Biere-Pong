@@ -33,7 +33,7 @@ namespace AtelierXNA
          Content.RootDirectory = "Content";
          PériphériqueGraphique.SynchronizeWithVerticalRetrace = false;
          Résolution = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
-         PériphériqueGraphique.PreferMultiSampling = true;
+         PériphériqueGraphique.PreferMultiSampling = false;
          PériphériqueGraphique.PreferredBackBufferWidth = (int)Résolution.X;
          PériphériqueGraphique.PreferredBackBufferHeight = (int)Résolution.Y;
          //PériphériqueGraphique.IsFullScreen = true;
