@@ -1,6 +1,6 @@
 F:\École\programmation\La biere pong\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
 F:\École\programmation\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
 C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
 C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
 B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Debug\projet_SOFAContent.contentprojResolveAssemblyReference.cache

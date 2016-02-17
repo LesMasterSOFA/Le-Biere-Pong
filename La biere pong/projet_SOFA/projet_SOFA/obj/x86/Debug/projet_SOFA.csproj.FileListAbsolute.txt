@@ -116,4 +116,3 @@ C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois2.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\balle.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Caméra.dll
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.pdb

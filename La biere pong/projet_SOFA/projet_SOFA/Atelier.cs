@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Lidgren.Network;
 
 namespace AtelierXNA
 {
@@ -17,7 +18,7 @@ namespace AtelierXNA
       const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
       GraphicsDeviceManager PériphériqueGraphique { get; set; }
       SpriteBatch GestionSprites { get; set; }
-
+      NetClient Client;
       RessourcesManager<SpriteFont> GestionnaireDeFonts { get; set; }
       RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
