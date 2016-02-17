@@ -14,6 +14,7 @@ namespace AtelierXNA
       const float DELTA_ROULIS = MathHelper.Pi / 180; // 1 degré à la fois
       const float RAYON_COLLISION = 1f;
 
+      
       Vector3 Direction { get; set; }
       Vector3 Latéral { get; set; }
       float VitesseTranslation { get; set; }

@@ -85,12 +85,10 @@ namespace AtelierXNA
 
         void ActionLancer()
         {
-            indicateurForce = new IndicateurForce(Game);
-            Game.Components.Add(indicateurForce);
+            Game.Components.Add(new IndicateurForce(Game));
         }
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
         }
     }

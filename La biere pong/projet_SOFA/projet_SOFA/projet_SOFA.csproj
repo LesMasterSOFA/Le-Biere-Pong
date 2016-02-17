@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AffichageInfoLancer.cs" />
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
     <Compile Include="Outils\BoutonDeCommande.cs" />

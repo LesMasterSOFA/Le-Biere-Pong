@@ -13,10 +13,9 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {
 
-    public class IndicateurForce : Microsoft.Xna.Framework.DrawableGameComponent,IActivable
+    public class IndicateurForce : ATH, IActivable
     {
         Vector2 Résolution { get; set; }
-        int Force { get; set; }
         Vector2 PositionFond { get; set; }
         Rectangle GrandeurFond { get; set; }
         Texture2D ImageFondIndicateurForce { get; set; }
@@ -57,7 +56,6 @@ namespace AtelierXNA
             GrandeurFond = new Rectangle((int)PositionFond.X, (int)PositionFond.Y,x ,x/4);
 
             PositionMilieu = PositionFond.X + GrandeurFond.Width / 2;
-            Force = 0;
             estActifBarre = true;
             VitesseBarre = GrandeurFond.X/5000f;
             GrandeurBarre = new Rectangle(0, 0, 5, GrandeurFond.Height);
@@ -85,7 +83,7 @@ namespace AtelierXNA
                 if (GestionInput.EstEnfoncée(Keys.Space))
                 {
                     estActifBarre = false;
-                    Force = DéterminerForce(PositionBarreIndication.X);
+                    Game.Components.Add(new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X)));
                     //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
                 }
             }
@@ -97,7 +95,6 @@ namespace AtelierXNA
             GestionSprites.Begin();
             GestionSprites.Draw(ImageFondIndicateurForce, GrandeurFond, Color.White);
             GestionSprites.Draw(BarreIndicatrice,PositionBarreIndication, GrandeurBarre, Color.Black);
-            GestionSprites.DrawString(GestionFont.Find("Impact20"), "Force : "+Force.ToString(), Vector2.Zero, Color.Black);
             GestionSprites.End();
             base.Draw(gameTime);
         }
