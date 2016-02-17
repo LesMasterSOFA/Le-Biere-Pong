@@ -14,10 +14,6 @@ namespace AtelierXNA
 {
     class NetworkServer : Microsoft.Xna.Framework.GameComponent
     {
-        //Énumération contentant les différents types de packets,
-        //pouvant être ensuite converti en byte ce qui permet de déterminer ce qu'il faut faire avec tel ou tel packet
-        enum PacketTypes { LOGIN, MOVE, WORLDSTATE }
-
         // Server object
         static NetServer Serveur;
         // Configuration object
@@ -44,7 +40,7 @@ namespace AtelierXNA
         void Create(string nomJeu, int port)
         {
             Config = new NetPeerConfiguration(NomJeu);
-            Config.Port = 5011;
+            Config.Port = Port;
             Config.MaximumConnections = 2;
             Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             Serveur = new NetServer(Config);

@@ -89,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\texture_obj.xnb</Output>
-      <Time>2016-02-17T08:39:53.2736112-05:00</Time>
+      <Time>2016-02-17T10:56:54.999284-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\tablebois.png</Source>
@@ -107,7 +107,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\blanc.xnb</Output>
-      <Time>2016-02-17T08:39:53.2726105-05:00</Time>
+      <Time>2016-02-17T10:56:54.9982836-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\noir.jpg</Source>
@@ -125,10 +125,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\TOON.xnb</Output>
-      <Time>2016-02-17T08:39:53.2596013-05:00</Time>
+      <Time>2016-02-17T10:56:54.9852744-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\TOON_0.xml</Key>
-        <Value>2016-02-17T08:59:31.0165836-05:00</Value>
+        <Value>2016-02-17T10:58:04.6057057-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -138,10 +138,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois.xnb</Output>
-      <Time>2016-02-17T08:39:53.2686097-05:00</Time>
+      <Time>2016-02-17T10:56:54.9942812-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\tablebois_0.xml</Key>
-        <Value>2016-02-17T08:59:31.1286637-05:00</Value>
+        <Value>2016-02-17T10:58:04.7693221-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -151,10 +151,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\tablebois2.xnb</Output>
-      <Time>2016-02-17T08:39:53.2716098-05:00</Time>
+      <Time>2016-02-17T10:56:54.9972841-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\tablebois2_0.xml</Key>
-        <Value>2016-02-17T08:59:31.1666903-05:00</Value>
+        <Value>2016-02-17T10:58:04.829865-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -164,10 +164,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\balle.xnb</Output>
-      <Time>2016-02-17T08:39:53.2656052-05:00</Time>
+      <Time>2016-02-17T10:56:54.9912779-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\balle_0.xml</Key>
-        <Value>2016-02-17T08:59:31.519942-05:00</Value>
+        <Value>2016-02-17T10:58:05.3892624-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -175,28 +175,28 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\TOON_0.xml</Output>
-      <Time>2016-02-17T08:39:53.2596013-05:00</Time>
+      <Time>2016-02-17T10:56:54.9852744-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tablebois.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\tablebois_0.xml</Output>
-      <Time>2016-02-17T08:39:53.2686097-05:00</Time>
+      <Time>2016-02-17T10:56:54.9942812-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tablebois2.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\tablebois2_0.xml</Output>
-      <Time>2016-02-17T08:39:53.2716098-05:00</Time>
+      <Time>2016-02-17T10:56:54.9972841-05:00</Time>
     </Item>
     <Item>
       <Source>Models\balle.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\balle_0.xml</Output>
-      <Time>2016-02-17T08:39:53.2656052-05:00</Time>
+      <Time>2016-02-17T10:56:54.9912779-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
