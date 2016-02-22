@@ -134,7 +134,7 @@ namespace AtelierXNA
             switch (NomEnvironnement)
             {
                 case "Garage":
-                    EnvironnementGarage Garage = new EnvironnementGarage(Game, "BriquesGrises_COLOR", "BriquesGrises_COLOR", "BriquesGrises_COLOR", "plancherGarage", "BriquesGrises_COLOR", "BriquesGrises_COLOR");
+                    EnvironnementGarage Garage = new EnvironnementGarage(Game, "GaucheGarage", "DroiteGarage", "PlafondGarage", "PlancherGaragee", "AvantGarage", "ArriereGarage");
                     Game.Components.Add(Garage);
                     break;
                 default:
