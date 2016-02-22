@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    public abstract class Partie : Microsoft.Xna.Framework.DrawableGameComponent, IActivable
+    public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
     {
         protected GestionEnvironnement gestionnaireEnvironnement { get; set; }
         protected Joueur JoueurPrincipal { get; set;}
