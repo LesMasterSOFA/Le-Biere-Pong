@@ -146,11 +146,17 @@ namespace AtelierXNA
             Game.Components.Add(new Mode1v1Local(Game));
         }
 
+        //void PartirMode1v1LAN()
+        //{
+        //    Game.Components.Remove(this);
+        //    EnleverBoutonsExistants();
+        //    Game.Components.Add(new Mode1v1LAN(Game));
+        //}
         void PartirMode1v1LAN()
         {
             Game.Components.Remove(this);
             EnleverBoutonsExistants();
-            Game.Components.Add(new Mode1v1LAN(Game));
+            Game.Components.Add(new NetworkManager(this.Game));
         }
 
         void AjouterNouveauxBoutons()
