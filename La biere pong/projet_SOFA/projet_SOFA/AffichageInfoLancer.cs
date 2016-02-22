@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    public class AffichageInfoLancer : ATH
+    public class AffichageInfoLancer : DrawableGameComponent
     {
         Caméra CaméraJeu { get; set; }
 
