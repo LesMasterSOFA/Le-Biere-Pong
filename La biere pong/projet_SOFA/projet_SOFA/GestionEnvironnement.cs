@@ -12,14 +12,16 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    public class GestionEnvironnement : Microsoft.Xna.Framework.DrawableGameComponent
+    public enum Environnements {Garage} //À ajouter les environnement dedans
+
+    public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
        
         ObjetDeBase Table { get; set; }
         ObjetDeBase Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
-        string NomEnvironnement { get; set; }
+        Environnements NomEnvironnement { get; set; }
         Personnage personnagePrincipal { get; set; }
 
         List<ObjetDeBase> VerresJoueur { get; set; }
@@ -38,7 +40,7 @@ namespace AtelierXNA
         ObjetDeBase VerreAdversaire5 { get; set; }
         ObjetDeBase VerreAdversaire6 { get; set; }
 
-        public GestionEnvironnement(Game game, string nomEnvironnement)
+        public GestionEnvironnement(Game game, Environnements nomEnvironnement)
             : base(game)
         {
             NomEnvironnement = nomEnvironnement;
@@ -111,7 +113,6 @@ namespace AtelierXNA
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
-            base.Initialize();
         }
         void AjouterVerresJoueur()
         {
@@ -133,28 +134,14 @@ namespace AtelierXNA
         {
             switch (NomEnvironnement)
             {
-                case "Garage":
+                case Environnements.Garage :
                     EnvironnementGarage Garage = new EnvironnementGarage(Game, "GaucheGarage", "DroiteGarage", "PlafondGarage", "PlancherGaragee", "AvantGarage", "ArriereGarage");
                     Game.Components.Add(Garage);
                     break;
                 default:
                     throw new Exception();
             }
-        }
 
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
         }
     }
 }

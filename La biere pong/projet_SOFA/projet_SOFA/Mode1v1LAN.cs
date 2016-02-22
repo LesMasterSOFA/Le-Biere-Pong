@@ -383,28 +383,28 @@ namespace AtelierXNA
 
         #endregion
 
-        public override void Draw(GameTime gameTime)
-        {
-            if (networkSession != null)
-            {
-                //If the session is not null, we're either 
-                //in the lobby or playing the game...
-                // Draw the Lobby
+        //public override void Draw(GameTime gameTime)
+        //{
+        //    if (networkSession != null)
+        //    {
+        //        //If the session is not null, we're either 
+        //        //in the lobby or playing the game...
+        //        // Draw the Lobby
 
-                if (networkSession.SessionState == NetworkSessionState.Lobby)
-                    DrawLobby();
-            }
-            else if (availableSessions != null)
-            {
-                // Show the available session...
-                DrawAvailableSessions();
-            }
-            else
-            {
-                DessinerMenuAccueilLan();
-            }
+        //        if (networkSession.SessionState == NetworkSessionState.Lobby)
+        //            DrawLobby();
+        //    }
+        //    else if (availableSessions != null)
+        //    {
+        //        // Show the available session...
+        //        DrawAvailableSessions();
+        //    }
+        //    else
+        //    {
+        //        DessinerMenuAccueilLan();
+        //    }
 
-            //base.Draw(gameTime);
-        }
+        //    //base.Draw(gameTime);
+        //}
     }
 }

@@ -26,7 +26,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            EnvironnementPartie = new GestionEnvironnement(this.Game,"Garage");
+            EnvironnementPartie = new GestionEnvironnement(this.Game,Environnements.Garage);
             ath = new ATH(Game);
             base.Initialize();
         }
@@ -45,10 +45,6 @@ namespace AtelierXNA
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
-        {
-            base.Draw(gameTime);
-        }
 
         void MenuSélectionPersonnage()
         {
