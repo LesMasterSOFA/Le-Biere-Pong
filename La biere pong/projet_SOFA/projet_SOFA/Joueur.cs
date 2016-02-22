@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Lidgren.Network;
 
 
 namespace AtelierXNA
@@ -20,12 +21,12 @@ namespace AtelierXNA
         //List<GameComponent> ListeComponentsJoueurPartie { get; set; } //liste des objets du jeu //GestionPartie s'en occupe ? 
         GestionPartie GestionnaireDeLaPartie { get; set; }
         InputManager GestionnaireInput { get; set; }
-        string IP { get; set; }
+        public NetConnection IP { get; private set; } 
         bool EstActif { get; set; }
         Viewport ÉcranDeJeu; //Défini s'il est sur l'écran totale ou une partie
-
+   
         //Constructeur normal
-        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string ip, string gamerTag)
+        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag)
             : base(game)
         {
             Avatar = avatar;
@@ -40,7 +41,7 @@ namespace AtelierXNA
         }
 
         //Temporaire en attendant que personnage soit créé
-        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string ip, string gamerTag)
+        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag)
             : base(game)
         {
             //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
@@ -61,6 +62,12 @@ namespace AtelierXNA
             EstActif = true; //active le joueur
         }
 
+        //Temporaire
+        public Joueur(Game game, NetConnection ip)
+            :base(game)
+        {
+            IP = ip;
+        }
 
         public override void Initialize()
         {
