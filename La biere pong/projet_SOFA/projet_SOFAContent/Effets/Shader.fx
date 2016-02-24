@@ -2,7 +2,7 @@ float4x4 WorldMatrix;
 float4x4 ViewMatrix;
 float4x4 ProjectionMatrix;
 
-float4 AmbienceColor = float4(0.05f, 0.05f, 0.05f, 1.0f);
+float4 AmbienceColor = float4(0.03f, 0.03f, 0.03f, 1.0f);
 
 // For Diffuse Lightning
 float4x4 WorldInverseTransposeMatrix;
