@@ -18,8 +18,8 @@ namespace AtelierXNA
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
        
-        ObjetDeBase Table { get; set; }
-        ObjetDeBase Balle { get; set; }
+        ObjetCollision Table { get; set; }
+        BallePhysique Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
         Environnements NomEnvironnement { get; set; }
         Personnage personnagePrincipal { get; set; }
@@ -72,8 +72,9 @@ namespace AtelierXNA
             InstancierEnvironnement();
 
             //Instanciation objets
-            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-            Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f+0.02f, 0));
+            Table = new ObjetCollision(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+            Game.Components.Add(Table);
+            Balle = new BallePhysique(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4f, 0, MathHelper.PiOver4, Table.SphèreCollison, INTERVALLE_MAJ_STANDARD);
             
             personnagePrincipal = new Personnage(this.Game);
 
@@ -108,7 +109,6 @@ namespace AtelierXNA
 
             
             //Ajout des objets dans la liste de Components
-            Game.Components.Add(Table);
             Game.Components.Add(Balle);
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
