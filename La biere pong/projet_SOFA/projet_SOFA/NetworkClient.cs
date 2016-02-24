@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    class NetworkClient : Microsoft.Xna.Framework.GameComponent
+    public class NetworkClient : Microsoft.Xna.Framework.GameComponent
     {
         //Objet Client
         static NetClient Client;
@@ -53,7 +53,7 @@ namespace AtelierXNA
 
             //Crée la configuration du client -> doit avoir le même nom que le serveur
             NetPeerConfiguration Config = new NetPeerConfiguration(NomJeu);
-            Config.Port = Port;
+            //Config.Port = Port;
             Client = new NetClient(Config);
             Client.Start();
             Temps = DateTime.Now;
@@ -83,6 +83,7 @@ namespace AtelierXNA
         }
 
         //Attente du message de connection pour instancier les joueurs
+        //Problème ici -> reçois des mauvais messages
         private void AttenteConnectionServeur()
         {
             //Détermine si le client peut démarer

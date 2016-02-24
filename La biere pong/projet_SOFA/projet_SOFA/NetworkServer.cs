@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    class NetworkServer : Microsoft.Xna.Framework.GameComponent
+    public class NetworkServer : Microsoft.Xna.Framework.GameComponent
     {
         // Server object
         static NetServer Serveur;
