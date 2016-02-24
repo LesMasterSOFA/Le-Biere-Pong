@@ -50,7 +50,7 @@ namespace AtelierXNA
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
-         GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
+         GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effets"); 
          GestionInput = new InputManager(this);
 
          Components.Add(new Menu(this));
