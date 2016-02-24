@@ -71,8 +71,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            GestionnaireInput = new InputManager(this.Game);
-
+            GestionnaireInput = Game.Services.GetService(typeof(InputManager))as InputManager;
             base.Initialize();
         }
 
@@ -85,12 +84,6 @@ namespace AtelierXNA
         public void ModifierActivation()
         {
             EstActif = !EstActif;
-        }
-
-        //Probablement pas ici, le joueur ne devrait pas être drawable
-        public void Draw()
-        {
-
         }
     }
 }

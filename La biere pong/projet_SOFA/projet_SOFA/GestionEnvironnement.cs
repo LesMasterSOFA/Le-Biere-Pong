@@ -24,21 +24,21 @@ namespace AtelierXNA
         Environnements NomEnvironnement { get; set; }
         Personnage personnagePrincipal { get; set; }
 
-        List<ObjetDeBase> VerresJoueur { get; set; }
-        ObjetDeBase VerreJoueur1 { get; set; }
-        ObjetDeBase VerreJoueur2 { get; set; }
-        ObjetDeBase VerreJoueur3 { get; set; }
-        ObjetDeBase VerreJoueur4 { get; set; }
-        ObjetDeBase VerreJoueur5 { get; set; }
-        ObjetDeBase VerreJoueur6 { get; set; }
+        List<Verre> VerresJoueur { get; set; }
+        Verre VerreJoueur1 { get; set; }
+        Verre VerreJoueur2 { get; set; }
+        Verre VerreJoueur3 { get; set; }
+        Verre VerreJoueur4 { get; set; }
+        Verre VerreJoueur5 { get; set; }
+        Verre VerreJoueur6 { get; set; }
 
-        List<ObjetDeBase> VerresAdversaire { get; set; }
-        ObjetDeBase VerreAdversaire1 { get; set; }
-        ObjetDeBase VerreAdversaire2 { get; set; }
-        ObjetDeBase VerreAdversaire3 { get; set; }
-        ObjetDeBase VerreAdversaire4 { get; set; }
-        ObjetDeBase VerreAdversaire5 { get; set; }
-        ObjetDeBase VerreAdversaire6 { get; set; }
+        List<Verre> VerresAdversaire { get; set; }
+        Verre VerreAdversaire1 { get; set; }
+        Verre VerreAdversaire2 { get; set; }
+        Verre VerreAdversaire3 { get; set; }
+        Verre VerreAdversaire4 { get; set; }
+        Verre VerreAdversaire5 { get; set; }
+        Verre VerreAdversaire6 { get; set; }
 
         public GestionEnvironnement(Game game, Environnements nomEnvironnement)
             : base(game)
@@ -77,13 +77,13 @@ namespace AtelierXNA
             
             personnagePrincipal = new Personnage(this.Game);
 
-            VerresJoueur = new List<ObjetDeBase>();
-            VerreJoueur1 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f));
-            VerreJoueur2 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f, 0.74f, 0.8f));
-            VerreJoueur3 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f, 0.74f, 0.8f));
-            VerreJoueur4 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            VerreJoueur5 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            VerreJoueur6 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerresJoueur = new List<Verre>();
+            VerreJoueur1 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f));
+            VerreJoueur2 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f, 0.74f, 0.8f));
+            VerreJoueur3 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f, 0.74f, 0.8f));
+            VerreJoueur4 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerreJoueur5 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerreJoueur6 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerresJoueur.Add(VerreJoueur1);
             VerresJoueur.Add(VerreJoueur2);
             VerresJoueur.Add(VerreJoueur3);
@@ -91,13 +91,13 @@ namespace AtelierXNA
             VerresJoueur.Add(VerreJoueur5);
             VerresJoueur.Add(VerreJoueur6);
 
-            VerresAdversaire = new List<ObjetDeBase>();
-            VerreAdversaire1 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f));
-            VerreAdversaire2 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f, 0.74f, -0.8f));
-            VerreAdversaire3 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f, 0.74f, -0.8f));
-            VerreAdversaire4 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            VerreAdversaire5 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            VerreAdversaire6 = new ObjetDeBase(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerresAdversaire = new List<Verre>();
+            VerreAdversaire1 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f));
+            VerreAdversaire2 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f, 0.74f, -0.8f));
+            VerreAdversaire3 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f, 0.74f, -0.8f));
+            VerreAdversaire4 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerreAdversaire5 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            VerreAdversaire6 = new Verre(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerresAdversaire.Add(VerreAdversaire1);
             VerresAdversaire.Add(VerreAdversaire2);
             VerresAdversaire.Add(VerreAdversaire3);

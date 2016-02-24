@@ -12,37 +12,56 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class GestionÉvénements : Microsoft.Xna.Framework.GameComponent
+    static public class GestionÉvénements
     {
-        public GestionÉvénements(Game game)
+        static Game Jeu { get; set; }
+        static Random randGen { get; set; }
+        static Verre VerreCible { get; set; }
+        static bool EstBalleDansVerre { get; set; }
+        static bool EstBalleRebond { get; set; }
+        static bool EstTrickShot { get; set; }
+        static List<Verre> ListeVerres { get; set; }
+        static public GestionÉvénements(Game game)
             : base(game)
         {
-            // TODO: Construct any child components here
+            Jeu = game;
+            VerreCible = null;
+            EstBalleDansVerre = false;
+            EstBalleRebond = false;
+            EstTrickShot = false;
+            ListeVerres = new List<Verre>();
+            foreach (Verre verre in Jeu.Components)
+            {
+                ListeVerres.Add(verre);
+            }
+        }
+        static public GestionÉvénements(Game game,Verre verreCible, bool estBalleRebond,bool estTrickShot)
+            : base(game)
+        {
+            Jeu = game;
+            VerreCible = verreCible;
+            EstBalleDansVerre = true;
+            EstBalleRebond = estBalleRebond;
+            EstTrickShot = estTrickShot
+            ListeVerres = new List<Verre>();
+            foreach(Verre verre in Jeu.Components)
+            {
+                ListeVerres.Add(verre);
+            }
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize()
+        //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
+
+        static void VérifierLancer()
         {
-            // TODO: Add your initialization code here
-
-            base.Initialize();
-        }
-
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public override void Update(GameTime gameTime)
-        {
-            // TODO: Add your update code here
-
-            base.Update(gameTime);
+            if (EstBalleDansVerre)
+            {
+                ListeVerres.Remove(VerreCible);
+                if (EstBalleRebond)
+                {
+                    ListeVerres.Remove(ListeVerres[randGen.Next(ListeVerres.Count)]);
+                }
+            }
         }
     }
 }
