@@ -29,7 +29,10 @@ namespace AtelierXNA
             : base(game)
         {
             Serveur = new NetworkServer(Game, NOM_JEU, PORT);
-            ListeClients.Add(new NetworkClient(Game, NOM_JEU, PORT, "Joueur1"));
+            Game.Components.Add(Serveur);
+            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
+            ListeClients.Add(client);
+            Game.Components.Add(client);
         }
 
         public override void Initialize()

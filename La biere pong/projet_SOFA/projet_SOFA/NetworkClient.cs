@@ -31,18 +31,18 @@ namespace AtelierXNA
         NetOutgoingMessage MessageOut { get; set; } //message sortant
         string NomJoueur { get; set; }
         TimeSpan IntervalleRafraichissement { get; set; }
+        NetworkServer Serveur { get; set; }
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
             NomJoueur = nomJoueur;
+            Serveur = serveur;
             Create(NomJeu, Port);
             Connect();
             ListeJoueurs = new List<Joueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
-
-
         }
 
         void Create(string nomJeu, int port)
@@ -92,6 +92,10 @@ namespace AtelierXNA
             //Loop tant que le client ne peut pas démarrer
             while (!PeutPartir)
             {
+                //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
+                //tant que nous serons dans cette fonction 
+                Serveur.UpdateServeur();
+
                 //Regarde si un nouveau message est arrivé
                 if ((MessageInc = Client.ReadMessage()) != null)
                 {
@@ -105,7 +109,7 @@ namespace AtelierXNA
                             if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                             {
                                 //Reste à implanter quoi faire -> début ici 
-                                WorldStateUpdate();
+                                //WorldStateUpdate();
 
                                 //Après que tous les joueurs sont instanciés, on peut partir le jeu
                                 PeutPartir = true;
@@ -147,7 +151,8 @@ namespace AtelierXNA
             Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
-            ListeJoueurs.Clear();
+            if(ListeJoueurs != null)
+                ListeJoueurs.Clear();
 
             // Declare count
             int NbDeJoueurs = 0;
@@ -178,7 +183,8 @@ namespace AtelierXNA
                 {
                     if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                     {
-                        WorldStateUpdate();
+                        //Reste à implanter quoi faire
+                        //WorldStateUpdate();
                     }
                 }
             }
