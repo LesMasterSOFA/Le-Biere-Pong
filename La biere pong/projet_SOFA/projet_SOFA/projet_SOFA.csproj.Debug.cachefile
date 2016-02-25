@@ -1,3 +1,5 @@
+Content\Fonts\Impact20.xnb
+Content\Fonts\Impact40.xnb
 Content\Textures\BeerPong.xnb
 Content\Textures\BoutonBackBleu.xnb
 Content\Textures\BoutonBackBleuPale.xnb
@@ -5,8 +7,6 @@ Content\Textures\BoutonBleu.xnb
 Content\Textures\BoutonBleuPale.xnb
 Content\Textures\BarreIndicationForce.xnb
 Content\Textures\FondIndicateurForce.xnb
-Content\Fonts\Impact20.xnb
-Content\Fonts\Impact40.xnb
 Content\Textures\tablebois.xnb
 Content\Textures\couleur_Balle.xnb
 Content\Textures\BriquesGrises_COLOR.xnb
@@ -30,3 +30,4 @@ Content\Models\superBoy.xnb
 Content\Models\verre.xnb
 Content\Models\urinoir.xnb
 Content\Models\etabli.xnb
+Content\Effets\Shader.xnb

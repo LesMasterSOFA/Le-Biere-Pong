@@ -70,8 +70,8 @@ namespace AtelierXNA
        }
        void InitialiserModèles()
        {
-           Etabli = new ObjetDeBase(Game, "etabli", "etabli", 1, new Vector3(0, MathHelper.Pi, 0), new Vector3(2.75f, -0.35f, 2.5f));
-           Urinoir = new ObjetDeBase(Game, "urinoir", "urinoir", 1, new Vector3(0, MathHelper.PiOver2, -MathHelper.PiOver2), new Vector3(-3.5f, 0.5f, 0));
+           Etabli = new ObjetDeBase(Game, "etabli", "etabli","Shader", 1, new Vector3(0, MathHelper.Pi, 0), new Vector3(2.75f, -0.35f, 2.5f));
+           Urinoir = new ObjetDeBase(Game, "urinoir", "urinoir","Shader", 1, new Vector3(0, MathHelper.PiOver2, -MathHelper.PiOver2), new Vector3(-3.5f, 0.5f, 0));
            Game.Components.Add(Etabli);
            Game.Components.Add(Urinoir);
            
