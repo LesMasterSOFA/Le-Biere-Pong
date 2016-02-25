@@ -219,7 +219,10 @@
     <Compile Include="Mode1v1Local.cs" />
     <Compile Include="ModeHistoire.cs" />
     <Compile Include="ModePratique.cs" />
+    <Compile Include="Outils\InputManager.cs" />
     <Compile Include="Outils\ObjetDeBase.cs" />
+    <Compile Include="Outils\RessourceDeBase.cs" />
+    <Compile Include="Outils\RessourcesManager.cs" />
     <Compile Include="Partie.cs" />
     <Compile Include="PartieMultijoueur.cs" />
     <Compile Include="PartieSolo.cs" />
