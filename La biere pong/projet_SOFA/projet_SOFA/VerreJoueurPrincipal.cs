@@ -15,10 +15,10 @@ namespace AtelierXNA
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class Verre : ObjetDeBase
+    public class VerreJoueurPrincipal : ObjetDeBase
     {
-        public Verre(Game game,string nomModèle,string nomTexture,string nomEffet,float échelleInitiale, Vector3 rotationInitiale,Vector3 positionInitiale)
-            : base(game,nomModèle,nomTexture,nomEffet,échelleInitiale,rotationInitiale,positionInitiale)
+        public VerreJoueurPrincipal(Game game, string nomModèle, string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
+            : base(game, nomModèle, nomTexture, nomEffet, échelleInitiale, rotationInitiale, positionInitiale)
         {
             // TODO: Construct any child components here
         }

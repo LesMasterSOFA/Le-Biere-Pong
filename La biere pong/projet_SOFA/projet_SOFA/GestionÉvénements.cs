@@ -14,52 +14,43 @@ namespace AtelierXNA
 {
     static public class GestionÉvénements
     {
-        static Game Jeu { get; set; }
         static Random randGen { get; set; }
-        static Verre VerreCible { get; set; }
-        static bool EstBalleDansVerre { get; set; }
-        static bool EstBalleRebond { get; set; }
-        static bool EstTrickShot { get; set; }
-        static List<Verre> ListeVerres { get; set; }
-        static public GestionÉvénements(Game game)
-            : base(game)
+        static List<VerreJoueurPrincipal> ListeVerresJoueur { get; set; }
+        static List<VerreAdversaire> ListeVerresAdversaire { get; set; }
+        static GestionÉvénements()
         {
-            Jeu = game;
-            VerreCible = null;
-            EstBalleDansVerre = false;
-            EstBalleRebond = false;
-            EstTrickShot = false;
-            ListeVerres = new List<Verre>();
-            foreach (Verre verre in Jeu.Components)
-            {
-                ListeVerres.Add(verre);
-            }
-        }
-        static public GestionÉvénements(Game game,Verre verreCible, bool estBalleRebond,bool estTrickShot)
-            : base(game)
-        {
-            Jeu = game;
-            VerreCible = verreCible;
-            EstBalleDansVerre = true;
-            EstBalleRebond = estBalleRebond;
-            EstTrickShot = estTrickShot
-            ListeVerres = new List<Verre>();
-            foreach(Verre verre in Jeu.Components)
-            {
-                ListeVerres.Add(verre);
-            }
         }
 
         //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
 
-        static void VérifierLancer()
+        static void VérifierLancerAdversaire(Game game, VerreJoueurPrincipal verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
         {
-            if (EstBalleDansVerre)
+            randGen = new Random();
+            foreach (VerreJoueurPrincipal verre in game.Components)
             {
-                ListeVerres.Remove(VerreCible);
-                if (EstBalleRebond)
+                ListeVerresJoueur.Add(verre);
+            }
+            EnleverVerres<VerreJoueurPrincipal>(ListeVerresJoueur,game, verreCible, estBalleDansVerre, estBalleRebond, estTrickShot);
+        }
+        static void EnleverVerres<T>(List<T> listeDeVerres,Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
+        {
+            if (estBalleDansVerre)
+            {
+                listeDeVerres.Remove(verreCible);
+                if (estBalleRebond)
                 {
-                    ListeVerres.Remove(ListeVerres[randGen.Next(ListeVerres.Count)]);
+                    listeDeVerres.Remove(listeDeVerres[randGen.Next(listeDeVerres.Count)]);
+                }
+                if (estTrickShot)
+                {
+                    listeDeVerres.Remove(listeDeVerres[randGen.Next(listeDeVerres.Count)]);
+                }
+            }
+            foreach (T verre in listeDeVerres)
+            {
+                if (jeu.Components.Contains(verre) && !listeDeVerres.Contains(verre))
+                {
+                    jeu.Components.Remove(verre);
                 }
             }
         }
