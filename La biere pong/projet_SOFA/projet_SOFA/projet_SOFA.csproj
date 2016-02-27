@@ -201,7 +201,6 @@
     <Compile Include="NetworkClient.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkServer.cs" />
-    <Compile Include="ObjetCollision.cs" />
     <Compile Include="Outils\BoutonDeCommande.cs" />
     <Compile Include="CalculsPhysique.cs" />
     <Compile Include="Outils\Caméra.cs" />

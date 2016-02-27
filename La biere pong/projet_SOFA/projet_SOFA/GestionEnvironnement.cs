@@ -17,8 +17,8 @@ namespace AtelierXNA
     public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-       
-        ObjetCollision Table { get; set; }
+
+        ObjetDeBase Table { get; set; }
         BallePhysique Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
         Environnements NomEnvironnement { get; set; }
@@ -64,7 +64,7 @@ namespace AtelierXNA
         {
             
             //Instanciation et ajout dans components de caméra
-            Vector3 positionCaméra = new Vector3(0, 1.25f, 2f);
+            Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
             Vector3 cibleCaméra = new Vector3(0, 1f, 0);
             CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
             Game.Components.Add(CaméraJeu);
@@ -72,9 +72,9 @@ namespace AtelierXNA
             InstancierEnvironnement();
 
             //Instanciation objets
-            Table = new ObjetCollision(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-            Game.Components.Add(Table);
-            Balle = new BallePhysique(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4f, 0, MathHelper.PiOver4, Table.SphèreCollison, INTERVALLE_MAJ_STANDARD);
+            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+            BoundingBox boundingTable = new BoundingBox(new Vector3(-0.76f / 2, 0, -1.83f / 2), new Vector3(0.76f / 2, 0.755f, 1.83f / 2));
+            Balle = new BallePhysique(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4f, 0, MathHelper.PiOver4, boundingTable, INTERVALLE_MAJ_STANDARD);
             
             personnagePrincipal = new Personnage(this.Game);
 
@@ -110,6 +110,7 @@ namespace AtelierXNA
             
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Balle);
+            Game.Components.Add(Table);
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components

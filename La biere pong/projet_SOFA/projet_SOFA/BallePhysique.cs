@@ -30,10 +30,10 @@ namespace AtelierXNA
       Vector3 Déplacement { get; set; }
       float AngleHorizontal { get; set; }
       float AngleVertical { get; set; }
-      BoundingSphere[] TabSphèreCollision { get; set; }
+      BoundingBox BoundingTable { get; set; }
 
       public BallePhysique(Game jeu, string nomModèle, string nomTexture, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
-           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingSphere[] tabSphèreCollision, float intervalleMAJ)
+           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, float intervalleMAJ)
          : base(jeu,nomModèle,nomTexture,échelleInitiale,rotationInitiale,positionInitiale)
       {
          PositionInitiale = positionInitiale;
@@ -41,7 +41,7 @@ namespace AtelierXNA
          VitesseInitiale = vitesseInitiale;
          AngleHorizontal = angleHorizontal;
          AngleVertical = angleVertical;
-         TabSphèreCollision = tabSphèreCollision;
+         BoundingTable = boundingTable;
          IntervalleMAJ = intervalleMAJ;
       }
 
@@ -72,20 +72,12 @@ namespace AtelierXNA
 
       void EffectuerDéplacement()
       {
-
-         for (int i = 0; i < TabSphèreCollision.Count(); i++)
+         if (SphèreCollision.Intersects(BoundingTable))
          {
-            if (SphèreCollision.Intersects(TabSphèreCollision[i]))
-            {
-               Position = Position;
-            }
+            PositionInitiale = Position;
+            VitesseEnY = CONSTANTE_RESTITUTION_TABLE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+            TempsTotal = 0.01f;
          }
-         //if (SphèreCollision.Intersects(new BoundingBox(new Vector3(-0.76f / 2, 0, -1.83f / 2), new Vector3(0.76f / 2, 0.755f, 1.83f / 2))))
-         //{
-         //   PositionInitiale = Position;
-         //   VitesseEnY = CONSTANTE_RESTITUTION_TABLE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
-         //   TempsTotal = 0.01f;
-         //}
          Position = new Vector3(PositionInitiale.X + VitesseEnX * TempsTotal,
                                    PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
                                    PositionInitiale.Z - VitesseEnZ * TempsTotal);
