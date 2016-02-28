@@ -123,7 +123,6 @@
     <Compile Include="AffichageInfoLancer.cs" />
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
-    <Compile Include="BallePhysique.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetCryptoProviderBase.cs" />
@@ -201,7 +200,6 @@
     <Compile Include="NetworkClient.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkServer.cs" />
-    <Compile Include="ObjetCollision.cs" />
     <Compile Include="Outils\BoutonDeCommande.cs" />
     <Compile Include="CalculsPhysique.cs" />
     <Compile Include="Outils\Caméra.cs" />
