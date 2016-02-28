@@ -134,8 +134,6 @@
     <Compile Include="Lidgren Fichiers\Encryption\NetTripleDESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetXorEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetXteaEncryption.cs" />
-    <Compile Include="Lidgren Fichiers\ExempleConnection\EssaieClient.cs" />
-    <Compile Include="Lidgren Fichiers\ExempleConnection\EssaieServeur.cs" />
     <Compile Include="Lidgren Fichiers\Network\NamespaceDoc.cs" />
     <Compile Include="Lidgren Fichiers\Network\NetBigInteger.cs" />
     <Compile Include="Lidgren Fichiers\Network\NetBitVector.cs" />
