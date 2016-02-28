@@ -112,7 +112,8 @@ namespace AtelierXNA
                 //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
                 //tant que nous serons dans cette fonction 
                 //Doit avoir une condition pour faire sur que le serveur n'est pas partie
-                Serveur.UpdateServeur();
+                if(Serveur != null)
+                    Serveur.UpdateServeur();
 
                 //Regarde si un nouveau message est arrivé
                 if ((MessageInc = Client.ReadMessage()) != null)
