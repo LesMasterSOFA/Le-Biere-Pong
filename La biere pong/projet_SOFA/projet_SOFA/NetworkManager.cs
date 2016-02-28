@@ -15,7 +15,7 @@ namespace AtelierXNA
 {
     //Énumération contentant les différents types de packets,
     //pouvant être ensuite converti en byte ce qui permet de déterminer ce qu'il faut faire avec tel ou tel packet
-    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE }
+//public enum PacketTypes { LOGIN, MOVE, WORLDSTATE }
 
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {
@@ -28,52 +28,23 @@ namespace AtelierXNA
         public NetworkManager(Game game)
             : base(game)
         {
-
-        }
-
-        void CréerServeur()
-        {
             Serveur = new NetworkServer(Game, NOM_JEU, PORT);
             Game.Components.Add(Serveur);
-        }
-
-        void CréerClient()
-        {
             NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
             ListeClients.Add(client);
             Game.Components.Add(client);
         }
 
-        void CréerClient(string nomJoueur)
+        public override void Initialize()
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
+
+            base.Initialize();
         }
 
-        void CréerClientLocal()
+        public override void Update(GameTime gameTime)
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
-        }
 
-        void CréerClientLocal(string nomJoueur)
-        {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, nomJoueur, Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
-        }
-
-        public void RejoindrePartie(string nomJoueur)
-        {
-            CréerClient(nomJoueur);
-        }
-
-        public void HébergerPartie()
-        {
-            CréerServeur();
-            CréerClientLocal();
+            base.Update(gameTime);
         }
     }
 }

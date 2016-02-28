@@ -45,28 +45,11 @@ namespace AtelierXNA
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
-        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur)
-            : base(jeu)
-        {
-            NomJeu = nomJeu;
-            HostIP = adresse;
-            Port = port;
-            NomJoueur = nomJoueur;
-            Serveur = serveur;
-            Create(NomJeu, Port);
-            Connect();
-            ListeJoueurs = new List<Joueur>();
-            IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
-        }
-
         void Create(string nomJeu, int port)
         {
-            // Demande l'ip si aucune adresse a été fournie
-            if (HostIP == null)
-            {
-                Console.WriteLine("Enter IP To Connect");
-                HostIP = Console.ReadLine();
-            }
+            // Demande l'ip
+            Console.WriteLine("Enter IP To Connect");
+            HostIP = Console.ReadLine();
 
             //Crée la configuration du client -> doit avoir le même nom que le serveur
             NetPeerConfiguration Config = new NetPeerConfiguration(NomJeu);
@@ -111,7 +94,6 @@ namespace AtelierXNA
             {
                 //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
                 //tant que nous serons dans cette fonction 
-                //Doit avoir une condition pour faire sur que le serveur n'est pas partie
                 Serveur.UpdateServeur();
 
                 //Regarde si un nouveau message est arrivé
