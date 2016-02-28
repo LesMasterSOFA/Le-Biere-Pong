@@ -1,0 +1,4 @@
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\projet_SOFA.csprojResolveAssemblyReference.cache
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.exe
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.pdb
