@@ -8,7 +8,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact20.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.0771314-05:00</Time>
     </Item>
     <Item>
       <Source>Fonts\Impact40.spritefont</Source>
@@ -17,7 +17,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact40.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.0771314-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BeerPong.jpg</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BeerPong.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.262142-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BoutonBackBleu.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleu.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.262142-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BoutonBackBleuPale.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBackBleuPale.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2631421-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BoutonBleu.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBleu.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2631421-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BoutonBleuPale.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BoutonBleuPale.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2631421-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BarreIndicationForce.png</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BarreIndicationForce.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.262142-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\FondIndicateurForce.png</Source>
@@ -80,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\FondIndicateurForce.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2721426-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\tablebois.png</Source>
@@ -89,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\tablebois.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3991498-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\couleur_Balle.png</Source>
@@ -98,7 +98,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\couleur_Balle.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3031443-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\BriquesGrises_COLOR.png</Source>
@@ -107,7 +107,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\BriquesGrises_COLOR.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2711425-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\superBoyTex.tga</Source>
@@ -116,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\superBoyTex.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3901493-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\noir.jpg</Source>
@@ -125,7 +125,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\noir.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3161451-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\table_plastique.tga</Source>
@@ -134,7 +134,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\table_plastique.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3901493-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\verre_tex.tga</Source>
@@ -143,7 +143,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\verre_tex.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.4001499-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\urinoir.png</Source>
@@ -152,7 +152,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\urinoir.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.4001499-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\etabli.png</Source>
@@ -161,7 +161,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\etabli.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.3111448-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\plancherGarage.jpg</Source>
@@ -170,7 +170,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plancherGarage.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.385149-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\ArriereGarage.png</Source>
@@ -179,7 +179,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\ArriereGarage.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2601419-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\AvantGarage.png</Source>
@@ -188,7 +188,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\AvantGarage.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2611419-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\DroiteGarage.png</Source>
@@ -197,7 +197,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\DroiteGarage.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2721426-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\GaucheGarage.png</Source>
@@ -206,7 +206,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\GaucheGarage.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2721426-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\PlafondGarage.png</Source>
@@ -215,7 +215,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\PlafondGarage.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2721426-05:00</Time>
     </Item>
     <Item>
       <Source>Textures\PlancherGaragee.jpg</Source>
@@ -224,7 +224,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\PlancherGaragee.xnb</Output>
-      <Time>2016-02-24T10:00:04-05:00</Time>
+      <Time>2016-02-27T23:44:49.2781429-05:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>
@@ -233,10 +233,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\mur.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2161394-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\mur_0.xml</Key>
-        <Value>2016-02-27T23:33:11.7962492-05:00</Value>
+        <Value>2016-02-27T23:47:49.3284412-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -246,10 +246,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\balle.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.1241341-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\balle_0.xml</Key>
-        <Value>2016-02-27T23:33:12.3022782-05:00</Value>
+        <Value>2016-02-27T23:47:49.8334701-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -259,10 +259,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\table_plastique.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.22714-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\table_plastique_0.xml</Key>
-        <Value>2016-02-27T23:33:12.4612873-05:00</Value>
+        <Value>2016-02-27T23:47:49.989479-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -272,10 +272,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoy.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2221397-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoy_0.xml</Key>
-        <Value>2016-02-27T23:33:12.6212964-05:00</Value>
+        <Value>2016-02-27T23:47:50.1494882-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -285,10 +285,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\verre.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2591418-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\verre_0.xml</Key>
-        <Value>2016-02-27T23:33:13.2123302-05:00</Value>
+        <Value>2016-02-27T23:47:50.7425221-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -298,10 +298,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\urinoir.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2411408-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\urinoir_0.xml</Key>
-        <Value>2016-02-27T23:33:13.5503496-05:00</Value>
+        <Value>2016-02-27T23:47:51.0805414-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -311,10 +311,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\etabli.xnb</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.1291344-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\etabli_0.xml</Key>
-        <Value>2016-02-27T23:33:13.6083529-05:00</Value>
+        <Value>2016-02-27T23:47:51.1385447-05:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -322,49 +322,49 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\mur_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2161394-05:00</Time>
     </Item>
     <Item>
       <Source>Models\balle.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\balle_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.1241341-05:00</Time>
     </Item>
     <Item>
       <Source>Models\table_plastique.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\table_plastique_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.22714-05:00</Time>
     </Item>
     <Item>
       <Source>Models\superBoy.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\superBoy_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2221397-05:00</Time>
     </Item>
     <Item>
       <Source>Models\verre.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\verre_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2591418-05:00</Time>
     </Item>
     <Item>
       <Source>Models\urinoir.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\urinoir_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.2411408-05:00</Time>
     </Item>
     <Item>
       <Source>Models\etabli.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\etabli_0.xml</Output>
-      <Time>2016-02-24T10:00:02-05:00</Time>
+      <Time>2016-02-27T23:44:49.1291344-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

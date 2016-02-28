@@ -79,23 +79,34 @@ namespace AtelierXNA
 
         void Connect()
         {
-            //Création nouveau message sortant
-            MessageOut = Client.CreateMessage();
-            //Écrit le type de message à envoyer à partir de l'énumération
-            MessageOut.Write((byte)PacketTypes.LOGIN);
-            //Écrit le nom du joueur
-            MessageOut.Write(NomJoueur);
-            //Connecte le client au serveur 
-            Client.Connect(HostIP, Port, MessageOut);
+            try
+            {
+                //Création nouveau message sortant
+                MessageOut = Client.CreateMessage();
+                //Écrit le type de message à envoyer à partir de l'énumération
+                MessageOut.Write((byte)PacketTypes.LOGIN);
+                //Écrit le nom du joueur
+                MessageOut.Write(NomJoueur);
+                //Connecte le client au serveur 
+                Client.Connect(HostIP, Port, MessageOut);
 
-            Temps = DateTime.Now;
-            Console.WriteLine("Connection du client envoyée à " +Temps);
+                Temps = DateTime.Now;
+                Console.WriteLine("Connection du client envoyée à " + Temps);
 
-            //Fonction attendant l'approbation de connection du serveur
-            AttenteConnectionServeur();
+                //Fonction attendant l'approbation de connection du serveur
+                AttenteConnectionServeur();
 
-            Console.WriteLine("Connection bien reçu du serveur à " + Temps);
-            EstEnMarche = true;
+                Console.WriteLine("Connection bien reçu du serveur à " + Temps);
+                EstEnMarche = true;
+            }
+
+            //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
+            //Probablement revoir la structure
+            catch(Exception)
+            { 
+                Console.WriteLine("Exception client");
+                throw new Exception(); //Envoie de l'exception vers network manager
+            }
 
         }
 
@@ -105,7 +116,7 @@ namespace AtelierXNA
         {
             //Détermine si le client peut démarer
             bool PeutPartir = false;
-            
+
             //Loop tant que le client ne peut pas démarrer
             while (!PeutPartir)
             {
@@ -134,10 +145,16 @@ namespace AtelierXNA
                                 PeutPartir = true;
                             }
                             break;
+                            
+                        case NetIncomingMessageType.StatusChanged:
+                            if(MessageInc.ReadString() == "=Failed")
+                                throw new NetworkNotAvailableException("La connection a échouée");
+                            break;
 
                         default:
                             //ne devrait pas arriver, envoie un message d'erreur
-                            Console.WriteLine(MessageInc.ReadString() + " Message reçu non géré");
+                            string messageRecu = MessageInc.ReadString();
+                            Console.WriteLine( messageRecu + " Message reçu non géré");
                             break;
                     }
                 }

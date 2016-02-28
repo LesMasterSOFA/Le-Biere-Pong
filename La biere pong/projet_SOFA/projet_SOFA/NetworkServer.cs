@@ -39,14 +39,25 @@ namespace AtelierXNA
 
         void Create(string nomJeu, int port)
         {
-            Config = new NetPeerConfiguration(NomJeu);
-            Config.Port = Port;
-            Config.MaximumConnections = 2;
-            Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            Serveur = new NetServer(Config);
-            Serveur.Start();
-            Temps = DateTime.Now;
-            Console.WriteLine("Server Started" + Temps.ToString());
+            try
+            {
+                Config = new NetPeerConfiguration(NomJeu);
+                Config.Port = Port;
+                Config.MaximumConnections = 2;
+                Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+                Serveur = new NetServer(Config);
+                Serveur.Start();
+                Temps = DateTime.Now;
+                Console.WriteLine("Server Started" + Temps.ToString());
+            }
+
+            //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
+            //Probablement revoir la structure
+            catch(Exception)
+            {
+                Console.WriteLine("Exception Serveur");
+                throw new Exception(""); //Envoie de l'exception vers network manager
+            }
         }
 
         //Fonction pouvant être appelée de l'extérieur de façon à updater le serveur tout le temps
