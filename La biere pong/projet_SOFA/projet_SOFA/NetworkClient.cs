@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    class NetworkClient : Microsoft.Xna.Framework.GameComponent
+    public class NetworkClient : Microsoft.Xna.Framework.GameComponent
     {
         //Objet Client
         static NetClient Client;
@@ -31,29 +31,46 @@ namespace AtelierXNA
         NetOutgoingMessage MessageOut { get; set; } //message sortant
         string NomJoueur { get; set; }
         TimeSpan IntervalleRafraichissement { get; set; }
+        NetworkServer Serveur { get; set; }
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
             NomJoueur = nomJoueur;
+            Serveur = serveur;
             Create(NomJeu, Port);
             Connect();
             ListeJoueurs = new List<Joueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
+        }
 
-
+        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur)
+            : base(jeu)
+        {
+            NomJeu = nomJeu;
+            HostIP = adresse;
+            Port = port;
+            NomJoueur = nomJoueur;
+            Serveur = serveur;
+            Create(NomJeu, Port);
+            Connect();
+            ListeJoueurs = new List<Joueur>();
+            IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
         void Create(string nomJeu, int port)
         {
-            // Demande l'ip
-            Console.WriteLine("Enter IP To Connect");
-            HostIP = Console.ReadLine();
+            // Demande l'ip si aucune adresse a été fournie
+            if (HostIP == null)
+            {
+                Console.WriteLine("Enter IP To Connect");
+                HostIP = Console.ReadLine();
+            }
 
             //Crée la configuration du client -> doit avoir le même nom que le serveur
             NetPeerConfiguration Config = new NetPeerConfiguration(NomJeu);
-            Config.Port = Port;
+            //Config.Port = Port;
             Client = new NetClient(Config);
             Client.Start();
             Temps = DateTime.Now;
@@ -83,6 +100,7 @@ namespace AtelierXNA
         }
 
         //Attente du message de connection pour instancier les joueurs
+        //Problème ici -> reçois des mauvais messages
         private void AttenteConnectionServeur()
         {
             //Détermine si le client peut démarer
@@ -91,6 +109,12 @@ namespace AtelierXNA
             //Loop tant que le client ne peut pas démarrer
             while (!PeutPartir)
             {
+                //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
+                //tant que nous serons dans cette fonction 
+                //Doit avoir une condition pour faire sur que le serveur n'est pas partie
+                if(Serveur != null)
+                    Serveur.UpdateServeur();
+
                 //Regarde si un nouveau message est arrivé
                 if ((MessageInc = Client.ReadMessage()) != null)
                 {
@@ -104,7 +128,7 @@ namespace AtelierXNA
                             if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                             {
                                 //Reste à implanter quoi faire -> début ici 
-                                WorldStateUpdate();
+                                //WorldStateUpdate();
 
                                 //Après que tous les joueurs sont instanciés, on peut partir le jeu
                                 PeutPartir = true;
@@ -146,7 +170,8 @@ namespace AtelierXNA
             Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
-            ListeJoueurs.Clear();
+            if(ListeJoueurs != null)
+                ListeJoueurs.Clear();
 
             // Declare count
             int NbDeJoueurs = 0;
@@ -177,7 +202,8 @@ namespace AtelierXNA
                 {
                     if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                     {
-                        WorldStateUpdate();
+                        //Reste à implanter quoi faire
+                        //WorldStateUpdate();
                     }
                 }
             }

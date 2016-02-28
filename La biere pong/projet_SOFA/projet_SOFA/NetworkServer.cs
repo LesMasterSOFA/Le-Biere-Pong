@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    class NetworkServer : Microsoft.Xna.Framework.GameComponent
+    public class NetworkServer : Microsoft.Xna.Framework.GameComponent
     {
         // Server object
         static NetServer Serveur;
@@ -49,7 +49,8 @@ namespace AtelierXNA
             Console.WriteLine("Server Started" + Temps.ToString());
         }
 
-        public override void Update(GameTime gameTime)
+        //Fonction pouvant être appelée de l'extérieur de façon à updater le serveur tout le temps
+        public void UpdateServeur()
         {
             if ((MessageInc = Serveur.ReadMessage()) != null)
             {
@@ -145,8 +146,6 @@ namespace AtelierXNA
                         break;
                 }
             }
-
-
             // Si l'intervalle de temps est passé
 
             if ((Temps + IntervalleRafraichissement) < DateTime.Now)
@@ -159,6 +158,11 @@ namespace AtelierXNA
                 //Update le temps
                 Temps = DateTime.Now;
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            UpdateServeur();
         }
 
             void EnvoieNouveauMessage()

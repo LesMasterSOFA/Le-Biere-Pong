@@ -1,0 +1,4 @@
+F:\École\programmation\graph\labo\Activité synthèse_XNA_3D\AS-3D-2015-ACompleter\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\AS-3D-2015Content.contentprojResolveAssemblyReference.cache
+E:\École\programmation\graph\labo\Activité synthèse_XNA_3D\AS-3D-2015-ACompleter\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\AS-3D-2015Content.contentprojResolveAssemblyReference.cache
+F:\École\programmation\graph\AS-3D-2015-ACompleter\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\AS-3D-2015Content.contentprojResolveAssemblyReference.cache
+F:\École\programmation\La biere pong\AS-3D-2015\AS-3D-2015Content\obj\x86\Debug\AS-3D-2015Content.contentprojResolveAssemblyReference.cache

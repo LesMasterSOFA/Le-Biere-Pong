@@ -91,38 +91,27 @@ namespace AtelierXNA
             BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsJouer);
             Bouton1v1Local = new BoutonDeCommande(Game, "Local", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, PartirMode1v1Local);//fct événementielle -> Partir 1v1 local
             Bouton1v1LAN = new BoutonDeCommande(Game, "LAN", "Impact20", "BoutonBleu", "BoutonBleuPale",
-                                                  new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, PartirMode1v1LAN);
+                                                  new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, BoutonsLAN);
             ListeBoutonsCommandeMenu.Add(BoutonBack);
             ListeBoutonsCommandeMenu.Add(Bouton1v1Local);
             ListeBoutonsCommandeMenu.Add(Bouton1v1LAN);
             AjouterNouveauxBoutons();
         }
 
-        ////Pas utilisé pour l'instant
-        //void BoutonsLAN()
-        //{
-            
-        //    TexteTitre = "LAN";
-        //    EnleverBoutonsExistants();
-        //    BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsMultijoueur);
-        //    BoutonHéberger = new BoutonDeCommande(Game, "Héberger", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, null);//fct événementielle -> Partir host
-        //    BoutonRejoindre = new BoutonDeCommande(Game, "Rejoindre", "Impact20", "BoutonBleu", "BoutonBleuPale",
-        //                                          new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, MenuRéseau);//fct événementielle -> Partir join
-        //    ListeBoutonsCommandeMenu.Add(BoutonBack);
-        //    ListeBoutonsCommandeMenu.Add(BoutonHéberger);
-        //    ListeBoutonsCommandeMenu.Add(BoutonRejoindre);
-        //    AjouterNouveauxBoutons();
-        //}
-        //void MenuRéseau()
-        //{
-        //    TexteTitre = "";
-        //    EnleverBoutonsExistants();
-        //    Mode1v1LAN RéseauLocal = new Mode1v1LAN(Game);
-        //    BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsLAN);
-        //    Game.Components.Add(RéseauLocal);
-        //    ListeBoutonsCommandeMenu.Add(BoutonBack);
-        //    AjouterNouveauxBoutons();
-        //}
+        void BoutonsLAN()
+        {
+
+            TexteTitre = "LAN";
+            EnleverBoutonsExistants();
+            BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsMultijoueur);
+            BoutonHéberger = new BoutonDeCommande(Game, "Héberger", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, PartirMode1v1LAN);//fct événementielle -> Partir host
+            BoutonRejoindre = new BoutonDeCommande(Game, "Rejoindre", "Impact20", "BoutonBleu", "BoutonBleuPale",
+                                                  new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, RejoindreMode1v1LAN);//fct événementielle -> Partir join
+            ListeBoutonsCommandeMenu.Add(BoutonBack);
+            ListeBoutonsCommandeMenu.Add(BoutonHéberger);
+            ListeBoutonsCommandeMenu.Add(BoutonRejoindre);
+            AjouterNouveauxBoutons();
+        }
 
         //Manque la sélection de personnage, environnement, etc
         void PartirModeHistoire()
@@ -152,11 +141,25 @@ namespace AtelierXNA
         //    EnleverBoutonsExistants();
         //    Game.Components.Add(new Mode1v1LAN(Game));
         //}
+
         void PartirMode1v1LAN()
         {
             Game.Components.Remove(this);
             EnleverBoutonsExistants();
-            Game.Components.Add(new NetworkManager(this.Game));
+            NetworkManager gestionReseau = new NetworkManager(this.Game);
+            Game.Components.Add(gestionReseau);
+            gestionReseau.HébergerPartie();
+            //ServeurExemple.Démarrer();
+            //ClientExample.Démarrer(); 
+        }
+
+        void RejoindreMode1v1LAN()
+        {
+            Game.Components.Remove(this);
+            EnleverBoutonsExistants();
+            NetworkManager gestionReseau = new NetworkManager(this.Game);
+            Game.Components.Add(gestionReseau);
+            gestionReseau.RejoindrePartie("Joueur2");
         }
 
         void AjouterNouveauxBoutons()
