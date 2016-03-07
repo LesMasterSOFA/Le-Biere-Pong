@@ -15,15 +15,20 @@ namespace AtelierXNA
 
     public class ModePratique : PartieSolo
     {
+
+        float LargeurÉcran { get; set; }
+        float HauteurÉcran { get; set; }
         BoutonDeCommande BoutonJouer { get; set; }
         public ModePratique(Game game)
             : base(game)
         {
-            MenuSélectionPersonnage();
         }
 
         public override void Initialize()
         {
+            LargeurÉcran = Game.Window.ClientBounds.Width;
+            HauteurÉcran = Game.Window.ClientBounds.Height;
+            MenuSélectionPersonnage();
             EnvironnementPartie = new GestionEnvironnement(this.Game,Environnements.Garage);
             ath = new ATH(Game);
             base.Initialize();
@@ -45,8 +50,8 @@ namespace AtelierXNA
 
 
         void MenuSélectionPersonnage()
-        { 
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100,100), true, Activerpartie);
+        {
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(LargeurÉcran/2,HauteurÉcran/2), true, Activerpartie);
             Game.Components.Add(BoutonJouer);
         }
         void Activerpartie()
