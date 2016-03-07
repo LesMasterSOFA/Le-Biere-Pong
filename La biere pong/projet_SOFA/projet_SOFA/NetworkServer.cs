@@ -34,6 +34,7 @@ namespace AtelierXNA
             Create(NomJeu, Port);
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             Console.WriteLine("Waiting for new connections and updateing world state to current ones");
+            
             ListeJoueurs = new List<Joueur>();
         }
 
