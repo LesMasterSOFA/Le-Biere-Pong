@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>mesh68_002</Name>
     <Identity>
-      <SourceFilename>C:\Users\Francis\Documents\GitHub\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\urinoir.fbx</SourceFilename>
+      <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\urinoir.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1.91764E-09 0.025 -1.887448E-09 0 -0.0253999121 1.887448E-09 -0 0 0 1.887448E-09 0.025 0 2.38418579E-07 0 0 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material</Name>
       <Identity>
-        <SourceFilename>C:\Users\Francis\Documents\GitHub\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\urinoir.fbx</SourceFilename>
+        <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\urinoir.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
