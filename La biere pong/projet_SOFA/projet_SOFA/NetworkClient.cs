@@ -102,6 +102,21 @@ namespace AtelierXNA
 
             //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
             //Probablement revoir la structure
+            catch(NetworkNotAvailableException)
+            {
+                Console.WriteLine("La connection est invalide -> peut-être l'adresse est erronée?");
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
+            }
+            catch (NetException)
+            {
+                Console.WriteLine("Adresse éronnée");
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
+            }
+
             catch(Exception)
             { 
                 Console.WriteLine("Exception client");

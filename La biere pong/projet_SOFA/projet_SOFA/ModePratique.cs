@@ -15,8 +15,6 @@ namespace AtelierXNA
 
     public class ModePratique : PartieSolo
     {
-        ATH ath { get; set; }
-        GestionEnvironnement EnvironnementPartie { get; set; }
         BoutonDeCommande BoutonJouer { get; set; }
         public ModePratique(Game game)
             : base(game)
@@ -47,8 +45,7 @@ namespace AtelierXNA
 
 
         void MenuSélectionPersonnage()
-        {
-            
+        { 
             BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100,100), true, Activerpartie);
             Game.Components.Add(BoutonJouer);
         }
