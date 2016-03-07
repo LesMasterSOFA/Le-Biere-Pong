@@ -75,8 +75,8 @@ namespace AtelierXNA
             InstancierEnvironnement();
 
             //Instanciation objets
-            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-            Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f+0.02f, 0));
+            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+            Balle = new ObjetDeBase(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f + 0.02f, 0));
             
             personnagePrincipal = new Personnage(this.Game);
 
@@ -152,10 +152,10 @@ namespace AtelierXNA
         public override void Update(GameTime gameTime)
         {
             //pour essai
-            //if (GestionClavier.EstNouvelleTouche(Keys.Space))
-            //{
-            //    GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
-            //}
+            if (GestionClavier.EstNouvelleTouche(Keys.Space))
+            {
+                GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
+            }
             base.Update(gameTime);
         }
     }

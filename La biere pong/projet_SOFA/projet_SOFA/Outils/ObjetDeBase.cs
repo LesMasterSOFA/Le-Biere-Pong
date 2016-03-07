@@ -15,9 +15,11 @@ namespace AtelierXNA
     {
         string NomModèle { get; set; }
         string NomTexture { get; set; }
+        string NomEffet { get; set; }
 
         RessourcesManager<Model> GestionnaireDeModèles { get; set; }
         RessourcesManager<Texture2D> GestionTextures { get; set; }
+        RessourcesManager<Effect> GestionEffets { get; set; }
 
         Caméra CaméraJeu { get; set; }
 
@@ -33,10 +35,12 @@ namespace AtelierXNA
         protected Matrix[] TransformationsModèle { get; set; }
 
         protected Matrix Monde { get; set; }
+        Effect EffetShader { get; set; }
 
-        public ObjetDeBase(Game jeu, string nomModèle,string nomTexture, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
+        public ObjetDeBase(Game jeu, string nomModèle,string nomTexture,string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
             : base(jeu)
         {
+            NomEffet = nomEffet;
             NomModèle = nomModèle;
             NomTexture = nomTexture;
             Position = positionInitiale;
@@ -58,10 +62,12 @@ namespace AtelierXNA
             CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
             GestionnaireDeModèles = Game.Services.GetService(typeof(RessourcesManager<Model>)) as RessourcesManager<Model>;
             GestionTextures = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
+            GestionEffets = Game.Services.GetService(typeof(RessourcesManager<Effect>)) as RessourcesManager<Effect>;
             Modèle = GestionnaireDeModèles.Find(NomModèle);
             TextureModèle = GestionTextures.Find(NomTexture);
             TransformationsModèle = new Matrix[Modèle.Bones.Count];
             Modèle.CopyAbsoluteBoneTransformsTo(TransformationsModèle);
+            EffetShader = GestionEffets.Find(NomEffet);
             base.LoadContent();
         }
 
@@ -75,7 +81,13 @@ namespace AtelierXNA
                 Matrix mondeLocal = TransformationsModèle[modelMesh.ParentBone.Index] * GetMonde();
                 foreach (ModelMeshPart modelMeshPart in modelMesh.MeshParts)
                 {
-                    InitialiserEffet(mondeLocal, (BasicEffect)modelMeshPart.Effect);
+                    modelMeshPart.Effect = EffetShader;
+                    EffetShader.Parameters["WorldMatrix"].SetValue(mondeLocal);
+                    EffetShader.Parameters["ViewMatrix"].SetValue(CaméraJeu.Vue);
+                    EffetShader.Parameters["ProjectionMatrix"].SetValue(CaméraJeu.Projection);
+                    EffetShader.Parameters["WorldInverseTransposeMatrix"].SetValue(Matrix.Transpose(Matrix.Invert(mondeLocal)));
+                    EffetShader.Parameters["ModelTexture"].SetValue(TextureModèle);
+                    //InitialiserEffet(mondeLocal, (BasicEffect)modelMeshPart.Effect);
                 }
                 modelMesh.Draw();
             }
