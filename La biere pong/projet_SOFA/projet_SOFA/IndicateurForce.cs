@@ -39,7 +39,7 @@ namespace AtelierXNA
             }
             private set
             {
-                vitesse = ModifierVitesseBarre(value);
+                vitesse = value;
             }
         }
 
@@ -65,7 +65,6 @@ namespace AtelierXNA
             PositionBarreIndication = new Vector2(PositionFond.X + GrandeurFond.Width / 2, PositionFond.Y);
 
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
-            GestionFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
             GestionTextures = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
             BarreIndicatrice = GestionTextures.Find("BarreIndicationForce");
@@ -92,7 +91,9 @@ namespace AtelierXNA
                     }
                     estActifBarre = false;
                     affInfo = new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X));
-                    Game.Components.Add(affInfo);
+                    Game.Components.Add(affInfo);// Informations sur le lancer (force angle)
+                    Game.Components.Remove(this);// enleve la barre d'indication de force apres avoir peser sur Space
+
                     //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
                 }
             }
@@ -106,10 +107,6 @@ namespace AtelierXNA
             GestionSprites.Draw(BarreIndicatrice,PositionBarreIndication, GrandeurBarre, Color.Black);
             GestionSprites.End();
             base.Draw(gameTime);
-        }
-        float ModifierVitesseBarre(float nvVitesse)
-        {
-            return nvVitesse;
         }
         int DéterminerForce(float postionEnX)
         {
