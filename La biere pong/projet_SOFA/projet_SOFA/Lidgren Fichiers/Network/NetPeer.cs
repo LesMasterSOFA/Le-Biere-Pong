@@ -210,6 +210,7 @@ namespace AtelierXNA
 				if (retval.MessageType == NetIncomingMessageType.StatusChanged)
 				{
 					NetConnectionStatus status = (NetConnectionStatus)retval.PeekByte();
+                    Console.WriteLine(status.ToString());
 					retval.SenderConnection.m_visibleStatus = status;
 				}
 			}

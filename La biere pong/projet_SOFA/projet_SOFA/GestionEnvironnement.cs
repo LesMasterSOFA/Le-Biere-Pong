@@ -75,10 +75,11 @@ namespace AtelierXNA
             InstancierEnvironnement();
 
             //Instanciation objets
-            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique","Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-            Balle = new ObjetDeBase(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f + 0.02f, 0));
+            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+            Balle = new ObjetDeBase(Game, "balle","couleur_Balle", 1, new Vector3(0, 0, 0), new Vector3(0, 0.74f+0.02f, 0));
             
             personnagePrincipal = new Personnage(this.Game);
+
 
             VerresJoueur = new List<VerreJoueurPrincipal>();
             VerreJoueur1 = new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f));
@@ -87,6 +88,7 @@ namespace AtelierXNA
             VerreJoueur4 = new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerreJoueur5 = new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerreJoueur6 = new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+
             VerresJoueur.Add(VerreJoueur1);
             VerresJoueur.Add(VerreJoueur2);
             VerresJoueur.Add(VerreJoueur3);
@@ -101,6 +103,7 @@ namespace AtelierXNA
             VerreAdversaire4 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerreAdversaire5 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
             VerreAdversaire6 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+
             VerresAdversaire.Add(VerreAdversaire1);
             VerresAdversaire.Add(VerreAdversaire2);
             VerresAdversaire.Add(VerreAdversaire3);

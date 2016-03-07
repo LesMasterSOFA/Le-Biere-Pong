@@ -12,6 +12,9 @@ namespace AtelierXNA
         {
             using (Atelier game = new Atelier())
             {
+                //Cache la console étant donné que l'application est de type console
+                ConsoleWindow.HideConsoleWindow();
+                
                 game.Run();
             }
         }

@@ -28,20 +28,52 @@ namespace AtelierXNA
         public NetworkManager(Game game)
             : base(game)
         {
+            ConsoleWindow.ShowConsoleWindow();
+        }
+
+        void CréerServeur()
+        {
             Serveur = new NetworkServer(Game, NOM_JEU, PORT);
-            ListeClients.Add(new NetworkClient(Game, NOM_JEU, PORT, "Joueur1"));
+            Game.Components.Add(Serveur);
         }
 
-        public override void Initialize()
+        void CréerClient()
         {
-
-            base.Initialize();
+            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
+            ListeClients.Add(client);
+            Game.Components.Add(client);
         }
 
-        public override void Update(GameTime gameTime)
+        void CréerClient(string nomJoueur)
         {
+            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
+            ListeClients.Add(client);
+            Game.Components.Add(client);
+        }
 
-            base.Update(gameTime);
+        void CréerClientLocal()
+        {
+            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
+            ListeClients.Add(client);
+            Game.Components.Add(client);
+        }
+
+        void CréerClientLocal(string nomJoueur)
+        {
+            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, nomJoueur, Serveur);
+            ListeClients.Add(client);
+            Game.Components.Add(client);
+        }
+
+        public void RejoindrePartie(string nomJoueur)
+        {
+            CréerClient(nomJoueur);
+        }
+
+        public void HébergerPartie()
+        {
+            CréerServeur();
+            CréerClientLocal();
         }
     }
 }
