@@ -23,34 +23,27 @@ namespace AtelierXNA
 
         //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
 
-        static void VérifierLancerAdversaire(Game game, VerreJoueurPrincipal verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
+        public static void EnleverVerres<T>(List<T> listeDeVerres,Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
         {
+            GameComponent verreComponent = verreCible as GameComponent;
             randGen = new Random();
-            foreach (VerreJoueurPrincipal verre in game.Components)
-            {
-                ListeVerresJoueur.Add(verre);
-            }
-            EnleverVerres<VerreJoueurPrincipal>(ListeVerresJoueur,game, verreCible, estBalleDansVerre, estBalleRebond, estTrickShot);
-        }
-        static void EnleverVerres<T>(List<T> listeDeVerres,Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
-        {
             if (estBalleDansVerre)
             {
                 listeDeVerres.Remove(verreCible);
+                jeu.Components.Remove(verreComponent);
                 if (estBalleRebond)
                 {
-                    listeDeVerres.Remove(listeDeVerres[randGen.Next(listeDeVerres.Count)]);
+                    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
+                    GameComponent verreRandComponent = verreRand1 as GameComponent;
+                    listeDeVerres.Remove(verreRand1);
+                    jeu.Components.Remove(verreRandComponent);
                 }
                 if (estTrickShot)
                 {
-                    listeDeVerres.Remove(listeDeVerres[randGen.Next(listeDeVerres.Count)]);
-                }
-            }
-            foreach (T verre in listeDeVerres)
-            {
-                if (jeu.Components.Contains(verre) && !listeDeVerres.Contains(verre))
-                {
-                    jeu.Components.Remove(verre);
+                    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
+                    GameComponent verreRandComponent = verreRand1 as GameComponent;
+                    listeDeVerres.Remove(verreRand1);
+                    jeu.Components.Remove(verreRandComponent);
                 }
             }
         }

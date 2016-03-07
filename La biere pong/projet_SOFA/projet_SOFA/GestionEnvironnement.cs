@@ -17,7 +17,9 @@ namespace AtelierXNA
     public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-       
+
+        InputManager GestionClavier { get; set; }
+
         ObjetDeBase Table { get; set; }
         ObjetDeBase Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
@@ -62,6 +64,7 @@ namespace AtelierXNA
          * Centre du monsieur : a terre, au milieu
          */
         {
+            GestionClavier = Game.Services.GetService(typeof(InputManager))as InputManager;
             
             //Instanciation et ajout dans components de caméra
             Vector3 positionCaméra = new Vector3(0, 1.25f, 2f);
@@ -142,6 +145,15 @@ namespace AtelierXNA
                     throw new Exception();
             }
 
+        }
+        public override void Update(GameTime gameTime)
+        {
+            //pour essai
+            //if (GestionClavier.EstNouvelleTouche(Keys.Space))
+            //{
+            //    GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
+            //}
+            base.Update(gameTime);
         }
     }
 }
