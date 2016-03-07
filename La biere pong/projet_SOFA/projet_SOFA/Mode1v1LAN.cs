@@ -123,7 +123,6 @@ namespace AtelierXNA
                 {
                     joueur = networkGamer.Tag as Joueur;
 
-                    joueur.Draw();
 
                     //Probablement pas ici
                     //if (networkGamer.IsLocal)
