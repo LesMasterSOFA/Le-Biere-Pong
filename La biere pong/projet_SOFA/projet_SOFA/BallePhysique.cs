@@ -17,7 +17,8 @@ namespace AtelierXNA
       const float CONSTANTE_RESTITUTION_TABLE = 0.9f;
       const float CONSTANTE_RESTITUTION_VERS = 0.5f;
       const float GRAVITÉ = 9.81f;
-      BoundingSphere SphèreCollision { get; set; }
+      const float RAYON = 0.02f;
+      BoundingSphere SphèreBalle { get; set; }
       float VitesseInitiale { get; set; }
       float VitesseEnX { get; set; }
       float VitesseEnY { get; set; }
@@ -31,9 +32,13 @@ namespace AtelierXNA
       float AngleHorizontal { get; set; }
       float AngleVertical { get; set; }
       BoundingBox BoundingTable { get; set; }
+      List<Vector3> ListePositionVerresAdv { get; set; }
+      List<BoundingSphere> ListeSphèreCollision { get; set; }
+      float RayonVerre { get; set; }
+      float HauteurVerre { get; set; }
 
       public BallePhysique(Game jeu, string nomModèle, string nomTexture, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
-           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, float intervalleMAJ)
+           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float intervalleMAJ)
          : base(jeu,nomModèle,nomTexture,échelleInitiale,rotationInitiale,positionInitiale)
       {
          PositionInitiale = positionInitiale;
@@ -42,15 +47,19 @@ namespace AtelierXNA
          AngleHorizontal = angleHorizontal;
          AngleVertical = angleVertical;
          BoundingTable = boundingTable;
+         ListePositionVerresAdv = listePositionVerresAdv;
+         RayonVerre = rayonVerre;
+         HauteurVerre = hauteurVerre;
          IntervalleMAJ = intervalleMAJ;
       }
 
       public override void Initialize()
       {
+         CréerListeSphère();
          VitesseEnX = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Sin(AngleHorizontal);
          VitesseEnY = VitesseInitiale * (float)Math.Sin(AngleVertical);
          VitesseEnZ = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Cos(AngleHorizontal);
-         SphèreCollision = new BoundingSphere(Position, 0.02f);
+         SphèreBalle = new BoundingSphere(Position, RAYON);
          TempsÉcouléDepuisMAJ = 0;
          TempsTotal = TempsÉcouléDepuisMAJ;
          base.Initialize();
@@ -69,10 +78,25 @@ namespace AtelierXNA
          }
          base.Update(gameTime);
       }
-
+      void CréerListeSphère()
+      {
+         ListeSphèreCollision = new List<BoundingSphere>();
+         for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
+         {
+            ListeSphèreCollision.Add(new BoundingSphere(ListePositionVerresAdv[i] + new Vector3(0, HauteurVerre, 0), RayonVerre));
+         }
+      }
       void EffectuerDéplacement()
       {
-         if (SphèreCollision.Intersects(BoundingTable))
+         for (int i = 0; i < ListeSphèreCollision.Count; ++i)
+         {
+            if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
+            {
+               Position = Position;
+               i = ListeSphèreCollision.Count;
+            }
+         }
+         if (SphèreBalle.Intersects(BoundingTable))
          {
             PositionInitiale = Position;
             VitesseEnY = CONSTANTE_RESTITUTION_TABLE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
@@ -81,7 +105,7 @@ namespace AtelierXNA
          Position = new Vector3(PositionInitiale.X + VitesseEnX * TempsTotal,
                                    PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
                                    PositionInitiale.Z - VitesseEnZ * TempsTotal);
-         SphèreCollision = new BoundingSphere(Position, 0.02f);
+         SphèreBalle = new BoundingSphere(Position, 0.02f);
          
       }
 
