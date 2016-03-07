@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    class NetworkClient : Microsoft.Xna.Framework.GameComponent
+    public class NetworkClient : Microsoft.Xna.Framework.GameComponent
     {
         //Objet Client
         static NetClient Client;
@@ -31,29 +31,46 @@ namespace AtelierXNA
         NetOutgoingMessage MessageOut { get; set; } //message sortant
         string NomJoueur { get; set; }
         TimeSpan IntervalleRafraichissement { get; set; }
+        NetworkServer Serveur { get; set; }
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
             NomJoueur = nomJoueur;
+            Serveur = serveur;
             Create(NomJeu, Port);
             Connect();
             ListeJoueurs = new List<Joueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
+        }
 
-
+        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur)
+            : base(jeu)
+        {
+            NomJeu = nomJeu;
+            HostIP = adresse;
+            Port = port;
+            NomJoueur = nomJoueur;
+            Serveur = serveur;
+            Create(NomJeu, Port);
+            Connect();
+            ListeJoueurs = new List<Joueur>();
+            IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
         void Create(string nomJeu, int port)
         {
-            // Demande l'ip
-            Console.WriteLine("Enter IP To Connect");
-            HostIP = Console.ReadLine();
+            // Demande l'ip si aucune adresse a été fournie
+            if (HostIP == null)
+            {
+                Console.WriteLine("Enter IP To Connect");
+                HostIP = Console.ReadLine();
+            }
 
             //Crée la configuration du client -> doit avoir le même nom que le serveur
             NetPeerConfiguration Config = new NetPeerConfiguration(NomJeu);
-            Config.Port = Port;
+            //Config.Port = Port;
             Client = new NetClient(Config);
             Client.Start();
             Temps = DateTime.Now;
@@ -62,35 +79,68 @@ namespace AtelierXNA
 
         void Connect()
         {
-            //Création nouveau message sortant
-            MessageOut = Client.CreateMessage();
-            //Écrit le type de message à envoyer à partir de l'énumération
-            MessageOut.Write((byte)PacketTypes.LOGIN);
-            //Écrit le nom du joueur
-            MessageOut.Write(NomJoueur);
-            //Connecte le client au serveur 
-            Client.Connect(HostIP, Port, MessageOut);
+            try
+            {
+                //Création nouveau message sortant
+                MessageOut = Client.CreateMessage();
+                //Écrit le type de message à envoyer à partir de l'énumération
+                MessageOut.Write((byte)PacketTypes.LOGIN);
+                //Écrit le nom du joueur
+                MessageOut.Write(NomJoueur);
+                //Connecte le client au serveur 
+                Client.Connect(HostIP, Port, MessageOut);
 
-            Temps = DateTime.Now;
-            Console.WriteLine("Connection du client envoyée à " +Temps);
+                Temps = DateTime.Now;
+                Console.WriteLine("Connection du client envoyée à " + Temps);
 
-            //Fonction attendant l'approbation de connection du serveur
-            AttenteConnectionServeur();
+                //Fonction attendant l'approbation de connection du serveur
+                AttenteConnectionServeur();
 
-            Console.WriteLine("Connection bien reçu du serveur à " + Temps);
-            EstEnMarche = true;
+                Console.WriteLine("Connection bien reçu du serveur à " + Temps);
+                EstEnMarche = true;
+            }
+
+            //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
+            //Probablement revoir la structure
+            catch(NetworkNotAvailableException)
+            {
+                Console.WriteLine("La connection est invalide -> peut-être l'adresse est erronée?");
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
+            }
+            catch (NetException)
+            {
+                Console.WriteLine("Adresse éronnée");
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
+            }
+
+            catch(Exception)
+            { 
+                Console.WriteLine("Exception client");
+                throw new Exception(); //Envoie de l'exception vers network manager
+            }
 
         }
 
         //Attente du message de connection pour instancier les joueurs
+        //Problème ici -> reçois des mauvais messages
         private void AttenteConnectionServeur()
         {
             //Détermine si le client peut démarer
             bool PeutPartir = false;
-            
+
             //Loop tant que le client ne peut pas démarrer
             while (!PeutPartir)
             {
+                //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
+                //tant que nous serons dans cette fonction 
+                //Doit avoir une condition pour faire sur que le serveur n'est pas partie
+                if(Serveur != null)
+                    Serveur.UpdateServeur();
+
                 //Regarde si un nouveau message est arrivé
                 if ((MessageInc = Client.ReadMessage()) != null)
                 {
@@ -104,16 +154,22 @@ namespace AtelierXNA
                             if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                             {
                                 //Reste à implanter quoi faire -> début ici 
-                                WorldStateUpdate();
+                                //WorldStateUpdate();
 
                                 //Après que tous les joueurs sont instanciés, on peut partir le jeu
                                 PeutPartir = true;
                             }
                             break;
+                            
+                        case NetIncomingMessageType.StatusChanged:
+                            if(MessageInc.ReadString() == "=Failed")
+                                throw new NetworkNotAvailableException("La connection a échouée");
+                            break;
 
                         default:
                             //ne devrait pas arriver, envoie un message d'erreur
-                            Console.WriteLine(MessageInc.ReadString() + " Message reçu non géré");
+                            string messageRecu = MessageInc.ReadString();
+                            Console.WriteLine( messageRecu + " Message reçu non géré");
                             break;
                     }
                 }
@@ -146,7 +202,8 @@ namespace AtelierXNA
             Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
-            ListeJoueurs.Clear();
+            if(ListeJoueurs != null)
+                ListeJoueurs.Clear();
 
             // Declare count
             int NbDeJoueurs = 0;
@@ -177,7 +234,8 @@ namespace AtelierXNA
                 {
                     if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                     {
-                        WorldStateUpdate();
+                        //Reste à implanter quoi faire
+                        //WorldStateUpdate();
                     }
                 }
             }
