@@ -14,6 +14,8 @@ namespace AtelierXNA
 {
     public class PartieSolo : Partie
     {
+        protected ATH ath { get; set; }
+
         public PartieSolo(Game game)
             : base(game)
         {
