@@ -206,3 +206,13 @@ C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le
 C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.exe
 C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.pdb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\etabli.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\plancherGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\ArriereGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\AvantGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\DroiteGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\GaucheGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\PlafondGarage.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\PlancherGaragee.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\etabli.xnb
+B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Effects\Shader.xnb

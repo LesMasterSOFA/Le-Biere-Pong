@@ -234,6 +234,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Outils\RectangleColoré.cs" />
     <Compile Include="Serialiseur.cs" />
+    <Compile Include="VerreAdversaire.cs" />
+    <Compile Include="VerreJoueurPrincipal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

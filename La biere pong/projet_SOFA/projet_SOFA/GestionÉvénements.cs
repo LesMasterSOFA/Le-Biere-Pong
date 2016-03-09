@@ -12,37 +12,40 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class GestionÉvénements : Microsoft.Xna.Framework.GameComponent
+    static public class GestionÉvénements
     {
-        public GestionÉvénements(Game game)
-            : base(game)
+        static Random randGen { get; set; }
+        static List<VerreJoueurPrincipal> ListeVerresJoueur { get; set; }
+        static List<VerreAdversaire> ListeVerresAdversaire { get; set; }
+        static GestionÉvénements()
         {
-            // TODO: Construct any child components here
         }
+        
+        //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize()
+        public static void EnleverVerres<T>(List<T> listeDeVerres, Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
         {
-            // TODO: Add your initialization code here
-
-            base.Initialize();
-        }
-
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public override void Update(GameTime gameTime)
-        {
-            // TODO: Add your update code here
-
-            base.Update(gameTime);
+            GameComponent verreComponent = verreCible as GameComponent;
+            randGen = new Random();
+            if (estBalleDansVerre)
+            {
+                listeDeVerres.Remove(verreCible);
+                jeu.Components.Remove(verreComponent);
+                if (estBalleRebond)
+                {
+                    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
+                    GameComponent verreRandComponent = verreRand1 as GameComponent;
+                    listeDeVerres.Remove(verreRand1);
+                    jeu.Components.Remove(verreRandComponent);
+                }
+                if (estTrickShot)
+                {
+                    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
+                    GameComponent verreRandComponent = verreRand1 as GameComponent;
+                    listeDeVerres.Remove(verreRand1);
+                    jeu.Components.Remove(verreRandComponent);
+                }
+            }
         }
     }
 }

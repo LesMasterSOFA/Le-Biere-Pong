@@ -30,18 +30,7 @@ namespace AtelierXNA
         Vector2 AnciennePositionBarre { get; set; }
         bool estActifBarre;
         Rectangle GrandeurBarre { get; set; }
-        float vitesse;
-        public float VitesseBarre
-        {
-            get
-            {
-                return vitesse;
-            }
-            private set
-            {
-                vitesse = ModifierVitesseBarre(value);
-            }
-        }
+        public float VitesseBarre { get; set; }
 
         public IndicateurForce(Game game)
             : base(game)
@@ -106,10 +95,6 @@ namespace AtelierXNA
             GestionSprites.Draw(BarreIndicatrice,PositionBarreIndication, GrandeurBarre, Color.Black);
             GestionSprites.End();
             base.Draw(gameTime);
-        }
-        float ModifierVitesseBarre(float nvVitesse)
-        {
-            return nvVitesse;
         }
         int DéterminerForce(float postionEnX)
         {
