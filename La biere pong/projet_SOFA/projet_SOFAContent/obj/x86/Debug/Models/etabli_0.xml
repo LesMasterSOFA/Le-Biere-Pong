@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>Cube_001</Name>
     <Identity>
-      <SourceFilename>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
+      <SourceFilename>C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>7.54979E-08 0 -1 0 -1 0 -7.54979E-08 0 0 1 0 0 -0.42922613 2.08736229 -0.09623903 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material</Name>
       <Identity>
-        <SourceFilename>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
+        <SourceFilename>C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
