@@ -152,7 +152,7 @@ namespace AtelierXNA
             //pour essai
             if (GestionClavier.EstNouvelleTouche(Keys.E))
             {
-                GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, false, false);
+                GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, false, true);
             }
             base.Update(gameTime);
         }

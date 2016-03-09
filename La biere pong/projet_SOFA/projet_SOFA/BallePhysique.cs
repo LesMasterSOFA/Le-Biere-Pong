@@ -37,9 +37,9 @@ namespace AtelierXNA
       float RayonVerre { get; set; }
       float HauteurVerre { get; set; }
 
-      public BallePhysique(Game jeu, string nomModèle, string nomTexture, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
+      public BallePhysique(Game jeu, string nomModèle, string nomTexture,string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
            float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float intervalleMAJ)
-         : base(jeu,nomModèle,nomTexture,échelleInitiale,rotationInitiale,positionInitiale)
+         : base(jeu,nomModèle,nomTexture,nomEffet,échelleInitiale,rotationInitiale,positionInitiale)
       {
          PositionInitiale = positionInitiale;
          Position = positionInitiale;

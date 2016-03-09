@@ -123,6 +123,7 @@
     <Compile Include="AffichageInfoLancer.cs" />
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
+    <Compile Include="BallePhysique.cs" />
     <Compile Include="ConsoleWindow.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />
