@@ -35,9 +35,6 @@ namespace AtelierXNA
             {
                 Game.Components.Add(EnvironnementPartie);
                 Game.Components.Add(ath);
-                ConsoleWindow.ShowConsoleWindow();
-                byte[] byteArray = Serialiseur.ObjToByteArray(EnvironnementPartie);
-                //Console.WriteLine(byteArray.ToString());
             }
         }
 

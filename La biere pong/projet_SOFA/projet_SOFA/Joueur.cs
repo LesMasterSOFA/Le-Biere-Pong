@@ -16,7 +16,7 @@ namespace AtelierXNA
     public class Joueur : Microsoft.Xna.Framework.GameComponent, IActivable
     {
         Personnage Avatar { get; set; } 
-        string GamerTag { get; set; } //nom du joueur
+        public string GamerTag { get; private set; } //nom du joueur
         public Texture2D ImageJoueur { get; set; } //Devrait être private set
         //List<GameComponent> ListeComponentsJoueurPartie { get; set; } //liste des objets du jeu //GestionPartie s'en occupe ? 
         GestionPartie GestionnaireDeLaPartie { get; set; }
@@ -24,6 +24,7 @@ namespace AtelierXNA
         public NetConnection IP { get; private set; } 
         bool EstActif { get; set; }
         Viewport ÉcranDeJeu; //Défini s'il est sur l'écran totale ou une partie
+        ATH ath { get; set; }
    
         //Constructeur normal
         public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag)
@@ -72,7 +73,8 @@ namespace AtelierXNA
         public override void Initialize()
         {
             GestionnaireInput = new InputManager(this.Game);
-
+            ath = new ATH(Game);
+            Game.Components.Add(ath);
             base.Initialize();
         }
 

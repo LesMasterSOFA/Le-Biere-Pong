@@ -23,6 +23,7 @@ namespace AtelierXNA
         NetworkServer Serveur;
         const string NOM_JEU = "BEERPONG";
         const int PORT = 5011;
+        Mode1v1LAN Partie { get; set; }
 
 
         public NetworkManager(Game game)
@@ -70,6 +71,7 @@ namespace AtelierXNA
             try
             {
                 CréerClient(nomJoueur);
+                RecevoirInfoPartieToClient_Joining();
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception)
@@ -84,12 +86,27 @@ namespace AtelierXNA
             {
                 CréerServeur();
                 CréerClientLocal();
+                Partie = new Mode1v1LAN(Game);
+                Game.Components.Add(Partie);
+                EnvoyerInfoPartieToServeur_StartGame();
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception)
             {
 
             }
+        }
+
+        void RecevoirInfoPartieToClient_Joining()
+        {
+
+        }
+        
+        void EnvoyerInfoPartieToServeur_StartGame()
+        {
+            NetworkClient client = ListeClients.Find(c => c.NomJoueur == "Joueur1");
+            Serveur.ListeJoueurs.Find(j => j.GamerTag == "Joueur1");
+            
         }
     }
 }

@@ -24,7 +24,7 @@ namespace AtelierXNA
         DateTime Temps { get; set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetIncomingMessage MessageInc { get; set; }
-        List<Joueur> ListeJoueurs { get; set; }
+        public List<Joueur> ListeJoueurs { get; private set; }
 
 
         public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
@@ -82,6 +82,7 @@ namespace AtelierXNA
                             //Initialisation de joueur
                             //Reste à ajouter le joueur dans le WorldState
                             var joueur = new Joueur(Game, MessageInc.SenderConnection);
+                            ListeJoueurs.Add(joueur);
 
 
                             // Création d'un message pouvant être envoyé
@@ -177,7 +178,7 @@ namespace AtelierXNA
             UpdateServeur();
         }
 
-            void EnvoieNouveauMessage()
+        void EnvoieNouveauMessage()
             {
                 //Création d'un message pouvant être envoyé
                  NetOutgoingMessage MessageSortant = Serveur.CreateMessage();

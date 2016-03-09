@@ -15,36 +15,48 @@ namespace AtelierXNA
 {
     public class Mode1v1LAN : PartieMultijoueur
     {
+        BoutonDeCommande BoutonJouer { get; set; }
+        ATH ath { get; set; }
+        
         public Mode1v1LAN(Game game)
             : base(game)
         {
-
+            MenuSélectionPersonnage();
         }
-
 
         public override void Initialize()
         {
+            EnvironnementPartie = new GestionEnvironnement(this.Game, Environnements.Garage);
+            ath = new ATH(Game);
             base.Initialize();
         }
-
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
 
-        private void GestionInputGameplay(Joueur joueur, GameTime gameTime)
+        void ActiverEnvironnement()
         {
-            UpdateInput(gameTime, joueur);
-
-            joueur.Update(gameTime);
-
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
         }
 
-        //s'occupe de la gestion des inputs
-        void UpdateInput(GameTime gameTime, Joueur joueur)
+        void MenuSélectionPersonnage()
         {
-            joueur.Update(gameTime);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), true, Activerpartie);
+            Game.Components.Add(BoutonJouer);
         }
+
+        void Activerpartie()
+        {
+            ModifierActivation();
+            ActiverEnvironnement();
+            Game.Components.Remove(BoutonJouer);
+        }
+
     }
 }

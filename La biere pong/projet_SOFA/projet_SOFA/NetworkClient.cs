@@ -24,12 +24,12 @@ namespace AtelierXNA
         public static bool EstEnMarche = false;
 
         DateTime Temps { get; set; }
-        string NomJeu { get; set; }
-        int Port { get; set; }
-        string HostIP{ get; set; } //ip de l'host
+        public string NomJeu { get; private set; }
+        public int Port { get; private set; }
+        public string HostIP{ get; private set; } //ip de l'host
         NetIncomingMessage MessageInc { get; set; } //message entrant
         NetOutgoingMessage MessageOut { get; set; } //message sortant
-        string NomJoueur { get; set; }
+        public string NomJoueur { get; private set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
 

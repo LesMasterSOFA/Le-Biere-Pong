@@ -157,13 +157,6 @@ namespace AtelierXNA
             Game.Components.Add(new Mode1v1Local(Game));
         }
 
-        //void PartirMode1v1LAN()
-        //{
-        //    Game.Components.Remove(this);
-        //    EnleverBoutonsExistants();
-        //    Game.Components.Add(new Mode1v1LAN(Game));
-        //}
-
         void PartirMode1v1LAN()
         {
             Game.Components.Remove(this);
@@ -171,8 +164,6 @@ namespace AtelierXNA
             NetworkManager gestionReseau = new NetworkManager(this.Game);
             Game.Components.Add(gestionReseau);
             gestionReseau.HébergerPartie();
-            //ServeurExemple.Démarrer();
-            //ClientExample.Démarrer(); 
         }
 
         void RejoindreMode1v1LAN()
