@@ -14,8 +14,9 @@ namespace AtelierXNA
 {
    public class BallePhysique : ObjetDeBase
    {
-      const float CONSTANTE_RESTITUTION_TABLE = 0.9f;
+      const float CONSTANTE_RESTITUTION_TABLE = 0.8f;
       const float CONSTANTE_RESTITUTION_VERS = 0.5f;
+      const float COEFFICIENT_FROTTEMENT = 0.75f;
       const float GRAVITÉ = 9.81f;
       const float RAYON = 0.02f;
       BoundingSphere SphèreBalle { get; set; }
@@ -36,9 +37,10 @@ namespace AtelierXNA
       List<BoundingSphere> ListeSphèreCollision { get; set; }
       float RayonVerre { get; set; }
       float HauteurVerre { get; set; }
+      float HauteurTable { get; set; }
 
       public BallePhysique(Game jeu, string nomModèle, string nomTexture,string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
-           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float intervalleMAJ)
+           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float hauteurTable, float intervalleMAJ)
          : base(jeu,nomModèle,nomTexture,nomEffet,échelleInitiale,rotationInitiale,positionInitiale)
       {
          PositionInitiale = positionInitiale;
@@ -50,6 +52,7 @@ namespace AtelierXNA
          ListePositionVerresAdv = listePositionVerresAdv;
          RayonVerre = rayonVerre;
          HauteurVerre = hauteurVerre;
+         HauteurTable = hauteurTable;
          IntervalleMAJ = intervalleMAJ;
       }
 
@@ -88,24 +91,34 @@ namespace AtelierXNA
       }
       void EffectuerDéplacement()
       {
-         for (int i = 0; i < ListeSphèreCollision.Count; ++i)
+         if (Position.Y <= HauteurTable + HauteurVerre + RAYON + 0.0000001f)
          {
-            if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
+            for (int i = 0; i < ListeSphèreCollision.Count; ++i)
             {
-               Position = Position;
-               i = ListeSphèreCollision.Count;
+               if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
+               {
+                  if (Math.Sqrt(Math.Pow(Position.X - ListeSphèreCollision[i].Center.X, 2) + Math.Pow(Position.Z - ListeSphèreCollision[i].Center.Z, 2)) == 0.0)
+                  PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON, Position.Z);
+                  VitesseEnY = CONSTANTE_RESTITUTION_VERS * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+                  VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+                  VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
+                  TempsTotal = IntervalleMAJ;
+                  i = ListeSphèreCollision.Count;
+               }
             }
          }
          if (SphèreBalle.Intersects(BoundingTable))
          {
-            PositionInitiale = Position;
+            PositionInitiale = new Vector3(Position.X, HauteurTable + RAYON, Position.Z);
             VitesseEnY = CONSTANTE_RESTITUTION_TABLE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
-            TempsTotal = 0.01f;
+            VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+            VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
+            TempsTotal = IntervalleMAJ;
          }
          Position = new Vector3(PositionInitiale.X + VitesseEnX * TempsTotal,
-                                   PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
-                                   PositionInitiale.Z - VitesseEnZ * TempsTotal);
-         SphèreBalle = new BoundingSphere(Position, 0.02f);
+                                PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
+                                PositionInitiale.Z - VitesseEnZ * TempsTotal);
+         SphèreBalle = new BoundingSphere(Position, RAYON);
          
       }
 

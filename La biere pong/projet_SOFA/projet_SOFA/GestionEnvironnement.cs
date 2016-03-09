@@ -44,7 +44,7 @@ namespace AtelierXNA
       VerreAdversaire VerreAdversaire6 { get; set; }
       List<Vector3> ListePositionVerres { get; set; }
       List<Vector3> ListePositionVerresAdv { get; set; }
-
+      BoundingBox BoundingTable { get; set; }
 
       public GestionEnvironnement(Game game, Environnements nomEnvironnement)
          : base(game)
@@ -75,7 +75,7 @@ namespace AtelierXNA
          FixerLesPositions();
 
          //Instanciation et ajout dans components de caméra
-         Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
+         Vector3 positionCaméra = new Vector3(2, 1.5f, 0f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
          CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
@@ -87,15 +87,15 @@ namespace AtelierXNA
          personnagePrincipal = new Personnage(this.Game);
 
          Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-         BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, 0.755f, DIMENSION_TABLE_Z / 2));
-         Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, boundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, INTERVALLE_MAJ_STANDARD);
+         BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, DIMENSION_TABLE_Y, DIMENSION_TABLE_Z / 2));
+         //Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
 
          personnagePrincipal = new Personnage(this.Game);
 
          CréerLesVerres();
 
          //Ajout des objets dans la liste de Components
-         Game.Components.Add(Balle);
+         //ajout de la balle ici
          Game.Components.Add(Table);
          Game.Components.Add(personnagePrincipal);
          AjouterVerresJoueur();//Les ajouter dans les Game.Components
@@ -129,12 +129,12 @@ namespace AtelierXNA
          VerresJoueur.Add(VerreJoueur6);
 
          VerresAdversaire = new List<VerreAdversaire>();
-         VerreAdversaire1 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f));
-         VerreAdversaire2 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f, 0.74f, -0.8f));
-         VerreAdversaire3 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f, 0.74f, -0.8f));
-         VerreAdversaire4 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         VerreAdversaire5 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         VerreAdversaire6 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+         VerreAdversaire1 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[0]);
+         VerreAdversaire2 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[1]);
+         VerreAdversaire3 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[2]);
+         VerreAdversaire4 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[3]);
+         VerreAdversaire5 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[4]);
+         VerreAdversaire6 = new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[5]);
          VerresAdversaire.Add(VerreAdversaire1);
          VerresAdversaire.Add(VerreAdversaire2);
          VerresAdversaire.Add(VerreAdversaire3);
@@ -178,6 +178,10 @@ namespace AtelierXNA
          if (GestionClavier.EstNouvelleTouche(Keys.E))
          {
             GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
+         }
+         if (GestionClavier.EstNouvelleTouche(Keys.Enter))
+         {
+            Game.Components.Add(new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
          }
          base.Update(gameTime);
       }
