@@ -17,8 +17,9 @@ namespace AtelierXNA
       const float CONSTANTE_RESTITUTION_TABLE = 0.8f;
       const float CONSTANTE_RESTITUTION_VERS = 0.5f;
       const float COEFFICIENT_FROTTEMENT = 0.75f;
+      const float CHANGEMENT_DIRECTION = -1f;
       const float GRAVITÉ = 9.81f;
-      const float RAYON = 0.02f;
+      const float RAYON_BALLE = 0.02f;
       BoundingSphere SphèreBalle { get; set; }
       float VitesseInitiale { get; set; }
       float VitesseEnX { get; set; }
@@ -34,7 +35,7 @@ namespace AtelierXNA
       float AngleVertical { get; set; }
       BoundingBox BoundingTable { get; set; }
       List<Vector3> ListePositionVerresAdv { get; set; }
-      List<BoundingSphere> ListeSphèreCollision { get; set; }
+      List<BoundingBox> ListeSphèreCollision { get; set; }
       float RayonVerre { get; set; }
       float HauteurVerre { get; set; }
       float HauteurTable { get; set; }
@@ -62,7 +63,7 @@ namespace AtelierXNA
          VitesseEnX = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Sin(AngleHorizontal);
          VitesseEnY = VitesseInitiale * (float)Math.Sin(AngleVertical);
          VitesseEnZ = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Cos(AngleHorizontal);
-         SphèreBalle = new BoundingSphere(Position, RAYON);
+         SphèreBalle = new BoundingSphere(Position, RAYON_BALLE);
          TempsÉcouléDepuisMAJ = 0;
          TempsTotal = TempsÉcouléDepuisMAJ;
          base.Initialize();
@@ -83,33 +84,48 @@ namespace AtelierXNA
       }
       void CréerListeSphère()
       {
-         ListeSphèreCollision = new List<BoundingSphere>();
+         ListeSphèreCollision = new List<BoundingBox>();
+         //for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
+         //{
+         //   ListeSphèreCollision.Add(new BoundingSphere(ListePositionVerresAdv[i] + new Vector3(0, HauteurVerre, 0), RayonVerre));
+         //}
          for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
          {
-            ListeSphèreCollision.Add(new BoundingSphere(ListePositionVerresAdv[i] + new Vector3(0, HauteurVerre, 0), RayonVerre));
+            ListeSphèreCollision.Add(new BoundingBox(new Vector3(ListePositionVerresAdv[i].X - RayonVerre, HauteurTable, ListePositionVerresAdv[i].Z - RayonVerre),
+                                                     new Vector3(ListePositionVerresAdv[i].X + RayonVerre, HauteurTable + HauteurVerre, ListePositionVerresAdv[i].Z + RayonVerre)));
          }
       }
       void EffectuerDéplacement()
       {
-         if (Position.Y <= HauteurTable + HauteurVerre + RAYON + 0.0000001f)
+         for (int i = 0; i < ListeSphèreCollision.Count; ++i)
          {
-            for (int i = 0; i < ListeSphèreCollision.Count; ++i)
+            if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
             {
-               if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
-               {
-                  if (Math.Sqrt(Math.Pow(Position.X - ListeSphèreCollision[i].Center.X, 2) + Math.Pow(Position.Z - ListeSphèreCollision[i].Center.Z, 2)) == 0.0)
-                  PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON, Position.Z);
-                  VitesseEnY = CONSTANTE_RESTITUTION_VERS * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
-                  VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
-                  VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
-                  TempsTotal = IntervalleMAJ;
-                  i = ListeSphèreCollision.Count;
-               }
+               PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre, Position.Z);
+               VitesseEnY = CONSTANTE_RESTITUTION_VERS * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+               VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+               VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
+               TempsTotal = 0;
+               i = ListeSphèreCollision.Count;
+               //double distance = Math.Sqrt(Math.Pow(Position.X - ListeSphèreCollision[i].Center.X, 2) + Math.Pow(Position.Z - ListeSphèreCollision[i].Center.Z, 2));
+               //if (distance >= RayonVerre - 0.001f)
+               //{
+               //   PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE, Position.Z);
+               //   VitesseEnY = CONSTANTE_RESTITUTION_VERS * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+               //   VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+               //   VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
+               //   TempsTotal = IntervalleMAJ;
+               //   i = ListeSphèreCollision.Count;
+               //}
+               //else
+               //{
+               //   TempsTotal = 0;
+               //}
             }
          }
          if (SphèreBalle.Intersects(BoundingTable))
          {
-            PositionInitiale = new Vector3(Position.X, HauteurTable + RAYON, Position.Z);
+            PositionInitiale = new Vector3(Position.X, HauteurTable + RAYON_BALLE, Position.Z);
             VitesseEnY = CONSTANTE_RESTITUTION_TABLE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnY;
@@ -118,7 +134,7 @@ namespace AtelierXNA
          Position = new Vector3(PositionInitiale.X + VitesseEnX * TempsTotal,
                                 PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
                                 PositionInitiale.Z - VitesseEnZ * TempsTotal);
-         SphèreBalle = new BoundingSphere(Position, RAYON);
+         SphèreBalle = new BoundingSphere(Position, RAYON_BALLE);
          
       }
 
@@ -129,6 +145,10 @@ namespace AtelierXNA
           Monde *= Matrix.CreateFromYawPitchRoll(Rotation.Y, Rotation.X, Rotation.Z);
           Monde *= Matrix.CreateTranslation(Position);
           return base.GetMonde();
+      }
+      public override void Draw(GameTime gameTime)
+      {
+         base.Draw(gameTime);
       }
    }
 }

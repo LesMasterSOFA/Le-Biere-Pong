@@ -88,7 +88,7 @@ namespace AtelierXNA
 
          Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
          BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, DIMENSION_TABLE_Y, DIMENSION_TABLE_Z / 2));
-         //Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
+         Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
 
          personnagePrincipal = new Personnage(this.Game);
 
@@ -96,6 +96,7 @@ namespace AtelierXNA
 
          //Ajout des objets dans la liste de Components
          //ajout de la balle ici
+        // Game.Components.Add(Balle);
          Game.Components.Add(Table);
          Game.Components.Add(personnagePrincipal);
          AjouterVerresJoueur();//Les ajouter dans les Game.Components
@@ -103,13 +104,13 @@ namespace AtelierXNA
       }
       void FixerLesPositions()
       {
-         ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f, 0.74f, 0.8f));
-         ListePositionVerres.Add(new Vector3(-0.09225f, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerres.Add(new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(RAYON_VERRE_HAUT, DIMENSION_TABLE_Y, 0.8f));
+         ListePositionVerres.Add(new Vector3(-RAYON_VERRE_HAUT, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(RAYON_VERRE_HAUT / 2, DIMENSION_TABLE_Y, 0.8f - RAYON_VERRE_HAUT * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(-RAYON_VERRE_HAUT / 2, DIMENSION_TABLE_Y, 0.8f - RAYON_VERRE_HAUT * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f - 2 * RAYON_VERRE_HAUT * (float)Math.Sin(Math.PI / 3)));
 
-         ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f, 0.74f, -0.8f));
-         ListePositionVerresAdv.Add(new Vector3(-0.09225f, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerresAdv.Add(new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(RAYON_VERRE_HAUT, DIMENSION_TABLE_Y, -0.8f));
+         ListePositionVerresAdv.Add(new Vector3(-RAYON_VERRE_HAUT, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(RAYON_VERRE_HAUT / 2, DIMENSION_TABLE_Y, -0.8f + RAYON_VERRE_HAUT * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(-RAYON_VERRE_HAUT / 2, DIMENSION_TABLE_Y, -0.8f + RAYON_VERRE_HAUT * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
       }
 
       void CréerLesVerres()
@@ -181,7 +182,16 @@ namespace AtelierXNA
          }
          if (GestionClavier.EstNouvelleTouche(Keys.Enter))
          {
-            Game.Components.Add(new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
+            
+            Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.5f, 1.7f), 4.3f, 0.05f, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
+            int noDrawOrder = 0;
+            foreach (GameComponent item in Game.Components)
+            {
+               if (item is DrawableGameComponent)
+               {
+                  ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+               }
+            }
          }
          base.Update(gameTime);
       }
