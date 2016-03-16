@@ -84,14 +84,10 @@ namespace AtelierXNA
 
          //Instanciation objets
 
-         personnagePrincipal = new Personnage(this.Game);
-
          Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
          BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, 0.755f, DIMENSION_TABLE_Z / 2));
          Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, boundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, INTERVALLE_MAJ_STANDARD);
-
-         personnagePrincipal = new Personnage(this.Game);
-
+         personnagePrincipal = new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, -1));
          CréerLesVerres();
 
          //Ajout des objets dans la liste de Components

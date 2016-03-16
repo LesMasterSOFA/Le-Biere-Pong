@@ -236,7 +236,7 @@
       <Time>2016-03-07T10:33:08.3839509-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\mur_0.xml</Key>
-        <Value>2016-03-14T09:27:35.9548851-04:00</Value>
+        <Value>2016-03-16T09:23:06.1887027-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -249,7 +249,7 @@
       <Time>2016-03-07T10:33:08.2469372-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\balle_0.xml</Key>
-        <Value>2016-03-14T09:27:36.6149511-04:00</Value>
+        <Value>2016-03-16T09:23:06.9967835-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -262,7 +262,20 @@
       <Time>2016-03-07T10:33:08.4209546-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\table_plastique_0.xml</Key>
-        <Value>2016-03-14T09:27:36.8389735-04:00</Value>
+        <Value>2016-03-16T09:23:07.2738112-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\superBoy.fbx</Source>
+      <Name>Models\superBoy</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoy.xnb</Output>
+      <Time>2016-03-14T09:31:27.5690442-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\superBoy_0.xml</Key>
+        <Value>2016-03-16T09:23:07.5088347-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -275,7 +288,7 @@
       <Time>2016-03-07T10:33:08.5099635-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\verre_0.xml</Key>
-        <Value>2016-03-14T09:27:37.7280624-04:00</Value>
+        <Value>2016-03-16T09:23:08.3729211-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -288,7 +301,7 @@
       <Time>2016-03-07T10:33:08.4709596-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\urinoir_0.xml</Key>
-        <Value>2016-03-14T09:27:38.2571153-04:00</Value>
+        <Value>2016-03-16T09:23:08.8809719-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -301,7 +314,7 @@
       <Time>2016-03-07T10:33:08.2589384-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\etabli_0.xml</Key>
-        <Value>2016-03-14T09:27:38.3431239-04:00</Value>
+        <Value>2016-03-16T09:23:08.9529791-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -311,7 +324,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Effects\Shader.xnb</Output>
-      <Time>2016-03-09T14:04:11.3741571-05:00</Time>
+      <Time>2016-03-16T07:56:12.2695329-04:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>
@@ -335,6 +348,13 @@
       <Time>2016-03-07T10:33:08.4209546-05:00</Time>
     </Item>
     <Item>
+      <Source>Models\superBoy.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\superBoy_0.xml</Output>
+      <Time>2016-03-14T09:31:27.5690442-04:00</Time>
+    </Item>
+    <Item>
       <Source>Models\verre.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
@@ -356,44 +376,24 @@
       <Time>2016-03-07T10:33:08.2589384-05:00</Time>
     </Item>
     <Item>
-      <Source>Models\superBoy.fbx</Source>
-      <Name>Models\superBoy</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoy.xnb</Output>
-      <Time>2016-03-14T09:31:27.5690442-04:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Models\superBoy_1.xml</Key>
-        <Value>2016-03-14T09:33:04.5077371-04:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\superBoy.fbx</Source>
+      <Source>Models\superBoyLancer.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\superBoy_1.xml</Output>
-      <Time>2016-03-14T09:31:27.5690442-04:00</Time>
+      <Output>obj\x86\Debug\Models\superBoyLancer_0.xml</Output>
+      <Time>2016-03-16T09:48:55.3558748-04:00</Time>
     </Item>
     <Item>
       <Source>Models\superBoyLancer.fbx</Source>
       <Name>Models\superBoyLancer</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+      <Processor>SkinnedModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoyLancer.xnb</Output>
-      <Time>2016-03-14T10:16:59.9611485-04:00</Time>
+      <Time>2016-03-16T09:48:55.3558748-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoyLancer_0.xml</Key>
-        <Value>2016-03-14T10:17:03.0188269-04:00</Value>
+        <Value>2016-03-16T09:49:05.8798748-04:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\superBoyLancer.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\superBoyLancer_0.xml</Output>
-      <Time>2016-03-14T10:16:59.9611485-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -408,6 +408,10 @@
       <OutputDirectory>C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
+      <Assembly>
+        <Key>C:\Users\201432418\Desktop\SkinningSample_4_0\SkinningSample_4_0\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll</Key>
+        <Value>2016-03-16T09:22:58.8119651-04:00</Value>
+      </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
         <Value>2011-09-01T16:22:30-04:00</Value>
