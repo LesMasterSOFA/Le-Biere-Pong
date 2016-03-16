@@ -25,6 +25,7 @@ namespace AtelierXNA
         TimeSpan IntervalleRafraichissement { get; set; }
         NetIncomingMessage MessageInc { get; set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
+        byte[] message { get; set; }
 
 
         public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
@@ -115,9 +116,12 @@ namespace AtelierXNA
 
                     //Représente tout les messages envoyés manuellement par le client
                     case NetIncomingMessageType.Data:
+                        
+                        //Lit le type d'information
+                        byte byteEnum = MessageInc.ReadByte();
 
                         // Détermination tu type d'information
-                        if (MessageInc.ReadByte() == (byte)PacketTypes.MOVE)
+                        if (byteEnum == (byte)PacketTypes.MOVE)
                         {
                             //On regarde qui a envoyé le message
                             foreach (JoueurMultijoueur j in ListeJoueurs)
@@ -126,9 +130,23 @@ namespace AtelierXNA
                                 {
                                     //On gère le message tout dépendant de ce qu'il faut faire( switch/case)
                                 }
-                                EnvoieNouveauMessage();
+                                //EnvoieNouveauMessage();
                             }
                         }
+
+                        if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
+                        {
+                            Console.WriteLine("STARTGAME_INFO recue _ Serveur");
+                            foreach (JoueurMultijoueur j in ListeJoueurs)
+                            {
+                                if (j.IP == MessageInc.SenderConnection)
+                                {
+                                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+                                }
+                                EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message);
+                            }
+                        }
+
                         break;
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
@@ -147,6 +165,7 @@ namespace AtelierXNA
                                 if (j.IP == MessageInc.SenderConnection)
                                 {
                                     ListeJoueurs.Remove(j);
+                                    Console.WriteLine("Un adversaire s'est déconnecté");
                                 }
                             }
                         }
@@ -178,31 +197,47 @@ namespace AtelierXNA
         }
 
         void EnvoieNouveauMessage()
+        {
+            //Création d'un message pouvant être envoyé
+            NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
+
+            //Tout d'abord on dit quel sorte de message on envoir en Byte
+            //Envoie d'un message renvoyant l'état du monde
+            MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
+
+            //Ensuite on écrit l'information à être envoyée
+            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
+            MessageSortant.Write(ListeJoueurs.Count);
+
+            //Passe sur tous les joueurs dans le jeu
+            foreach (JoueurMultijoueur j in ListeJoueurs)
             {
-                //Création d'un message pouvant être envoyé
-                 NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
-
-                 //Tout d'abord on dit quel sorte de message on envoir en Byte
-                 //Envoie d'un message renvoyant l'état du monde
-                 MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
-
-                 //Ensuite on écrit l'information à être envoyée
-                 //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
-                  MessageSortant.Write(ListeJoueurs.Count);
-
-                   //Passe sur tous les joueurs dans le jeu
-                   foreach (JoueurMultijoueur j in ListeJoueurs)
-                    {
-                       // Écrit tous les propriété des objet 
-                        MessageSortant.WriteAllProperties(j);
-                    }
-
-                    //// Le message contient: le type d'information, le nombre de joueurs et l'information 
-
-                    //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
-                    Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+                // Écrit tous les propriété des objet 
+                MessageSortant.WriteAllProperties(j);
             }
+
+            //// Le message contient: le type d'information, le nombre de joueurs et l'information 
+            //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
+            Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
         }
+
+        void EnvoieNouveauMessage(PacketTypes typeInfo, byte[] messageToSend)
+        {
+            //Création d'un message pouvant être envoyé
+            NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
+
+            //Tout d'abord on dit quel sorte de message on envoir en Byte
+            //Envoie d'un message renvoyant l'état du monde
+            MessageSortant.Write((byte)typeInfo);
+
+            //Ensuite on écrit l'information à être envoyée
+            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
+            MessageSortant.Write(messageToSend);
+
+            //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
+            Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+        }
+    }
     
     [Serializable]
     public class InfoNetworkServer

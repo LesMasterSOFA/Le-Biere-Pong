@@ -26,7 +26,6 @@ namespace AtelierXNA
       Vector2 Résolution { get; set; }
 
       public InputManager GestionInput { get; private set; }
-
       public Atelier()
       {
          PériphériqueGraphique = new GraphicsDeviceManager(this);

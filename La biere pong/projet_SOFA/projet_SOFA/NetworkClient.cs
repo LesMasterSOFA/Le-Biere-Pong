@@ -176,11 +176,8 @@ namespace AtelierXNA
             }
         }
 
-
         public override void Update(GameTime gameTime)
         {
-            
-
             // Si l'intervalle de temps est passé
             if ((Temps + IntervalleRafraichissement) < DateTime.Now)
             {
@@ -202,7 +199,7 @@ namespace AtelierXNA
             //Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
-            if(ListeJoueurs != null)
+            if (ListeJoueurs != null)
                 ListeJoueurs.Clear();
 
             // Declare count
@@ -223,7 +220,6 @@ namespace AtelierXNA
             }
         }
 
-
         /// //Regarde s'il y a un nouveau message
         private void RegarderNouveauMessageServeur()
         {
@@ -232,12 +228,21 @@ namespace AtelierXNA
             {
                 if (MessageInc.MessageType == NetIncomingMessageType.Data)
                 {
-                    if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
+                    //Lit le type d'information
+                    byte byteEnum = MessageInc.ReadByte();
+
+                    if (byteEnum == (byte)PacketTypes.WORLDSTATE)
                     {
                         //Reste à implanter quoi faire
                         WorldStateUpdate();
                     }
+
+                    if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
+                    {
+                        Console.WriteLine("STARTGAME_INFO recue _ Client");
+                    }
                 }
+
             }
         }
 
@@ -256,6 +261,35 @@ namespace AtelierXNA
 
                 // Send it to server
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
+        public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
+        {
+            if (messageToSend != null)
+            {
+                MessageOut = Client.CreateMessage();
+
+                MessageOut.Write(messageToSend);
+
+                // Send it to server
+                Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
+        public void EnvoyerMessageServeur(PacketTypes typeInfo, byte[] messageToSend)
+        {
+            if (messageToSend != null)
+            {
+                MessageOut = Client.CreateMessage();
+
+                MessageOut.Write((byte)typeInfo);
+                MessageOut.Write(messageToSend);
+
+                // Send it to server
+                Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+
+                Console.WriteLine(MessageOut.ToString());
             }
         }
     }

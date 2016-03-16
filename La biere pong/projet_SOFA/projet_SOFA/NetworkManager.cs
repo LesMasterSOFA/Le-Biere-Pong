@@ -15,7 +15,7 @@ namespace AtelierXNA
 {
     //Énumération contentant les différents types de packets,
     //pouvant être ensuite converti en byte ce qui permet de déterminer ce qu'il faut faire avec tel ou tel packet
-    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE }
+    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE, STARTGAME_INFO, MESSAGE_NULL }
 
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {
@@ -23,7 +23,8 @@ namespace AtelierXNA
         const string NOM_JEU = "BEERPONG";
         const int PORT = 5011;
         Mode1v1LAN Partie { get; set; }
-
+        NetworkClient MasterClient { get; set; } //Client local dirigeant la partie
+        NetworkClient SlaveClient { get; set; } //Client extérieur se greffant à la partie
 
         public NetworkManager(Game game)
             : base(game)
@@ -37,41 +38,45 @@ namespace AtelierXNA
             Game.Components.Add(Serveur);
         }
 
-        void CréerClient()
+        void CréerSlaveClient()
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
-            Game.Components.Add(client);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
+            Game.Components.Add(SlaveClient);
         }
 
-        void CréerClient(string nomJoueur)
+        void CréerSlaveClient(string nomJoueur)
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
-            Game.Components.Add(client);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
+            Game.Components.Add(SlaveClient);
         }
 
-        void CréerClientLocal()
+        void CréerMasterClient()
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
-            Game.Components.Add(client);
+            MasterClient = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
+            Game.Components.Add(MasterClient);
         }
 
-        void CréerClientLocal(string nomJoueur)
+        void CréerMasterClient(string nomJoueur)
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, nomJoueur, Serveur);
-            Game.Components.Add(client);
+            MasterClient = new NetworkClient(Game, NOM_JEU, "localhost", PORT, nomJoueur, Serveur);
+            Game.Components.Add(MasterClient);
         }
 
         public void RejoindrePartie(string nomJoueur)
         {
             try
             {
-                CréerClient(nomJoueur);
+                CréerSlaveClient(nomJoueur);
                 RecevoirInfoPartieToClient_Joining();
             }
             //Doit ajouter d'autre exception et leur traitement
-            catch(Exception)
+            catch(Exception e)
             {
-
+                Console.WriteLine("Problème lors du rejoignement de partie");
+                Console.WriteLine(e.ToString());
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
             }
         }
 
@@ -80,7 +85,7 @@ namespace AtelierXNA
             try
             {
                 CréerServeur();
-                CréerClientLocal();
+                CréerMasterClient();
                 Partie = new Mode1v1LAN(Game, Serveur, this);
                 Game.Components.Add(Partie);
             }
@@ -89,6 +94,9 @@ namespace AtelierXNA
             {
                 Console.WriteLine("Problème dans l'hébergement de la partie");
                 Console.WriteLine(e.ToString());
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
             }
         }
 
@@ -105,6 +113,7 @@ namespace AtelierXNA
             {
                 InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)Partie.JoueurPrincipal, Partie.JoueurSecondaire, Partie.GestionnairePartie, Partie.EstPartieActive, Partie.EnvironnementPartie, Partie.Serveur);
                 byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
+                MasterClient.EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO ,infoPartie);
             }
 
             catch(Exception e)

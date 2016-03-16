@@ -31,13 +31,12 @@ namespace AtelierXNA
             MenuSélectionPersonnage();
         }
 
-        //Constructeur séréaliseur
+        //Constructeur sérialiseur
         public Mode1v1LAN( Game game, JoueurMultijoueur joueurPrincipal, JoueurMultijoueur joueurSecondaire, 
             bool EstPartieActive, GestionEnvironnement gestionEnvironnement, 
             NetworkServer serveur, List<JoueurMultijoueur> listeJoueurs)
             : base(game)
         {
-
         }
         
         public override void Initialize()
@@ -80,10 +79,11 @@ namespace AtelierXNA
 
         void Activerpartie()
         {
+            Game.Components.Remove(BoutonJouer);
             ModifierActivation();
             ActiverEnvironnement();
             GestionNetwork.EnvoyerInfoPartieToServeur_StartGame();
-            Game.Components.Remove(BoutonJouer);
+            
         }
     }
 
