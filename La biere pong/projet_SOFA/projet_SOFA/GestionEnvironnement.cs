@@ -184,7 +184,7 @@ namespace AtelierXNA
          if (GestionClavier.EstNouvelleTouche(Keys.Enter))
          {
 
-            Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.5f, 1.7f), 2f, 0.00f, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
+            Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.5f, 1.7f), 2.5f, 0.00f, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
             int noDrawOrder = 0;
             foreach (GameComponent item in Game.Components)
             {

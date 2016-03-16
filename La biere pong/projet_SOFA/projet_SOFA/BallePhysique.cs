@@ -104,7 +104,7 @@ namespace AtelierXNA
             if (SphèreBalle.Intersects(ListeSphèreCollision[i]))
             {
                Vector3 vecteurDirecteur = Position - ListeSphèreCollision[i].Center;
-               vecteurDirecteur = (RayonCollision / vecteurDirecteur.Length()) * vecteurDirecteur;
+               vecteurDirecteur = ((RayonCollision + RAYON_BALLE) / vecteurDirecteur.Length()) * vecteurDirecteur;
                float angleDirection = (float)Math.Acos(Vector3.Dot(vecteurDirecteur, Vector3.Backward) / (vecteurDirecteur.Length() * Vector3.Backward.Length()));
                if (angleDirection <= MathHelper.PiOver4)
                {
@@ -119,7 +119,7 @@ namespace AtelierXNA
                }
                //PositionInitiale = new Vector3(Position.X, Position.Y, Position.Z);
                PositionInitiale = ListeSphèreCollision[i].Center + vecteurDirecteur;
-               TempsTotal = IntervalleMAJ;
+               TempsTotal = 0;
                i = ListeSphèreCollision.Count;
             }
          }
