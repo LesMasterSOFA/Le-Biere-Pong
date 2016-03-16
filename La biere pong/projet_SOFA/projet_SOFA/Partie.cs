@@ -14,11 +14,11 @@ namespace AtelierXNA
 {
     public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
     {
-        protected GestionEnvironnement gestionnaireEnvironnement { get; set; }
         protected Joueur JoueurPrincipal { get; set;}
         string Environnement { get; set; }
         protected GestionPartie gestionnairePartie { get; set; }
         protected bool EstPartieActive { get; set; }
+        protected GestionEnvironnement EnvironnementPartie { get; set; }
         public Partie(Game game)
             : base(game)
         {
@@ -39,7 +39,6 @@ namespace AtelierXNA
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
         }
 

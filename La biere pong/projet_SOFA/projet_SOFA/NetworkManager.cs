@@ -67,13 +67,29 @@ namespace AtelierXNA
 
         public void RejoindrePartie(string nomJoueur)
         {
-            CréerClient(nomJoueur);
+            try
+            {
+                CréerClient(nomJoueur);
+            }
+            //Doit ajouter d'autre exception et leur traitement
+            catch(Exception)
+            {
+
+            }
         }
 
         public void HébergerPartie()
         {
-            CréerServeur();
-            CréerClientLocal();
+            try
+            {
+                CréerServeur();
+                CréerClientLocal();
+            }
+            //Doit ajouter d'autre exception et leur traitement
+            catch(Exception)
+            {
+
+            }
         }
     }
 }

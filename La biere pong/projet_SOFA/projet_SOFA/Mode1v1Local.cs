@@ -29,7 +29,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            // Initialize the values for each viewport -> utile pour multijoueur
+            // Initialize the values for each viewport
             mainViewport = this.Game.GraphicsDevice.Viewport;
             leftViewport = mainViewport;
             rightViewport = mainViewport;
@@ -42,14 +42,12 @@ namespace AtelierXNA
         void InitialiserJouer()
         {
             JoueurPrincipal = new Joueur(this.Game, base.gestionnairePartie, leftViewport);
-            JoueurPrincipal = new Joueur(this.Game, base.gestionnairePartie, rightViewport);
+            JoueurSecondaire = new Joueur(this.Game, base.gestionnairePartie, rightViewport);
         }
 
 
         public override void Update(GameTime gameTime)
         {
-
-
             base.Update(gameTime);
         }
     }

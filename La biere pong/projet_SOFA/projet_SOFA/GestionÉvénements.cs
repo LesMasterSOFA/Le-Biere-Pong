@@ -20,10 +20,10 @@ namespace AtelierXNA
         static GestionÉvénements()
         {
         }
-
+        
         //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
 
-        public static void EnleverVerres<T>(List<T> listeDeVerres,Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
+        public static void EnleverVerres<T>(List<T> listeDeVerres, Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond, bool estTrickShot)
         {
             GameComponent verreComponent = verreCible as GameComponent;
             randGen = new Random();

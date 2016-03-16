@@ -54,8 +54,6 @@ namespace AtelierXNA
          GestionInput = new InputManager(this);
 
          Components.Add(new Menu(this));
-         //Components.Add(new ATH(this));
-
          
 
          Components.Add(GestionInput);

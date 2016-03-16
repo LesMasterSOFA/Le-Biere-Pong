@@ -35,6 +35,9 @@ namespace AtelierXNA
         BoutonDeCommande BoutonHéberger { get; set; }
         BoutonDeCommande BoutonRejoindre { get; set; }
         BoutonDeCommande BoutonBack { get; set; }
+        BoutonDeCommande BoutonAfficherConsole { get; set; }
+        BoutonDeCommande BoutonEnleverConsole { get; set; }
+        BoutonDeCommande BoutonEffacerConsole { get; set; }
 
         public Menu(Game game)
             :base(game)
@@ -98,21 +101,40 @@ namespace AtelierXNA
             AjouterNouveauxBoutons();
         }
 
-        void BoutonsLAN()
+        public void BoutonsLAN()
         {
-
             TexteTitre = "LAN";
             EnleverBoutonsExistants();
             BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsMultijoueur);
             BoutonHéberger = new BoutonDeCommande(Game, "Héberger", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, PartirMode1v1LAN);//fct événementielle -> Partir host
             BoutonRejoindre = new BoutonDeCommande(Game, "Rejoindre", "Impact20", "BoutonBleu", "BoutonBleuPale",
                                                   new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, RejoindreMode1v1LAN);//fct événementielle -> Partir join
+            BoutonAfficherConsole = new BoutonDeCommande(Game, "Afficher Console", "Impact20", "BoutonBleu", "BoutonBleuPale",
+                                                  new Vector2(PositionBack.X, PositionCentre.Y + MARGE_BOUTONS), true, AfficherConsole);
+            BoutonEnleverConsole = new BoutonDeCommande(Game, "Enlever Console", "Impact20", "BoutonBleu", "BoutonBleuPale",
+                                                  new Vector2(PositionBack.X, PositionCentre.Y + 2*MARGE_BOUTONS), true, ConsoleWindow.HideConsoleWindow);
+            BoutonEffacerConsole = new BoutonDeCommande(Game, "Effacer Console", "Impact20", "BoutonBleu", "BoutonBleuPale",
+                                                  new Vector2(PositionBack.X, PositionCentre.Y + 3 * MARGE_BOUTONS), true, EffacerConsole);
             ListeBoutonsCommandeMenu.Add(BoutonBack);
             ListeBoutonsCommandeMenu.Add(BoutonHéberger);
             ListeBoutonsCommandeMenu.Add(BoutonRejoindre);
+            ListeBoutonsCommandeMenu.Add(BoutonAfficherConsole);
+            ListeBoutonsCommandeMenu.Add(BoutonEnleverConsole);
+            ListeBoutonsCommandeMenu.Add(BoutonEffacerConsole);
             AjouterNouveauxBoutons();
         }
-
+        void EffacerConsole()
+        {
+            ConsoleWindow.HideConsoleWindow();
+            Console.Clear();
+            ConsoleWindow.ShowConsoleWindow();
+        }
+        void AfficherConsole()
+        {
+            ConsoleWindow.HideConsoleWindow();
+            ConsoleWindow.ShowConsoleWindow();
+            ConsoleWindow.PutInForeGround();
+        }
         //Manque la sélection de personnage, environnement, etc
         void PartirModeHistoire()
         {
