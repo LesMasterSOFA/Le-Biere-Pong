@@ -33,9 +33,15 @@ namespace AtelierXNA
 
         //Constructeur sérialiseur
         public Mode1v1LAN( Game game, InfoJoueurMultijoueur joueurPrincipal, InfoJoueurMultijoueur joueurSecondaire, 
-            bool EstPartieActive, InfoGestionEnvironnement gestionEnvironnement, InfoNetworkServer serveur)
+            bool estPartieActive, InfoGestionEnvironnement environnementPartie, InfoNetworkServer serveur)
             : base(game)
         {
+            //Reste à créer des constructeur pour ces champs
+            JoueurPrincipal = new JoueurMultijoueur();
+            JoueurSecondaire = new JoueurMultijoueur();
+            EstPartieActive = estPartieActive;
+            EnvironnementPartie = new GestionEnvironnement();
+            Serveur = new NetworkServer();
         }
         
         public override void Initialize()
