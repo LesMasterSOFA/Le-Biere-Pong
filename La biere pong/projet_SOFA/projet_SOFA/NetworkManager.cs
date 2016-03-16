@@ -19,12 +19,12 @@ namespace AtelierXNA
 
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {
-        NetworkServer Serveur;
+        public NetworkServer Serveur { get; private set; }
         const string NOM_JEU = "BEERPONG";
         const int PORT = 5011;
-        Mode1v1LAN Partie { get; set; }
-        NetworkClient MasterClient { get; set; } //Client local dirigeant la partie
-        NetworkClient SlaveClient { get; set; } //Client extérieur se greffant à la partie
+        public Mode1v1LAN Partie { get; private set; }
+        public NetworkClient MasterClient { get; private set; } //Client local dirigeant la partie
+        public NetworkClient SlaveClient { get; private set; } //Client extérieur se greffant à la partie
 
         public NetworkManager(Game game)
             : base(game)
@@ -34,7 +34,7 @@ namespace AtelierXNA
 
         void CréerServeur()
         {
-            Serveur = new NetworkServer(Game, NOM_JEU, PORT);
+            Serveur = new NetworkServer(Game, NOM_JEU, PORT, this);
             Game.Components.Add(Serveur);
         }
 
@@ -67,7 +67,7 @@ namespace AtelierXNA
             try
             {
                 CréerSlaveClient(nomJoueur);
-                RecevoirInfoPartieToClient_Joining();
+                //RecevoirInfoPartieToClient_Joining();
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)
@@ -100,14 +100,24 @@ namespace AtelierXNA
             }
         }
 
-        public void RecevoirInfoPartieToClient_Joining()
+        public void RecevoirInfoPartieToClient_Joining(byte[] infoPartie)
         {
+            Console.WriteLine("Essaie Désérialisation");
+            try
+            {
+                InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
+                Partie = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+            }
 
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
+                Console.WriteLine(e.ToString());
+            }
         }
         
         public void EnvoyerInfoPartieToServeur_StartGame()
         {
-            //Serveur.ListeJoueurs.Find(j => j.GamerTag == "Joueur1");
             Console.WriteLine("Essaie Sérialisation");
             try
             {

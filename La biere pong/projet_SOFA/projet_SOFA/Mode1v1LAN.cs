@@ -32,9 +32,8 @@ namespace AtelierXNA
         }
 
         //Constructeur sérialiseur
-        public Mode1v1LAN( Game game, JoueurMultijoueur joueurPrincipal, JoueurMultijoueur joueurSecondaire, 
-            bool EstPartieActive, GestionEnvironnement gestionEnvironnement, 
-            NetworkServer serveur, List<JoueurMultijoueur> listeJoueurs)
+        public Mode1v1LAN( Game game, InfoJoueurMultijoueur joueurPrincipal, InfoJoueurMultijoueur joueurSecondaire, 
+            bool EstPartieActive, InfoGestionEnvironnement gestionEnvironnement, InfoNetworkServer serveur)
             : base(game)
         {
         }
@@ -90,12 +89,12 @@ namespace AtelierXNA
     [Serializable]
     class InfoMode1v1LAN
     {
-        bool EstPartieActive { get; set; }
-        InfoJoueurMultijoueur InfoJoueurPrincipal { get; set; }
-        InfoJoueurMultijoueur InfoJoueurSecondaire { get; set; }
-        InfoGestionPartie InfoGestionnairePartie { get; set; }
-        InfoGestionEnvironnement InfoGestionnaireEnvironnement { get; set; }
-        InfoNetworkServer InfoServer { get; set; }
+        public bool EstPartieActive { get; private set; }
+        public InfoJoueurMultijoueur InfoJoueurPrincipal { get; private set; }
+        public InfoJoueurMultijoueur InfoJoueurSecondaire { get; private set; }
+        public InfoGestionPartie InfoGestionnairePartie { get; private set; }
+        public InfoGestionEnvironnement InfoGestionnaireEnvironnement { get; private set; }
+        public InfoNetworkServer InfoServer { get; private set; }
 
         public InfoMode1v1LAN(JoueurMultijoueur joueurPrincipal,JoueurMultijoueur joueurSecondaire, GestionPartie gestionnairePartie, 
             bool estPartieActive, GestionEnvironnement environnementPartie, 

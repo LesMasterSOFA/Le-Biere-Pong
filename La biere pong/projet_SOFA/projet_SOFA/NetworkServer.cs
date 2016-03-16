@@ -19,19 +19,21 @@ namespace AtelierXNA
         // Configuration object
         static NetPeerConfiguration Config;
 
-        string NomJeu { get; set; }
-        int Port { get; set; }
-        DateTime Temps { get; set; }
-        TimeSpan IntervalleRafraichissement { get; set; }
+        public string NomJeu { get; private set; }
+        public int Port { get; private set; }
+        public DateTime Temps { get; private set; }
+        public TimeSpan IntervalleRafraichissement { get; private set; }
         NetIncomingMessage MessageInc { get; set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         byte[] message { get; set; }
+        public NetworkManager GestionNetwork { get; private set; }
 
 
-        public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
+        public NetworkServer(Game jeu, string nomJeu, int port, NetworkManager gestionNetwork):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
+            GestionNetwork = gestionNetwork;
             Create(NomJeu, Port);
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             Console.WriteLine("Waiting for new connections and updateing world state to current ones");

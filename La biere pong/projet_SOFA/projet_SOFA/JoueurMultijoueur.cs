@@ -42,7 +42,7 @@ namespace AtelierXNA
     }
 
     [Serializable]
-    class InfoJoueurMultijoueur
+    public class InfoJoueurMultijoueur
     {
         InfoPersonnage InfoAvatar { get; set; }
         string Gamertag { get; set; }

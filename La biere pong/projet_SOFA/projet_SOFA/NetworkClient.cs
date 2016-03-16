@@ -240,6 +240,11 @@ namespace AtelierXNA
                     if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                     {
                         Console.WriteLine("STARTGAME_INFO recue _ Client");
+                        if (this != Serveur.GestionNetwork.MasterClient)
+                        {
+                            Serveur.GestionNetwork.RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                            Console.WriteLine("STARTGAME_INFO gérée");
+                        }
                     }
                 }
 
