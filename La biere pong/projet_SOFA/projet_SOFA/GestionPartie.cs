@@ -45,4 +45,13 @@ namespace AtelierXNA
             base.Update(gameTime);
         }
     }
+
+    [Serializable]
+    class InfoGestionPartie
+    {
+        public InfoGestionPartie()
+        {
+
+        }
+    }
 }

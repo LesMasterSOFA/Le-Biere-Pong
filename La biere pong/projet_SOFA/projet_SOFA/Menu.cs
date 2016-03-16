@@ -106,7 +106,7 @@ namespace AtelierXNA
             TexteTitre = "LAN";
             EnleverBoutonsExistants();
             BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsMultijoueur);
-            BoutonHéberger = new BoutonDeCommande(Game, "Héberger", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, PartirMode1v1LAN);//fct événementielle -> Partir host
+            BoutonHéberger = new BoutonDeCommande(Game, "Héberger", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, HébergerMode1v1LAN);//fct événementielle -> Partir host
             BoutonRejoindre = new BoutonDeCommande(Game, "Rejoindre", "Impact20", "BoutonBleu", "BoutonBleuPale",
                                                   new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, RejoindreMode1v1LAN);//fct événementielle -> Partir join
             BoutonAfficherConsole = new BoutonDeCommande(Game, "Afficher Console", "Impact20", "BoutonBleu", "BoutonBleuPale",
@@ -157,7 +157,7 @@ namespace AtelierXNA
             Game.Components.Add(new Mode1v1Local(Game));
         }
 
-        void PartirMode1v1LAN()
+        void HébergerMode1v1LAN()
         {
             Game.Components.Remove(this);
             EnleverBoutonsExistants();

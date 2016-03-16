@@ -14,25 +14,19 @@ namespace AtelierXNA
 {
     public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
     {
-        protected Joueur JoueurPrincipal { get; set;}
-        string Environnement { get; set; }
-        protected GestionPartie gestionnairePartie { get; set; }
-        protected bool EstPartieActive { get; set; }
-        protected GestionEnvironnement EnvironnementPartie { get; set; }
+        public Joueur JoueurPrincipal { get; protected set;}
+        public GestionPartie GestionnairePartie { get; protected set; }
+        public bool EstPartieActive { get; protected set; }
+        public GestionEnvironnement EnvironnementPartie { get; protected set; }
+        
         public Partie(Game game)
             : base(game)
         {
         }
 
-        void DéterminerEnvironnement(string environnement)
-        {
-            Environnement = environnement;
-        }
-
-
         public override void Initialize()
         {
-            gestionnairePartie = new GestionPartie(Game);
+            GestionnairePartie = new GestionPartie(Game);
             EstPartieActive = false;
             base.Initialize();
         }

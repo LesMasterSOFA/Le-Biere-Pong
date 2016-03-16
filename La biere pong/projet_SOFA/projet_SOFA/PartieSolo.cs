@@ -23,7 +23,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            base.JoueurPrincipal = new Joueur(Game, base.gestionnairePartie, Game.GraphicsDevice.Viewport);
+            base.JoueurPrincipal = new Joueur(Game, base.GestionnairePartie, Game.GraphicsDevice.Viewport);
             base.Initialize();
         }
 

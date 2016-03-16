@@ -182,5 +182,14 @@ namespace AtelierXNA
          base.Update(gameTime);
       }
    }
+
+    [Serializable]
+    public class InfoGestionEnvironnement
+    {
+        public InfoGestionEnvironnement()
+        {
+
+        }
+    }
 }
 

@@ -18,6 +18,7 @@ namespace AtelierXNA
             try
             {
                 formatter.Serialize(streamMemoire, ObjToSerialize);
+                Console.WriteLine("Sérialisation réussie");
             }
 
             catch (Exception e)

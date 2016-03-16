@@ -125,6 +125,7 @@
     <Compile Include="ATH.cs" />
     <Compile Include="BallePhysique.cs" />
     <Compile Include="ConsoleWindow.cs" />
+    <Compile Include="Joueur.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetCryptoProviderBase.cs" />
@@ -214,7 +215,7 @@
     <Compile Include="GestionÉvénements.cs" />
     <Compile Include="Outils\IActivable.cs" />
     <Compile Include="IndicateurForce.cs" />
-    <Compile Include="Joueur.cs" />
+    <Compile Include="JoueurMultijoueur.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Mode1v1LAN.cs" />
     <Compile Include="Mode1v1Local.cs" />

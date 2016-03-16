@@ -31,4 +31,12 @@ namespace AtelierXNA
             base.Update(gameTime);
         }
     }
+    [Serializable]
+    public class InfoPersonnage
+    {
+        public InfoPersonnage()
+        {
+
+        }
+    }
 }

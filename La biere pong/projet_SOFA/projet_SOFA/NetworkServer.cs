@@ -24,7 +24,7 @@ namespace AtelierXNA
         DateTime Temps { get; set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetIncomingMessage MessageInc { get; set; }
-        public List<Joueur> ListeJoueurs { get; private set; }
+        public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
 
 
         public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
@@ -34,8 +34,7 @@ namespace AtelierXNA
             Create(NomJeu, Port);
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             Console.WriteLine("Waiting for new connections and updateing world state to current ones");
-            
-            ListeJoueurs = new List<Joueur>();
+            ListeJoueurs = new List<JoueurMultijoueur>();
         }
 
         void Create(string nomJeu, int port)
@@ -81,14 +80,14 @@ namespace AtelierXNA
 
                             //Initialisation de joueur
                             //Reste à ajouter le joueur dans le WorldState
-                            var joueur = new Joueur(Game, MessageInc.SenderConnection);
+                            var joueur = new JoueurMultijoueur(Game, MessageInc.SenderConnection);
                             ListeJoueurs.Add(joueur);
 
 
                             // Création d'un message pouvant être envoyé
                             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
 
-                            // Tout d'abord on dit quel sorte de message on envoir en Byte
+                            // Tout d'abord on dit quel sorte de message on envoie en Byte
                             //Envoie d'un message renvoyant l'état du monde
                             MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
 
@@ -97,7 +96,7 @@ namespace AtelierXNA
                             MessageSortant.Write(ListeJoueurs.Count);
 
                             //Passe sur tous les joueurs dans le jeu
-                            foreach (Joueur j in ListeJoueurs)
+                            foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
                                 // Écrit tous les propriété des objet 
                                 MessageSortant.WriteAllProperties(j);
@@ -121,7 +120,7 @@ namespace AtelierXNA
                         if (MessageInc.ReadByte() == (byte)PacketTypes.MOVE)
                         {
                             //On regarde qui a envoyé le message
-                            foreach (Joueur j in ListeJoueurs)
+                            foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
                                 if (j.IP == MessageInc.SenderConnection)
                                 {
@@ -143,7 +142,7 @@ namespace AtelierXNA
                         if (MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnected || MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
                         {
                             //On trouve le joueur déconnecté et on l'enlève
-                            foreach (Joueur j in ListeJoueurs)
+                            foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
                                 if (j.IP == MessageInc.SenderConnection)
                                 {
@@ -192,7 +191,7 @@ namespace AtelierXNA
                   MessageSortant.Write(ListeJoueurs.Count);
 
                    //Passe sur tous les joueurs dans le jeu
-                   foreach (Joueur j in ListeJoueurs)
+                   foreach (JoueurMultijoueur j in ListeJoueurs)
                     {
                        // Écrit tous les propriété des objet 
                         MessageSortant.WriteAllProperties(j);
@@ -204,4 +203,13 @@ namespace AtelierXNA
                     Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             }
         }
+    
+    [Serializable]
+    public class InfoNetworkServer
+    {
+        public InfoNetworkServer()
+        {
+
+        }
     }
+}

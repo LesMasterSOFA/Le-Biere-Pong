@@ -18,7 +18,7 @@ namespace AtelierXNA
         static NetClient Client;
 
         //Liste de joueur
-        static List<Joueur> ListeJoueurs;
+        static List<JoueurMultijoueur> ListeJoueurs;
 
         // indique si le client roule
         public static bool EstEnMarche = false;
@@ -41,7 +41,7 @@ namespace AtelierXNA
             Serveur = serveur;
             Create(NomJeu, Port);
             Connect();
-            ListeJoueurs = new List<Joueur>();
+            ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
@@ -55,7 +55,7 @@ namespace AtelierXNA
             Serveur = serveur;
             Create(NomJeu, Port);
             Connect();
-            ListeJoueurs = new List<Joueur>();
+            ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
@@ -199,7 +199,7 @@ namespace AtelierXNA
         //Update le monde
         void WorldStateUpdate()
         {
-            Console.WriteLine("WorldState Update");
+            //Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
             if(ListeJoueurs != null)
@@ -214,7 +214,7 @@ namespace AtelierXNA
             //On recrée les joueurs présents
             for (int i = 0; i < NbDeJoueurs; i++)
             {
-                Joueur j = new Joueur(this.Game, MessageInc.SenderConnection);
+                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection);
 
                 //On lit toutes les propriétés du joueur
                 MessageInc.ReadAllProperties(j);
@@ -235,7 +235,7 @@ namespace AtelierXNA
                     if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                     {
                         //Reste à implanter quoi faire
-                        //WorldStateUpdate();
+                        WorldStateUpdate();
                     }
                 }
             }
