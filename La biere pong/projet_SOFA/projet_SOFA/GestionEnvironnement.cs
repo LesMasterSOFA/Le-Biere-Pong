@@ -52,21 +52,27 @@ namespace AtelierXNA
          NomEnvironnement = nomEnvironnement;
       }
 
-      public override void Initialize() //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
-      /* Dimensions de la balle: rayon de 2 cm
-       * Centre de la balle : centre de la sphere
-       * Dimensions de la table: X = 76cm 
-       *                         Y = 74cm
-       *                         Z = 183cm (pas sur)
-       * Centre de la table : a terre, au milieu
-       * Dimension du verre : rayon de 9.225cm (dans le haut du verre)
-       *                      hauteur : 11.99cm
-       * Centre du verre : a terre, au centre du cercle
-       * Dimension du monsieur : X = 79.399cm
-       *                         Y = 1.705m
-       *                         Z = 36.761cm
-       * Centre du monsieur : a terre, au milieu
-       */
+       public GestionEnvironnement(Game game) : base(game)
+      {
+
+      }
+
+      //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
+      // Dimensions de la balle: rayon de 2 cm
+      //Centre de la balle : centre de la sphere
+      //Dimensions de la table: X = 76cm 
+      //                        Y = 74cm
+      //                        Z = 183cm (pas sur)
+      //Centre de la table : a terre, au milieu
+      //Dimension du verre : rayon de 9.225cm (dans le haut du verre)
+      //                     hauteur : 11.99cm
+      //Centre du verre : a terre, au centre du cercle
+      //Dimension du monsieur : X = 79.399cm
+      //                        Y = 1.705m
+      //                        Z = 36.761cm
+      //Centre du monsieur : a terre, au milieu
+      public override void Initialize() 
+     
       {
          GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
 

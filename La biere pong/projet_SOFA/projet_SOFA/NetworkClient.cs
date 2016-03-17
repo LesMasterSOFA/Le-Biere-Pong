@@ -239,8 +239,13 @@ namespace AtelierXNA
 
                     if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                     {
+                        //erreur ici
+                        //Le problème est que le serveur est null lors de la création du clientSlave et il n'est jamais instancié par la suite
+                        //Alors il faudrait l'instancier avant de regarder le serveur pour recevoir des information de la partie(contenant le serveur)
+                        //Autrement dit: lire l'information envoyée sur le serveur pour l'instancier, ou l'instancier avant dans le network manager dans la fonction CréerSlaveClient
+                        //Peut-être envoyer les info du serveur en le sérialisant dans le LOGIN de NetworkServeur
                         Console.WriteLine("STARTGAME_INFO recue _ Client");
-                        if (this != Serveur.GestionNetwork.MasterClient)
+                        if (this != this.Serveur.GestionNetwork.MasterClient)
                         {
                             Serveur.GestionNetwork.RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                             Console.WriteLine("STARTGAME_INFO gérée");

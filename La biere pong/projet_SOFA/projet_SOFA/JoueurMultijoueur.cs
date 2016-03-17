@@ -30,6 +30,12 @@ namespace AtelierXNA
             IP = ip;
         }
 
+        //Constructeur sérialiseur
+        public JoueurMultijoueur(Game game):base(game)
+        {
+
+        }
+
         public override void Initialize()
         {
         }

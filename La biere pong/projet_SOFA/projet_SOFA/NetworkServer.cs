@@ -40,6 +40,12 @@ namespace AtelierXNA
             ListeJoueurs = new List<JoueurMultijoueur>();
         }
 
+        //Constructeur sérialiseur
+        public NetworkServer(Game jeu) : base(jeu)
+        {
+
+        }
+
         void Create(string nomJeu, int port)
         {
             try
@@ -138,14 +144,15 @@ namespace AtelierXNA
 
                         if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                         {
+                            //erreur ici
                             Console.WriteLine("STARTGAME_INFO recue _ Serveur");
                             foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
-                                if (j.IP == MessageInc.SenderConnection)
+                                if (j.IP != MessageInc.SenderConnection)
                                 {
                                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message);
                                 }
-                                EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message);
                             }
                         }
 
@@ -237,7 +244,8 @@ namespace AtelierXNA
             MessageSortant.Write(messageToSend);
 
             //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
-            Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            Serveur.SendMessage(MessageSortant, ListeJoueurs[1].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
     }
     

@@ -37,11 +37,11 @@ namespace AtelierXNA
             : base(game)
         {
             //Reste à créer des constructeur pour ces champs
-            JoueurPrincipal = new JoueurMultijoueur();
-            JoueurSecondaire = new JoueurMultijoueur();
+            JoueurPrincipal = new JoueurMultijoueur(this.Game);
+            JoueurSecondaire = new JoueurMultijoueur(this.Game);
             EstPartieActive = estPartieActive;
-            EnvironnementPartie = new GestionEnvironnement();
-            Serveur = new NetworkServer();
+            EnvironnementPartie = new GestionEnvironnement(this.Game);
+            //Serveur = new NetworkServer(this.Game);
         }
         
         public override void Initialize()
