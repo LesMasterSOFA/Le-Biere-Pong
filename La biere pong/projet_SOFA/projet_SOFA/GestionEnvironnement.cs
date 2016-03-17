@@ -20,7 +20,8 @@ namespace AtelierXNA
       const float DIMENSION_TABLE_X = 0.76f;
       const float DIMENSION_TABLE_Y = 0.74f;
       const float DIMENSION_TABLE_Z = 1.83f;
-      const float RAYON_VERRE_HAUT = 0.09225f;
+      const float DIAMÈTRE_VERRE = 0.09225f;
+      const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
       const float HAUTEUR_VERRE = 0.1199f;
       InputManager GestionClavier { get; set; }
       ObjetDeBase Table { get; set; }
@@ -44,7 +45,7 @@ namespace AtelierXNA
       VerreAdversaire VerreAdversaire6 { get; set; }
       List<Vector3> ListePositionVerres { get; set; }
       List<Vector3> ListePositionVerresAdv { get; set; }
-
+      BoundingBox BoundingTable { get; set; }
 
       public GestionEnvironnement(Game game, Environnements nomEnvironnement)
          : base(game)
@@ -81,7 +82,7 @@ namespace AtelierXNA
          FixerLesPositions();
 
          //Instanciation et ajout dans components de caméra
-         Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
+         Vector3 positionCaméra = new Vector3(2, 1.5f, 0f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
          CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
@@ -93,15 +94,16 @@ namespace AtelierXNA
          personnagePrincipal = new Personnage(this.Game);
 
          Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-         BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, 0.755f, DIMENSION_TABLE_Z / 2));
-         Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, boundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, INTERVALLE_MAJ_STANDARD);
+         BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, DIMENSION_TABLE_Y, DIMENSION_TABLE_Z / 2));
+         Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
 
          personnagePrincipal = new Personnage(this.Game);
 
          CréerLesVerres();
 
          //Ajout des objets dans la liste de Components
-         Game.Components.Add(Balle);
+         //ajout de la balle ici
+        // Game.Components.Add(Balle);
          Game.Components.Add(Table);
          Game.Components.Add(personnagePrincipal);
          AjouterVerresJoueur();//Les ajouter dans les Game.Components
@@ -109,13 +111,13 @@ namespace AtelierXNA
       }
       void FixerLesPositions()
       {
-         ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f, 0.74f, 0.8f));
-         ListePositionVerres.Add(new Vector3(-0.09225f, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerres.Add(new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, 0.8f));
+         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, 0.8f - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, 0.8f - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f - 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
 
-         ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f, 0.74f, -0.8f));
-         ListePositionVerresAdv.Add(new Vector3(-0.09225f, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerresAdv.Add(new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, -0.8f));
+         ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, -0.8f + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, -0.8f + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
       }
 
       void CréerLesVerres()
@@ -184,6 +186,19 @@ namespace AtelierXNA
          if (GestionClavier.EstNouvelleTouche(Keys.E))
          {
             GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
+         }
+         if (GestionClavier.EstNouvelleTouche(Keys.Enter))
+         {
+
+            Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.5f, 1.7f), 2.5f, 0.00f, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
+            int noDrawOrder = 0;
+            foreach (GameComponent item in Game.Components)
+            {
+               if (item is DrawableGameComponent)
+               {
+                  ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+               }
+            }
          }
          base.Update(gameTime);
       }
