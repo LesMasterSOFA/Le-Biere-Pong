@@ -21,7 +21,7 @@ namespace AtelierXNA
         RessourcesManager<Texture2D> GestionTextures { get; set; }
         RessourcesManager<Effect> GestionEffets { get; set; }
 
-        Caméra CaméraJeu { get; set; }
+        protected Caméra CaméraJeu { get; set; }
 
         public float Échelle { get; set; }
 
