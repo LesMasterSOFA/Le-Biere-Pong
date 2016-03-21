@@ -124,6 +124,7 @@
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
     <Compile Include="BallePhysique.cs" />
+    <Compile Include="CaméraJoueur.cs" />
     <Compile Include="ConsoleWindow.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
@@ -243,7 +244,7 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\SkinningSample_4_0\SkinningSample_4_0\SkinnedModel\SkinnedModelWindows.csproj">
+    <ProjectReference Include="..\..\..\Skinning sample\SkinnedModel\SkinnedModelWindows.csproj">
       <Project>{0d41e29b-829f-4255-bca5-64dc2677da6d}</Project>
       <Name>SkinnedModelWindows</Name>
     </ProjectReference>
