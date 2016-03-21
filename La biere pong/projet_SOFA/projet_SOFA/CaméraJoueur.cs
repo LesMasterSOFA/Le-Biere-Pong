@@ -16,12 +16,17 @@ namespace AtelierXNA
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
         const float VITESSE_INITIALE_ROTATION = 0.1f;
         const float DELTA_LACET = MathHelper.Pi / 180; // 1 degré à la fois
+        const float DELTA_TANGAGE = MathHelper.Pi / 180; // 1 degré à la fois
         const float RAYON_COLLISION = 1f;
 
 
         Vector3 Direction { get; set; }
         Vector3 Latéral { get; set; }
-        float VitesseRotation { get; set; }
+        float VitesseRotationDroite { get; set; }
+        float VitesseRotationGauche { get; set; }
+
+        float VitesseRotationHaut { get; set; }
+        float VitesseRotationBas { get; set; }
 
         float IntervalleMAJ { get; set; }
         float TempsÉcouléDepuisMAJ { get; set; }
@@ -39,7 +44,10 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            VitesseRotation = VITESSE_INITIALE_ROTATION;
+            VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
+            VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
+            VitesseRotationBas = VITESSE_INITIALE_ROTATION;
+            VitesseRotationHaut = VITESSE_INITIALE_ROTATION;
             TempsÉcouléDepuisMAJ = 0;
             base.Initialize();
             GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
@@ -89,23 +97,70 @@ namespace AtelierXNA
             {
                 GérerLacet();
             }
+            if (GestionInput.EstEnfoncée(Keys.Up) || GestionInput.EstEnfoncée(Keys.Down))
+            {
+                GérerTangage();
+            }
         }
+        private void GérerTangage()
+        {
+            Matrix matriceTangage;
+            if (GestionInput.EstEnfoncée(Keys.Up))
+            {
+                matriceTangage = Matrix.CreateFromAxisAngle(Latéral, DELTA_TANGAGE * VitesseRotationHaut);
+            }
+            else
+            {
+                matriceTangage = Matrix.CreateFromAxisAngle(Latéral, -DELTA_TANGAGE * VitesseRotationBas);
+            }
 
+
+
+            if (Vue.Forward.Y <= 0.1f)
+            {
+                VitesseRotationHaut = 0f;
+            }
+            else if (Vue.Forward.Y >= 0.3f)
+            {
+                VitesseRotationBas = 0f;
+            }
+            else
+            {
+                VitesseRotationBas = VITESSE_INITIALE_ROTATION;
+                VitesseRotationHaut = VITESSE_INITIALE_ROTATION;
+            }
+            Direction = Vector3.Transform(Direction, matriceTangage);
+            Direction = Vector3.Normalize(Direction);
+            OrientationVerticale = Vector3.Transform(OrientationVerticale, matriceTangage);
+            OrientationVerticale = Vector3.Normalize(OrientationVerticale);
+        }
         private void GérerLacet()
         {
             Matrix matriceLacet;
             if (GestionInput.EstEnfoncée(Keys.Right))
             {
-                matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, -DELTA_LACET * VitesseRotation);
+                matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, -DELTA_LACET * VitesseRotationDroite);
             }
             else
             {
-                matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, DELTA_LACET * VitesseRotation);
+                matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, DELTA_LACET * VitesseRotationGauche);
             }
-            //if((float)MathHelper.ToDegrees((float)Math.Tan(Vue.Forward.X / Vue.Forward.Z))<=5f)
-            //{
 
-            //}
+
+
+            if (Vue.Forward.X <= -0.085f)
+            {
+                VitesseRotationDroite = 0f;
+            }
+            else if(Vue.Forward.X >= 0.085f)
+            {
+                VitesseRotationGauche = 0f;
+            }
+            else
+            {
+                VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
+                VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
+            }
             Direction = Vector3.Transform(Direction, matriceLacet);
             Direction = Vector3.Normalize(Direction);
             Latéral = Vector3.Cross(Direction, OrientationVerticale);
