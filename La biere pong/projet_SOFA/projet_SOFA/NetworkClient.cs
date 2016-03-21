@@ -32,20 +32,22 @@ namespace AtelierXNA
         public string NomJoueur { get; private set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
+        public bool EstMaster { get; private set; }
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
             NomJoueur = nomJoueur;
             Serveur = serveur;
+            EstMaster = estMaster;
             Create(NomJeu, Port);
             Connect();
             ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
-        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur)
+        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur, bool estMaster)
             : base(jeu)
         {
             NomJeu = nomJeu;
@@ -53,6 +55,7 @@ namespace AtelierXNA
             Port = port;
             NomJoueur = nomJoueur;
             Serveur = serveur;
+            EstMaster = estMaster;
             Create(NomJeu, Port);
             Connect();
             ListeJoueurs = new List<JoueurMultijoueur>();
@@ -211,7 +214,7 @@ namespace AtelierXNA
             //On recrée les joueurs présents
             for (int i = 0; i < NbDeJoueurs; i++)
             {
-                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection);
+                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection,this);
 
                 //On lit toutes les propriétés du joueur
                 MessageInc.ReadAllProperties(j);
@@ -239,16 +242,12 @@ namespace AtelierXNA
 
                     if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                     {
-                        //erreur ici
-                        //Le problème est que le serveur est null lors de la création du clientSlave et il n'est jamais instancié par la suite
-                        //Alors il faudrait l'instancier avant de regarder le serveur pour recevoir des information de la partie(contenant le serveur)
-                        //Autrement dit: lire l'information envoyée sur le serveur pour l'instancier, ou l'instancier avant dans le network manager dans la fonction CréerSlaveClient
-                        //Peut-être envoyer les info du serveur en le sérialisant dans le LOGIN de NetworkServeur
                         Console.WriteLine("STARTGAME_INFO recue _ Client");
-                        if (this != this.Serveur.GestionNetwork.MasterClient)
+                        if (EstMaster == false)
                         {
-                            Serveur.GestionNetwork.RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                            RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                             Console.WriteLine("STARTGAME_INFO gérée");
+                            Game.Components.Add(Serveur.PartieEnCours);
                         }
                     }
                 }
@@ -300,6 +299,44 @@ namespace AtelierXNA
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
 
                 Console.WriteLine(MessageOut.ToString());
+            }
+        }
+
+        public void EnvoyerInfoPartieToServeur_StartGame(Mode1v1LAN partieToSend)
+        {
+            Console.WriteLine("Essaie Sérialisation");
+            try
+            {
+                InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)partieToSend.JoueurPrincipal, (JoueurMultijoueur)partieToSend.JoueurSecondaire, partieToSend.gestionnairePartie, partieToSend.EstPartieActive, partieToSend.EnvironnementPartie, partieToSend.Serveur);
+                byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
+                EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO, infoPartie);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
+                Console.WriteLine(e.ToString());
+            }
+
+        }
+
+        public void RecevoirInfoPartieToClient_Joining(byte[] infoPartie)
+        {
+            Console.WriteLine("Essai Désérialisation");
+            try
+            {
+                //Problème ici, incapable de démarrer une partie. Probablement a cause que les classe serializable s'instancie pas comme il le faut
+                InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
+                //Serveur = new NetworkServer(Game);
+                //Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                var PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                Game.Components.Add(PartieEnCours);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
+                Console.WriteLine(e.ToString());
             }
         }
     }

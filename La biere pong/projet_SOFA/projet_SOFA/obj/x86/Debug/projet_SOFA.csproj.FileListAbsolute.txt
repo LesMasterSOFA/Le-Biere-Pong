@@ -258,3 +258,6 @@ C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\b
 C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.pdb
 C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.pdb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Effects\Shader.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\superBoyLancer.xnb
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\SkinnedModel.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\SkinnedModel.pdb

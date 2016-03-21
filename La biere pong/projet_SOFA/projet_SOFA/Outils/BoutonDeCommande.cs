@@ -132,7 +132,8 @@ namespace AtelierXNA
          GestionSprites.End();
          base.Draw(gameTime);
       }
-      public void ModifierActivation()
+      
+       public void ModifierActivation()
       {
           EstActif = !EstActif;
       }

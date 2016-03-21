@@ -15,21 +15,29 @@ namespace AtelierXNA
 {
     public class JoueurMultijoueur : Joueur
     { 
-        public NetConnection IP { get; private set; } 
+        public NetConnection IP { get; private set; }
+        public NetworkClient Client { get; private set; }
         //Constructeur normal
-        public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag)
+        public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag, NetworkClient client)
             : base(game, avatar, imageJoueur, gestionnaireDeLaPartie, écranDeJeu, gamerTag)
         {
             IP = ip;
+            Client = client;
         }
 
         //Temporaire
-        public JoueurMultijoueur(Game game, NetConnection ip)
+        public JoueurMultijoueur(Game game, NetConnection ip, NetworkClient client)
             :base(game)
+        {
+            Client = client;
+            IP = ip;
+        }
+        //Temporaire
+        public JoueurMultijoueur(Game game, NetConnection ip)
+            : base(game)
         {
             IP = ip;
         }
-
         //Constructeur sérialiseur
         public JoueurMultijoueur(Game game):base(game)
         {
@@ -62,7 +70,7 @@ namespace AtelierXNA
             InfoAvatar = new InfoPersonnage();
             Gamertag = gamertag;
             if(imageJoueur != null)
-                ImageJoueur = imageJoueur.Name;
+            ImageJoueur = imageJoueur.Name;
             InfoGestionnairePartie = new InfoGestionPartie();
             EstActif = estActif;
             IP = ip.ToString();

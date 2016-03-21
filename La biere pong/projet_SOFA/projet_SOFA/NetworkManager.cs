@@ -22,9 +22,9 @@ namespace AtelierXNA
         public NetworkServer Serveur { get; private set; }
         const string NOM_JEU = "BEERPONG";
         const int PORT = 5011;
-        public Mode1v1LAN Partie { get; private set; }
         public NetworkClient MasterClient { get; private set; } //Client local dirigeant la partie
         public NetworkClient SlaveClient { get; private set; } //Client extérieur se greffant à la partie
+        public Mode1v1LAN PartieEnCours { get; private set; }
 
         public NetworkManager(Game game)
             : base(game)
@@ -40,25 +40,25 @@ namespace AtelierXNA
 
         void CréerSlaveClient()
         {
-            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur,false);
             Game.Components.Add(SlaveClient);
         }
 
         void CréerSlaveClient(string nomJoueur)
         {
-            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur,false);
             Game.Components.Add(SlaveClient);
         }
 
         void CréerMasterClient()
         {
-            MasterClient = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
+            MasterClient = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur,true);
             Game.Components.Add(MasterClient);
         }
 
         void CréerMasterClient(string nomJoueur)
         {
-            MasterClient = new NetworkClient(Game, NOM_JEU, "localhost", PORT, nomJoueur, Serveur);
+            MasterClient = new NetworkClient(Game, NOM_JEU, "localhost", PORT, nomJoueur, Serveur,true);
             Game.Components.Add(MasterClient);
         }
 
@@ -67,7 +67,6 @@ namespace AtelierXNA
             try
             {
                 CréerSlaveClient(nomJoueur);
-                //RecevoirInfoPartieToClient_Joining();
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)
@@ -86,8 +85,8 @@ namespace AtelierXNA
             {
                 CréerServeur();
                 CréerMasterClient();
-                Partie = new Mode1v1LAN(Game, Serveur, this);
-                Game.Components.Add(Partie);
+                PartieEnCours = new Mode1v1LAN(Game, Serveur, this);
+                Game.Components.Add(PartieEnCours);
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)
@@ -100,38 +99,5 @@ namespace AtelierXNA
             }
         }
 
-        public void RecevoirInfoPartieToClient_Joining(byte[] infoPartie)
-        {
-            Console.WriteLine("Essaie Désérialisation");
-            try
-            {
-                InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
-                Partie = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
-            }
-
-            catch (Exception e)
-            {
-                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
-                Console.WriteLine(e.ToString());
-            }
-        }
-        
-        public void EnvoyerInfoPartieToServeur_StartGame()
-        {
-            Console.WriteLine("Essaie Sérialisation");
-            try
-            {
-                InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)Partie.JoueurPrincipal, Partie.JoueurSecondaire, Partie.GestionnairePartie, Partie.EstPartieActive, Partie.EnvironnementPartie, Partie.Serveur);
-                byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
-                MasterClient.EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO ,infoPartie);
-            }
-
-            catch(Exception e)
-            {
-                Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
-                Console.WriteLine(e.ToString());
-            }
-
-        }
     }
 }

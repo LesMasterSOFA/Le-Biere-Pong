@@ -15,6 +15,7 @@ namespace AtelierXNA
     public class PartieSolo : Partie
     {
         protected ATH ath { get; set; }
+        public Joueur JoueurPrincipal { get; set; }
 
         public PartieSolo(Game game)
             : base(game)
@@ -23,7 +24,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            base.JoueurPrincipal = new Joueur(Game, base.GestionnairePartie, Game.GraphicsDevice.Viewport);
+            JoueurPrincipal = new Joueur(Game, base.gestionnairePartie, Game.GraphicsDevice.Viewport);
             base.Initialize();
         }
 

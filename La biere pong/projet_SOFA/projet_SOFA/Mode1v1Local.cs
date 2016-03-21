@@ -41,8 +41,8 @@ namespace AtelierXNA
         }
         void InitialiserJouer()
         {
-            JoueurPrincipal = new Joueur(this.Game, base.GestionnairePartie, leftViewport);
-            JoueurSecondaire = new Joueur(this.Game, base.GestionnairePartie, rightViewport);
+            JoueurPrincipal = (JoueurMultijoueur)new Joueur(this.Game, base.gestionnairePartie, leftViewport);
+            JoueurSecondaire = new Joueur(this.Game, base.gestionnairePartie, rightViewport);
         }
 
 

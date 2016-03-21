@@ -26,14 +26,13 @@ namespace AtelierXNA
         NetIncomingMessage MessageInc { get; set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         byte[] message { get; set; }
-        public NetworkManager GestionNetwork { get; private set; }
+        public Mode1v1LAN PartieEnCours { get; set; }
 
 
         public NetworkServer(Game jeu, string nomJeu, int port, NetworkManager gestionNetwork):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
-            GestionNetwork = gestionNetwork;
             Create(NomJeu, Port);
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             Console.WriteLine("Waiting for new connections and updateing world state to current ones");
@@ -247,6 +246,7 @@ namespace AtelierXNA
             //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             Serveur.SendMessage(MessageSortant, ListeJoueurs[1].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
+
     }
     
     [Serializable]

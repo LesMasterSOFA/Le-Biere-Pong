@@ -75,9 +75,9 @@ namespace AtelierXNA
 
             //Temporaire en attendant que le menu n'est pas créé
             if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
-                JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP);
+                JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP, GestionNetwork.MasterClient);
             if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null) 
-                JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP);
+                JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
 
             Game.Components.Add(BoutonJouer);
         }
@@ -87,8 +87,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonJouer);
             ModifierActivation();
             ActiverEnvironnement();
-            GestionNetwork.EnvoyerInfoPartieToServeur_StartGame();
-            
+            JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
         }
     }
 
