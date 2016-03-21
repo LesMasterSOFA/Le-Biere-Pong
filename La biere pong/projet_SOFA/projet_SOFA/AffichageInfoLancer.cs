@@ -19,7 +19,7 @@ namespace AtelierXNA
         RessourcesManager<SpriteFont> GestionFonts { get; set; }
         SpriteBatch GestionSprites { get; set; }
 
-        int InfoAngle { get; set; }
+        float InfoAngle { get; set; }
         int Force { get; set; }
 
         public AffichageInfoLancer(Game game,int force)
@@ -34,7 +34,7 @@ namespace AtelierXNA
             
             if (CaméraJeu.Vue.Forward.X != 0 &&CaméraJeu.Vue.Forward.Z != 0)
             {
-                InfoAngle = (int)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                InfoAngle = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
             }
             else 
             {

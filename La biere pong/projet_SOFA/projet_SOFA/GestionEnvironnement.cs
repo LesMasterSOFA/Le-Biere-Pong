@@ -77,7 +77,7 @@ namespace AtelierXNA
          //Instanciation et ajout dans components de caméra
          Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-         CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+         CaméraJeu = new CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
          Game.Services.AddService(typeof(Caméra), CaméraJeu);
          InstancierEnvironnement();
@@ -171,10 +171,10 @@ namespace AtelierXNA
       public override void Update(GameTime gameTime)
       {
          //pour essai
-         if (GestionClavier.EstNouvelleTouche(Keys.E))
-         {
-            GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true, false);
-         }
+         //if (GestionClavier.EstNouvelleTouche(Keys.E))
+         //{
+         //   GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
+         //}
          base.Update(gameTime);
       }
    }

@@ -12,23 +12,22 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
+    enum ÉtatPartie
+    {
+        EnCours, Gagnée, Perdue
+    }
     public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
     {
+        ÉtatPartie étatDePartie { get; set; }
         protected Joueur JoueurPrincipal { get; set;}
-        string Environnement { get; set; }
         protected GestionPartie gestionnairePartie { get; set; }
         protected bool EstPartieActive { get; set; }
         protected GestionEnvironnement EnvironnementPartie { get; set; }
         public Partie(Game game)
             : base(game)
         {
+            étatDePartie = ÉtatPartie.EnCours;
         }
-
-        void DéterminerEnvironnement(string environnement)
-        {
-            Environnement = environnement;
-        }
-
 
         public override void Initialize()
         {
