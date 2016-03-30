@@ -13,29 +13,29 @@ namespace AtelierXNA
 {
     public class ObjetDeBase : DrawableGameComponent
     {
-        string NomModèle { get; set; }
-        string NomTexture { get; set; }
-        string NomEffet { get; set; }
+        public string NomModèle { get; private set; }
+        public string NomTexture { get; private set; }
+        public string NomEffet { get; private set; }
 
         RessourcesManager<Model> GestionnaireDeModèles { get; set; }
         RessourcesManager<Texture2D> GestionTextures { get; set; }
         RessourcesManager<Effect> GestionEffets { get; set; }
 
-        protected Caméra CaméraJeu { get; set; }
+        public Caméra CaméraJeu { get; protected set; }
 
-        public float Échelle { get; set; }
+        public float Échelle { get; protected set; }
 
-        public Vector3 Rotation { get; set; }
+        public Vector3 Rotation { get; protected set; }
 
-        public Vector3 Position { get; set; }
+        public Vector3 Position { get; protected set; }
 
-        protected Model Modèle { get; set; }
-        protected Texture2D TextureModèle { get; set; }
-        protected Effect EffetShader { get; set; }
+        public Model Modèle { get; protected set; }
+        public Texture2D TextureModèle { get; protected set; }
+        public Effect EffetShader { get; protected set; }
 
-        protected Matrix[] TransformationsModèle { get; set; }
+        public Matrix[] TransformationsModèle { get; protected set; }
 
-        protected Matrix Monde { get; set; }
+        public Matrix Monde { get; protected set; }
 
         public ObjetDeBase(Game jeu, string nomModèle,string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
             : base(jeu)

@@ -32,16 +32,16 @@ namespace AtelierXNA
         }
 
         //Constructeur sérialiseur
-        public Mode1v1LAN( Game game, InfoJoueurMultijoueur joueurPrincipal, InfoJoueurMultijoueur joueurSecondaire, 
-            bool estPartieActive, InfoGestionEnvironnement environnementPartie, InfoNetworkServer serveur)
+        public Mode1v1LAN( Game game, InfoJoueurMultijoueur infoJoueurPrincipal, InfoJoueurMultijoueur infoJoueurSecondaire, 
+            bool estPartieActive, InfoGestionEnvironnement infoEnvironnementPartie, InfoNetworkServer infoServeur)
             : base(game)
         {
             //Reste à créer des constructeur pour ces champs
-            JoueurPrincipal = new JoueurMultijoueur(this.Game);
-            JoueurSecondaire = new JoueurMultijoueur(this.Game);
+            JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
+            JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
             EstPartieActive = estPartieActive;
-            EnvironnementPartie = new GestionEnvironnement(this.Game);
-            //Serveur = new NetworkServer(this.Game);
+            EnvironnementPartie = new GestionEnvironnement(this.Game, infoEnvironnementPartie);
+            Serveur = new NetworkServer(this.Game);
         }
         
         public override void Initialize()
@@ -76,6 +76,7 @@ namespace AtelierXNA
             //Temporaire en attendant que le menu n'est pas créé
             if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
                 JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP, GestionNetwork.MasterClient);
+                //JoueurPrincipal = new JoueurMultijoueur(this.Game, )
             if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null) 
                 JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
 
@@ -127,7 +128,7 @@ namespace AtelierXNA
 
             EstPartieActive = estPartieActive;
 
-            InfoGestionnaireEnvironnement = new InfoGestionEnvironnement();
+            InfoGestionnaireEnvironnement = new InfoGestionEnvironnement(environnementPartie.NomEnvironnement);
 
             InfoServer = new InfoNetworkServer();
         }

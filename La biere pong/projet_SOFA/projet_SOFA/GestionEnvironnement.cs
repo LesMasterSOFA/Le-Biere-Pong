@@ -27,7 +27,7 @@ namespace AtelierXNA
       ObjetDeBase Table { get; set; }
       ObjetDeBase Balle { get; set; }
       public Caméra CaméraJeu { get; set; }
-      Environnements NomEnvironnement { get; set; }
+      public Environnements NomEnvironnement { get; private set; }
       Personnage personnagePrincipal { get; set; }
       List<VerreJoueurPrincipal> VerresJoueur { get; set; }
       VerreJoueurPrincipal VerreJoueur1 { get; set; }
@@ -53,9 +53,9 @@ namespace AtelierXNA
          NomEnvironnement = nomEnvironnement;
       }
 
-       public GestionEnvironnement(Game game) : base(game)
+       public GestionEnvironnement(Game game, InfoGestionEnvironnement infoGestionEnvironnement) : base(game)
       {
-
+          NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
       }
 
       //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
@@ -202,9 +202,10 @@ namespace AtelierXNA
     [Serializable]
     public class InfoGestionEnvironnement
     {
-        public InfoGestionEnvironnement()
+        public Environnements NomEnvironnement { get; private set; }
+        public InfoGestionEnvironnement(Environnements nomEnvironnement)
         {
-
+            NomEnvironnement = nomEnvironnement;
         }
     }
 }

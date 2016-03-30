@@ -305,18 +305,18 @@ namespace AtelierXNA
         public void EnvoyerInfoPartieToServeur_StartGame(Mode1v1LAN partieToSend)
         {
             Console.WriteLine("Essaie Sérialisation");
-            try
-            {
+            //try
+            //{
                 InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)partieToSend.JoueurPrincipal, (JoueurMultijoueur)partieToSend.JoueurSecondaire, partieToSend.gestionnairePartie, partieToSend.EstPartieActive, partieToSend.EnvironnementPartie, partieToSend.Serveur);
                 byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
                 EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO, infoPartie);
-            }
+            //}
 
-            catch (Exception e)
-            {
-                Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
-                Console.WriteLine(e.ToString());
-            }
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
+            //    Console.WriteLine(e.ToString());
+            //}
 
         }
 

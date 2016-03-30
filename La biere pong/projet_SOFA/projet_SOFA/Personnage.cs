@@ -19,8 +19,14 @@ namespace AtelierXNA
 
         RessourcesManager<Model> GestionnaireDeModèles { get; set; }
 
-        public Personnage(Game game,string nomModèle,string nomTexture,string nomEffet, float échelleInitiale,Vector3 rotationInitiale, Vector3 positionInitiale)
-            : base(game,nomModèle,nomTexture,nomEffet,échelleInitiale, rotationInitiale,positionInitiale)
+        public Personnage(Game game, string nomModèle, string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
+            : base(game, nomModèle, nomTexture, nomEffet, échelleInitiale, rotationInitiale, positionInitiale)
+        {
+        }
+
+        //Constructeur Sérialiseur
+        public Personnage(Game game, InfoPersonnage infoPersonnage)
+            :base(game, infoPersonnage.NomModèle, infoPersonnage.NomTexture, infoPersonnage.NomEffet, infoPersonnage.Échelle, infoPersonnage.Rotation, infoPersonnage.Position)
         {
         }
         public override void Initialize()
@@ -41,14 +47,13 @@ namespace AtelierXNA
             //AnimationClip animationBoire = skinningData.AnimationClips["DrinkAction"];
             animationPlayer.StartClip(animationLancer);
         }
+
         public override void Update(GameTime gameTime)
         {
             animationPlayer.Update(gameTime.ElapsedGameTime, true, Monde);
             base.Update(gameTime);
         }
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
+
         public override void Draw(GameTime gameTime)
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
@@ -74,12 +79,26 @@ namespace AtelierXNA
             }
         }
     }
+
+
     [Serializable]
     public class InfoPersonnage
     {
-        public InfoPersonnage()
-        {
+        public string NomModèle { get; private set; }
+        public string NomTexture { get; private set; }
+        public string NomEffet { get; private set; }
+        public float Échelle { get; private set; }
+        public Vector3 Rotation { get; private set; }
+        public Vector3 Position { get; private set; }
 
+        public InfoPersonnage(string nomModèle, string nomTexture, string nomEffet, float échelle, Vector3 rotation, Vector3 position)
+        {
+            NomModèle = nomModèle;
+            NomTexture = nomTexture;
+            NomEffet = nomEffet;
+            Échelle = échelle;
+            Rotation = rotation;
+            Position = position;
         }
     }
 }

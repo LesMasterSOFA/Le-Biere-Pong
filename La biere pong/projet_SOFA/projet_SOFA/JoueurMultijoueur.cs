@@ -17,6 +17,7 @@ namespace AtelierXNA
     { 
         public NetConnection IP { get; private set; }
         public NetworkClient Client { get; private set; }
+        
         //Constructeur normal
         public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag, NetworkClient client)
             : base(game, avatar, imageJoueur, gestionnaireDeLaPartie, écranDeJeu, gamerTag)
@@ -39,9 +40,14 @@ namespace AtelierXNA
             IP = ip;
         }
         //Constructeur sérialiseur
-        public JoueurMultijoueur(Game game):base(game)
+        public JoueurMultijoueur(Game game, InfoJoueurMultijoueur infoJoueurMultijoueur):base(game)
         {
-
+            Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
+            GamerTag = infoJoueurMultijoueur.Gamertag;
+            ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
+            GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
+            EstActif = infoJoueurMultijoueur.EstActif;
+            //IP = new NetConnection();
         }
 
         public override void Initialize()
@@ -58,16 +64,16 @@ namespace AtelierXNA
     [Serializable]
     public class InfoJoueurMultijoueur
     {
-        InfoPersonnage InfoAvatar { get; set; }
-        string Gamertag { get; set; }
-        string ImageJoueur { get; set; }
-        InfoGestionPartie InfoGestionnairePartie { get; set; }
-        bool EstActif { get; set; }
-        string IP { get; set; }
+        public InfoPersonnage InfoAvatar { get; private set; }
+        public string Gamertag { get; private set; }
+        public string ImageJoueur { get; private set; }
+        public InfoGestionPartie InfoGestionnairePartie { get; private set; }
+        public bool EstActif { get; private set; }
+        public string IP { get; private set; }
 
         public InfoJoueurMultijoueur(Personnage avatar, string gamertag, Texture2D imageJoueur, GestionPartie gestionnairePartie, bool estActif, NetConnection ip)
         {
-            InfoAvatar = new InfoPersonnage();
+            //InfoAvatar = new InfoPersonnage(avatar.NomModèle, avatar.NomTexture, avatar.NomEffet, avatar.Échelle, avatar.Rotation, avatar.Position);
             Gamertag = gamertag;
             if(imageJoueur != null)
             ImageJoueur = imageJoueur.Name;

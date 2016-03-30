@@ -18,11 +18,11 @@ namespace AtelierXNA
         public Personnage Avatar { get; protected set; }
         public string GamerTag { get; protected set; }
         public Texture2D ImageJoueur { get; protected set; }
-        public GestionPartie GestionnaireDeLaPartie { get; private set; }
-        protected InputManager GestionnaireInput { get; private set; }
+        public GestionPartie GestionnaireDeLaPartie { get; protected set; }
+        public InputManager GestionnaireInput { get; protected set; }
         public bool EstActif { get; protected set; }
-        protected Viewport ÉcranDeJeu { get; private set; } //Défini s'il est sur l'écran totale ou une partie
-        protected ATH ath { get; private set; }
+        public Viewport ÉcranDeJeu { get; protected set; } //Défini s'il est sur l'écran totale ou une partie
+        public ATH ath { get; protected set; }
         
         public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string gamerTag)
             :base(game)
