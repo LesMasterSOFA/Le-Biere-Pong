@@ -124,9 +124,9 @@
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
     <Compile Include="BallePhysique.cs" />
-    <Compile Include="CaméraJoueur.cs" />
     <Compile Include="ConsoleWindow.cs" />
-    <Compile Include="Joueur.cs" />
+    <Compile Include="EnvironnementSousSol.cs" />
+    <Compile Include="EnvironnementSalleManger.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetCryptoProviderBase.cs" />
@@ -211,12 +211,13 @@
     <Compile Include="Outils\CaméraSubjective.cs" />
     <Compile Include="EnvironnementGarage.cs" />
     <Compile Include="GestionEnvironnement.cs" />
+    <Compile Include="GestionnaireDeRéseau.cs" />
     <Compile Include="GestionPartie.cs" />
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
     <Compile Include="Outils\IActivable.cs" />
     <Compile Include="IndicateurForce.cs" />
-    <Compile Include="JoueurMultijoueur.cs" />
+    <Compile Include="Joueur.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Mode1v1LAN.cs" />
     <Compile Include="Mode1v1Local.cs" />
@@ -244,10 +245,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Skinning sample\SkinnedModel\SkinnedModelWindows.csproj">
-      <Project>{0d41e29b-829f-4255-bca5-64dc2677da6d}</Project>
-      <Name>SkinnedModelWindows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\projet_SOFAContent\projet_SOFAContent.contentproj">
       <Name>projet_SOFAContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
