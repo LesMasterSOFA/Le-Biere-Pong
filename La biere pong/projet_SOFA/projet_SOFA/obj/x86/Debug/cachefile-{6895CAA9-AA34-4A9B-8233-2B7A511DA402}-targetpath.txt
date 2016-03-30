@@ -26,9 +26,9 @@ Content\Textures\PlancherGaragee.xnb
 Content\Models\mur.xnb
 Content\Models\balle.xnb
 Content\Models\table_plastique.xnb
+Content\Models\superBoy.xnb
 Content\Models\verre.xnb
 Content\Models\urinoir.xnb
 Content\Models\etabli.xnb
-Content\Effects\Shader.xnb
-Content\Models\superBoy.xnb
 Content\Models\superBoyLancer.xnb
+Content\Effects\Shader.xnb

@@ -22,11 +22,10 @@ namespace AtelierXNA
       RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
-      CaméraSubjective camérajeu { get; set; }
+      CaméraJoueur camérajeu { get; set; }
       Vector2 Résolution { get; set; }
 
       public InputManager GestionInput { get; private set; }
-
       public Atelier()
       {
          PériphériqueGraphique = new GraphicsDeviceManager(this);

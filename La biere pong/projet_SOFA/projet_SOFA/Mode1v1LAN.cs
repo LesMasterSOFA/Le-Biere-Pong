@@ -15,36 +15,122 @@ namespace AtelierXNA
 {
     public class Mode1v1LAN : PartieMultijoueur
     {
-        public Mode1v1LAN(Game game)
+        BoutonDeCommande BoutonJouer { get; set; }
+        public ATH ath { get; private set; }
+        public NetworkServer Serveur { get; private set; }
+        public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
+        public Environnements Environnement { get; private set; }
+        public NetworkManager GestionNetwork { get; set; }
+        
+        public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
         {
-
+            Serveur = serveur;
+            ListeJoueurs = new List<JoueurMultijoueur>();
+            GestionNetwork = gestionNetwork;
+            MenuSélectionPersonnage();
         }
 
-
+        //Constructeur sérialiseur
+        public Mode1v1LAN( Game game, InfoJoueurMultijoueur infoJoueurPrincipal, InfoJoueurMultijoueur infoJoueurSecondaire, 
+            bool estPartieActive, InfoGestionEnvironnement infoEnvironnementPartie, InfoNetworkServer infoServeur)
+            : base(game)
+        {
+            //Reste à créer des constructeur pour ces champs
+            JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
+            JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
+            EstPartieActive = estPartieActive;
+            EnvironnementPartie = new GestionEnvironnement(this.Game, infoEnvironnementPartie);
+            Serveur = new NetworkServer(this.Game);
+        }
+        
         public override void Initialize()
         {
             base.Initialize();
         }
-
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
 
-        private void GestionInputGameplay(Joueur joueur, GameTime gameTime)
+        void ActiverEnvironnement()
         {
-            UpdateInput(gameTime, joueur);
-
-            joueur.Update(gameTime);
-
+            if (EstPartieActive)
+            {
+                //EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement);
+                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnements.Garage);
+                ath = new ATH(Game);
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
         }
 
-        //s'occupe de la gestion des inputs
-        void UpdateInput(GameTime gameTime, Joueur joueur)
+        void MenuSélectionPersonnage()
         {
-            joueur.Update(gameTime);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), true, Activerpartie);
+            //Environnement = ...;
+            //JoueurPrincipal = ...;
+            //JoueurSecondaire = ...;
+
+            //Temporaire en attendant que le menu n'est pas créé
+            if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
+                JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP, GestionNetwork.MasterClient);
+                //JoueurPrincipal = new JoueurMultijoueur(this.Game, )
+            if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null) 
+                JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
+
+            Game.Components.Add(BoutonJouer);
+        }
+
+        void Activerpartie()
+        {
+            Game.Components.Remove(BoutonJouer);
+            ModifierActivation();
+            ActiverEnvironnement();
+            JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
+        }
+    }
+
+    [Serializable]
+    class InfoMode1v1LAN
+    {
+        public bool EstPartieActive { get; private set; }
+        public InfoJoueurMultijoueur InfoJoueurPrincipal { get; private set; }
+        public InfoJoueurMultijoueur InfoJoueurSecondaire { get; private set; }
+        public InfoGestionPartie InfoGestionnairePartie { get; private set; }
+        public InfoGestionEnvironnement InfoGestionnaireEnvironnement { get; private set; }
+        public InfoNetworkServer InfoServer { get; private set; }
+
+        public InfoMode1v1LAN(JoueurMultijoueur joueurPrincipal,JoueurMultijoueur joueurSecondaire, GestionPartie gestionnairePartie, 
+            bool estPartieActive, GestionEnvironnement environnementPartie, 
+            NetworkServer serveur)
+        {
+            if (joueurPrincipal != null)
+            {
+                InfoJoueurPrincipal = new InfoJoueurMultijoueur(joueurPrincipal.Avatar, joueurPrincipal.GamerTag,
+                    joueurPrincipal.ImageJoueur, joueurPrincipal.GestionnaireDeLaPartie,
+                    joueurPrincipal.EstActif, joueurPrincipal.IP);
+            }
+            else
+                Console.WriteLine("Joueur Principal null");
+
+            if (joueurSecondaire != null)
+            {
+                InfoJoueurSecondaire = new InfoJoueurMultijoueur(joueurSecondaire.Avatar, joueurSecondaire.GamerTag,
+                    joueurSecondaire.ImageJoueur, joueurSecondaire.GestionnaireDeLaPartie,
+                    joueurSecondaire.EstActif, joueurSecondaire.IP);
+            }
+            else
+                Console.WriteLine("Joueur Secondaire null");
+
+            InfoGestionnairePartie = new InfoGestionPartie();
+
+            EstPartieActive = estPartieActive;
+
+            InfoGestionnaireEnvironnement = new InfoGestionEnvironnement(environnementPartie.NomEnvironnement);
+
+            InfoServer = new InfoNetworkServer();
         }
     }
 }

@@ -18,34 +18,36 @@ namespace AtelierXNA
         static NetClient Client;
 
         //Liste de joueur
-        static List<Joueur> ListeJoueurs;
+        static List<JoueurMultijoueur> ListeJoueurs;
 
         // indique si le client roule
         public static bool EstEnMarche = false;
 
         DateTime Temps { get; set; }
-        string NomJeu { get; set; }
-        int Port { get; set; }
-        string HostIP{ get; set; } //ip de l'host
+        public string NomJeu { get; private set; }
+        public int Port { get; private set; }
+        public string HostIP{ get; private set; } //ip de l'host
         NetIncomingMessage MessageInc { get; set; } //message entrant
         NetOutgoingMessage MessageOut { get; set; } //message sortant
-        string NomJoueur { get; set; }
+        public string NomJoueur { get; private set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
+        public bool EstMaster { get; private set; }
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
             NomJoueur = nomJoueur;
             Serveur = serveur;
+            EstMaster = estMaster;
             Create(NomJeu, Port);
             Connect();
-            ListeJoueurs = new List<Joueur>();
+            ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
-        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur)
+        public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur, bool estMaster)
             : base(jeu)
         {
             NomJeu = nomJeu;
@@ -53,9 +55,10 @@ namespace AtelierXNA
             Port = port;
             NomJoueur = nomJoueur;
             Serveur = serveur;
+            EstMaster = estMaster;
             Create(NomJeu, Port);
             Connect();
-            ListeJoueurs = new List<Joueur>();
+            ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
         }
 
@@ -176,11 +179,8 @@ namespace AtelierXNA
             }
         }
 
-
         public override void Update(GameTime gameTime)
         {
-            
-
             // Si l'intervalle de temps est passé
             if ((Temps + IntervalleRafraichissement) < DateTime.Now)
             {
@@ -199,10 +199,10 @@ namespace AtelierXNA
         //Update le monde
         void WorldStateUpdate()
         {
-            Console.WriteLine("WorldState Update");
+            //Console.WriteLine("WorldState Update");
 
             //On vide la liste des joueurs contenant les informations
-            if(ListeJoueurs != null)
+            if (ListeJoueurs != null)
                 ListeJoueurs.Clear();
 
             // Declare count
@@ -214,7 +214,7 @@ namespace AtelierXNA
             //On recrée les joueurs présents
             for (int i = 0; i < NbDeJoueurs; i++)
             {
-                Joueur j = new Joueur(this.Game, MessageInc.SenderConnection);
+                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection,this);
 
                 //On lit toutes les propriétés du joueur
                 MessageInc.ReadAllProperties(j);
@@ -222,7 +222,6 @@ namespace AtelierXNA
                 ListeJoueurs.Add(j);
             }
         }
-
 
         /// //Regarde s'il y a un nouveau message
         private void RegarderNouveauMessageServeur()
@@ -232,12 +231,27 @@ namespace AtelierXNA
             {
                 if (MessageInc.MessageType == NetIncomingMessageType.Data)
                 {
-                    if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
+                    //Lit le type d'information
+                    byte byteEnum = MessageInc.ReadByte();
+
+                    if (byteEnum == (byte)PacketTypes.WORLDSTATE)
                     {
                         //Reste à implanter quoi faire
-                        //WorldStateUpdate();
+                        WorldStateUpdate();
+                    }
+
+                    if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
+                    {
+                        Console.WriteLine("STARTGAME_INFO recue _ Client");
+                        if (EstMaster == false)
+                        {
+                            RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                            Console.WriteLine("STARTGAME_INFO gérée");
+                            Game.Components.Add(Serveur.PartieEnCours);
+                        }
                     }
                 }
+
             }
         }
 
@@ -256,6 +270,73 @@ namespace AtelierXNA
 
                 // Send it to server
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
+        public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
+        {
+            if (messageToSend != null)
+            {
+                MessageOut = Client.CreateMessage();
+
+                MessageOut.Write(messageToSend);
+
+                // Send it to server
+                Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+            }
+        }
+
+        public void EnvoyerMessageServeur(PacketTypes typeInfo, byte[] messageToSend)
+        {
+            if (messageToSend != null)
+            {
+                MessageOut = Client.CreateMessage();
+
+                MessageOut.Write((byte)typeInfo);
+                MessageOut.Write(messageToSend);
+
+                // Send it to server
+                Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
+
+                Console.WriteLine(MessageOut.ToString());
+            }
+        }
+
+        public void EnvoyerInfoPartieToServeur_StartGame(Mode1v1LAN partieToSend)
+        {
+            Console.WriteLine("Essaie Sérialisation");
+            //try
+            //{
+                InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)partieToSend.JoueurPrincipal, (JoueurMultijoueur)partieToSend.JoueurSecondaire, partieToSend.gestionnairePartie, partieToSend.EstPartieActive, partieToSend.EnvironnementPartie, partieToSend.Serveur);
+                byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
+                EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO, infoPartie);
+            //}
+
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
+            //    Console.WriteLine(e.ToString());
+            //}
+
+        }
+
+        public void RecevoirInfoPartieToClient_Joining(byte[] infoPartie)
+        {
+            Console.WriteLine("Essai Désérialisation");
+            try
+            {
+                //Problème ici, incapable de démarrer une partie. Probablement a cause que les classe serializable s'instancie pas comme il le faut
+                InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
+                //Serveur = new NetworkServer(Game);
+                //Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                var PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                Game.Components.Add(PartieEnCours);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
+                Console.WriteLine(e.ToString());
             }
         }
     }

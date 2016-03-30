@@ -14,6 +14,9 @@ namespace AtelierXNA
 {
     public class PartieMultijoueur : Partie
     {
+        public JoueurMultijoueur JoueurPrincipal { get; set; }
+        public JoueurMultijoueur JoueurSecondaire { get; protected set; }
+
         public PartieMultijoueur(Game game)
             : base(game)
         {
