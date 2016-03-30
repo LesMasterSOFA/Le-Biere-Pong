@@ -125,13 +125,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\superBoyTex.tga">
-      <Name>superBoyTex</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\noir.jpg">
       <Name>noir</Name>
       <Importer>TextureImporter</Importer>
@@ -257,6 +250,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Skinning sample\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
+      <Project>{4636c7e1-b845-4b83-b96d-64a11b8a4515}</Project>
+      <Name>SkinnedModelPipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\superBoyLancer.fbx">
       <Name>superBoyLancer</Name>
       <Importer>FbxImporter</Importer>
@@ -264,10 +263,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Skinning sample\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
-      <Project>{4636c7e1-b845-4b83-b96d-64a11b8a4515}</Project>
-      <Name>SkinnedModelPipeline</Name>
-    </ProjectReference>
+    <Compile Include="Models\superBoyBoire.fbx">
+      <Name>superBoyBoire</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>SkinnedModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\superBoyTex.tga">
+      <Name>superBoyTex</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\superBoyApresLancer.fbx">
+      <Name>superBoyApresLancer</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>SkinnedModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\superBoyApresBoire.fbx">
+      <Name>superBoyApresBoire</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>SkinnedModelProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
