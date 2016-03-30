@@ -22,12 +22,9 @@ namespace AtelierXNA
       RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
       RessourcesManager<Model> GestionnaireDeModèles { get; set; }
       RessourcesManager<Effect> GestionnaireDeShaders { get; set; }
-
-      RessourcesManager<SoundEffect> GestionnaireDeSons { get; set; }
-      CaméraSubjective camérajeu { get; set; }
-      //CaméraJoueur camérajeu { get; set; }
-
+      CaméraJoueur camérajeu { get; set; }
       Vector2 Résolution { get; set; }
+
       public InputManager GestionInput { get; private set; }
       public Atelier()
       {
@@ -52,8 +49,7 @@ namespace AtelierXNA
          GestionnaireDeFonts = new RessourcesManager<SpriteFont>(this, "Fonts");
          GestionnaireDeTextures = new RessourcesManager<Texture2D>(this, "Textures");
          GestionnaireDeModèles = new RessourcesManager<Model>(this, "Models");
-         GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects");
-         //GestionnaireDeSons = new RessourcesManager<SoundEffect>(this, "Sounds"); 
+         GestionnaireDeShaders = new RessourcesManager<Effect>(this, "Effects"); 
          GestionInput = new InputManager(this);
 
          Components.Add(new Menu(this));
@@ -69,7 +65,6 @@ namespace AtelierXNA
          Services.AddService(typeof(RessourcesManager<Texture2D>), GestionnaireDeTextures);
          Services.AddService(typeof(RessourcesManager<Model>), GestionnaireDeModèles);
          Services.AddService(typeof(RessourcesManager<Effect>), GestionnaireDeShaders);
-         //Services.AddService(typeof(RessourcesManager<SoundEffect>), GestionnaireDeSons);
          Services.AddService(typeof(InputManager), GestionInput);
          GestionSprites = new SpriteBatch(GraphicsDevice);
          Services.AddService(typeof(SpriteBatch), GestionSprites);

@@ -38,7 +38,6 @@ namespace AtelierXNA
         BoutonDeCommande BoutonAfficherConsole { get; set; }
         BoutonDeCommande BoutonEnleverConsole { get; set; }
         BoutonDeCommande BoutonEffacerConsole { get; set; }
-        SoundEffect ChansonMenu { get; set; }
 
         public Menu(Game game)
             :base(game)
@@ -56,7 +55,6 @@ namespace AtelierXNA
         }
         void InitialiserMenu()
         {
-            ChansonMenu.Play();
             TexteTitre = "LE BIERE PONG";
             EnleverBoutonsExistants();
             BoutonJouer = new BoutonDeCommande(Game, "Jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, BoutonsJouer);
@@ -198,9 +196,6 @@ namespace AtelierXNA
         protected override void LoadContent()
         {
             base.LoadContent();
-            ChansonMenu = Game.Content.Load<SoundEffect>("Sounds\\Menu");
-            SoundEffectInstance instanceChansonMenu = ChansonMenu.CreateInstance();
-            instanceChansonMenu.IsLooped = true;
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;

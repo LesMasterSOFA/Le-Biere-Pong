@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-
     enum ÉtatPartie
     {
         EnCours, Gagnée, Perdue
