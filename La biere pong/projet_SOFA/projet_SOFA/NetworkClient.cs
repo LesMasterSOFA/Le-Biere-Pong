@@ -247,7 +247,8 @@ namespace AtelierXNA
                         {
                             RecevoirInfoPartieToClient_Joining(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                             Console.WriteLine("STARTGAME_INFO gérée");
-                            Game.Components.Add(Serveur.PartieEnCours);
+                            Serveur.PartieEnCours.ActiverPartieSlave();
+                            Console.WriteLine("Partie démarrée");
                         }
                     }
                 }
@@ -305,18 +306,18 @@ namespace AtelierXNA
         public void EnvoyerInfoPartieToServeur_StartGame(Mode1v1LAN partieToSend)
         {
             Console.WriteLine("Essaie Sérialisation");
-            //try
-            //{
+            try
+            {
                 InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)partieToSend.JoueurPrincipal, (JoueurMultijoueur)partieToSend.JoueurSecondaire, partieToSend.gestionnairePartie, partieToSend.EstPartieActive, partieToSend.EnvironnementPartie, partieToSend.Serveur);
                 byte[] infoPartie = Serialiseur.ObjToByteArray(infoMode1v1LAN);
                 EnvoyerMessageServeur(PacketTypes.STARTGAME_INFO, infoPartie);
-            //}
+            }
 
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
-            //    Console.WriteLine(e.ToString());
-            //}
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans l'envoie des informations de début de partie au serveur");
+                Console.WriteLine(e.ToString());
+            }
 
         }
 
@@ -327,10 +328,10 @@ namespace AtelierXNA
             {
                 //Problème ici, incapable de démarrer une partie. Probablement a cause que les classe serializable s'instancie pas comme il le faut
                 InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
-                //Serveur = new NetworkServer(Game);
-                //Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
-                var PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
-                Game.Components.Add(PartieEnCours);
+                Serveur = new NetworkServer(Game);
+                Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                //var PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                Game.Components.Add(Serveur.PartieEnCours);
             }
 
             catch (Exception e)

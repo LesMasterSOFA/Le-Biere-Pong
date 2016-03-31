@@ -38,7 +38,7 @@ namespace AtelierXNA
         {
             //Reste à créer des constructeur pour ces champs
             JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
-            JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
+            //JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
             EstPartieActive = estPartieActive;
             EnvironnementPartie = new GestionEnvironnement(this.Game, infoEnvironnementPartie);
             Serveur = new NetworkServer(this.Game);
@@ -68,7 +68,7 @@ namespace AtelierXNA
 
         void MenuSélectionPersonnage()
         {
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), true, Activerpartie);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), true, ActiverpartieMaster);
             //Environnement = ...;
             //JoueurPrincipal = ...;
             //JoueurSecondaire = ...;
@@ -83,12 +83,18 @@ namespace AtelierXNA
             Game.Components.Add(BoutonJouer);
         }
 
-        void Activerpartie()
+        void ActiverpartieMaster()
         {
             Game.Components.Remove(BoutonJouer);
             ModifierActivation();
             ActiverEnvironnement();
             JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
+        }
+        public void ActiverPartieSlave()
+        {
+            Game.Components.Remove(BoutonJouer);
+            ModifierActivation();
+            ActiverEnvironnement();
         }
     }
 
