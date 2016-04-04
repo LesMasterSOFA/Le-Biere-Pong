@@ -43,7 +43,7 @@ namespace AtelierXNA
             // Create an animation player, and start decoding an animation clip.
             animationPlayer = new AnimationPlayer(skinningData);
 
-            AnimationClip animationLancer = skinningData.AnimationClips["ActionLancer"];
+            AnimationClip animationLancer = skinningData.AnimationClips["Action"];
             //AnimationClip animationBoire = skinningData.AnimationClips["DrinkAction"];
             animationPlayer.StartClip(animationLancer);
         }
