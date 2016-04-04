@@ -57,7 +57,6 @@ namespace AtelierXNA
         public override void Draw(GameTime gameTime)
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
-
             foreach (ModelMesh mesh in Modèle.Meshes)
             {
                 foreach (SkinnedEffect effect in mesh.Effects)

@@ -110,12 +110,6 @@ namespace AtelierXNA
             if ((time < TimeSpan.Zero) || (time >= currentClipValue.Duration))
                 throw new ArgumentOutOfRangeException("time");
 
-            // If the position moved backwards, reset the keyframe index.
-            if (time < currentTimeValue)
-            {
-                currentKeyframe = 0;
-                skinningDataValue.BindPose.CopyTo(boneTransforms, 0);
-            }
 
             currentTimeValue = time;
 

@@ -111,20 +111,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\mur.fbx">
-      <Name>mur</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Textures\BriquesGrises_COLOR.png">
-      <Name>BriquesGrises_COLOR</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\noir.jpg">
       <Name>noir</Name>
       <Importer>TextureImporter</Importer>
@@ -155,13 +141,6 @@
   <ItemGroup>
     <Compile Include="Models\table_plastique.fbx">
       <Name>table_plastique</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\superBoy.fbx">
-      <Name>superBoy</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -277,15 +256,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\superBoyApresLancer.fbx">
-      <Name>superBoyApresLancer</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>SkinnedModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\superBoyApresBoire.fbx">
-      <Name>superBoyApresBoire</Name>
+    <Compile Include="Models\superBoy.fbx">
+      <Name>superBoy</Name>
       <Importer>FbxImporter</Importer>
       <Processor>SkinnedModelProcessor</Processor>
     </Compile>
