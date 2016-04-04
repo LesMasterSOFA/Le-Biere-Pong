@@ -126,6 +126,8 @@
     <Compile Include="BallePhysique.cs" />
     <Compile Include="CaméraJoueur.cs" />
     <Compile Include="ConsoleWindow.cs" />
+    <Compile Include="EnvironnementSalleManger.cs" />
+    <Compile Include="EnvironnementSousSol.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />

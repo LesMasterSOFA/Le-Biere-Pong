@@ -16,7 +16,7 @@ namespace AtelierXNA
     {
         EnCours, Gagnée, Perdue
     }
-    public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
+    public abstract class Partie : Microsoft.Xna.Framework.DrawableGameComponent, IActivable
     {
         ÉtatPartie étatDePartie { get; set; }
         public GestionPartie gestionnairePartie { get; set; }
