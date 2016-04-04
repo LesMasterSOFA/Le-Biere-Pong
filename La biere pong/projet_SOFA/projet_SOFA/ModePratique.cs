@@ -43,12 +43,12 @@ namespace AtelierXNA
             RectangleSousSol = new Rectangle(5*Game.Window.ClientBounds.Width/7, 150, Game.Window.ClientBounds.Width/5, 233);
             ath = new ATH(Game);
             base.Initialize();
-            MenuSélectionPersonnage();
+            MenuSélectionEnvironnement();
             
         }
+
         protected override void LoadContent()
         {
-            base.LoadContent();
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
@@ -57,7 +57,9 @@ namespace AtelierXNA
             ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
+            base.LoadContent();
         }
+
         void ActiverEnvironnement()
         {
             if (EstPartieActive)
@@ -66,12 +68,13 @@ namespace AtelierXNA
                 Game.Components.Add(ath);
             }
         }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
         
-        void MenuSélectionPersonnage()
+        void MenuSélectionEnvironnement()
         {
             BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalle);
@@ -80,21 +83,25 @@ namespace AtelierXNA
             Game.Components.Add(BoutonSalleManger);
             Game.Components.Add(BoutonSousSol);
         }
+
         void InitialiserGarage()
         {
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage);
             ActiverPartie();
         }
+
         void InitialiserSalle()
         {
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger);
             ActiverPartie();
         }
+
         void InitialiserSousSol()
         {
            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol);
            ActiverPartie();
         }
+
         void ActiverPartie()
         {
             ModifierActivation();
