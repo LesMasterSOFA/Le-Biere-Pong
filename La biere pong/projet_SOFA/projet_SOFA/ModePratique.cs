@@ -38,9 +38,9 @@ namespace AtelierXNA
         public override void Initialize()
         {
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height+15);
-            RectangleGarage = new Rectangle(300, 150, 266, 233);
-            RectangleSalleManger = new Rectangle(750, 150, 266, 233);
-            RectangleSousSol = new Rectangle(1200, 150, 266, 233);
+            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width/7, 150, Game.Window.ClientBounds.Width/5, 233);
+            RectangleSalleManger = new Rectangle(3*Game.Window.ClientBounds.Width/7, 150, Game.Window.ClientBounds.Width/5, 233);
+            RectangleSousSol = new Rectangle(5*Game.Window.ClientBounds.Width/7, 150, Game.Window.ClientBounds.Width/5, 233);
             ath = new ATH(Game);
             base.Initialize();
             MenuSélectionPersonnage();
@@ -73,9 +73,9 @@ namespace AtelierXNA
         
         void MenuSélectionPersonnage()
         {
-            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(430, 100), true, InitialiserGarage);
-            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(885,100), true, InitialiserSalle);
-            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(1340, 100), true, InitialiserSousSol);
+            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
+            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalle);
+            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
             Game.Components.Add(BoutonGarage);
             Game.Components.Add(BoutonSalleManger);
             Game.Components.Add(BoutonSousSol);
