@@ -52,6 +52,10 @@ namespace AtelierXNA
 
         public override void Update(GameTime gameTime)
         {
+            if(Serveur.ListeJoueurs.Count == 2 && BoutonJouer.EstActif != true)
+            {
+                BoutonJouer.EstActif = true;
+            }
             base.Update(gameTime);
         }
 
@@ -59,8 +63,7 @@ namespace AtelierXNA
         {
             if (EstPartieActive)
             {
-                //EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement);
-                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnements.Garage);
+                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement);
                 ath = new ATH(Game);
                 Game.Components.Add(EnvironnementPartie);
                 Game.Components.Add(ath);
@@ -69,10 +72,12 @@ namespace AtelierXNA
 
         void MenuSélectionPersonnage()
         {
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), true, ActiverpartieMaster);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverpartieMaster);
             //Environnement = ...;
             //JoueurPrincipal = ...;
             //JoueurSecondaire = ...;
+
+            Environnement = Environnements.Garage;
 
             //Temporaire en attendant que le menu n'est pas créé
             if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
@@ -86,10 +91,13 @@ namespace AtelierXNA
 
         void ActiverpartieMaster()
         {
-            Game.Components.Remove(BoutonJouer);
-            ModifierActivation();
-            ActiverEnvironnement();
-            JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
+            if (Serveur.ListeJoueurs.Count == 2)
+            {
+                Game.Components.Remove(BoutonJouer);
+                ModifierActivation();
+                ActiverEnvironnement();
+                JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
+            }
         }
 
         public void ActiverPartieSlave()

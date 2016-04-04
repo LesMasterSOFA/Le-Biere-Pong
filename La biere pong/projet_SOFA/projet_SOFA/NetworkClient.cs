@@ -129,7 +129,6 @@ namespace AtelierXNA
         }
 
         //Attente du message de connection pour instancier les joueurs
-        //Problème ici -> reçois des mauvais messages
         private void AttenteConnectionServeur()
         {
             //Détermine si le client peut démarer
@@ -188,7 +187,6 @@ namespace AtelierXNA
 
                 //Regarde si le serveur a envoyé un message
                 RegarderNouveauMessageServeur();
-
 
                 //Update le temps
                 Temps = DateTime.Now;
