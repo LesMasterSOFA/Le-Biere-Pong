@@ -19,10 +19,9 @@ namespace AtelierXNA
     public abstract class Partie : Microsoft.Xna.Framework.GameComponent, IActivable
     {
         ÉtatPartie étatDePartie { get; set; }
-        protected Joueur JoueurPrincipal { get; set;}
-        protected GestionPartie gestionnairePartie { get; set; }
-        protected bool EstPartieActive { get; set; }
-        protected GestionEnvironnement EnvironnementPartie { get; set; }
+        public GestionPartie gestionnairePartie { get; set; }
+        public bool EstPartieActive { get; set; }
+        public GestionEnvironnement EnvironnementPartie { get; set; }
         public Partie(Game game)
             : base(game)
         {

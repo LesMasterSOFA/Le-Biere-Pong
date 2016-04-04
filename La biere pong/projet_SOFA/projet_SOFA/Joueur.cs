@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -8,71 +8,50 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using Lidgren.Network;
 
 
 namespace AtelierXNA
 {
+
     public class Joueur : Microsoft.Xna.Framework.GameComponent, IActivable
     {
-        Personnage Avatar { get; set; } 
-        string GamerTag { get; set; } //nom du joueur
-        public Texture2D ImageJoueur { get; set; } //Devrait Ãªtre private set
-        //List<GameComponent> ListeComponentsJoueurPartie { get; set; } //liste des objets du jeu //GestionPartie s'en occupe ? 
-        GestionPartie GestionnaireDeLaPartie { get; set; }
-        InputManager GestionnaireInput { get; set; }
-        public NetConnection IP { get; private set; } 
-        bool EstActif { get; set; }
-        Viewport Ã‰cranDeJeu; //DÃ©fini s'il est sur l'Ã©cran totale ou une partie
-   
-        //Constructeur normal
-        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport Ã©cranDeJeu, NetConnection ip, string gamerTag)
-            : base(game)
+        public Personnage Avatar { get; protected set; }
+        public string GamerTag { get; protected set; }
+        public Texture2D ImageJoueur { get; protected set; }
+        public GestionPartie GestionnaireDeLaPartie { get; protected set; }
+        public InputManager GestionnaireInput { get; protected set; }
+        public bool EstActif { get; protected set; }
+        public Viewport ÉcranDeJeu { get; protected set; } //Défini s'il est sur l'écran totale ou une partie
+        public ATH ath { get; protected set; }
+        
+        public Joueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, string gamerTag)
+            :base(game)
         {
             Avatar = avatar;
             ImageJoueur = imageJoueur;
-            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
             GestionnaireDeLaPartie = gestionnaireDeLaPartie;
-            Ã‰cranDeJeu = Ã©cranDeJeu;
-            IP = ip;
-            GamerTag = gamerTag;
-            EstActif = true; //active le joueur
-
-        }
-
-        //Temporaire en attendant que personnage soit crÃ©Ã©
-        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport Ã©cranDeJeu, NetConnection ip, string gamerTag)
-            : base(game)
-        {
-            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
-            GestionnaireDeLaPartie = gestionnaireDeLaPartie;
-            Ã‰cranDeJeu = Ã©cranDeJeu;
-            IP = ip;
+            ÉcranDeJeu = écranDeJeu;
             GamerTag = gamerTag;
             EstActif = true; //active le joueur
         }
 
-        //Joueur de base sans nom ni ip
-        public Joueur(Game game, GestionPartie gestionnaireDeLaPartie, Viewport Ã©cranDeJeu)
-            : base(game)
+        public Joueur(Game game, GestionPartie gestionnairePartie, Viewport écranDeJeu)
+        :base(game)
         {
-            //ListeComponentsJoueurPartie = listeComponentsJoueurPartie;
-            GestionnaireDeLaPartie = gestionnaireDeLaPartie;
-            Ã‰cranDeJeu = Ã©cranDeJeu;
-            EstActif = true; //active le joueur
+            GestionnaireDeLaPartie = gestionnairePartie;
+            ÉcranDeJeu = écranDeJeu;
         }
-
         //Temporaire
-        public Joueur(Game game, NetConnection ip)
-            :base(game)
+        public Joueur(Game game)
+            : base(game)
         {
-            IP = ip;
         }
 
         public override void Initialize()
         {
             GestionnaireInput = new InputManager(this.Game);
-
+            ath = new ATH(Game);
+            Game.Components.Add(ath);
             base.Initialize();
         }
 
@@ -85,12 +64,6 @@ namespace AtelierXNA
         public void ModifierActivation()
         {
             EstActif = !EstActif;
-        }
-
-        //Probablement pas ici, le joueur ne devrait pas Ãªtre drawable
-        public void Draw()
-        {
-
         }
     }
 }

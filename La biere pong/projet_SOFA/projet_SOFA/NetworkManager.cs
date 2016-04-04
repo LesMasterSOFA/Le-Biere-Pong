@@ -15,15 +15,16 @@ namespace AtelierXNA
 {
     //Énumération contentant les différents types de packets,
     //pouvant être ensuite converti en byte ce qui permet de déterminer ce qu'il faut faire avec tel ou tel packet
-    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE }
+    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE, STARTGAME_INFO, MESSAGE_NULL }
 
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {
-        List<NetworkClient> ListeClients = new List<NetworkClient>();
-        NetworkServer Serveur;
+        public NetworkServer Serveur { get; private set; }
         const string NOM_JEU = "BEERPONG";
         const int PORT = 5011;
-
+        public NetworkClient MasterClient { get; private set; } //Client local dirigeant la partie
+        public NetworkClient SlaveClient { get; private set; } //Client extérieur se greffant à la partie
+        public Mode1v1LAN PartieEnCours { get; private set; }
 
         public NetworkManager(Game game)
             : base(game)
@@ -33,48 +34,48 @@ namespace AtelierXNA
 
         void CréerServeur()
         {
-            Serveur = new NetworkServer(Game, NOM_JEU, PORT);
+            Serveur = new NetworkServer(Game, NOM_JEU, PORT, this);
             Game.Components.Add(Serveur);
         }
 
-        void CréerClient()
+        void CréerSlaveClient()
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, "Joueur1", Serveur,false);
+            Game.Components.Add(SlaveClient);
         }
 
-        void CréerClient(string nomJoueur)
+        void CréerSlaveClient(string nomJoueur)
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
+            SlaveClient = new NetworkClient(Game, NOM_JEU, PORT, nomJoueur, Serveur,false);
+            Game.Components.Add(SlaveClient);
         }
 
-        void CréerClientLocal()
+        void CréerMasterClient()
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
+            MasterClient = new NetworkClient(Game, NOM_JEU,"localhost", PORT, "Joueur1", Serveur,true);
+            Game.Components.Add(MasterClient);
         }
 
-        void CréerClientLocal(string nomJoueur)
+        void CréerMasterClient(string nomJoueur)
         {
-            NetworkClient client = new NetworkClient(Game, NOM_JEU,"localhost", PORT, nomJoueur, Serveur);
-            ListeClients.Add(client);
-            Game.Components.Add(client);
+            MasterClient = new NetworkClient(Game, NOM_JEU, "localhost", PORT, nomJoueur, Serveur,true);
+            Game.Components.Add(MasterClient);
         }
 
         public void RejoindrePartie(string nomJoueur)
         {
             try
             {
-                CréerClient(nomJoueur);
+                CréerSlaveClient(nomJoueur);
             }
             //Doit ajouter d'autre exception et leur traitement
-            catch(Exception)
+            catch(Exception e)
             {
-
+                Console.WriteLine("Problème lors du rejoignement de partie");
+                Console.WriteLine(e.ToString());
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
             }
         }
 
@@ -83,13 +84,20 @@ namespace AtelierXNA
             try
             {
                 CréerServeur();
-                CréerClientLocal();
+                CréerMasterClient();
+                PartieEnCours = new Mode1v1LAN(Game, Serveur, this);
+                Game.Components.Add(PartieEnCours);
             }
             //Doit ajouter d'autre exception et leur traitement
-            catch(Exception)
+            catch(Exception e)
             {
-
+                Console.WriteLine("Problème dans l'hébergement de la partie");
+                Console.WriteLine(e.ToString());
+                Menu menu = new Menu(Game);
+                Game.Components.Add(menu);
+                menu.BoutonsLAN();
             }
         }
+
     }
 }
