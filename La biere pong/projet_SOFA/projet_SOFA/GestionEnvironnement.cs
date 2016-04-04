@@ -12,21 +12,24 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    public enum Environnements { Garage } //À ajouter les environnement dedans
+    public enum Environnements { Garage, SalleManger, SousSol } //À ajouter les environnement dedans
 
     public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
+
+
         const float DIMENSION_TABLE_X = 0.76f;
         const float DIMENSION_TABLE_Y = 0.74f;
         const float DIMENSION_TABLE_Z = 1.83f;
-        const float RAYON_VERRE_HAUT = 0.09225f;
+        const float DIAMÈTRE_VERRE = 0.09225f;
+        const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
         const float HAUTEUR_VERRE = 0.1199f;
         InputManager GestionClavier { get; set; }
         ObjetDeBase Table { get; set; }
         ObjetDeBase Balle { get; set; }
         public Caméra CaméraJeu { get; set; }
-        public Environnements NomEnvironnement { get; set; }
+        public Environnements NomEnvironnement { get; private set; }
         Personnage personnagePrincipal { get; set; }
         List<VerreJoueurPrincipal> VerresJoueur { get; set; }
         VerreJoueurPrincipal VerreJoueur1 { get; set; }
@@ -46,70 +49,71 @@ namespace AtelierXNA
         List<Vector3> ListePositionVerresAdv { get; set; }
         BoundingBox BoundingTable { get; set; }
 
-
         public GestionEnvironnement(Game game, Environnements nomEnvironnement)
             : base(game)
         {
             NomEnvironnement = nomEnvironnement;
         }
-       public GestionEnvironnement(Game game, InfoGestionEnvironnement infoGestionEnvironnement) : base(game)
-       {
-           NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
-       }
-        public override void Initialize() //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
-        /* Dimensions de la balle: rayon de 2 cm
-         * Centre de la balle : centre de la sphere
-         * Dimensions de la table: X = 76cm 
-         *                         Y = 74cm
-         *                         Z = 183cm (pas sur)
-         * Centre de la table : a terre, au milieu
-         * Dimension du verre : rayon de 9.225cm (dans le haut du verre)
-         *                      hauteur : 11.99cm
-         * Centre du verre : a terre, au centre du cercle
-         * Dimension du monsieur : X = 79.399cm
-         *                         Y = 1.705m
-         *                         Z = 36.761cm
-         * Centre du monsieur : a terre, au milieu
-         */
+
+        public GestionEnvironnement(Game game, InfoGestionEnvironnement infoGestionEnvironnement)
+            : base(game)
         {
-            GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
+            NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
+        }
 
-            ListePositionVerres = new List<Vector3>();
-            ListePositionVerresAdv = new List<Vector3>();
-            FixerLesPositions();
 
+        //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
+        // Dimensions de la balle: rayon de 2 cm
+        //Centre de la balle : centre de la sphere
+        //Dimensions de la table: X = 76cm 
+        //                        Y = 74cm
+        //                        Z = 183cm (pas sur)
+        //Centre de la table : a terre, au milieu
+        //Dimension du verre : rayon de 9.225cm (dans le haut du verre)
+        //                     hauteur : 11.99cm
+        //Centre du verre : a terre, au centre du cercle
+        //Dimension du monsieur : X = 79.399cm
+        //                        Y = 1.705m
+        //                        Z = 36.761cm
+        //Centre du monsieur : a terre, au milieu
+        public override void Initialize()
+        {
             //Instanciation et ajout dans components de caméra
-            Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
+            Vector3 positionCaméra = new Vector3(2, 1.5f, 0f);
             Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-            CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+            CaméraJeu = new CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
             Game.Components.Add(CaméraJeu);
             Game.Services.AddService(typeof(Caméra), CaméraJeu);
             InstancierEnvironnement();
 
             //Instanciation objets
 
+            personnagePrincipal = new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, -1));
+
             Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, DIMENSION_TABLE_Y, DIMENSION_TABLE_Z / 2));
-            Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
-            personnagePrincipal = new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, -1));
+            Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), 4.5f, 0, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD);
+
             CréerLesVerres();
 
             //Ajout des objets dans la liste de Components
-            Game.Components.Add(Balle);
+            //ajout de la balle ici
+            // Game.Components.Add(Balle);
             Game.Components.Add(Table);
             Game.Components.Add(personnagePrincipal);
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
         }
+
         void FixerLesPositions()
         {
-            ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f, 0.74f, 0.8f));
-            ListePositionVerres.Add(new Vector3(-0.09225f, 0.74f, 0.8f)); ListePositionVerres.Add(new Vector3(0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            ListePositionVerres.Add(new Vector3(-0.09225f / 2, 0.74f, 0.8f - 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, 0.74f, 0.8f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, 0.8f));
+            ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, 0.8f)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, 0.8f - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+            ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, 0.8f - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, DIMENSION_TABLE_Y, 0.8f - 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
 
-            ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f, 0.74f, -0.8f));
-            ListePositionVerresAdv.Add(new Vector3(-0.09225f, 0.74f, -0.8f)); ListePositionVerresAdv.Add(new Vector3(0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
-            ListePositionVerresAdv.Add(new Vector3(-0.09225f / 2, 0.74f, -0.8f + 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, 0.74f, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, -0.8f));
+            ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE, DIMENSION_TABLE_Y, -0.8f)); ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, -0.8f + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+            ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DIMENSION_TABLE_Y, -0.8f + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -0.8f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
         }
 
         void CréerLesVerres()
@@ -164,14 +168,23 @@ namespace AtelierXNA
             switch (NomEnvironnement)
             {
                 case Environnements.Garage:
-                    EnvironnementGarage Garage = new EnvironnementGarage(Game, "GaucheGarage", "DroiteGarage", "PlafondGarage", "PlancherGaragee", "AvantGarage", "ArriereGarage");
+                    EnvironnementGarage Garage = new EnvironnementGarage(Game, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage");
                     Game.Components.Add(Garage);
+                    break;
+                case Environnements.SalleManger:
+                    EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe");
+                    Game.Components.Add(SalleManger);
+                    break;
+                case Environnements.SousSol:
+                    EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol");
+                    Game.Components.Add(SousSol);
                     break;
                 default:
                     throw new Exception();
             }
 
         }
+
         public override void Update(GameTime gameTime)
         {
             //pour essai
@@ -179,9 +192,23 @@ namespace AtelierXNA
             //{
             //   GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
             //}
+            if (GestionClavier.EstNouvelleTouche(Keys.Enter))
+            {
+
+                Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.5f, 1.7f), 2.5f, 0.00f, MathHelper.Pi / 6, BoundingTable, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE_Y, INTERVALLE_MAJ_STANDARD));
+                int noDrawOrder = 0;
+                foreach (GameComponent item in Game.Components)
+                {
+                    if (item is DrawableGameComponent)
+                    {
+                        ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+                    }
+                }
+            }
             base.Update(gameTime);
         }
     }
+
 
     [Serializable]
     public class InfoGestionEnvironnement
@@ -193,4 +220,6 @@ namespace AtelierXNA
         }
     }
 }
+
+
 
