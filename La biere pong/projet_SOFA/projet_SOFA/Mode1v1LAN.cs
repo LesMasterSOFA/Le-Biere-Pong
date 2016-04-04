@@ -33,15 +33,16 @@ namespace AtelierXNA
 
         //Constructeur sérialiseur
         public Mode1v1LAN( Game game, InfoJoueurMultijoueur infoJoueurPrincipal, InfoJoueurMultijoueur infoJoueurSecondaire, 
-            bool estPartieActive, InfoGestionEnvironnement infoEnvironnementPartie, InfoNetworkServer infoServeur)
+            bool estPartieActive, InfoGestionEnvironnement infoEnvironnementPartie, NetworkServer infoServeur)
             : base(game)
         {
             //Reste à créer des constructeur pour ces champs
             JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
-            //JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
+            if(infoJoueurSecondaire != null)
+                JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
             EstPartieActive = estPartieActive;
             EnvironnementPartie = new GestionEnvironnement(Game, infoEnvironnementPartie);
-            Serveur = new NetworkServer(this.Game);
+            Serveur = infoServeur;
         }
         
         public override void Initialize()
@@ -90,6 +91,7 @@ namespace AtelierXNA
             ActiverEnvironnement();
             JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
         }
+
         public void ActiverPartieSlave()
         {
             Game.Components.Remove(BoutonJouer);
@@ -136,7 +138,7 @@ namespace AtelierXNA
 
             InfoGestionnaireEnvironnement = new InfoGestionEnvironnement(environnementPartie.NomEnvironnement);
 
-            InfoServer = new InfoNetworkServer();
+            InfoServer = new InfoNetworkServer(serveur.Port, serveur.NomJeu, serveur.Temps);
         }
     }
 }
