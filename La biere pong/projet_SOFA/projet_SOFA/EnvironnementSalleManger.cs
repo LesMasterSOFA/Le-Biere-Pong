@@ -111,7 +111,6 @@ namespace AtelierXNA
             ListePositionVerres = new List<Vector3>();
             ListePositionVerresAdv = new List<Vector3>();
             FixerLesPositions();
-            //personnagePrincipal = new Personnage(this.Game, new Vector3(0, 0, -1.5f));
 
             Table = new ObjetDeBase(Game, "tablesallemanger", "tex_table_salle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_Y / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_Y / 2, 0.755f, DIMENSION_TABLE_Z / 2));
@@ -122,7 +121,7 @@ namespace AtelierXNA
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Balle);
             Game.Components.Add(Table);
-            //Game.Components.Add(personnagePrincipal);
+            Game.Components.Add(new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, -1.5f)));
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
             InitialiserModèles();
