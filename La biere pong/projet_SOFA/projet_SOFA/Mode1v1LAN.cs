@@ -40,7 +40,7 @@ namespace AtelierXNA
             JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
             //JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
             EstPartieActive = estPartieActive;
-            EnvironnementPartie = new GestionEnvironnement(this.Game, infoEnvironnementPartie);
+            EnvironnementPartie = new GestionEnvironnement(Game, infoEnvironnementPartie);
             Serveur = new NetworkServer(this.Game);
         }
         

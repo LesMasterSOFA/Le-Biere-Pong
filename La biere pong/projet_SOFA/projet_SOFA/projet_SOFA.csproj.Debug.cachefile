@@ -10,7 +10,6 @@ Content\Textures\FondIndicateurForce.xnb
 Content\Textures\tablebois.xnb
 Content\Textures\couleur_Balle.xnb
 Content\Textures\BriquesGrises_COLOR.xnb
-Content\Textures\superBoyTex.xnb
 Content\Textures\noir.xnb
 Content\Textures\table_plastique.xnb
 Content\Textures\verre_tex.xnb
@@ -23,6 +22,7 @@ Content\Textures\DroiteGarage.xnb
 Content\Textures\GaucheGarage.xnb
 Content\Textures\PlafondGarage.xnb
 Content\Textures\PlancherGaragee.xnb
+Content\Textures\superBoyTex.xnb
 Content\Models\mur.xnb
 Content\Models\balle.xnb
 Content\Models\table_plastique.xnb
@@ -30,8 +30,8 @@ Content\Models\superBoy.xnb
 Content\Models\verre.xnb
 Content\Models\urinoir.xnb
 Content\Models\etabli.xnb
-Content\Effects\Shader.xnb
 Content\Models\superBoyLancer.xnb
 Content\Models\superBoyBoire.xnb
 Content\Models\superBoyApresLancer.xnb
 Content\Models\superBoyApresBoire.xnb
+Content\Effects\Shader.xnb
