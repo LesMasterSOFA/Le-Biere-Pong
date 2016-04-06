@@ -17,6 +17,7 @@ namespace AtelierXNA
         AnimationPlayer animationPlayer { get; set; }
         Joueur joueur { get; set; }
 
+        TimeSpan time = new TimeSpan(); 
 
         RessourcesManager<Model> GestionnaireDeModèles { get; set; }
 
@@ -53,7 +54,8 @@ namespace AtelierXNA
         public override void Update(GameTime gameTime)
         {
             animationPlayer.Update(gameTime.ElapsedGameTime, true, Monde);
-            if (gameTime.ElapsedGameTime >= animationPlayer.CurrentClip.Duration)
+            time += gameTime.ElapsedGameTime;
+            if (time >= animationPlayer.CurrentClip.Duration)
             {
                 switch (NomModèle)
                 {
@@ -64,6 +66,10 @@ namespace AtelierXNA
                         joueur.ChangerAnimation(TypeActionPersonnage.ApresBoire);
                         break;
                 }
+            }
+            if (time.Seconds >= animationPlayer.CurrentClip.Duration.Seconds+1)
+            {
+                joueur.ChangerAnimation(TypeActionPersonnage.Rien);
             }
             base.Update(gameTime);
         }

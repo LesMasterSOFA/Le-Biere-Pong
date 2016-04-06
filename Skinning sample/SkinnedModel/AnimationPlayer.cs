@@ -100,9 +100,7 @@ namespace AtelierXNA
 
                 // If we reached the end, loop back to the start.
                 while (time >= currentClipValue.Duration)
-                {
-                    
-                }
+                    time -= currentClipValue.Duration;
             }
 
             if ((time < TimeSpan.Zero) || (time >= currentClipValue.Duration))
