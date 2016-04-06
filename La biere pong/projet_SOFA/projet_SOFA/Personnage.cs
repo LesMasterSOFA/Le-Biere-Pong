@@ -15,6 +15,7 @@ namespace AtelierXNA
     public class Personnage : ObjetDeBase
     {
         AnimationPlayer animationPlayer { get; set; }
+        Joueur joueur { get; set; }
 
 
         RessourcesManager<Model> GestionnaireDeModèles { get; set; }
@@ -31,6 +32,7 @@ namespace AtelierXNA
         }
         public override void Initialize()
         {
+            joueur = new Joueur(Game);
             base.Initialize();
 
             // Look up our custom skinning information.
@@ -51,11 +53,31 @@ namespace AtelierXNA
         public override void Update(GameTime gameTime)
         {
             animationPlayer.Update(gameTime.ElapsedGameTime, true, Monde);
+            if (gameTime.ElapsedGameTime >= animationPlayer.CurrentClip.Duration)
+            {
+                switch (NomModèle)
+                {
+                    case "superBoyLancer":
+                        joueur.ChangerAnimation(TypeActionPersonnage.ApresLancer);
+                        break;
+                    case "superBoyBoire":
+                        joueur.ChangerAnimation(TypeActionPersonnage.ApresBoire);
+                        break;
+                }
+            }
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            int noDrawOrder = 0;
+            foreach (GameComponent item in Game.Components)
+            {
+                if (item is DrawableGameComponent)
+                {
+                    ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+                }
+            }
             Matrix[] bones = animationPlayer.GetSkinTransforms();
             foreach (ModelMesh mesh in Modèle.Meshes)
             {

@@ -1,17 +1,13 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// AnimationPlayer.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
-#endregion
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
@@ -104,7 +100,9 @@ namespace AtelierXNA
 
                 // If we reached the end, loop back to the start.
                 while (time >= currentClipValue.Duration)
-                    time -= currentClipValue.Duration;
+                {
+                    
+                }
             }
 
             if ((time < TimeSpan.Zero) || (time >= currentClipValue.Duration))

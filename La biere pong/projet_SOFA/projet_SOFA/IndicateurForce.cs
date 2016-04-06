@@ -86,6 +86,7 @@ namespace AtelierXNA
                     affInfo = new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X));
                     JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer);
                     Game.Components.Add(affInfo);
+                    Game.Components.Remove(this);
                     //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
                 }
             }

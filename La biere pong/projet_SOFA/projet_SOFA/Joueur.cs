@@ -14,7 +14,7 @@ namespace AtelierXNA
 {
     public enum TypeActionPersonnage
     {
-        Rien, Boire, Lancer
+        Rien, Boire, Lancer,ApresLancer,ApresBoire
     }
 
     public class Joueur : Microsoft.Xna.Framework.GameComponent, IActivable
@@ -97,9 +97,14 @@ namespace AtelierXNA
                 case TypeActionPersonnage.Lancer:
                 action="superBoyLancer";
                 break;
+                case TypeActionPersonnage.ApresLancer:
+                action = "superBoyApresLancer";
+                break;
+                case TypeActionPersonnage.ApresBoire:
+                action = "superBoyApresBoire";
+                break;
                 
             }
-            //draw order plz julie
             Game.Components.Insert(17,new Personnage(Game, action, "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1)));
         }
     }
