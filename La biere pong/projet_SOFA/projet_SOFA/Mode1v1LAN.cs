@@ -15,14 +15,29 @@ namespace AtelierXNA
 {
     public class Mode1v1LAN : PartieMultijoueur
     {
+        BoutonDeCommande BoutonJouer { get; set; }
         public ATH ath { get; private set; }
         public NetworkServer Serveur { get; private set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         public Environnements Environnement { get; private set; }
         public NetworkManager GestionNetwork { get; set; }
-        Menu MenuSelectionEnvironnement { get; set; }
 
-  
+        BoutonDeCommande BoutonGarage { get; set; }
+        BoutonDeCommande BoutonSalleManger { get; set; }
+        BoutonDeCommande BoutonSousSol { get; set; }
+        Rectangle RectangleFondÉcran { get; set; }
+        Rectangle RectangleGarage { get; set; }
+        Rectangle RectangleSalleManger { get; set; }
+        Rectangle RectangleSousSol { get; set; }
+        SpriteBatch GestionSprites { get; set; }
+        RessourcesManager<Texture2D> gestionnaireTexture { get; set; }
+        RessourcesManager<SpriteFont> gestionnaireFont { get; set; }
+        Texture2D ImageFondÉcran { get; set; }
+        Texture2D ImageMenuGarage { get; set; }
+        Texture2D ImageMenuSalleManger { get; set; }
+        Texture2D ImageMenuSousSol { get; set; }
+        Texture2D BoutonBleu { get; set; }
+        
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
         {
@@ -51,11 +66,24 @@ namespace AtelierXNA
             base.Initialize();
         }
 
+        protected override void LoadContent()
+        {
+            GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
+            gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
+            gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
+            ImageFondÉcran = gestionnaireTexture.Find("BeerPong");
+            ImageMenuGarage = gestionnaireTexture.Find("MenuGarage");
+            ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
+            ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
+            BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
+            base.LoadContent();
+        }
+
         public override void Update(GameTime gameTime)
         {
-            if(Serveur.ListeJoueurs.Count == 2 && MenuSelectionEnvironnement.BoutonJouer.EstActif != true)
+            if(Serveur.ListeJoueurs.Count == 2 && BoutonJouer.EstActif != true)
             {
-                MenuSelectionEnvironnement.BoutonJouer.EstActif = true;
+                BoutonJouer.EstActif = true;
             }
             base.Update(gameTime);
         }
@@ -73,8 +101,14 @@ namespace AtelierXNA
 
         void MenuSélectionPersonnage()
         {
-            MenuSelectionEnvironnement = new Menu(this.Game);
-            MenuSelectionEnvironnement.BoutonsSelectionEnvironnementLAN(this);
+            RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height + 15);
+            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverPartieMaster);
+            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
+            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalleManger);
+            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
 
             //JoueurPrincipal = ...;
             //JoueurSecondaire = ...;
@@ -87,28 +121,32 @@ namespace AtelierXNA
             if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null) 
                 JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
 
+            Game.Components.Add(BoutonJouer);
+            Game.Components.Add(BoutonGarage);
+            Game.Components.Add(BoutonSalleManger);
+            Game.Components.Add(BoutonSousSol);
         }
 
-        public void InitialiserGarage()
+        void InitialiserGarage()
         {
             Environnement = Environnements.Garage;
         }
 
-        public void InitialiserSalleManger()
+        void InitialiserSalleManger()
         {
             Environnement = Environnements.SalleManger;
         }
 
-        public void InitialiserSousSol()
+        void InitialiserSousSol()
         {
             Environnement = Environnements.SousSol;
         }
 
-        public void ActiverPartieMaster()
+        void ActiverPartieMaster()
         {
             if (Serveur.ListeJoueurs.Count == 2)
             {
-                Game.Components.Remove(MenuSelectionEnvironnement.BoutonJouer);
+                Game.Components.Remove(BoutonJouer);
                 ModifierActivation();
                 ActiverEnvironnement();
                 JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
@@ -117,10 +155,34 @@ namespace AtelierXNA
 
         public void ActiverPartieSlave()
         {
+            Game.Components.Remove(BoutonJouer);
             ModifierActivation();
             ActiverEnvironnement();
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            GestionSprites.Begin();
+            int noDrawOrder = 0;
+            foreach (GameComponent item in Game.Components)
+            {
+                if (item is DrawableGameComponent)
+                {
+                    ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+                }
+            }
+            GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+            GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
+            GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
+            GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
+            GestionSprites.End();
+            BoutonJouer.Draw(gameTime);
+            BoutonGarage.Draw(gameTime);
+            BoutonSalleManger.Draw(gameTime);
+            BoutonSousSol.Draw(gameTime);
+            
+            base.Draw(gameTime);
+        }
     }
 
 
