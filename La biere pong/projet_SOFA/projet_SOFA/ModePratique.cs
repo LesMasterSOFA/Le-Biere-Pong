@@ -33,6 +33,8 @@ namespace AtelierXNA
         public ModePratique(Game game)
             : base(game)
         {
+            Random PileOuFace = new Random();
+            EstTourJoueur = Convert.ToBoolean(PileOuFace.Next(0, 1));
         }
 
         public override void Initialize()

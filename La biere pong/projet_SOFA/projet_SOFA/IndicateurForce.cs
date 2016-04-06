@@ -48,7 +48,7 @@ namespace AtelierXNA
             PositionFond = new Vector2(Résolution.X / 26.667f, Résolution.Y - Résolution.Y / 6.8571f);
             GrandeurFond = new Rectangle((int)PositionFond.X, (int)PositionFond.Y,x ,x/4);
             PositionMilieu = PositionFond.X + GrandeurFond.Width / 2;
-            VitesseBarre = GrandeurFond.X/5000f;
+            VitesseBarre = GrandeurFond.X/1000f;
 
             GrandeurBarre = new Rectangle(0, 0, 5, GrandeurFond.Height);
             AnciennePositionBarre = new Vector2(0, 0);
