@@ -74,7 +74,6 @@ namespace AtelierXNA
         void MenuSélectionPersonnage()
         {
             MenuSelectionEnvironnement = new Menu(this.Game);
-            Game.Components.Add(MenuSelectionEnvironnement);
             MenuSelectionEnvironnement.BoutonsSelectionEnvironnementLAN(this);
 
             //JoueurPrincipal = ...;
