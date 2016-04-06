@@ -36,7 +36,7 @@ namespace AtelierXNA
          PériphériqueGraphique.PreferredBackBufferWidth = (int)Résolution.X;
          PériphériqueGraphique.PreferredBackBufferHeight = (int)Résolution.Y;
          //PériphériqueGraphique.IsFullScreen = true;
-         IsFixedTimeStep = false;
+         IsFixedTimeStep = true;
          IsMouseVisible = true;
       }
 

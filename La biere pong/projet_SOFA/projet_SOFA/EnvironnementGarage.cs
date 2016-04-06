@@ -14,12 +14,12 @@ namespace AtelierXNA
 
     class EnvironnementGarage : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        const float RAYON_VERRE_HAUT = 0.09225f;
-        const float HAUTEUR_VERRE = 0.1199f;
-        const float DIMENSION_TABLE_X = 0.76f;
-        const float DIMENSION_TABLE_Y = 0.74f;
-        const float DIMENSION_TABLE_Z = 1.83f;
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
+        Vector3 DIMENSION_TABLE = new Vector3(0.76f, 0.74f, 1.83f);
+        Vector3 DIMENSION_BONHOMMME = new Vector3(0.79399f, 1.705f, 0.36761f);
+        const float DIAMÈTRE_VERRE = 0.09225f;
+        const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
+        const float HAUTEUR_VERRE = 0.1199f;
         const int DIMENSION_TERRAIN = 7;
         Vector2 étenduePlanMur = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN - 4);
         Vector2 étenduePlanPlafond = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
@@ -58,6 +58,9 @@ namespace AtelierXNA
         VerreAdversaire VerreAdversaire6 { get; set; }
         List<Vector3> ListePositionVerres { get; set; }
         List<Vector3> ListePositionVerresAdv { get; set; }
+        BoundingBox BoundingTable { get; set; }
+        BoundingBox BoundingBonhomme { get; set; }
+        float force { get; set; }
         public EnvironnementGarage(Game game, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière)
             : base(game)
        {
@@ -86,6 +89,7 @@ namespace AtelierXNA
          */
        public override void Initialize()
        {
+           force = 3.8f;
            GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
            
            Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3((float)-DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN - 4) / 2, 0), étenduePlanMur, charpentePlan, NomGauche, INTERVALLE_MAJ_STANDARD);
@@ -106,14 +110,12 @@ namespace AtelierXNA
            FixerLesPositions();
 
            Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
-           BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_X / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_X / 2, 0.755f, DIMENSION_TABLE_Z / 2));
-           //Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1f, 1.7f), 4.5f, 0, MathHelper.PiOver4, boundingTable, ListePositionVerresAdv, RAYON_VERRE_HAUT, HAUTEUR_VERRE, INTERVALLE_MAJ_STANDARD);
-
+           BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE.X / 2, 0, -DIMENSION_TABLE.Z / 2), new Vector3(DIMENSION_TABLE.X / 2, DIMENSION_TABLE.Y, DIMENSION_TABLE.Z / 2));
+           BoundingBonhomme = new BoundingBox(new Vector3(-DIMENSION_BONHOMMME.X / 2, 0, -1 - DIMENSION_BONHOMMME.Z), new Vector3(DIMENSION_BONHOMMME.X / 2, DIMENSION_BONHOMMME.Y, -1));
 
            CréerLesVerres();
 
            //Ajout des objets dans la liste de Components
-           Game.Components.Add(Balle);
            Game.Components.Add(Table);
            Game.Components.Add(new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, -1)));
            AjouterVerresJoueur();//Les ajouter dans les Game.Components
@@ -183,6 +185,19 @@ namespace AtelierXNA
            if (GestionClavier.EstNouvelleTouche(Keys.E))
            {
                GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
+           }
+           if (GestionClavier.EstNouvelleTouche(Keys.Enter))
+           {
+               Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f), force, 0.0f, MathHelper.Pi / 6, BoundingTable, BoundingBonhomme, ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE.Y, DIMENSION_TERRAIN, INTERVALLE_MAJ_STANDARD));
+               int noDrawOrder = 0;
+               foreach (GameComponent item in Game.Components)
+               {
+                   if (item is DrawableGameComponent)
+                   {
+                       ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+                   }
+               }
+               force += 0.01f;
            }
            base.Update(gameTime);
        }
