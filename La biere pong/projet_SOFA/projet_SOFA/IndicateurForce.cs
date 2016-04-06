@@ -15,6 +15,7 @@ namespace AtelierXNA
 
     public class IndicateurForce : DrawableGameComponent, IActivable
     {
+        Joueur JoueurCourant { get; set; }
         AffichageInfoLancer affInfo { get; set; }
         Vector2 Résolution { get; set; }
         Vector2 PositionFond { get; set; }
@@ -60,6 +61,8 @@ namespace AtelierXNA
             BarreIndicatrice = GestionTextures.Find("BarreIndicationForce");
             ImageFondIndicateurForce = GestionTextures.Find("FondIndicateurForce");
 
+            JoueurCourant = new Joueur(Game);
+
             base.Initialize();
         }
 
@@ -81,7 +84,9 @@ namespace AtelierXNA
                     }
                     estActifBarre = false;
                     affInfo = new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X));
+                    JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer);
                     Game.Components.Add(affInfo);
+                    Game.Components.Remove(this);
                     //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
                 }
             }

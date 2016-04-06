@@ -1,17 +1,13 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// AnimationPlayer.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
-#endregion
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
@@ -110,12 +106,6 @@ namespace AtelierXNA
             if ((time < TimeSpan.Zero) || (time >= currentClipValue.Duration))
                 throw new ArgumentOutOfRangeException("time");
 
-            // If the position moved backwards, reset the keyframe index.
-            if (time < currentTimeValue)
-            {
-                currentKeyframe = 0;
-                skinningDataValue.BindPose.CopyTo(boneTransforms, 0);
-            }
 
             currentTimeValue = time;
 
