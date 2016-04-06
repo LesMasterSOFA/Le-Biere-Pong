@@ -47,7 +47,6 @@ namespace AtelierXNA
         Texture2D ImageMenuGarage { get; set; }
         Texture2D ImageMenuSalleManger { get; set; }
         Texture2D ImageMenuSousSol { get; set; }
-        bool BoutonsSelectionEnvironnementLANEstActif { get; set; }
         SoundEffect ChansonMenu { get; set; }
 
         public Menu(Game game)
@@ -57,7 +56,6 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            BoutonsSelectionEnvironnementLANEstActif = false;
             ListeBoutonsCommandeMenu = new List<BoutonDeCommande>();
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
             PositionCentre = new Vector2(RectangleFondÉcran.X + RectangleFondÉcran.Width / 2f, RectangleFondÉcran.Y + RectangleFondÉcran.Height / 2f);
@@ -65,7 +63,6 @@ namespace AtelierXNA
             base.Initialize();
             InitialiserMenu();
         }
-
         void InitialiserMenu()
         {
             ChansonMenu.Play();
@@ -75,7 +72,6 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu.Add(BoutonJouer);
             AjouterNouveauxBoutons();
         }
-
         void BoutonsJouer()
         {
             TexteTitre = "JOUER";
@@ -89,7 +85,6 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu.Add(BoutonMultijoueur);
             AjouterNouveauxBoutons();
         }
-
         void BoutonsSolo()
         {
             TexteTitre = "SOLO";
@@ -103,7 +98,6 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu.Add(BoutonPratique);
             AjouterNouveauxBoutons();
         }
-
         void BoutonsMultijoueur()
         {
             TexteTitre = "MULTIJOUEUR";
@@ -144,18 +138,16 @@ namespace AtelierXNA
         public void BoutonsSelectionEnvironnementLAN(Mode1v1LAN partie)
         {
             Initialize();
-            BoutonsSelectionEnvironnementLANEstActif = true; //Doit être après Initialize
             TexteTitre = "SÉLECTION D'ENVIRONNEMENT";
             EnleverBoutonsExistants();
-            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 200, Game.Window.ClientBounds.Width / 5, 233);
-            RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 200, Game.Window.ClientBounds.Width / 5, 233);
-            RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 200, Game.Window.ClientBounds.Width / 5, 233);
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 150), false, partie.ActiverPartieMaster);
-            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 150), true, partie.InitialiserGarage);
-            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 150), true, partie.InitialiserSalleManger);
-            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 150), true, partie.InitialiserSousSol);
+            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, partie.ActiverPartieMaster);
+            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserGarage);
+            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserSalleManger);
+            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserSousSol);
             BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsJouer);
-
             
             ListeBoutonsCommandeMenu.Add(BoutonBack);
             ListeBoutonsCommandeMenu.Add(BoutonSousSol);
@@ -226,7 +218,6 @@ namespace AtelierXNA
                 Game.Components.Add(btn);
             }
         }
-
         void EnleverBoutonsExistants()
         {
             if (ListeBoutonsCommandeMenu != null)
@@ -241,7 +232,6 @@ namespace AtelierXNA
                 }
             }
         }
-
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -253,9 +243,6 @@ namespace AtelierXNA
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
             ImageFondÉcran = gestionnaireTexture.Find("BeerPong");
             ImageBouton = gestionnaireTexture.Find("BoutonBleu");
-            ImageMenuGarage = gestionnaireTexture.Find("MenuGarage");
-            ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
-            ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
         }
 
         public override void Draw(GameTime gameTime)
@@ -263,12 +250,6 @@ namespace AtelierXNA
             GestionSprites.Begin();
             GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
             GestionSprites.DrawString(gestionnaireFont.Find("Impact40"), TexteTitre, new Vector2(MARGE_BOUTONS, MARGE_BOUTONS), Color.Black);
-            if (BoutonsSelectionEnvironnementLANEstActif == true)
-            {
-                GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
-                GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
-                GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
-            }
             GestionSprites.End();
             base.Draw(gameTime);
         }
