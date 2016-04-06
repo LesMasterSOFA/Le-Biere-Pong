@@ -176,11 +176,13 @@ namespace AtelierXNA
             GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
             GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
             GestionSprites.End();
-            BoutonJouer.Draw(gameTime);
-            BoutonGarage.Draw(gameTime);
-            BoutonSalleManger.Draw(gameTime);
-            BoutonSousSol.Draw(gameTime);
-            
+            if(BoutonJouer != null)
+            {
+                BoutonJouer.Draw(gameTime);
+                BoutonGarage.Draw(gameTime);
+                BoutonSalleManger.Draw(gameTime);
+                BoutonSousSol.Draw(gameTime);
+            }
             base.Draw(gameTime);
         }
     }
