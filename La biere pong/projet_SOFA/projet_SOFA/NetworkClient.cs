@@ -129,7 +129,6 @@ namespace AtelierXNA
         }
 
         //Attente du message de connection pour instancier les joueurs
-        //Problème ici -> reçois des mauvais messages
         private void AttenteConnectionServeur()
         {
             //Détermine si le client peut démarer
@@ -188,7 +187,6 @@ namespace AtelierXNA
 
                 //Regarde si le serveur a envoyé un message
                 RegarderNouveauMessageServeur();
-
 
                 //Update le temps
                 Temps = DateTime.Now;
@@ -328,9 +326,8 @@ namespace AtelierXNA
             {
                 //Problème ici, incapable de démarrer une partie. Probablement a cause que les classe serializable s'instancie pas comme il le faut
                 InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
-                Serveur = new NetworkServer(Game);
-                Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
-                //var PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, infoMode1v1LAN.InfoServer);
+                Serveur = new NetworkServer(Game, infoMode1v1LAN.InfoServer.NomJeu, infoMode1v1LAN.InfoServer.Port, infoMode1v1LAN.InfoServer.TempsServeurMaster);
+                Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, Serveur);
                 Game.Components.Add(Serveur.PartieEnCours);
             }
 

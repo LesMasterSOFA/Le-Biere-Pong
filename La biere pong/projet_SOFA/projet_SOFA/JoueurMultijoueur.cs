@@ -76,7 +76,7 @@ namespace AtelierXNA
             //InfoAvatar = new InfoPersonnage(avatar.NomModèle, avatar.NomTexture, avatar.NomEffet, avatar.Échelle, avatar.Rotation, avatar.Position);
             Gamertag = gamertag;
             if(imageJoueur != null)
-            ImageJoueur = imageJoueur.Name;
+                ImageJoueur = imageJoueur.Name;
             InfoGestionnairePartie = new InfoGestionPartie();
             EstActif = estActif;
             IP = ip.ToString();

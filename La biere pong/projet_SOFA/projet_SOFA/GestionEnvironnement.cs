@@ -20,17 +20,21 @@ namespace AtelierXNA
       
 
       public Caméra CaméraJeu { get; set; }
+
       public Environnements NomEnvironnement { get; private set; }
+
       public GestionEnvironnement(Game game, Environnements nomEnvironnement)
          : base(game)
       {
          NomEnvironnement = nomEnvironnement;
       }
+
       public GestionEnvironnement(Game game, InfoGestionEnvironnement infoGestionEnvironnement)
           : base(game)
       {
           NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
       }
+
       public override void Initialize() 
       {
          //Instanciation et ajout dans components de caméra
@@ -61,18 +65,27 @@ namespace AtelierXNA
             default:
                throw new Exception();
          }
-
       }
-      
-   }
-   [Serializable]
-   public class InfoGestionEnvironnement
-   {
-       public Environnements NomEnvironnement { get; private set; }
-       public InfoGestionEnvironnement(Environnements nomEnvironnement)
-       {
-           NomEnvironnement = nomEnvironnement;
-       }
-   }
+
+      public override void Update(GameTime gameTime)
+      {
+          //pour essai
+          //if (GestionClavier.EstNouvelleTouche(Keys.E))
+          //{
+          //   GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
+          //}
+          base.Update(gameTime);
+      }
+    }
+
+    [Serializable]
+    public class InfoGestionEnvironnement
+    {
+        public Environnements NomEnvironnement { get; private set; }
+        public InfoGestionEnvironnement(Environnements nomEnvironnement)
+        {
+            NomEnvironnement = nomEnvironnement;
+        }
+    }
 }
 
