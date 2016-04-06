@@ -25,7 +25,7 @@ namespace AtelierXNA
         Vector2 PositionCentre { get; set; }
         Vector2 PositionBack { get; set; }
         List<BoutonDeCommande> ListeBoutonsCommandeMenu { get; set; }
-        BoutonDeCommande BoutonJouer { get; set; }
+        public BoutonDeCommande BoutonJouer { get; set; }
         BoutonDeCommande BoutonSolo { get; set; }
         BoutonDeCommande BoutonPratique { get; set; }
         BoutonDeCommande BoutonHistoire { get; set; }
@@ -38,6 +38,15 @@ namespace AtelierXNA
         BoutonDeCommande BoutonAfficherConsole { get; set; }
         BoutonDeCommande BoutonEnleverConsole { get; set; }
         BoutonDeCommande BoutonEffacerConsole { get; set; }
+        BoutonDeCommande BoutonGarage { get; set; }
+        BoutonDeCommande BoutonSalleManger { get; set; }
+        BoutonDeCommande BoutonSousSol { get; set; }
+        Rectangle RectangleGarage { get; set; }
+        Rectangle RectangleSalleManger { get; set; }
+        Rectangle RectangleSousSol { get; set; }
+        Texture2D ImageMenuGarage { get; set; }
+        Texture2D ImageMenuSalleManger { get; set; }
+        Texture2D ImageMenuSousSol { get; set; }
         SoundEffect ChansonMenu { get; set; }
 
         public Menu(Game game)
@@ -125,19 +134,44 @@ namespace AtelierXNA
             ListeBoutonsCommandeMenu.Add(BoutonEffacerConsole);
             AjouterNouveauxBoutons();
         }
+
+        public void BoutonsSelectionEnvironnementLAN(Mode1v1LAN partie)
+        {
+            Initialize();
+            TexteTitre = "SÉLECTION D'ENVIRONNEMENT";
+            EnleverBoutonsExistants();
+            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
+            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, partie.ActiverPartieMaster);
+            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserGarage);
+            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserSalleManger);
+            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, partie.InitialiserSousSol);
+            BoutonBack = new BoutonDeCommande(Game, "Back", "Impact20", "BoutonBackBleu", "BoutonBackBleuPale", PositionBack, true, BoutonsJouer);
+            
+            ListeBoutonsCommandeMenu.Add(BoutonBack);
+            ListeBoutonsCommandeMenu.Add(BoutonSousSol);
+            ListeBoutonsCommandeMenu.Add(BoutonSalleManger);
+            ListeBoutonsCommandeMenu.Add(BoutonGarage);
+            ListeBoutonsCommandeMenu.Add(BoutonJouer);
+
+            AjouterNouveauxBoutons();
+        }
+
         void EffacerConsole()
         {
             ConsoleWindow.HideConsoleWindow();
             Console.Clear();
             ConsoleWindow.ShowConsoleWindow();
         }
+
         void AfficherConsole()
         {
             ConsoleWindow.HideConsoleWindow();
             ConsoleWindow.ShowConsoleWindow();
             ConsoleWindow.PutInForeGround();
         }
-        //Manque la sélection de personnage, environnement, etc
+
         void PartirModeHistoire()
         {
             Game.Components.Remove(this);
@@ -186,13 +220,16 @@ namespace AtelierXNA
         }
         void EnleverBoutonsExistants()
         {
-            if (ListeBoutonsCommandeMenu.Count!=0)
+            if (ListeBoutonsCommandeMenu != null)
             {
-                foreach (BoutonDeCommande btn in ListeBoutonsCommandeMenu)
+                if (ListeBoutonsCommandeMenu.Count != 0)
                 {
-                    Game.Components.Remove(btn);
+                    foreach (BoutonDeCommande btn in ListeBoutonsCommandeMenu)
+                    {
+                        Game.Components.Remove(btn);
+                    }
+                    ListeBoutonsCommandeMenu.Clear();
                 }
-                ListeBoutonsCommandeMenu.Clear();
             }
         }
         protected override void LoadContent()
@@ -216,32 +253,5 @@ namespace AtelierXNA
             GestionSprites.End();
             base.Draw(gameTime);
         }
-
-        //n'a peut être pas lieu d'être ici
-
-        //#region Menus LAN
-        ////Va probablement devoir recevoir SignedInGamer
-        //void DessinerMenuAccueilLan()
-        //{
-        //    this.Game.GraphicsDevice.Clear(Color.CornflowerBlue);
-        //    string message = "";
-
-        //    if (SignedInGamer.SignedInGamers.Count == 0)
-        //    {
-        //        message = "No profile signed in!  \n" +
-        //            "Press the Home key on the keyboard or \n";
-        //    }
-
-        //    else
-        //    {
-        //        message += "Press A to create a new session\n" +
-        //            "X to search for sessions\nB to quit\n\n";
-        //    }
-
-        //    GestionSprites.Begin();
-        //    GestionSprites.DrawString(gestionnaireFont.Find("Impact20"), message, new Vector2(101, 101), Color.Black);
-        //    GestionSprites.End();
-        //}
-        //#endregion
     }
 }
