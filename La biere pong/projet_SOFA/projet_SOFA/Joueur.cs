@@ -12,6 +12,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
+    public enum TypeActionPersonnage
+    {
+        Rien, Boire, Lancer, ApresLancer, ApresBoire
+    }
+
 
     public class Joueur : Microsoft.Xna.Framework.GameComponent, IActivable
     {
@@ -64,6 +69,41 @@ namespace AtelierXNA
         public void ModifierActivation()
         {
             EstActif = !EstActif;
+        }
+        public void ChangerAnimation(TypeActionPersonnage typeAnimation)
+        {
+            string action = "";
+            List<Personnage> liste = new List<Personnage>();
+            foreach (Personnage perso in Game.Components.Where(perso => perso is Personnage))
+            {
+                liste.Add(perso);
+            }
+
+            foreach (Personnage perso in liste)
+            {
+                Game.Components.Remove(perso);
+            }
+
+            switch (typeAnimation)
+            {
+                case TypeActionPersonnage.Rien:
+                    action = "superBoy";
+                    break;
+                case TypeActionPersonnage.Boire:
+                    action = "superBoyBoire";
+                    break;
+                case TypeActionPersonnage.Lancer:
+                    action = "superBoyLancer";
+                    break;
+                case TypeActionPersonnage.ApresLancer:
+                    action = "superBoyApresLancer";
+                    break;
+                case TypeActionPersonnage.ApresBoire:
+                    action = "superBoyApresBoire";
+                    break;
+
+            }
+            Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1)));
         }
     }
 }

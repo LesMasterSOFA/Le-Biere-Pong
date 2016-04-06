@@ -113,7 +113,7 @@ namespace AtelierXNA
            //Ajout des objets dans la liste de Components
            Game.Components.Add(Balle);
            Game.Components.Add(Table);
-           Game.Components.Add(new Personnage(Game, "superBoyLancer", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, -1)));
+           Game.Components.Add(new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1)));
            AjouterVerresJoueur();//Les ajouter dans les Game.Components
            AjouterVerresAdversaire();//Les ajouter dans les Game.Components
            InitialiserModèles();
