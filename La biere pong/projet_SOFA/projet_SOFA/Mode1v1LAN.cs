@@ -81,6 +81,7 @@ namespace AtelierXNA
 
         public override void Update(GameTime gameTime)
         {
+            //Pour bouton jouer menu selection environnement
             if(Serveur.ListeJoueurs.Count == 2 && BoutonJouer.EstActif != true)
             {
                 BoutonJouer.EstActif = true;
@@ -92,7 +93,7 @@ namespace AtelierXNA
         {
             if (EstPartieActive)
             {
-                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement);
+                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                 ath = new ATH(Game);
                 Game.Components.Add(EnvironnementPartie);
                 Game.Components.Add(ath);
@@ -109,17 +110,6 @@ namespace AtelierXNA
             BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalleManger);
             BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
-
-            //JoueurPrincipal = ...;
-            //JoueurSecondaire = ...;
-
-
-            //Temporaire en attendant que le menu n'est pas créé
-            if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
-                JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP, GestionNetwork.MasterClient);
-                //JoueurPrincipal = new JoueurMultijoueur(this.Game, )
-            if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null) 
-                JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
 
             Game.Components.Add(BoutonJouer);
             Game.Components.Add(BoutonGarage);
@@ -146,6 +136,11 @@ namespace AtelierXNA
         {
             if (Serveur.ListeJoueurs.Count == 2)
             {
+                if (Serveur.ListeJoueurs.Count >= 1 && Serveur.ListeJoueurs[0] != null)
+                    JoueurPrincipal = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[0].IP, GestionNetwork.MasterClient);
+                if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null)
+                    JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
+
                 Game.Components.Remove(BoutonJouer);
                 ModifierActivation();
                 ActiverEnvironnement();

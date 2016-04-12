@@ -149,14 +149,13 @@ namespace AtelierXNA
 
                         if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                         {
-                            //erreur ici
                             Console.WriteLine("STARTGAME_INFO recue _ Serveur");
                             foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
                                 if (j.IP != MessageInc.SenderConnection)
                                 {
                                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
-                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message);
+                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message, 1);
                                 }
                             }
                         }
@@ -235,7 +234,7 @@ namespace AtelierXNA
             Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
-        void EnvoieNouveauMessage(PacketTypes typeInfo, byte[] messageToSend)
+        void EnvoieNouveauMessage(PacketTypes typeInfo, byte[] messageToSend, int indiceJoueur)
         {
             //Création d'un message pouvant être envoyé
             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
@@ -250,7 +249,7 @@ namespace AtelierXNA
 
             //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
             //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-            Serveur.SendMessage(MessageSortant, ListeJoueurs[1].IP, NetDeliveryMethod.ReliableOrdered, 0);
+            Serveur.SendMessage(MessageSortant, ListeJoueurs[indiceJoueur].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
     }

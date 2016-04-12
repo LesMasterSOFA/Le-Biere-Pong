@@ -86,19 +86,19 @@ namespace AtelierXNA
 
         void InitialiserGarage()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
             ActiverPartie();
         }
 
         void InitialiserSalle()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
             ActiverPartie();
         }
 
         void InitialiserSousSol()
         {
-           EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
            ActiverPartie();
         }
 
