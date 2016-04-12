@@ -37,6 +37,7 @@ namespace AtelierXNA
         Texture2D ImageMenuSalleManger { get; set; }
         Texture2D ImageMenuSousSol { get; set; }
         Texture2D BoutonBleu { get; set; }
+        bool MenuActif { get; set; }
         
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
@@ -95,6 +96,7 @@ namespace AtelierXNA
             {
                 EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                 ath = new ATH(Game);
+                EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
                 Game.Components.Add(ath);
             }
@@ -111,6 +113,7 @@ namespace AtelierXNA
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalleManger);
             BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
 
+            MenuActif = true;
             Game.Components.Add(BoutonJouer);
             Game.Components.Add(BoutonGarage);
             Game.Components.Add(BoutonSalleManger);
@@ -141,7 +144,6 @@ namespace AtelierXNA
                 if (Serveur.ListeJoueurs.Count >= 2 && Serveur.ListeJoueurs[1] != null)
                     JoueurSecondaire = new JoueurMultijoueur(this.Game, Serveur.ListeJoueurs[1].IP, GestionNetwork.SlaveClient);
 
-                Game.Components.Remove(BoutonJouer);
                 ModifierActivation();
                 ActiverEnvironnement();
                 JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
@@ -150,9 +152,17 @@ namespace AtelierXNA
 
         public void ActiverPartieSlave()
         {
-            Game.Components.Remove(BoutonJouer);
             ModifierActivation();
             ActiverEnvironnement();
+        }
+
+        void EnleverMenuSelectionEnvironnement()
+        {
+            MenuActif = false;
+            Game.Components.Remove(BoutonJouer);
+            Game.Components.Remove(BoutonGarage);
+            Game.Components.Remove(BoutonSalleManger);
+            Game.Components.Remove(BoutonSousSol);
         }
 
         public override void Draw(GameTime gameTime)
@@ -166,19 +176,22 @@ namespace AtelierXNA
                     ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
                 }
             }
-            GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
-            GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
-            GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
-            GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
+
+            DrawMenuEnivronnement(gameTime, MenuActif);
             GestionSprites.End();
-            if(BoutonJouer != null)
-            {
-                BoutonJouer.Draw(gameTime);
-                BoutonGarage.Draw(gameTime);
-                BoutonSalleManger.Draw(gameTime);
-                BoutonSousSol.Draw(gameTime);
-            }
             base.Draw(gameTime);
+        }
+
+        void DrawMenuEnivronnement(GameTime gameTime, bool MenuActif)
+        {
+            if (MenuActif)
+            {
+                //L'image de fond d'écran se dessine par dessus les autres
+                //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+                GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
+                GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
+                GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
+            }
         }
     }
 
