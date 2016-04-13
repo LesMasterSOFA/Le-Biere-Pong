@@ -66,7 +66,7 @@ namespace AtelierXNA
         Vector3 RotationInitialePersonnagePrincipal = new Vector3(-MathHelper.PiOver2, 0, 0);
         Vector3 PositionInitialePersonnagePrincipal = new Vector3(0.182f, 0, -1);
         Vector3 RotationInitialePersonnageSecondaire = new Vector3(-MathHelper.PiOver2, MathHelper.Pi, 0);
-        Vector3 PositionInitialePersonnageSecondaire = new Vector3(0.182f, 0, 1);
+        Vector3 PositionInitialePersonnageSecondaire = new Vector3(-0.182f, 0, 1);
         public string PersonnageJoueurPrincipalModel { get; private set; }
         public string PersonnageJoueurPrincipalTexture { get; private set; }
         public string PersonnageJoueurSecondaireModel { get; private set; }

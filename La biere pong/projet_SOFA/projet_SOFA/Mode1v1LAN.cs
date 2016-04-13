@@ -176,18 +176,19 @@ namespace AtelierXNA
                     ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
                 }
             }
-
+            
             DrawMenuEnivronnement(gameTime, MenuActif);
-            GestionSprites.End();
             base.Draw(gameTime);
+            GestionSprites.End();
         }
+
 
         void DrawMenuEnivronnement(GameTime gameTime, bool MenuActif)
         {
             if (MenuActif)
             {
                 //L'image de fond d'écran se dessine par dessus les autres
-                //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+                GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
                 GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
