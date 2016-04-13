@@ -61,7 +61,21 @@ namespace AtelierXNA
         BoundingBox BoundingTable { get; set; }
         BoundingBox BoundingBonhomme { get; set; }
         float force { get; set; }
-        public EnvironnementGarage(Game game, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière)
+
+        //Pour personnages
+        Vector3 RotationInitialePersonnagePrincipal = new Vector3(-MathHelper.PiOver2, 0, 0);
+        Vector3 PositionInitialePersonnagePrincipal = new Vector3(0.182f, 0, -1);
+        Vector3 RotationInitialePersonnageSecondaire = new Vector3(-MathHelper.PiOver2, MathHelper.Pi, 0);
+        Vector3 PositionInitialePersonnageSecondaire = new Vector3(-0.182f, 0, 1);
+        public string PersonnageJoueurPrincipalModel { get; private set; }
+        public string PersonnageJoueurPrincipalTexture { get; private set; }
+        public string PersonnageJoueurSecondaireModel { get; private set; }
+        public string PersonnageJoueurSecondaireTexture { get; private set; }
+        Personnage PersonnagePrincipal { get; set; }
+        Personnage PersonnageSecondaire { get; set; }
+
+        public EnvironnementGarage(Game game, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière,
+            string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture, string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture)
             : base(game)
        {
            NomGauche = nomGauche;
@@ -70,7 +84,10 @@ namespace AtelierXNA
            NomPlancher = nomPlancher;
            NomAvant = nomAvant;
            NomArrière = nomArrière;
-
+           PersonnageJoueurPrincipalModel = personnageJoueurPrincipalModel;
+           PersonnageJoueurPrincipalTexture = personnageJoueurPrincipalTexture;
+           PersonnageJoueurSecondaireModel = personnageJoueurSecondaireModel;
+           PersonnageJoueurSecondaireTexture = personnageJoueurSecondaireTexture;
        }
         //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
         /* Dimensions de la balle: rayon de 2 cm
@@ -98,6 +115,7 @@ namespace AtelierXNA
            Plancher = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlanPlafond, charpentePlan, NomPlancher, INTERVALLE_MAJ_STANDARD);
            Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, (float)(DIMENSION_TERRAIN - 4) / 2, (float)-DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, NomAvant, INTERVALLE_MAJ_STANDARD);
            Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, (float)(DIMENSION_TERRAIN - 4) / 2, (float)DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, NomArrière, INTERVALLE_MAJ_STANDARD);
+
            Game.Components.Add(Gauche);
            Game.Components.Add(Droite);
            Game.Components.Add(Plafond);
@@ -115,9 +133,14 @@ namespace AtelierXNA
 
            CréerLesVerres();
 
+           //Pour personnages
+           PersonnagePrincipal = new Personnage(Game, PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, "Shader", 1, RotationInitialePersonnagePrincipal, PositionInitialePersonnagePrincipal);
+           PersonnageSecondaire = new Personnage(Game, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture, "Shader", 1, RotationInitialePersonnageSecondaire, PositionInitialePersonnageSecondaire);
+
            //Ajout des objets dans la liste de Components
            Game.Components.Add(Table);
-           Game.Components.Add(new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1)));
+           Game.Components.Add(PersonnagePrincipal);
+           Game.Components.Add(PersonnageSecondaire);
            AjouterVerresJoueur();//Les ajouter dans les Game.Components
            AjouterVerresAdversaire();//Les ajouter dans les Game.Components
            InitialiserModèles();
