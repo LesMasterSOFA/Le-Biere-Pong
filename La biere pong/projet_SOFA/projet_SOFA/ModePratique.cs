@@ -60,14 +60,6 @@ namespace AtelierXNA
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
         }
-        void ActiverEnvironnement()
-        {
-            if (EstPartieActive)
-            {
-                Game.Components.Add(EnvironnementPartie);
-                Game.Components.Add(ath);
-            }
-        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -85,22 +77,42 @@ namespace AtelierXNA
         void InitialiserGarage()
         {
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage);
-            ActiverPartie();
+            ModifierActivation();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
+            Game.Components.Remove(BoutonGarage);
+            Game.Components.Remove(BoutonSalleManger);
+            Game.Components.Remove(BoutonSousSol);
+            Game.Components.Remove(this);
+            Game.Components.Add(new GestionPartie(Game));
         }
         void InitialiserSalle()
         {
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger);
-            ActiverPartie();
+            ModifierActivation();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
+            Game.Components.Remove(BoutonGarage);
+            Game.Components.Remove(BoutonSalleManger);
+            Game.Components.Remove(BoutonSousSol);
+            Game.Components.Remove(this);
+            Game.Components.Add(new GestionPartie(Game));
         }
         void InitialiserSousSol()
         {
-           EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol);
-           ActiverPartie();
-        }
-        void ActiverPartie()
-        {
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol);
             ModifierActivation();
-            ActiverEnvironnement();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
             Game.Components.Remove(BoutonGarage);
             Game.Components.Remove(BoutonSalleManger);
             Game.Components.Remove(BoutonSousSol);

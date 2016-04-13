@@ -87,7 +87,8 @@ namespace AtelierXNA
                     JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer);
                     Game.Components.Add(affInfo);
                     Game.Components.Remove(this);
-                    //PositionBarreIndication = new Vector2(PositionMilieu, AnciennePositionBarre.Y);
+                    float force = (DéterminerForce(PositionBarreIndication.X) / 25f) + 1;
+                    //BallePhysique : quand Frank l'a fini
                 }
             }
             base.Update(gameTime);
