@@ -27,9 +27,10 @@ namespace AtelierXNA
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         byte[] message { get; set; }
         public Mode1v1LAN PartieEnCours { get; set; }
+        public long TempsServeurMaster { get; set; }
 
 
-        public NetworkServer(Game jeu, string nomJeu, int port, NetworkManager gestionNetwork):base(jeu)
+        public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
@@ -38,11 +39,16 @@ namespace AtelierXNA
             Console.WriteLine("Waiting for new connections and updateing world state to current ones");
             ListeJoueurs = new List<JoueurMultijoueur>();
         }
-
         //Constructeur sérialiseur
-        public NetworkServer(Game jeu) : base(jeu)
+        public NetworkServer(Game jeu, string nomJeu, int port, long tempsServeurMaster)
+            : base(jeu)
         {
-
+            NomJeu = nomJeu;
+            Port = port;
+            IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
+            TempsServeurMaster = tempsServeurMaster;
+            Console.WriteLine("Waiting for new connections and updateing world state to current ones");
+            ListeJoueurs = new List<JoueurMultijoueur>();
         }
 
         void Create(string nomJeu, int port)
@@ -143,14 +149,13 @@ namespace AtelierXNA
 
                         if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                         {
-                            //erreur ici
                             Console.WriteLine("STARTGAME_INFO recue _ Serveur");
                             foreach (JoueurMultijoueur j in ListeJoueurs)
                             {
                                 if (j.IP != MessageInc.SenderConnection)
                                 {
                                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
-                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message);
+                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message, 1);
                                 }
                             }
                         }
@@ -229,7 +234,7 @@ namespace AtelierXNA
             Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
-        void EnvoieNouveauMessage(PacketTypes typeInfo, byte[] messageToSend)
+        void EnvoieNouveauMessage(PacketTypes typeInfo, byte[] messageToSend, int indiceJoueur)
         {
             //Création d'un message pouvant être envoyé
             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
@@ -244,7 +249,7 @@ namespace AtelierXNA
 
             //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
             //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-            Serveur.SendMessage(MessageSortant, ListeJoueurs[1].IP, NetDeliveryMethod.ReliableOrdered, 0);
+            Serveur.SendMessage(MessageSortant, ListeJoueurs[indiceJoueur].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
     }
@@ -252,9 +257,14 @@ namespace AtelierXNA
     [Serializable]
     public class InfoNetworkServer
     {
-        public InfoNetworkServer()
+        public int Port { get; private set; }
+        public string NomJeu { get; private set; }
+        public long TempsServeurMaster { get; set; }
+        public InfoNetworkServer(int port, string nomJeu, DateTime tempsServeurMaster)
         {
-
+            Port = port;
+            NomJeu = nomJeu;
+            TempsServeurMaster = tempsServeurMaster.ToBinary();
         }
     }
 }

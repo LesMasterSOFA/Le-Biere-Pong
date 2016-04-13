@@ -20,8 +20,8 @@ namespace AtelierXNA
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {
         public NetworkServer Serveur { get; private set; }
-        const string NOM_JEU = "BEERPONG";
-        const int PORT = 5011;
+        public const string NOM_JEU = "BEERPONG";
+        public const int PORT = 5011;
         public NetworkClient MasterClient { get; private set; } //Client local dirigeant la partie
         public NetworkClient SlaveClient { get; private set; } //Client extérieur se greffant à la partie
         public Mode1v1LAN PartieEnCours { get; private set; }
@@ -34,7 +34,7 @@ namespace AtelierXNA
 
         void CréerServeur()
         {
-            Serveur = new NetworkServer(Game, NOM_JEU, PORT, this);
+            Serveur = new NetworkServer(Game, NOM_JEU, PORT);
             Game.Components.Add(Serveur);
         }
 

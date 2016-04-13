@@ -87,7 +87,7 @@ namespace AtelierXNA
                     JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer);
                     Game.Components.Add(affInfo);
                     Game.Components.Remove(this);
-                    float force = (DéterminerForce(PositionBarreIndication.X) / 25f) + 1;
+                    float force = (2.25f * DéterminerForce(PositionBarreIndication.X) / 100f) + 2.75f;
                     //BallePhysique : quand Frank l'a fini
                 }
             }
