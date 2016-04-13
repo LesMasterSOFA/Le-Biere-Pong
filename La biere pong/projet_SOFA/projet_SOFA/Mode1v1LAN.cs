@@ -61,11 +61,6 @@ namespace AtelierXNA
             Environnement = infoEnvironnementPartie.NomEnvironnement;
             Serveur = infoServeur;
         }
-        
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
 
         protected override void LoadContent()
         {
@@ -87,7 +82,10 @@ namespace AtelierXNA
             {
                 BoutonJouer.EstActif = true;
             }
-            
+            if(EstPartieActive)
+            {
+                
+            }
             base.Update(gameTime);
         }
 
@@ -182,7 +180,6 @@ namespace AtelierXNA
             base.Draw(gameTime);
             GestionSprites.End();
         }
-
 
         void DrawMenuEnivronnement(GameTime gameTime, bool MenuActif)
         {
