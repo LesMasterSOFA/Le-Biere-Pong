@@ -194,7 +194,7 @@ namespace AtelierXNA
             base.Update(gameTime);
         }
 
-        //Update le monde
+        //Update le monde(liste joueurs)
         void WorldStateUpdate()
         {
             //Console.WriteLine("WorldState Update");
@@ -234,7 +234,6 @@ namespace AtelierXNA
 
                     if (byteEnum == (byte)PacketTypes.WORLDSTATE)
                     {
-                        //Reste à implanter quoi faire
                         WorldStateUpdate();
                     }
 
@@ -261,7 +260,7 @@ namespace AtelierXNA
             //message = GérerAction();
 
             //Si un action à été effectuée
-            if (message != null)
+            if (message != "")
             {
                 MessageOut = Client.CreateMessage();
 

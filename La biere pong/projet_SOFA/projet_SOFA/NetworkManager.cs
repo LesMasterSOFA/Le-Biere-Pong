@@ -15,7 +15,7 @@ namespace AtelierXNA
 {
     //Énumération contentant les différents types de packets,
     //pouvant être ensuite converti en byte ce qui permet de déterminer ce qu'il faut faire avec tel ou tel packet
-    public enum PacketTypes { LOGIN, MOVE, WORLDSTATE, STARTGAME_INFO, MESSAGE_NULL }
+    public enum PacketTypes { LOGIN, WORLDSTATE, STARTGAME_INFO, MESSAGE_NULL }
 
     public class NetworkManager : Microsoft.Xna.Framework.GameComponent
     {

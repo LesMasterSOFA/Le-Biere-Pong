@@ -87,6 +87,8 @@ namespace AtelierXNA
             {
                 BoutonJouer.EstActif = true;
             }
+
+            
             base.Update(gameTime);
         }
 

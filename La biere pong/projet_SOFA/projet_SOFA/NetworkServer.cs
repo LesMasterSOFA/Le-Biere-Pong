@@ -87,42 +87,7 @@ namespace AtelierXNA
 
                         if (MessageInc.ReadByte() == (byte)PacketTypes.LOGIN)
                         {
-                            Console.WriteLine("Incoming LOGIN");
-
-                            //Ajout du client
-                            MessageInc.SenderConnection.Approve();
-
-                            //Initialisation de joueur
-                            //Reste à ajouter le joueur dans le WorldState
-                            var joueur = new JoueurMultijoueur(Game, MessageInc.SenderConnection);
-                            ListeJoueurs.Add(joueur);
-
-
-                            // Création d'un message pouvant être envoyé
-                            NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
-
-                            // Tout d'abord on dit quel sorte de message on envoie en Byte
-                            //Envoie d'un message renvoyant l'état du monde
-                            MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
-
-                            // Ensuite on écrit l'information à être envoyée
-                            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
-                            MessageSortant.Write(ListeJoueurs.Count);
-
-                            //Passe sur tous les joueurs dans le jeu
-                            foreach (JoueurMultijoueur j in ListeJoueurs)
-                            {
-                                // Écrit tous les propriété des objet 
-                                MessageSortant.WriteAllProperties(j);
-                            }
-
-                            //// Le message contient: le type d'information, le nombre de joueurs et l'information 
-
-                            //Envoie du message à la connection dans l'ordre qu'il a été envoyé
-                            Serveur.SendMessage(MessageSortant, MessageInc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-
-                            // Debug
-                            Console.WriteLine("Approved new connection and updated the world status");
+                            GérerLogin();
                         }
                         break;
 
@@ -133,31 +98,23 @@ namespace AtelierXNA
                         //Lit le type d'information
                         byte byteEnum = MessageInc.ReadByte();
 
-                        // Détermination tu type d'information
-                        if (byteEnum == (byte)PacketTypes.MOVE)
-                        {
-                            //On regarde qui a envoyé le message
-                            foreach (JoueurMultijoueur j in ListeJoueurs)
-                            {
-                                if (j.IP == MessageInc.SenderConnection)
-                                {
-                                    //On gère le message tout dépendant de ce qu'il faut faire( switch/case)
-                                }
-                                //EnvoieNouveauMessage();
-                            }
-                        }
+                        //// Détermination tu type d'information
+                        //if (byteEnum == (byte)PacketTypes.MOVE)
+                        //{
+                        //    //On regarde qui a envoyé le message
+                        //    foreach (JoueurMultijoueur j in ListeJoueurs)
+                        //    {
+                        //        if (j.IP == MessageInc.SenderConnection)
+                        //        {
+                        //            //On gère le message tout dépendant de ce qu'il faut faire( switch/case)
+                        //        }
+                        //        //EnvoieNouveauMessage();
+                        //    }
+                        //}
 
                         if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                         {
-                            Console.WriteLine("STARTGAME_INFO recue _ Serveur");
-                            foreach (JoueurMultijoueur j in ListeJoueurs)
-                            {
-                                if (j.IP != MessageInc.SenderConnection)
-                                {
-                                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
-                                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message, 1);
-                                }
-                            }
+                            GérerStartGameInfo();
                         }
 
                         break;
@@ -167,25 +124,10 @@ namespace AtelierXNA
 
                     case NetIncomingMessageType.StatusChanged:
 
-                        Console.WriteLine(MessageInc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)MessageInc.SenderConnection.Status);
-
-                        //Il doit y avoir cette instruction pour enlever le joueur déconnecté
-                        if (MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnected || MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
-                        {
-                            //On trouve le joueur déconnecté et on l'enlève
-                            foreach (JoueurMultijoueur j in ListeJoueurs)
-                            {
-                                if (j.IP == MessageInc.SenderConnection)
-                                {
-                                    ListeJoueurs.Remove(j);
-                                    Console.WriteLine("Un adversaire s'est déconnecté");
-                                }
-                            }
-                        }
+                        GérerChangementStatutJoueur();
                         break;
                     //Pour tout autres types de messages
                     default:
-
                         Console.WriteLine("Message non géré(non important)");
                         break;
                 }
@@ -197,7 +139,7 @@ namespace AtelierXNA
                 //Regarde s'il y a au moins un client de connecté
                 if (Serveur.ConnectionsCount != 0)
                 {
-                    EnvoieNouveauMessage();
+                    EnvoieNouveauMessageWorldState();
                 }
                 //Update le temps
                 Temps = DateTime.Now;
@@ -209,7 +151,7 @@ namespace AtelierXNA
             UpdateServeur();
         }
 
-        void EnvoieNouveauMessage()
+        void EnvoieNouveauMessageWorldState()
         {
             //Création d'un message pouvant être envoyé
             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
@@ -251,6 +193,82 @@ namespace AtelierXNA
             //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             Serveur.SendMessage(MessageSortant, ListeJoueurs[indiceJoueur].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
+
+        #region Fonctions pour Update
+
+        void GérerLogin()
+        {
+            Console.WriteLine("Incoming LOGIN");
+
+            //Ajout du client
+            MessageInc.SenderConnection.Approve();
+
+            //Initialisation de joueur
+            //Reste à ajouter le joueur dans le WorldState
+            var joueur = new JoueurMultijoueur(Game, MessageInc.SenderConnection);
+            ListeJoueurs.Add(joueur);
+
+
+            // Création d'un message pouvant être envoyé
+            NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
+
+            // Tout d'abord on dit quel sorte de message on envoie en Byte
+            //Envoie d'un message renvoyant l'état du monde
+            //Update la liste de joueurs
+            MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
+
+            // Ensuite on écrit l'information à être envoyée
+            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
+            MessageSortant.Write(ListeJoueurs.Count);
+
+            //Passe sur tous les joueurs dans le jeu
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                // Écrit tous les propriété des objet 
+                MessageSortant.WriteAllProperties(j);
+            }
+
+            //// Le message contient: le type d'information, le nombre de joueurs et l'information 
+
+            //Envoie du message à la connection dans l'ordre qu'il a été envoyé
+            Serveur.SendMessage(MessageSortant, MessageInc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+
+            // Debug
+            Console.WriteLine("Approved new connection and updated the world status");
+        }
+
+        void GérerStartGameInfo()
+        {
+            Console.WriteLine("STARTGAME_INFO recue _ Serveur");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+                    EnvoieNouveauMessage(PacketTypes.STARTGAME_INFO, message, 1);
+                }
+            }
+        }
+
+        void GérerChangementStatutJoueur()
+        {
+            Console.WriteLine(MessageInc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)MessageInc.SenderConnection.Status);
+
+            //Il doit y avoir cette instruction pour enlever le joueur déconnecté
+            if (MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnected || MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
+            {
+                //On trouve le joueur déconnecté et on l'enlève
+                foreach (JoueurMultijoueur j in ListeJoueurs)
+                {
+                    if (j.IP == MessageInc.SenderConnection)
+                    {
+                        ListeJoueurs.Remove(j);
+                        Console.WriteLine("Un adversaire s'est déconnecté");
+                    }
+                }
+            }
+        }
+        #endregion
 
     }
     
