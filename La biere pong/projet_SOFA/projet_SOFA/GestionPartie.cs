@@ -12,14 +12,15 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
     public class GestionPartie : Microsoft.Xna.Framework.GameComponent
     {
+        Random GénérateurRandom { get; set; }
+        bool EstTourJoueur { get; set; }
+        bool EstTourAdversaire { get { return !EstTourJoueur; } }
         public GestionPartie(Game game)
             : base(game)
         {
+
         }
 
         //Constructeur sérialiseur
@@ -32,6 +33,8 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
+            GénérateurRandom = new Random();
+            EstTourJoueur = Convert.ToBoolean(GénérateurRandom.Next(0, 1));
             base.Initialize();
         }
 

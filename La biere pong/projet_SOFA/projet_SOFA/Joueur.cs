@@ -72,6 +72,11 @@ namespace AtelierXNA
         }
         public void ChangerAnimation(TypeActionPersonnage typeAnimation)
         {
+            Vector3 positionJoueur = new Vector3();
+            Vector3 rotationJoueur = new Vector3();
+            Vector3 positionAdv = new Vector3();
+            Vector3 rotationAdv = new Vector3();
+
             string action = "";
             List<Personnage> liste = new List<Personnage>();
             foreach (Personnage perso in Game.Components.Where(perso => perso is Personnage))
@@ -81,6 +86,14 @@ namespace AtelierXNA
 
             foreach (Personnage perso in liste)
             {
+                positionJoueur = liste[0].Position;
+                rotationJoueur = liste[0].Rotation;
+                if (liste.Count == 2)
+                {
+                    positionAdv = liste[1].Position;
+                    rotationAdv = liste[1].Rotation;
+                }
+
                 Game.Components.Remove(perso);
             }
 
@@ -103,7 +116,9 @@ namespace AtelierXNA
                     break;
 
             }
-            Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1)));
+            Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
+            if (liste.Count == 2)
+                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationAdv, positionAdv));
         }
     }
 }
