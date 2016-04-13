@@ -87,7 +87,6 @@ namespace AtelierXNA
             {
                 BoutonJouer.EstActif = true;
             }
-
             
             base.Update(gameTime);
         }
@@ -190,7 +189,7 @@ namespace AtelierXNA
             if (MenuActif)
             {
                 //L'image de fond d'écran se dessine par dessus les autres
-                GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+                //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
                 GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
