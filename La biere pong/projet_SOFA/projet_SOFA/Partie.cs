@@ -32,8 +32,10 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
+            Random générateurRand = new Random();
             gestionnairePartie = new GestionPartie(Game);
             EstPartieActive = false;
+            EstTourJoueur = Convert.ToBoolean(générateurRand.Next(0, 1));
             base.Initialize();
         }
 

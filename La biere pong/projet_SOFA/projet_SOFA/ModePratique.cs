@@ -91,7 +91,6 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
-
         }
 
         void InitialiserSalle()
