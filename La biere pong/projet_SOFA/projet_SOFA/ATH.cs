@@ -19,7 +19,7 @@ namespace AtelierXNA
         Vector2 PositionBoutonLancer { get; set; }
         Vector2 PositionBoutonPause { get; set; }
         BoutonDeCommande BoutonPause { get; set; }
-        BoutonDeCommande BoutonLancer { get; set; }
+        public BoutonDeCommande BoutonLancer { get; set; }
         BoutonDeCommande BoutonRésumer { get; set; }
         BoutonDeCommande BoutonQuitter { get; set; }
         RectangleColoré planPause { get; set; }
@@ -47,6 +47,7 @@ namespace AtelierXNA
             PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
             PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
             BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
+            BoutonLancer.Enabled = false;
             BoutonPause = new BoutonDeCommande(Game, "Pause", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
 
             Game.Components.Add(BoutonLancer);
@@ -101,6 +102,7 @@ namespace AtelierXNA
                 Game.Components.Remove(indicateurForce);
             }
             Game.Components.Add(indicateurForce);
+            BoutonLancer.Enabled = false;
         }
         public override void Update(GameTime gameTime)
         {

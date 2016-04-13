@@ -18,6 +18,8 @@ namespace AtelierXNA
     }
     public abstract class Partie : Microsoft.Xna.Framework.DrawableGameComponent, IActivable
     {
+        protected bool EstTourJoueur { get; set; }
+        protected bool EstTourAdversaire { get { return !EstTourJoueur; } }
         ÉtatPartie étatDePartie { get; set; }
         public GestionPartie gestionnairePartie { get; set; }
         public bool EstPartieActive { get; set; }

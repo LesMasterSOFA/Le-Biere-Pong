@@ -139,8 +139,10 @@ namespace AtelierXNA
 
            //Ajout des objets dans la liste de Components
            Game.Components.Add(Table);
+
            Game.Components.Add(PersonnagePrincipal);
            Game.Components.Add(PersonnageSecondaire);
+
            AjouterVerresJoueur();//Les ajouter dans les Game.Components
            AjouterVerresAdversaire();//Les ajouter dans les Game.Components
            InitialiserModèles();

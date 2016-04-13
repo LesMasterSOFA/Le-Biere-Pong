@@ -67,7 +67,7 @@ namespace AtelierXNA
                         break;
                 }
             }
-            if (time.Seconds >= animationPlayer.CurrentClip.Duration.Seconds+1)
+            if (time.Seconds >= animationPlayer.CurrentClip.Duration.Seconds + 1 && NomModèle != "superBoy")
             {
                 joueur.ChangerAnimation(TypeActionPersonnage.Rien);
             }

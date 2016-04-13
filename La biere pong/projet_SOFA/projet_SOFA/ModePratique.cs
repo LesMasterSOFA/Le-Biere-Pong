@@ -33,6 +33,8 @@ namespace AtelierXNA
         public ModePratique(Game game)
             : base(game)
         {
+            Random PileOuFace = new Random();
+            EstTourJoueur = Convert.ToBoolean(PileOuFace.Next(0, 1));
         }
 
         public override void Initialize()
@@ -43,12 +45,12 @@ namespace AtelierXNA
             RectangleSousSol = new Rectangle(5*Game.Window.ClientBounds.Width/7, 150, Game.Window.ClientBounds.Width/5, 233);
             ath = new ATH(Game);
             base.Initialize();
-            MenuSélectionEnvironnement();
+            MenuSélectionPersonnage();
             
         }
-
         protected override void LoadContent()
         {
+            base.LoadContent();
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
@@ -57,24 +59,13 @@ namespace AtelierXNA
             ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
-            base.LoadContent();
         }
-
-        void ActiverEnvironnement()
-        {
-            if (EstPartieActive)
-            {
-                Game.Components.Add(EnvironnementPartie);
-                Game.Components.Add(ath);
-            }
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
         }
         
-        void MenuSélectionEnvironnement()
+        void MenuSélectionPersonnage()
         {
             BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37*Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalle);
@@ -83,33 +74,50 @@ namespace AtelierXNA
             Game.Components.Add(BoutonSalleManger);
             Game.Components.Add(BoutonSousSol);
         }
-
         void InitialiserGarage()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-            ActiverPartie();
-        }
-
-        void InitialiserSalle()
-        {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-            ActiverPartie();
-        }
-
-        void InitialiserSousSol()
-        {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-           ActiverPartie();
-        }
-
-        void ActiverPartie()
-        {
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage);
             ModifierActivation();
-            ActiverEnvironnement();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
             Game.Components.Remove(BoutonGarage);
             Game.Components.Remove(BoutonSalleManger);
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
+            Game.Components.Add(new GestionPartie(Game));
+        }
+        void InitialiserSalle()
+        {
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger);
+            ModifierActivation();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
+            Game.Components.Remove(BoutonGarage);
+            Game.Components.Remove(BoutonSalleManger);
+            Game.Components.Remove(BoutonSousSol);
+            Game.Components.Remove(this);
+            Game.Components.Add(new GestionPartie(Game));
+        }
+        void InitialiserSousSol()
+        {
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol);
+            ModifierActivation();
+            if (EstPartieActive)
+            {
+                Game.Components.Add(EnvironnementPartie);
+                Game.Components.Add(ath);
+            }
+            Game.Components.Remove(BoutonGarage);
+            Game.Components.Remove(BoutonSalleManger);
+            Game.Components.Remove(BoutonSousSol);
+            Game.Components.Remove(this);
+            Game.Components.Add(new GestionPartie(Game));
         }
 
         public override void Draw(GameTime gameTime)
