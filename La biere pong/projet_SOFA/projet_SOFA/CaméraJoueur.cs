@@ -116,11 +116,11 @@ namespace AtelierXNA
 
 
 
-            if (Vue.Forward.Y <= 0.1f)
+            if (Vue.Forward.Y <= -MathHelper.Pi/6)
             {
                 VitesseRotationHaut = 0f;
             }
-            else if (Vue.Forward.Y >= 0.3f)
+            else if (Vue.Forward.Y >= 0.5f)
             {
                 VitesseRotationBas = 0f;
             }
@@ -148,11 +148,11 @@ namespace AtelierXNA
 
 
 
-            if (Vue.Forward.X <= -0.085f)
+            if (Vue.Forward.X <= -0.15f)
             {
                 VitesseRotationDroite = 0f;
             }
-            else if(Vue.Forward.X >= 0.085f)
+            else if(Vue.Forward.X >= 0.15f)
             {
                 VitesseRotationGauche = 0f;
             }

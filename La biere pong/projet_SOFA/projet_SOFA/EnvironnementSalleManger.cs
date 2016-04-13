@@ -65,15 +65,34 @@ namespace AtelierXNA
         List<Vector3> ListePositionVerresAdv { get; set; }
         SoundEffect Tadah { get; set; }
         SoundEffect Wow { get; set; }
-        public EnvironnementSalleManger(Game game, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière)
-            : base(game)
+
+        //Pour personnages
+        Vector3 RotationInitialePersonnagePrincipal = new Vector3(-MathHelper.PiOver2, 0, 0);
+        Vector3 PositionInitialePersonnagePrincipal = new Vector3(0.182f, 0, -1.3f);
+        Vector3 RotationInitialePersonnageSecondaire = new Vector3(-MathHelper.PiOver2, MathHelper.Pi, 0);
+        Vector3 PositionInitialePersonnageSecondaire = new Vector3(-0.182f, 0, 1.3f);
+        public string PersonnageJoueurPrincipalModel { get; private set; }
+        public string PersonnageJoueurPrincipalTexture { get; private set; }
+        public string PersonnageJoueurSecondaireModel { get; private set; }
+        public string PersonnageJoueurSecondaireTexture { get; private set; }
+        Personnage PersonnagePrincipal { get; set; }
+        Personnage PersonnageSecondaire { get; set; }
+
+
+        public EnvironnementSalleManger(Game game, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière,
+            string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture, string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture)
+            :base(game)
         {
             NomGauche = nomGauche;
             NomDroite = nomDroite;
             NomPlafond = nomPlafond;
             NomPlancher = nomPlancher;
             NomAvant = nomAvant;
-            NomArrière = nomArrière;
+            NomArrière = nomArrière; 
+            PersonnageJoueurPrincipalModel = personnageJoueurPrincipalModel;
+            PersonnageJoueurPrincipalTexture = personnageJoueurPrincipalTexture;
+            PersonnageJoueurSecondaireModel = personnageJoueurSecondaireModel;
+            PersonnageJoueurSecondaireTexture = personnageJoueurSecondaireTexture;
 
         }
         //j'ai changé les échelles des modeles pour quils soient tous a 1f, maintenant, la position est en metres.
@@ -118,10 +137,18 @@ namespace AtelierXNA
 
             CréerLesVerres();
 
+            //Pour personnages
+            PersonnagePrincipal = new Personnage(Game, PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, "Shader", 1, RotationInitialePersonnagePrincipal, PositionInitialePersonnagePrincipal);
+            PersonnageSecondaire = new Personnage(Game, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture, "Shader", 1, RotationInitialePersonnageSecondaire, PositionInitialePersonnageSecondaire);
+
+
             //Ajout des objets dans la liste de Components
             Game.Components.Add(Balle);
             Game.Components.Add(Table);
-            Game.Components.Add(new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0.182f, 0, -1.5f)));
+
+            Game.Components.Add(PersonnagePrincipal);
+            Game.Components.Add(PersonnageSecondaire);
+
             AjouterVerresJoueur();//Les ajouter dans les Game.Components
             AjouterVerresAdversaire();//Les ajouter dans les Game.Components
             InitialiserModèles();
