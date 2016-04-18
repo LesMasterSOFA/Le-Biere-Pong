@@ -351,7 +351,9 @@ namespace AtelierXNA
             {
                 indiceJoueur = 1;
             }
-            string message = indiceJoueur.ToString() + nomAnimation.ToString();
+            byte[] message = new byte[2];
+            message[0] = (byte)indiceJoueur;
+            message[1] = (byte)nomAnimation;
             EnvoyerMessageServeur(PacketTypes.ANIMATION, message);
 
         }
@@ -361,12 +363,9 @@ namespace AtelierXNA
             Console.WriteLine("Essaie gestion animation");
             try
             {
-                string message = Serialiseur.ByteArrayToObj<string>(infoAnimation);
-                int indiceJoueur = message[0];
-                char[] NomAnimation;
-                message.CopyTo(1, NomAnimation,0,message.Length - 1);
-                ListeJoueurs[indiceJoueur].ChangerAnimation(NomAnimation.ToString());
-
+                int indiceJoueur = infoAnimation[0];
+                TypeActionPersonnage animation = (TypeActionPersonnage) infoAnimation[1];
+                ListeJoueurs[indiceJoueur].ChangerAnimation(animation, ListeJoueurs[indiceJoueur]);
             }
 
             catch(Exception e)
