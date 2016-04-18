@@ -104,7 +104,6 @@ namespace AtelierXNA
                 EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
-                Game.Components.Add(ath);
             }
         }
 
@@ -153,6 +152,7 @@ namespace AtelierXNA
                 ModifierActivation();
                 ActiverEnvironnement();
                 ath = new ATH(Game, JoueurPrincipal);
+                Game.Components.Add(ath);
                 JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
             }
         }
@@ -162,6 +162,7 @@ namespace AtelierXNA
             ModifierActivation();
             ActiverEnvironnement();
             ath = new ATH(Game,JoueurSecondaire);
+            Game.Components.Add(ath);
         }
 
         void EnleverMenuSelectionEnvironnement()
