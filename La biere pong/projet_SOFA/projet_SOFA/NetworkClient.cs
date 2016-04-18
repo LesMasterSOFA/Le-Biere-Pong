@@ -248,6 +248,13 @@ namespace AtelierXNA
                             Console.WriteLine("Partie démarrée");
                         }
                     }
+
+                    if(byteEnum == (byte)PacketTypes.ANIMATION)
+                    {
+                        Console.WriteLine("info animation Reçue");
+                        RecevoirInfoAnimationJoueur(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Animation Gérée");
+                    }
                 }
 
             }
@@ -332,7 +339,39 @@ namespace AtelierXNA
 
             catch (Exception e)
             {
-                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de la partie");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoAnimationJoueur(JoueurMultijoueur joueurÀAnimer, TypeActionPersonnage nomAnimation)
+        {
+            int indiceJoueur = 0;
+            if(joueurÀAnimer == ListeJoueurs[1])
+            {
+                indiceJoueur = 1;
+            }
+            string message = indiceJoueur.ToString() + nomAnimation.ToString();
+            EnvoyerMessageServeur(PacketTypes.ANIMATION, message);
+
+        }
+
+        public void RecevoirInfoAnimationJoueur(byte[] infoAnimation)
+        {
+            Console.WriteLine("Essaie gestion animation");
+            try
+            {
+                string message = Serialiseur.ByteArrayToObj<string>(infoAnimation);
+                int indiceJoueur = message[0];
+                char[] NomAnimation;
+                message.CopyTo(1, NomAnimation,0,message.Length - 1);
+                ListeJoueurs[indiceJoueur].ChangerAnimation(NomAnimation.ToString());
+
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'animation");
                 Console.WriteLine(e.ToString());
             }
         }

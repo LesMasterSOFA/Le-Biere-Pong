@@ -117,6 +117,11 @@ namespace AtelierXNA
                             GérerStartGameInfo();
                         }
 
+                        if(byteEnum == (byte)PacketTypes.ANIMATION)
+                        {
+
+                        }
+
                         break;
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
@@ -259,6 +264,26 @@ namespace AtelierXNA
             {
                 Console.WriteLine("Un adversaire s'est déconnecté");
             }
+        }
+
+        void GérerAnimation()
+        {
+            Console.WriteLine("Changement AnimationJoueur");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (!j.Client.EstMaster)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.ANIMATION, message, indiceJoueur);
+                }
+            }
+
+
         }
         #endregion
 
