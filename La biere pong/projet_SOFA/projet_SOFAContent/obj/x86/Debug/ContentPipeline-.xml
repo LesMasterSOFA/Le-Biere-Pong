@@ -571,15 +571,6 @@
       <Time>2016-04-18T08:36:22.0146009-04:00</Time>
     </Item>
     <Item>
-      <Source>Sounds\Menu.mp3</Source>
-      <Name>Sounds\Menu</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Menu.xnb</Output>
-      <Time>2016-04-18T08:36:22.4746009-04:00</Time>
-    </Item>
-    <Item>
       <Source>Sounds\Tadah.mp3</Source>
       <Name>Sounds\Tadah</Name>
       <Importer>Mp3Importer</Importer>
@@ -694,6 +685,45 @@
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\superBoySwing_0.xml</Output>
       <Time>2016-04-18T08:36:22.3396009-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\TextureBiere.png</Source>
+      <Name>Textures\TextureBiere</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\TextureBiere.xnb</Output>
+      <Time>2016-04-18T11:19:38.7708526-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Biere.fbx</Source>
+      <Name>Models\Biere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Biere.xnb</Output>
+      <Time>2016-04-18T11:19:38.7268482-04:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Biere_0.xml</Key>
+        <Value>2016-04-18T11:23:04.4384173-04:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Sounds\ChansonMenu.mp3</Source>
+      <Name>Sounds\ChansonMenu</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\ChansonMenu.xnb</Output>
+      <Extra>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\ChansonMenu.wma</Extra>
+      <Time>2016-04-18T11:19:40.6760431-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Biere.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Biere_0.xml</Output>
+      <Time>2016-04-18T11:19:38.7268482-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
