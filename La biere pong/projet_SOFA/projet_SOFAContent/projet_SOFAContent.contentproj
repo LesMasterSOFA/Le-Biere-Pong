@@ -256,10 +256,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\Menu.mp3">
-      <Name>Menu</Name>
+    <Compile Include="Sounds\ChansonMenu.mp3">
+      <Name>ChansonMenu</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+      <Processor>SongProcessor</Processor>
     </Compile>
     <Compile Include="Sounds\Tadah.mp3">
       <Name>Tadah</Name>

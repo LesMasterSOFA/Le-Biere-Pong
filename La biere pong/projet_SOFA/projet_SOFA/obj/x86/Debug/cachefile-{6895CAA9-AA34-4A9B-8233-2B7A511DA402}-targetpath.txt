@@ -55,6 +55,7 @@ Content\Models\superBoyBoire.xnb
 Content\Models\superBoyLancer.xnb
 Content\Models\superBoySwing.xnb
 Content\Effects\Shader.xnb
-Content\Sounds\Menu.xnb
 Content\Sounds\Tadah.xnb
 Content\Sounds\WOW.xnb
+Content\Sounds\ChansonMenu.xnb
+Content\Sounds\ChansonMenu.wma

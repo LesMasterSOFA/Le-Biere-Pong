@@ -38,7 +38,9 @@ namespace AtelierXNA
         BoutonDeCommande BoutonAfficherConsole { get; set; }
         BoutonDeCommande BoutonEnleverConsole { get; set; }
         BoutonDeCommande BoutonEffacerConsole { get; set; }
-        SoundEffect ChansonMenu { get; set; }
+        BoutonDeCommande BoutonStop { get; set; }
+        public static Song ChansonMenu { get; set; }
+        Vector2 PositionStop { get; set; }
 
         public Menu(Game game)
             :base(game)
@@ -51,12 +53,14 @@ namespace AtelierXNA
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height);
             PositionCentre = new Vector2(RectangleFondÉcran.X + RectangleFondÉcran.Width / 2f, RectangleFondÉcran.Y + RectangleFondÉcran.Height / 2f);
             PositionBack = new Vector2(Game.Window.ClientBounds.Width - MARGE_BOUTONS - 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
+            PositionStop = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
             base.Initialize();
             InitialiserMenu();
         }
         void InitialiserMenu()
         {
-            ChansonMenu.Play();
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(ChansonMenu);
             TexteTitre = "LE BIERE PONG";
             EnleverBoutonsExistants();
             BoutonJouer = new BoutonDeCommande(Game, "Jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, BoutonsJouer);
@@ -71,6 +75,8 @@ namespace AtelierXNA
             BoutonSolo = new BoutonDeCommande(Game, "Solo", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionCentre, true, BoutonsSolo);
             BoutonMultijoueur = new BoutonDeCommande(Game, "Multijoueur", "Impact20", "BoutonBleu", "BoutonBleuPale",
                                                      new Vector2(PositionCentre.X, PositionCentre.Y + MARGE_BOUTONS), true, BoutonsMultijoueur);
+            BoutonStop = new BoutonDeCommande(Game, "Pause/Play", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionStop, true, StopperMusique);
+            ListeBoutonsCommandeMenu.Add(BoutonStop);
             ListeBoutonsCommandeMenu.Add(BoutonBack);
             ListeBoutonsCommandeMenu.Add(BoutonSolo);
             ListeBoutonsCommandeMenu.Add(BoutonMultijoueur);
@@ -176,6 +182,13 @@ namespace AtelierXNA
             Game.Components.Add(gestionReseau);
             gestionReseau.RejoindrePartie("Joueur2");
         }
+        void StopperMusique()
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+                MediaPlayer.Pause();
+            else if (MediaPlayer.State == MediaState.Paused)
+                MediaPlayer.Resume();
+        }
 
         void AjouterNouveauxBoutons()
         {
@@ -198,9 +211,8 @@ namespace AtelierXNA
         protected override void LoadContent()
         {
             base.LoadContent();
-            ChansonMenu = Game.Content.Load<SoundEffect>("Sounds\\Menu");
-            SoundEffectInstance instanceChansonMenu = ChansonMenu.CreateInstance();
-            instanceChansonMenu.IsLooped = true;
+            ChansonMenu = Game.Content.Load<Song>("Sounds\\ChansonMenu");
+            MediaPlayer.Play(ChansonMenu);
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
