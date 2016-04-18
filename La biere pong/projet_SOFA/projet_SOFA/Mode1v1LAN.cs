@@ -162,6 +162,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonGarage);
             Game.Components.Remove(BoutonSalleManger);
             Game.Components.Remove(BoutonSousSol);
+            Game.Components.Add(new Afficheur3D(Game));
         }
 
         public override void Draw(GameTime gameTime)

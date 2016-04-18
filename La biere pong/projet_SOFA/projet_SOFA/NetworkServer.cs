@@ -254,18 +254,10 @@ namespace AtelierXNA
         {
             Console.WriteLine(MessageInc.SenderConnection.ToString() + " status changed. " + (NetConnectionStatus)MessageInc.SenderConnection.Status);
 
-            //Il doit y avoir cette instruction pour enlever le joueur déconnecté
+            //À compléter
             if (MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnected || MessageInc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
             {
-                //On trouve le joueur déconnecté et on l'enlève
-                foreach (JoueurMultijoueur j in ListeJoueurs)
-                {
-                    if (j.IP == MessageInc.SenderConnection)
-                    {
-                        ListeJoueurs.Remove(j);
-                        Console.WriteLine("Un adversaire s'est déconnecté");
-                    }
-                }
+                Console.WriteLine("Un adversaire s'est déconnecté");
             }
         }
         #endregion
