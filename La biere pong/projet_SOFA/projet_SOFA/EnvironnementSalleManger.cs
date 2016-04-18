@@ -63,6 +63,20 @@ namespace AtelierXNA
         VerreAdversaire VerreAdversaire6 { get; set; }
         List<Vector3> ListePositionVerres { get; set; }
         List<Vector3> ListePositionVerresAdv { get; set; }
+        ObjetDeBase BiereJoueur1 { get; set; }
+        ObjetDeBase BiereJoueur2 { get; set; }
+        ObjetDeBase BiereJoueur3 { get; set; }
+        ObjetDeBase BiereJoueur4 { get; set; }
+        ObjetDeBase BiereJoueur5 { get; set; }
+        ObjetDeBase BiereJoueur6 { get; set; }
+        ObjetDeBase BiereAdv1 { get; set; }
+        ObjetDeBase BiereAdv2 { get; set; }
+        ObjetDeBase BiereAdv3 { get; set; }
+        ObjetDeBase BiereAdv4 { get; set; }
+        ObjetDeBase BiereAdv5 { get; set; }
+        ObjetDeBase BiereAdv6 { get; set; }
+        List<ObjetDeBase> ListeBiereJoueur { get; set; }
+        List<ObjetDeBase> ListeBiereAdv { get; set; }
         SoundEffect Tadah { get; set; }
         SoundEffect Wow { get; set; }
 
@@ -130,6 +144,7 @@ namespace AtelierXNA
             ListePositionVerres = new List<Vector3>();
             ListePositionVerresAdv = new List<Vector3>();
             FixerLesPositions();
+            AjouterBiere();
 
             Table = new ObjetDeBase(Game, "tablesallemanger", "tex_table_salle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
             BoundingBox boundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE_Y / 2, 0, -DIMENSION_TABLE_Z / 2), new Vector3(DIMENSION_TABLE_Y / 2, 0.755f, DIMENSION_TABLE_Z / 2));
@@ -169,6 +184,45 @@ namespace AtelierXNA
             ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -1f)); ListePositionVerresAdv.Add(new Vector3(0.09225f, DIMENSION_TABLE_Y, -1f));
             ListePositionVerresAdv.Add(new Vector3(-0.09225f, DIMENSION_TABLE_Y, -1f)); ListePositionVerresAdv.Add(new Vector3(0.09225f / 2, DIMENSION_TABLE_Y, -1f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
             ListePositionVerresAdv.Add(new Vector3(-0.09225f / 2, DIMENSION_TABLE_Y, -1f + 0.09225f * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, DIMENSION_TABLE_Y, -1f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+        }
+        void AjouterBiere()
+        {
+            ListeBiereJoueur = new List<ObjetDeBase>();
+            BiereJoueur1 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, 0.91f, 1f));
+            BiereJoueur2 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0.09225f, 0.91f, 1f));
+            BiereJoueur3 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(-0.09225f, 0.91f, 1f));
+            BiereJoueur4 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0.09225f / 2, 0.91f, 1f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            BiereJoueur5 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(-0.09225f / 2, 0.91f, 1f - 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            BiereJoueur6 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, 0.91f, 1f - 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            ListeBiereJoueur.Add(BiereJoueur1);
+            ListeBiereJoueur.Add(BiereJoueur2);
+            ListeBiereJoueur.Add(BiereJoueur3);
+            ListeBiereJoueur.Add(BiereJoueur4);
+            ListeBiereJoueur.Add(BiereJoueur5);
+            ListeBiereJoueur.Add(BiereJoueur6);
+
+            foreach (ObjetDeBase biere in ListeBiereJoueur)
+            {
+                Game.Components.Add(biere);
+            }
+            ListeBiereAdv = new List<ObjetDeBase>();
+
+            BiereAdv1 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, 0.91f, -1f));
+            BiereAdv2 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0.09225f, 0.91f, -1f));
+            BiereAdv3 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(-0.09225f, 0.91f, -1f));
+            BiereAdv4 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0.09225f / 2, 0.91f, -1f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            BiereAdv5 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(-0.09225f / 2, 0.91f, -1f + 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            BiereAdv6 = new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, 0.91f, -1f + 2 * 0.09225f * (float)Math.Sin(Math.PI / 3)));
+            ListeBiereAdv.Add(BiereAdv1);
+            ListeBiereAdv.Add(BiereAdv2);
+            ListeBiereAdv.Add(BiereAdv3);
+            ListeBiereAdv.Add(BiereAdv4);
+            ListeBiereAdv.Add(BiereAdv5);
+            ListeBiereAdv.Add(BiereAdv6);
+            foreach (ObjetDeBase biere in ListeBiereAdv)
+            {
+                Game.Components.Add(biere);
+            }
         }
 
         void CréerLesVerres()
