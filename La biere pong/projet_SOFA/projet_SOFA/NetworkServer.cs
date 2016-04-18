@@ -119,7 +119,7 @@ namespace AtelierXNA
 
                         if(byteEnum == (byte)PacketTypes.ANIMATION)
                         {
-
+                            GérerAnimation();
                         }
 
                         break;
@@ -274,7 +274,7 @@ namespace AtelierXNA
                 if (j.IP != MessageInc.SenderConnection)
                 {
                     int indiceJoueur = 0;
-                    if (!j.Client.EstMaster)
+                    if (j.IP != ListeJoueurs[0].IP) 
                         indiceJoueur = 1;
 
                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);

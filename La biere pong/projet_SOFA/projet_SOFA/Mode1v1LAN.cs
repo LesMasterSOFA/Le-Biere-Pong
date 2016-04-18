@@ -38,6 +38,7 @@ namespace AtelierXNA
         Texture2D ImageMenuSousSol { get; set; }
         Texture2D BoutonBleu { get; set; }
         bool MenuActif { get; set; }
+        InputManager GestionInput { get; set; }
         
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
@@ -72,6 +73,7 @@ namespace AtelierXNA
             ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
+            GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
             base.LoadContent();
         }
 
@@ -84,6 +86,12 @@ namespace AtelierXNA
             }
             if(EstPartieActive)
             {
+                //Pour tester l'animation
+                if(GestionInput.EstNouvelleTouche(Keys.A))
+                {
+                    JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire);
+                    JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(JoueurPrincipal, TypeActionPersonnage.Boire);
+                }
                 
             }
             base.Update(gameTime);
