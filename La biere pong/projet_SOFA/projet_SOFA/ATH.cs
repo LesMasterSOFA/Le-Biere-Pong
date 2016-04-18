@@ -27,13 +27,15 @@ namespace AtelierXNA
         int LargeurÉcran { get; set; }
         int HauteurÉcran { get; set; }
 
-        public ATH(Game game)
+        public Joueur JoueurCourant { get; private set; }
+
+        public ATH(Game game, Joueur joueurCourant)
             : base(game){}
         public override void Initialize()
         {
             listeBoutons = new List<BoutonDeCommande>();
 
-            indicateurForce = new IndicateurForce(Game);
+            indicateurForce = new IndicateurForce(Game, JoueurCourant);
 
             LargeurÉcran = Game.Window.ClientBounds.Width;
             HauteurÉcran = Game.Window.ClientBounds.Height;

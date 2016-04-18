@@ -89,7 +89,7 @@ namespace AtelierXNA
                 //Pour tester l'animation
                 if(GestionInput.EstNouvelleTouche(Keys.A))
                 {
-                    JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire);
+                    JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, JoueurPrincipal);
                     JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(JoueurPrincipal, TypeActionPersonnage.Boire);
                 }
                 
@@ -102,7 +102,6 @@ namespace AtelierXNA
             if (EstPartieActive)
             {
                 EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-                ath = new ATH(Game);
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
                 Game.Components.Add(ath);
@@ -153,6 +152,7 @@ namespace AtelierXNA
 
                 ModifierActivation();
                 ActiverEnvironnement();
+                ath = new ATH(Game, JoueurPrincipal);
                 JoueurPrincipal.Client.EnvoyerInfoPartieToServeur_StartGame(this);
             }
         }
@@ -161,6 +161,7 @@ namespace AtelierXNA
         {
             ModifierActivation();
             ActiverEnvironnement();
+            ath = new ATH(Game,JoueurSecondaire);
         }
 
         void EnleverMenuSelectionEnvironnement()
