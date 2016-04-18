@@ -256,10 +256,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\Menu.mp3">
-      <Name>Menu</Name>
+    <Compile Include="Sounds\ChansonMenu.mp3">
+      <Name>ChansonMenu</Name>
       <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+      <Processor>SongProcessor</Processor>
     </Compile>
     <Compile Include="Sounds\Tadah.mp3">
       <Name>Tadah</Name>
@@ -401,6 +401,20 @@
       <Name>superBoySwing</Name>
       <Importer>FbxImporter</Importer>
       <Processor>SkinnedModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Biere.fbx">
+      <Name>Biere</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\TextureBiere.png">
+      <Name>TextureBiere</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

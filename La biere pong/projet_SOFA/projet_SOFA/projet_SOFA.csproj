@@ -63,12 +63,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClavierEtSouris">
-      <HintPath>..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\ClavierEtSouris.dll</HintPath>
-    </Reference>
-    <Reference Include="GestionDesRessources">
-      <HintPath>..\..\..\OutilsXNA\OutilsXNA\bin\x86\Debug\GestionDesRessources.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
