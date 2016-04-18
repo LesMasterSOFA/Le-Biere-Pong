@@ -703,7 +703,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\TextureBiere.xnb</Output>
-      <Time>2016-04-18T10:04:19.6092267-04:00</Time>
+      <Time>2016-04-18T10:40:06.596015-04:00</Time>
     </Item>
     <Item>
       <Source>Models\Biere.fbx</Source>
@@ -712,10 +712,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\Biere.xnb</Output>
-      <Time>2016-04-18T10:04:12.8062267-04:00</Time>
+      <Time>2016-04-18T10:40:06.584015-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Biere_0.xml</Key>
-        <Value>2016-04-18T10:19:08.9148205-04:00</Value>
+        <Value>2016-04-18T11:06:36.8201154-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -723,7 +723,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Biere_0.xml</Output>
-      <Time>2016-04-18T10:04:12.8062267-04:00</Time>
+      <Time>2016-04-18T10:40:06.584015-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
