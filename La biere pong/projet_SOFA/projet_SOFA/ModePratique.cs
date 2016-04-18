@@ -40,10 +40,12 @@ namespace AtelierXNA
         public override void Initialize()
         {
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height + 15);
-            RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            ath = new ATH(Game, JoueurPrincipal);
+
+            RectangleGarage = new Rectangle(5 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSalleManger = new Rectangle(40 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
+            RectangleSousSol = new Rectangle(75 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
+
+	    ath = new ATH(Game, JoueurPrincipal);
             base.Initialize();
             MenuSélectionEnvironnement();
 
@@ -69,9 +71,10 @@ namespace AtelierXNA
 
         void MenuSélectionEnvironnement()
         {
-            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
-            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalle);
-            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
+            BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(15 * Game.Window.ClientBounds.Width / 100, 100), true, InitialiserGarage);
+            BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(50 * Game.Window.ClientBounds.Width / 100, 100), true, InitialiserSalle);
+            BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(85 * Game.Window.ClientBounds.Width / 100, 100), true, InitialiserSousSol);
+            
             Game.Components.Add(BoutonGarage);
             Game.Components.Add(BoutonSalleManger);
             Game.Components.Add(BoutonSousSol);
@@ -91,7 +94,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
-
+            MediaPlayer.Stop();
         }
 
         void InitialiserSalle()
@@ -108,6 +111,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
+            MediaPlayer.Stop();
 
         }
 
@@ -125,6 +129,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
+            MediaPlayer.Stop();
         }
 
         public override void Draw(GameTime gameTime)
