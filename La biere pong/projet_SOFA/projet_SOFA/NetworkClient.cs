@@ -194,7 +194,7 @@ namespace AtelierXNA
             base.Update(gameTime);
         }
 
-        //Update le monde
+        //Update le monde(liste joueurs)
         void WorldStateUpdate()
         {
             //Console.WriteLine("WorldState Update");
@@ -234,7 +234,6 @@ namespace AtelierXNA
 
                     if (byteEnum == (byte)PacketTypes.WORLDSTATE)
                     {
-                        //Reste à implanter quoi faire
                         WorldStateUpdate();
                     }
 
@@ -249,6 +248,13 @@ namespace AtelierXNA
                             Console.WriteLine("Partie démarrée");
                         }
                     }
+
+                    if(byteEnum == (byte)PacketTypes.ANIMATION)
+                    {
+                        Console.WriteLine("info animation Reçue");
+                        RecevoirInfoAnimationJoueur(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Animation Gérée");
+                    }
                 }
 
             }
@@ -261,7 +267,7 @@ namespace AtelierXNA
             //message = GérerAction();
 
             //Si un action à été effectuée
-            if (message != null)
+            if (message != "")
             {
                 MessageOut = Client.CreateMessage();
 
@@ -333,7 +339,38 @@ namespace AtelierXNA
 
             catch (Exception e)
             {
-                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'objet");
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de la partie");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoAnimationJoueur(JoueurMultijoueur joueurÀAnimer, TypeActionPersonnage nomAnimation)
+        {
+            int indiceJoueur = 0;
+            if(joueurÀAnimer == ListeJoueurs[1])
+            {
+                indiceJoueur = 1;
+            }
+            byte[] message = new byte[2];
+            message[0] = (byte)indiceJoueur;
+            message[1] = (byte)nomAnimation;
+            EnvoyerMessageServeur(PacketTypes.ANIMATION, message);
+
+        }
+
+        public void RecevoirInfoAnimationJoueur(byte[] infoAnimation)
+        {
+            Console.WriteLine("Essaie gestion animation");
+            try
+            {
+                int indiceJoueur = infoAnimation[0];
+                TypeActionPersonnage animation = (TypeActionPersonnage) infoAnimation[1];
+                ListeJoueurs[indiceJoueur].ChangerAnimation(animation, ListeJoueurs[indiceJoueur]);
+            }
+
+            catch(Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'animation");
                 Console.WriteLine(e.ToString());
             }
         }

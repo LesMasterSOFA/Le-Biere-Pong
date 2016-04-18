@@ -43,7 +43,7 @@ namespace AtelierXNA
             RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            ath = new ATH(Game);
+            //ath = new ATH(Game); // reste à avoir une liste de joueur et selectionner l'ath selon le joueur
             base.Initialize();
             MenuSélectionEnvironnement();
 

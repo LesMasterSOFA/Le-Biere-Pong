@@ -3,7 +3,7 @@
   <Asset Type="Graphics:NodeContent">
     <Name>RootNode</Name>
     <Identity>
-      <SourceFilename>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoyApresBoire.fbx</SourceFilename>
+      <SourceFilename>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoyApresBoire.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</Transform>
@@ -14126,7 +14126,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material_001</Name>
       <Identity>
-        <SourceFilename>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoyApresBoire.fbx</SourceFilename>
+        <SourceFilename>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoyApresBoire.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>

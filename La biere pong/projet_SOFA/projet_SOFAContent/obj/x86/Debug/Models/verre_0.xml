@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>Circle</Name>
     <Identity>
-      <SourceFilename>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\verre.fbx</SourceFilename>
+      <SourceFilename>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\verre.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1.962946E-09 0 -0.026 0 -0.026 0 -1.962946E-09 0 0 0.026 0 0 0 0 0 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material</Name>
       <Identity>
-        <SourceFilename>C:\Users\201440740\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\verre.fbx</SourceFilename>
+        <SourceFilename>C:\Users\201446925\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\verre.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>

@@ -40,10 +40,12 @@ namespace AtelierXNA
         public override void Initialize()
         {
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height + 15);
+
             RectangleGarage = new Rectangle(5 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSalleManger = new Rectangle(40 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSousSol = new Rectangle(75 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
-            ath = new ATH(Game);
+
+	    ath = new ATH(Game, JoueurPrincipal);
             base.Initialize();
             MenuSélectionEnvironnement();
 

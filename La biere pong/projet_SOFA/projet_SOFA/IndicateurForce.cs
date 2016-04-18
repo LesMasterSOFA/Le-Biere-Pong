@@ -33,9 +33,10 @@ namespace AtelierXNA
         Rectangle GrandeurBarre { get; set; }
         public float VitesseBarre { get; set; }
 
-        public IndicateurForce(Game game)
+        public IndicateurForce(Game game, Joueur joueur)
             : base(game)
         {
+            JoueurCourant = joueur;
         }
 
         public override void Initialize()
@@ -76,7 +77,7 @@ namespace AtelierXNA
                 {
                     VitesseBarre = -VitesseBarre;
                 }
-                if (GestionInput.EstEnfoncée(Keys.Space))
+                if (GestionInput.EstNouvelleTouche(Keys.Space))
                 {
                     if (Game.Components.Contains(affInfo))
                     {
@@ -84,7 +85,7 @@ namespace AtelierXNA
                     }
                     estActifBarre = false;
                     affInfo = new AffichageInfoLancer(Game,DéterminerForce(PositionBarreIndication.X));
-                    JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer);
+                    JoueurCourant.ChangerAnimation(TypeActionPersonnage.Lancer, JoueurCourant);
                     Game.Components.Add(affInfo);
                     Game.Components.Remove(this);
                     float force = (2.25f * DéterminerForce(PositionBarreIndication.X) / 100f) + 2.75f;

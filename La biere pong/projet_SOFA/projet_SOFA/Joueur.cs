@@ -55,8 +55,8 @@ namespace AtelierXNA
         public override void Initialize()
         {
             GestionnaireInput = new InputManager(this.Game);
-            ath = new ATH(Game);
-            Game.Components.Add(ath);
+            //ath = new ATH(Game, this);
+            //Game.Components.Add(ath);
             base.Initialize();
         }
 
@@ -70,7 +70,7 @@ namespace AtelierXNA
         {
             EstActif = !EstActif;
         }
-        public void ChangerAnimation(TypeActionPersonnage typeAnimation)
+        public void ChangerAnimation(TypeActionPersonnage typeAnimation, Joueur joueur)
         {
             Vector3 positionJoueur = new Vector3();
             Vector3 rotationJoueur = new Vector3();
@@ -116,9 +116,18 @@ namespace AtelierXNA
                     break;
 
             }
-            Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
-            if (liste.Count == 2)
+            if (this != joueur)
+            {
+                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
+                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationAdv, positionAdv));
+            }
+
+            else
+            {
                 Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationAdv, positionAdv));
+                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
+            }
+                
         }
     }
 }
