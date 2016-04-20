@@ -272,6 +272,13 @@ namespace AtelierXNA
                         RecevoirInfoPositionBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Position balle gérée");
                     }
+
+                    if(byteEnum == (byte) PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO)
+                    {
+                        Console.WriteLine("info est tour joueur principal reçue");
+                        RecevoirInfoEstTourJoueurPrincipal(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Position balle gérée");
+                    }
                 }
 
             }
@@ -434,7 +441,7 @@ namespace AtelierXNA
             EnvoyerMessageServeur(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, messageInfoTourJoueurPrincipal);
         }
 
-        public void RecevoirInfoEstTourJoueur(byte[] infoEstTourJoueurPrincipal)
+        public void RecevoirInfoEstTourJoueurPrincipal(byte[] infoEstTourJoueurPrincipal)
         {
             Console.WriteLine("Essaie gestion est tour joueur principal");
             bool estTourJoueurPrincipal;

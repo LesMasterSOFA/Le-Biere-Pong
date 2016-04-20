@@ -341,7 +341,7 @@ namespace AtelierXNA
 
                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
 
-                    EnvoieNouveauMessage(PacketTypes.POSITION_BALLE, message, indiceJoueur);
+                    EnvoieNouveauMessage(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, message, indiceJoueur);
                 }
             }
         }
