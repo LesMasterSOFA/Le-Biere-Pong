@@ -56,14 +56,14 @@ namespace AtelierXNA
         List<ObjetDeBase> ListeBiereJoueur { get; set; }
         List<ObjetDeBase> ListeBiereAdv { get; set; }
         Personnage personnagePrincipal { get; set; }
-        List<VerreJoueurPrincipal> VerresJoueur { get; set; }
+        public List<VerreJoueurPrincipal> VerresJoueur { get; set; }
         VerreJoueurPrincipal VerreJoueur1 { get; set; }
         VerreJoueurPrincipal VerreJoueur2 { get; set; }
         VerreJoueurPrincipal VerreJoueur3 { get; set; }
         VerreJoueurPrincipal VerreJoueur4 { get; set; }
         VerreJoueurPrincipal VerreJoueur5 { get; set; }
         VerreJoueurPrincipal VerreJoueur6 { get; set; }
-        List<VerreAdversaire> VerresAdversaire { get; set; }
+        public List<VerreAdversaire> VerresAdversaire { get; set; }
         VerreAdversaire VerreAdversaire1 { get; set; }
         VerreAdversaire VerreAdversaire2 { get; set; }
         VerreAdversaire VerreAdversaire3 { get; set; }

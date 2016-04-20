@@ -47,8 +47,8 @@ namespace AtelierXNA
         //            bool estBalleRebond = false; //Frank va faire une fonction pour déterminer si c'est un rebond.
         //            EnleverVerres(listeVerresAdv, jeu, leVerre, estBalleDansVerre, estBalleRebond);
 
-        //            //Vérifier si la partie est finie
-        //            VérifierNombreDeVerres(listeVerresAdv);
+                    ////Vérifier si la partie est finie
+                    //VérifierNombreDeVerres(listeVerresAdv);
         //        }
         //    }
         //    else
