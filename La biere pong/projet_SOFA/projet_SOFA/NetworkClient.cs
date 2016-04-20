@@ -255,6 +255,13 @@ namespace AtelierXNA
                         RecevoirInfoAnimationJoueur(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Animation Gérée");
                     }
+
+                    if(byteEnum == (byte)PacketTypes.POSITION_BALLE)
+                    {
+                        Console.WriteLine("info position balle reçue");
+                        RecevoirInfoPositionBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Position balle gérée");
+                    }
                 }
 
             }
@@ -371,6 +378,32 @@ namespace AtelierXNA
             catch(Exception e)
             {
                 Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'animation");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoPositionBalle(Vector3 PositionBalle)
+        {
+            byte[] messagePositionBalle = new byte[3];
+            messagePositionBalle[0] = (byte)PositionBalle.X;
+            messagePositionBalle[1] = (byte)PositionBalle.Y;
+            messagePositionBalle[2] = (byte)PositionBalle.Z;
+            EnvoyerMessageServeur(PacketTypes.POSITION_BALLE, messagePositionBalle);
+        }
+
+        public void RecevoirInfoPositionBalle(byte[] infoPositionBalle)
+        {
+
+            Console.WriteLine("Essaie gestion position balle");
+            try
+            {
+                Vector3 PositionBalle = new Vector3(infoPositionBalle[0], infoPositionBalle[1], infoPositionBalle[2]);
+                Console.WriteLine("Position de la balle: X: {0} Y: {1} Z: {2}", PositionBalle.X, PositionBalle.Y, PositionBalle.Z);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de la position de la balle");
                 Console.WriteLine(e.ToString());
             }
         }

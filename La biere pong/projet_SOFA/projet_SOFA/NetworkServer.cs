@@ -122,6 +122,11 @@ namespace AtelierXNA
                             GérerAnimation();
                         }
 
+                        if(byteEnum == (byte)PacketTypes.POSITION_BALLE)
+                        {
+                            GérerInfoPositionBalle();
+                        }
+
                         break;
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
@@ -282,7 +287,24 @@ namespace AtelierXNA
                     EnvoieNouveauMessage(PacketTypes.ANIMATION, message, indiceJoueur);
                 }
             }
+        }
 
+        void GérerInfoPositionBalle()
+        {
+            Console.WriteLine("Update Position balle");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (j.IP != ListeJoueurs[0].IP)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.ANIMATION, message, indiceJoueur);
+                }
+            }
 
         }
         #endregion
