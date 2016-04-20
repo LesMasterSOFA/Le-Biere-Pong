@@ -279,6 +279,13 @@ namespace AtelierXNA
                         RecevoirInfoEstTourJoueurPrincipal(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Position balle gérée");
                     }
+
+                    if(byteEnum == (byte) PacketTypes.VERRE_À_ENLEVER)
+                    {
+                        Console.WriteLine("info verre à enlever reçue");
+                        RecevoirInfoVerreÀEnlever(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Verre à enlever géré");
+                    }
                 }
 
             }
@@ -462,6 +469,48 @@ namespace AtelierXNA
                 Console.WriteLine(e.ToString());
             }
         }
+
+        public void EnvoyerInfoVerreÀEnlever( bool estListeVerresJoueurPrincipal, int indiceVerreÀEnlever)
+        {
+            
+
+            Console.WriteLine("Envoie info verre à enlever");
+            byte[] messageInfoVerreÀEnlever = new byte[2];
+
+            if (estListeVerresJoueurPrincipal)
+                messageInfoVerreÀEnlever[0] = 1;
+            else
+                messageInfoVerreÀEnlever[0] = 0;
+
+            messageInfoVerreÀEnlever[1] = (byte)indiceVerreÀEnlever;
+
+            EnvoyerMessageServeur(PacketTypes.VERRE_À_ENLEVER, messageInfoVerreÀEnlever);
+        }
+
+        public void RecevoirInfoVerreÀEnlever(byte[] infoVerreÀEnlever)
+        {
+            Console.WriteLine("Essaie gestion enlever verre");
+            bool estListeVerresJoueurPrincipal;
+            int indiceVerreÀEnlever;
+            try
+            {
+                if (infoVerreÀEnlever[0] == 1)
+                    estListeVerresJoueurPrincipal = true;
+                else
+                    estListeVerresJoueurPrincipal = false;
+
+                indiceVerreÀEnlever = infoVerreÀEnlever[1];
+                Console.WriteLine(estListeVerresJoueurPrincipal);
+                Console.WriteLine(indiceVerreÀEnlever);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation du verre à enlever");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
         #endregion
     }
 }
