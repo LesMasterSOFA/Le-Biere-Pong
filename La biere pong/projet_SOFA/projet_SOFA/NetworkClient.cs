@@ -290,6 +290,7 @@ namespace AtelierXNA
 
             }
         }
+
         private void GérerÉvénementEtEnvoyerAuServeur()
         {
             //Crée un Message en string contenant les actions
@@ -307,6 +308,7 @@ namespace AtelierXNA
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
             }
         }
+
         #endregion
 
         #region Envoie et réception de messages

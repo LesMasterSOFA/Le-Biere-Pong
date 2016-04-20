@@ -87,7 +87,7 @@ namespace AtelierXNA
             if(EstPartieActive)
             {
                 //Pour tester l'animation
-                if(GestionInput.EstNouvelleTouche(Keys.Z))
+                if(GestionInput.EstNouvelleTouche(Keys.B))
                 {
                     JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, JoueurPrincipal);
                     JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(JoueurPrincipal, TypeActionPersonnage.Boire);
