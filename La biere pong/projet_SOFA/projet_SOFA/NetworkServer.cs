@@ -141,6 +141,11 @@ namespace AtelierXNA
                             GérerInfoEstTourJoueurPrincipal();
                         }
 
+                        if (byteEnum == (byte)PacketTypes.VERRE_À_ENLEVER)
+                        {
+                            GérerVerreÀEnlever();
+                        }
+
                         break;
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
@@ -342,6 +347,24 @@ namespace AtelierXNA
                     message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
 
                     EnvoieNouveauMessage(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, message, indiceJoueur);
+                }
+            }
+        }
+
+        void GérerVerreÀEnlever()
+        {
+            Console.WriteLine("Update verre à enlever");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (j.IP != ListeJoueurs[0].IP)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.VERRE_À_ENLEVER, message, indiceJoueur);
                 }
             }
         }

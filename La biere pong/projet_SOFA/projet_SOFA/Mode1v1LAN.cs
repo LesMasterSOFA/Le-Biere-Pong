@@ -98,11 +98,16 @@ namespace AtelierXNA
                     var p = new Vector3(4,5,6);
                     JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
                 }
-
+                //pour tester envoie est tour joueur principal
                 if(GestionInput.EstNouvelleTouche(Keys.C))
                 {
                     bool b = true;
                     JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
+                }
+                //pour tester envoie verre à enlever
+                if(GestionInput.EstNouvelleTouche(Keys.V))
+                {
+                    JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
                 }
                 
             }

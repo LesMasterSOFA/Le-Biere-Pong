@@ -472,8 +472,6 @@ namespace AtelierXNA
 
         public void EnvoyerInfoVerreÀEnlever( bool estListeVerresJoueurPrincipal, int indiceVerreÀEnlever)
         {
-            
-
             Console.WriteLine("Envoie info verre à enlever");
             byte[] messageInfoVerreÀEnlever = new byte[2];
 
