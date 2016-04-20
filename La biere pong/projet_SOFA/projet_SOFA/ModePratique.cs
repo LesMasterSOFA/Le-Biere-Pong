@@ -82,7 +82,7 @@ namespace AtelierXNA
 
         void InitialiserGarage()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoy_tex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoy_tex2.ToString());
             ModifierActivation();
             if (EstPartieActive)
             {
