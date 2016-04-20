@@ -14,6 +14,8 @@ namespace AtelierXNA
 {
     public class NetworkClient : Microsoft.Xna.Framework.GameComponent
     {
+        #region propriétés de la classe
+
         //Objet Client
         static NetClient Client;
 
@@ -33,6 +35,10 @@ namespace AtelierXNA
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
         public bool EstMaster { get; private set; }
+
+        #endregion
+
+        #region Création d'un client
 
         public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster):base(jeu)
         {
@@ -178,6 +184,10 @@ namespace AtelierXNA
             }
         }
 
+        #endregion
+
+        #region Update
+
         public override void Update(GameTime gameTime)
         {
             // Si l'intervalle de temps est passé
@@ -266,7 +276,6 @@ namespace AtelierXNA
 
             }
         }
-
         private void GérerÉvénementEtEnvoyerAuServeur()
         {
             //Crée un Message en string contenant les actions
@@ -284,6 +293,9 @@ namespace AtelierXNA
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
             }
         }
+        #endregion
+
+        #region Envoie et réception de messages
 
         public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
         {
@@ -384,6 +396,7 @@ namespace AtelierXNA
 
         public void EnvoyerInfoPositionBalle(Vector3 PositionBalle)
         {
+            Console.WriteLine("Envoie info position balle");
             byte[] messagePositionBalle = new byte[3];
             messagePositionBalle[0] = (byte)PositionBalle.X;
             messagePositionBalle[1] = (byte)PositionBalle.Y;
@@ -407,5 +420,41 @@ namespace AtelierXNA
                 Console.WriteLine(e.ToString());
             }
         }
+
+        public void EnvoyerInfoEstTourJoueurPrincipal(bool estTourJoueurPrincipal)
+        {
+            Console.WriteLine("Envoie info est tour joueur principal");
+            byte[] messageInfoTourJoueurPrincipal = new byte[1];
+
+            if (estTourJoueurPrincipal)
+                messageInfoTourJoueurPrincipal[0] = 1;
+            else
+                messageInfoTourJoueurPrincipal[0] = 0;
+
+            EnvoyerMessageServeur(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, messageInfoTourJoueurPrincipal);
+        }
+
+        public void RecevoirInfoEstTourJoueur(byte[] infoEstTourJoueurPrincipal)
+        {
+            Console.WriteLine("Essaie gestion est tour joueur principal");
+            bool estTourJoueurPrincipal;
+            try
+            {
+                if (infoEstTourJoueurPrincipal[0] == 1)
+                    estTourJoueurPrincipal = true;
+
+                else
+                    estTourJoueurPrincipal = false;
+
+                Console.WriteLine(estTourJoueurPrincipal);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation d'est tour joueur principal");
+                Console.WriteLine(e.ToString());
+            }
+        }
+        #endregion
     }
 }
