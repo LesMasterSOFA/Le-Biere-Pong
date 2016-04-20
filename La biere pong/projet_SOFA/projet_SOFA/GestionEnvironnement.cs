@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {
    public enum Environnements { Garage, SalleManger, SousSol } //À ajouter les environnement dedans
-   public enum SuperboyPersonnage {superBoy, superBoyTex } //Contient les informations pour le personnage Superboy
+   public enum SuperboyPersonnage {superBoy, superBoyTex,superBoy_tex2 } //Contient les informations pour le personnage Superboy
 
    public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
    {
@@ -50,7 +50,7 @@ namespace AtelierXNA
          //Instanciation et ajout dans components de caméra
          Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-         CaméraJeu = new  CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+         CaméraJeu = new  CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
          Game.Services.AddService(typeof(Caméra), CaméraJeu);
          InstancierEnvironnement();
@@ -63,15 +63,15 @@ namespace AtelierXNA
               {
 
                   case Environnements.Garage:
-                      EnvironnementGarage Garage = new EnvironnementGarage(Game, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
+                      EnvironnementGarage Garage = new EnvironnementGarage(Game, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
                       Game.Components.Add(Garage);
                       break;
                   case Environnements.SalleManger:
-                      EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
+                      EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
                       Game.Components.Add(SalleManger);
                       break;
                   case Environnements.SousSol:
-                      EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
+                      EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
                       Game.Components.Add(SousSol);
                       break;
                   default:

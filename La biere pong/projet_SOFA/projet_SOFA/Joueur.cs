@@ -118,14 +118,14 @@ namespace AtelierXNA
             }
             if (this != joueur)
             {
-                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
-                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationAdv, positionAdv));
+                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));//principal
+                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationAdv, positionAdv));//secondaire
             }
 
             else
             {
-                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationAdv, positionAdv));
-                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));
+                Game.Components.Insert(17, new Personnage(Game, action, "superBoyTex", "Shader", 1, rotationAdv, positionAdv));//secodaire
+                Game.Components.Insert(17, new Personnage(Game, "superBoy", "superBoyTex", "Shader", 1, rotationJoueur, positionJoueur));//principal
             }
                 
         }
