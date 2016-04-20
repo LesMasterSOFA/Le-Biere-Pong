@@ -87,10 +87,27 @@ namespace AtelierXNA
             if(EstPartieActive)
             {
                 //Pour tester l'animation
-                if(GestionInput.EstNouvelleTouche(Keys.A))
+                if(GestionInput.EstNouvelleTouche(Keys.B))
                 {
                     JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, JoueurPrincipal);
                     JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(JoueurPrincipal, TypeActionPersonnage.Boire);
+                }
+                //Pour tester envoie vector3 position balle
+                if(GestionInput.EstNouvelleTouche(Keys.X))
+                {
+                    var p = new Vector3(4,5,6);
+                    JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
+                }
+                //pour tester envoie est tour joueur principal
+                if(GestionInput.EstNouvelleTouche(Keys.C))
+                {
+                    bool b = true;
+                    JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
+                }
+                //pour tester envoie verre à enlever
+                if(GestionInput.EstNouvelleTouche(Keys.V))
+                {
+                    JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
                 }
                 
             }

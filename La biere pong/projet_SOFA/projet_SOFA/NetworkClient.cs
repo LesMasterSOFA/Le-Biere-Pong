@@ -14,6 +14,8 @@ namespace AtelierXNA
 {
     public class NetworkClient : Microsoft.Xna.Framework.GameComponent
     {
+        #region propriétés de la classe
+
         //Objet Client
         static NetClient Client;
 
@@ -33,6 +35,10 @@ namespace AtelierXNA
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
         public bool EstMaster { get; private set; }
+
+        #endregion
+
+        #region Création d'un client
 
         public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster):base(jeu)
         {
@@ -178,6 +184,10 @@ namespace AtelierXNA
             }
         }
 
+        #endregion
+
+        #region Update
+
         public override void Update(GameTime gameTime)
         {
             // Si l'intervalle de temps est passé
@@ -255,6 +265,27 @@ namespace AtelierXNA
                         RecevoirInfoAnimationJoueur(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Animation Gérée");
                     }
+
+                    if(byteEnum == (byte)PacketTypes.POSITION_BALLE)
+                    {
+                        Console.WriteLine("info position balle reçue");
+                        RecevoirInfoPositionBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Position balle gérée");
+                    }
+
+                    if (byteEnum == (byte)PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO)
+                    {
+                        Console.WriteLine("info est tour joueur principal reçue");
+                        RecevoirInfoEstTourJoueurPrincipal(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Position balle gérée");
+                    }
+
+                    if(byteEnum == (byte) PacketTypes.VERRE_À_ENLEVER)
+                    {
+                        Console.WriteLine("info verre à enlever reçue");
+                        RecevoirInfoVerreÀEnlever(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("Verre à enlever géré");
+                    }
                 }
 
             }
@@ -277,6 +308,10 @@ namespace AtelierXNA
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
             }
         }
+
+        #endregion
+
+        #region Envoie et réception de messages
 
         public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
         {
@@ -374,5 +409,108 @@ namespace AtelierXNA
                 Console.WriteLine(e.ToString());
             }
         }
+
+        public void EnvoyerInfoPositionBalle(Vector3 PositionBalle)
+        {
+            Console.WriteLine("Envoie info position balle");
+            byte[] messagePositionBalle = new byte[3];
+            messagePositionBalle[0] = (byte)PositionBalle.X;
+            messagePositionBalle[1] = (byte)PositionBalle.Y;
+            messagePositionBalle[2] = (byte)PositionBalle.Z;
+            EnvoyerMessageServeur(PacketTypes.POSITION_BALLE, messagePositionBalle);
+        }
+
+        public void RecevoirInfoPositionBalle(byte[] infoPositionBalle)
+        {
+
+            Console.WriteLine("Essaie gestion position balle");
+            try
+            {
+                Vector3 PositionBalle = new Vector3(infoPositionBalle[0], infoPositionBalle[1], infoPositionBalle[2]);
+                Console.WriteLine("Position de la balle: X: {0} Y: {1} Z: {2}", PositionBalle.X, PositionBalle.Y, PositionBalle.Z);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation de la position de la balle");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoEstTourJoueurPrincipal(bool estTourJoueurPrincipal)
+        {
+            Console.WriteLine("Envoie info est tour joueur principal");
+            byte[] messageInfoTourJoueurPrincipal = new byte[1];
+
+            if (estTourJoueurPrincipal)
+                messageInfoTourJoueurPrincipal[0] = 1;
+            else
+                messageInfoTourJoueurPrincipal[0] = 0;
+
+            EnvoyerMessageServeur(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, messageInfoTourJoueurPrincipal);
+        }
+
+        public void RecevoirInfoEstTourJoueurPrincipal(byte[] infoEstTourJoueurPrincipal)
+        {
+            Console.WriteLine("Essaie gestion est tour joueur principal");
+            bool estTourJoueurPrincipal;
+            try
+            {
+                if (infoEstTourJoueurPrincipal[0] == 1)
+                    estTourJoueurPrincipal = true;
+
+                else
+                    estTourJoueurPrincipal = false;
+
+                Console.WriteLine(estTourJoueurPrincipal);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation d'est tour joueur principal");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoVerreÀEnlever( bool estListeVerresJoueurPrincipal, int indiceVerreÀEnlever)
+        {
+            Console.WriteLine("Envoie info verre à enlever");
+            byte[] messageInfoVerreÀEnlever = new byte[2];
+
+            if (estListeVerresJoueurPrincipal)
+                messageInfoVerreÀEnlever[0] = 1;
+            else
+                messageInfoVerreÀEnlever[0] = 0;
+
+            messageInfoVerreÀEnlever[1] = (byte)indiceVerreÀEnlever;
+
+            EnvoyerMessageServeur(PacketTypes.VERRE_À_ENLEVER, messageInfoVerreÀEnlever);
+        }
+
+        public void RecevoirInfoVerreÀEnlever(byte[] infoVerreÀEnlever)
+        {
+            Console.WriteLine("Essaie gestion enlever verre");
+            bool estListeVerresJoueurPrincipal;
+            int indiceVerreÀEnlever;
+            try
+            {
+                if (infoVerreÀEnlever[0] == 1)
+                    estListeVerresJoueurPrincipal = true;
+                else
+                    estListeVerresJoueurPrincipal = false;
+
+                indiceVerreÀEnlever = infoVerreÀEnlever[1];
+                Console.WriteLine(estListeVerresJoueurPrincipal);
+                Console.WriteLine(indiceVerreÀEnlever);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation du verre à enlever");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        #endregion
     }
 }

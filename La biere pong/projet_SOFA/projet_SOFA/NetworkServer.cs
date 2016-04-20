@@ -14,6 +14,8 @@ namespace AtelierXNA
 {
     public class NetworkServer : Microsoft.Xna.Framework.GameComponent
     {
+        #region propriétés de la classe
+
         // Server object
         static NetServer Serveur;
         // Configuration object
@@ -29,6 +31,9 @@ namespace AtelierXNA
         public Mode1v1LAN PartieEnCours { get; set; }
         public long TempsServeurMaster { get; set; }
 
+        #endregion
+
+        #region Création d'un serveur
 
         public NetworkServer(Game jeu, string nomJeu, int port):base(jeu)
         {
@@ -73,6 +78,10 @@ namespace AtelierXNA
                 throw new Exception(""); //Envoie de l'exception vers network manager
             }
         }
+
+        #endregion
+
+        #region Update
 
         //Fonction pouvant être appelée de l'extérieur de façon à updater le serveur tout le temps
         public void UpdateServeur()
@@ -122,6 +131,21 @@ namespace AtelierXNA
                             GérerAnimation();
                         }
 
+                        if(byteEnum == (byte)PacketTypes.POSITION_BALLE)
+                        {
+                            GérerInfoPositionBalle();
+                        }
+
+                        if(byteEnum == (byte)PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO)
+                        {
+                            GérerInfoEstTourJoueurPrincipal();
+                        }
+
+                        if (byteEnum == (byte)PacketTypes.VERRE_À_ENLEVER)
+                        {
+                            GérerVerreÀEnlever();
+                        }
+
                         break;
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
@@ -155,6 +179,10 @@ namespace AtelierXNA
         {
             UpdateServeur();
         }
+
+        #endregion
+
+        #region Envoie/réception de messages
 
         void EnvoieNouveauMessageWorldState()
         {
@@ -198,6 +226,8 @@ namespace AtelierXNA
             //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             Serveur.SendMessage(MessageSortant, ListeJoueurs[indiceJoueur].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
+
+        #endregion
 
         #region Fonctions pour Update
 
@@ -282,9 +312,63 @@ namespace AtelierXNA
                     EnvoieNouveauMessage(PacketTypes.ANIMATION, message, indiceJoueur);
                 }
             }
+        }
 
+        void GérerInfoPositionBalle()
+        {
+            Console.WriteLine("Update Position balle");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (j.IP != ListeJoueurs[0].IP)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.POSITION_BALLE, message, indiceJoueur);
+                }
+            }
 
         }
+
+        void GérerInfoEstTourJoueurPrincipal()
+        {
+            Console.WriteLine("Update info est tour joueur principal");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (j.IP != ListeJoueurs[0].IP)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.EST_TOUR_JOUEUR_PRINCIPAL_INFO, message, indiceJoueur);
+                }
+            }
+        }
+
+        void GérerVerreÀEnlever()
+        {
+            Console.WriteLine("Update verre à enlever");
+            foreach (JoueurMultijoueur j in ListeJoueurs)
+            {
+                if (j.IP != MessageInc.SenderConnection)
+                {
+                    int indiceJoueur = 0;
+                    if (j.IP != ListeJoueurs[0].IP)
+                        indiceJoueur = 1;
+
+                    message = MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1);
+
+                    EnvoieNouveauMessage(PacketTypes.VERRE_À_ENLEVER, message, indiceJoueur);
+                }
+            }
+        }
+
         #endregion
 
     }
