@@ -40,7 +40,7 @@ namespace AtelierXNA
         ObjetDeBase Table { get; set; }
         ObjetDeBase Balle { get; set; }
         Personnage personnagePrincipal { get; set; }
-        List<VerreJoueurPrincipal> VerresJoueur { get; set; }
+        public List<VerreJoueurPrincipal> VerresJoueur { get; set; }
         VerreJoueurPrincipal VerreJoueur1 { get; set; }
         VerreJoueurPrincipal VerreJoueur2 { get; set; }
         VerreJoueurPrincipal VerreJoueur3 { get; set; }
@@ -55,7 +55,7 @@ namespace AtelierXNA
         VerreAdversaire VerreAdversaire5 { get; set; }
         VerreAdversaire VerreAdversaire6 { get; set; }
         List<Vector3> ListePositionVerres { get; set; }
-        public List<Vector3> ListePositionVerresAdv { get; set; }
+        List<Vector3> ListePositionVerresAdv { get; set; }
         ObjetDeBase BiereJoueur1 { get; set; }
         ObjetDeBase BiereJoueur2 { get; set; }
         ObjetDeBase BiereJoueur3 { get; set; }

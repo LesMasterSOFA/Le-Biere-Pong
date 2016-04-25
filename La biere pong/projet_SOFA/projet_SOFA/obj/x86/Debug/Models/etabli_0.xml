@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics" xmlns:Framework="Microsoft.Xna.Framework">
+  <Asset Type="Graphics:MeshContent">
+    <Name>Cube_001</Name>
+    <Identity>
+      <SourceFilename>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
+      <SourceTool>FbxImporter</SourceTool>
+    </Identity>
+    <Transform>7.54979E-08 0 -1 0 -1 0 -7.54979E-08 0 0 1 0 0 -0.42922613 2.08736229 -0.09623903 1</Transform>
+    <Positions>-3.071417 -0.66849 -1.012852 -3.071417 0.403899 -1.012852 3.93063 0.403899 -1.012852 3.93063 -0.66849 -1.012852 -3.071417 -0.66849 -0.787751 -3.071417 0.403899 -0.787751 3.93063 0.403899 -0.787751 3.93063 -0.66849 -0.787751 3.929224 0.403761 -1.743717 3.929224 -0.596239 -1.743717 -3.070773 -0.596239 -1.743717 -3.070771 0.403761 -1.743717 3.929226 0.403761 -1.003717 3.929222 -0.59624 -1.003717 -3.070773 -0.596239 -1.003717 -3.070772 0.403761 -1.003717</Positions>
+    <Geometry>
+      <Batch>
+        <Material>#Resource1</Material>
+        <Indices>2 1 0 0 3 2 6 5 4 4 7 6 10 9 8 8 11 10 14 13 12 12 15 14 6 7 12 12 13 6 3 8 9 9 2 3 18 17 16 16 19 18 22 21 20 20 23 22 25 24 16 16 17 25 22 23 26 26 27 22 29 28 18 18 19 29 31 30 20 20 21 31</Indices>
+        <Vertices>
+          <PositionIndices>1 0 4 5 5 6 2 1 6 7 3 2 0 3 7 4 8 9 10 11 12 15 14 13 12 13 9 10 14 15 8 11</PositionIndices>
+          <Channels>
+            <VertexChannel Name="Normal0" ElementType="Framework:Vector3">-0.5773492 0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 0.5773492 0.5773492 -0.5773492 0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 0.577318668 -0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 0.577318668 -0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 0.5773492 0.5773492 -0.5773492 -0.5773492 0.5773492 -0.5773492</VertexChannel>
+            <VertexChannel Name="TextureCoordinate0" ElementType="Framework:Vector2">0.000155 0.282745 0.000156 0.409166 0.026692 0.409166 0.026692 0.282745 0.000155 0.707172 0.825612 0.707172 0.825612 0.680635 0.000155 0.680635 0.85215 0.282741 0.85215 0.409163 0.878687 0.409163 0.878686 0.282741 0.000155 0.554213 0.825612 0.554213 0.825612 0.527676 0.000155 0.527676 0.912607 0.527365 0.912607 0.409477 0.087393 0.409477 0.087393 0.527365 0.825372 0.794719 0.000156 0.794719 0.000155 0.912607 0.825372 0.912608 0.999845 0.527365 0.999845 0.409477 0.825372 0.999845 0.000155 0.999844 0.000155 0.409477 0.000155 0.527366 0.825372 0.707482 0.000156 0.707482</VertexChannel>
+          </Channels>
+        </Vertices>
+      </Batch>
+    </Geometry>
+  </Asset>
+  <Resources>
+    <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
+      <Name>Material</Name>
+      <Identity>
+        <SourceFilename>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\etabli.fbx</SourceFilename>
+        <SourceTool>FbxImporter</SourceTool>
+      </Identity>
+      <OpaqueData>
+        <Data Key="DiffuseColor" Type="Framework:Vector3">0.640000045 0.640000045 0.640000045</Data>
+        <Data Key="EmissiveColor" Type="Framework:Vector3">0 0 0</Data>
+        <Data Key="Alpha" Type="float">1</Data>
+        <Data Key="SpecularColor" Type="Framework:Vector3">0 0 0</Data>
+      </OpaqueData>
+    </Resource>
+  </Resources>
+</XnaContent>

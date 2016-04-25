@@ -40,6 +40,7 @@ Content\Textures\PlancherSalle.xnb
 Content\Textures\PlancherSousSol.xnb
 Content\Textures\tex_table_salle.xnb
 Content\Textures\UVChaiseFait.xnb
+Content\Textures\TextureBiere.xnb
 Content\Models\mur.xnb
 Content\Models\balle.xnb
 Content\Models\table_plastique.xnb
@@ -54,10 +55,9 @@ Content\Models\superBoyApresLancer.xnb
 Content\Models\superBoyBoire.xnb
 Content\Models\superBoyLancer.xnb
 Content\Models\superBoySwing.xnb
+Content\Models\Biere.xnb
 Content\Effects\Shader.xnb
 Content\Sounds\ChansonMenu.xnb
 Content\Sounds\Tadah.xnb
 Content\Sounds\WOW.xnb
-Content\Textures\TextureBiere.xnb
-Content\Models\Biere.xnb
 Content\Sounds\ChansonMenu.wma

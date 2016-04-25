@@ -43,7 +43,6 @@ namespace AtelierXNA
             BoutonTest2 = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, TroisièmeNiveau);
             Game.Components.Add(BoutonTest);
             Game.Components.Add(new ATH(Game));
-            SaoulEnCrissGarage();
             base.Initialize();
         }
         void SecondNiveau()
@@ -73,43 +72,105 @@ namespace AtelierXNA
             Game.Components.Add(new ATH(Game));
             
         }
+       //Fonction inutilisable, doit savoir tour a qui (gestion événement)
+
         void SaoulEnCrissGarage()
         {
-            EnvironnementGarage Garage;
-            if (Game.Components.Where(item => item is EnvironnementGarage).Count()==1)
-            {
-                foreach (EnvironnementGarage GaragePT in Game.Components.Where(item => item is EnvironnementGarage))
-                {
-                    Garage = GaragePT;
-                    Garage.VerresJoueur.Count();
+           EnvironnementGarage Garage;
+           if (Game.Components.Where(item => item is EnvironnementGarage).Count() == 1)
+           {
+              foreach (EnvironnementGarage GaragePT in Game.Components.Where(item => item is EnvironnementGarage))
+              {
+                 Garage = GaragePT;
+                 Garage.VerresJoueur.Count();
 
-                    if(EstTourJoueur)
+                 if (EstTourJoueur)
+                 {
+                    while (EstTourJoueur)
                     {
-                        while(EstTourJoueur)
-                        {
-                            EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - Garage.VerresJoueur.Count())), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
-                            EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - Garage.VerresJoueur.Count())), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale); 
-                        }
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
                     }
-                    if (EstTourAdversaire)
+                 }
+                 if (EstTourAdversaire)
+                 {
+                    while (EstTourAdversaire)
                     {
-                        while (EstTourJoueur)
-                        {
-                            EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - Garage.VerresJoueur.Count())), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
-                            EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - Garage.VerresJoueur.Count())), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
-                        }
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
                     }
+                 }
 
-                }
-                
-            }
-            
+              }
+
+           }
+
+        }
+        void SaoulEnCrissSalleManger()
+        {
+           EnvironnementSalleManger SalleManger;
+           if (Game.Components.Where(item => item is EnvironnementSalleManger).Count() == 1)
+           {
+              foreach (EnvironnementSalleManger SalleMangerPT in Game.Components.Where(item => item is EnvironnementSalleManger))
+              {
+                 SalleManger = SalleMangerPT;
+                 SalleManger.VerresJoueur.Count();
+
+                 if (EstTourJoueur)
+                 {
+                    while (EstTourJoueur)
+                    {
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                    }
+                 }
+                 if (EstTourAdversaire)
+                 {
+                    while (EstTourAdversaire)
+                    {
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                    }
+                 }
+              }
+           }
+        }
+        void SaoulEnCrissSousSol()
+        {
+           EnvironnementSousSol SousSol;
+           if (Game.Components.Where(item => item is EnvironnementSousSol).Count() == 1)
+           {
+              foreach (EnvironnementSousSol SousSolPT in Game.Components.Where(item => item is EnvironnementSousSol))
+              {
+                 SousSol = SousSolPT;
+                 SousSol.VerresJoueur.Count();
+
+                 if (EstTourJoueur)
+                 {
+                    while (EstTourJoueur)
+                    {
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                    }
+                 }
+                 if (EstTourAdversaire)
+                 {
+                    while (EstTourAdversaire)
+                    {
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X + (float)Math.Sin(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Y, EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                       EnvironnementPartie.CaméraJeu.Déplacer(EnvironnementPartie.CaméraJeu.Position, new Vector3(EnvironnementPartie.CaméraJeu.Cible.X, EnvironnementPartie.CaméraJeu.Cible.Y + (float)Math.Cos(60 * (6 - 3)), EnvironnementPartie.CaméraJeu.Cible.Z), EnvironnementPartie.CaméraJeu.OrientationVerticale);
+                    }
+                 }
+
+              }
+
+           }
+
         }
 
 
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
         }
     }
