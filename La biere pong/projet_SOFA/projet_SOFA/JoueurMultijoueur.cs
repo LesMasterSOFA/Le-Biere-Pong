@@ -40,12 +40,14 @@ namespace AtelierXNA
         //Constructeur sérialiseur
         public JoueurMultijoueur(Game game, InfoJoueurMultijoueur infoJoueurMultijoueur):base(game)
         {
-                //Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
-                GamerTag = infoJoueurMultijoueur.Gamertag;
-                //ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
-                GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
-                EstActif = infoJoueurMultijoueur.EstActif;
-                //IP = new NetConnection();
+            //Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
+            GamerTag = infoJoueurMultijoueur.Gamertag;
+            //ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
+            GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
+            EstActif = infoJoueurMultijoueur.EstActif;
+            //IP = new NetConnection();
+            //Client = (NetworkClient)Game.Components.Where(x => x is NetworkClient) as NetworkClient;
+            Client = (NetworkClient)Game.Components[4]; // indice du client slave
         }
 
         public override void Initialize()
