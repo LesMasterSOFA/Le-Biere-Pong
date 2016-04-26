@@ -109,6 +109,11 @@ namespace AtelierXNA
                 {
                     JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
                 }
+                //pour tester envoie lancer balle
+                if(GestionInput.EstNouvelleTouche(Keys.N))
+                {
+                    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(new Vector3(1, 2, 3), new Vector3(4, 5, 6), 7f, 8f, 9f);
+                }
                 
             }
             base.Update(gameTime);
