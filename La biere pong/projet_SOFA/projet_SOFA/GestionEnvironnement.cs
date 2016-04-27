@@ -51,7 +51,7 @@ namespace AtelierXNA
          Vector3 positionCaméra = new Vector3(0, 1.5f, 1.0f);
          //Vector3 positionCaméra = new Vector3(-2, 1.5f, 0f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-         CaméraJeu = new CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+         CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
          Game.Services.AddService(typeof(Caméra), CaméraJeu);
          InstancierEnvironnement();

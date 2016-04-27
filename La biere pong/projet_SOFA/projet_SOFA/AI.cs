@@ -18,9 +18,9 @@ namespace AtelierXNA
     /// </summary>
     public class AI
     {
-        const float VITESSE_FACILE = 700f;
-        const float VITESSE_MOYEN = 550f;
-        const float VITESSE_DIFFICILE = 460f;
+        const float VITESSE_FACILE = 280f;
+        const float VITESSE_MOYEN = 250f;
+        const float VITESSE_DIFFICILE = 210;
 
         const float ANGLE_HORIZONTAL_FACILE = 10;
         const float ANGLE_HORIZONTAL_MOYEN = 7;
@@ -28,7 +28,7 @@ namespace AtelierXNA
 
         const float ANGLE_VERTICAL_FACILE = 50;
         const float ANGLE_VERTICAL_MOYEN = 40;
-        const float ANGLE_VERTICAL_DIFFICILE = 30;
+        const float ANGLE_VERTICAL_DIFFICILE = 0;
 
         public float Vitesse { get; set; }
         public float AngleHorizontal { get; set; }
@@ -72,12 +72,12 @@ namespace AtelierXNA
 
             bool estPositif = false;
             Random randPositif = new Random();
-            int prob = randPositif.Next(2);
-            if (prob == 1)
+            int prob = randPositif.Next(100);
+            if (prob > 50)
                 estPositif = true;
 
             Random vitesseRand = new Random();
-            tableau[0] = vitesseRand.Next(400, (int)Vitesse + 1);
+            tableau[0] = vitesseRand.Next(190, (int)Vitesse + 1);
             tableau[0] = tableau[0] / 100;
              
 

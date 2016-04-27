@@ -290,12 +290,12 @@ namespace AtelierXNA
             EffectuerÉvènement();
             TempsÉcouléDepuisMAJ = 0;
          }
-         float[] tableau = Ai.GérerAI();
          if (GestionClavier.EstNouvelleTouche(Keys.N))
          {
+             float[] tableau = Ai.GérerAI();
              Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalleAdv,
-                                           tableau[0], tableau[1],
-                                           tableau[2], BoundingTable, BoundingBonhommeSecondaire,
+                                           tableau[0], MathHelper.ToRadians(tableau[1]),
+                                           MathHelper.ToRadians(tableau[2]), BoundingTable, BoundingBonhommeSecondaire,
                                            ListePositionVerres, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE.Y, DIMENSION_TERRAIN, false, INTERVALLE_MAJ_STANDARD));
          }
          base.Update(gameTime);
