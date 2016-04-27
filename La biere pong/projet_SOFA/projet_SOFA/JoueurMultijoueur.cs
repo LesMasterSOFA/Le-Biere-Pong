@@ -18,22 +18,20 @@ namespace AtelierXNA
         public NetConnection IP { get; private set; }
         public NetworkClient Client { get; private set; }
         
-        //Constructeur normal
-        public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag, NetworkClient client)
-            : base(game, avatar, imageJoueur, gestionnaireDeLaPartie, écranDeJeu, gamerTag)
-        {
-            IP = ip;
-            Client = client;
-        }
+        ////Constructeur normal
+        //public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag, NetworkClient client)
+        //    : base(game, avatar, imageJoueur, gestionnaireDeLaPartie, écranDeJeu, gamerTag)
+        //{
+        //    IP = ip;
+        //    Client = client;
+        //}
 
-        //Temporaire
         public JoueurMultijoueur(Game game, NetConnection ip, NetworkClient client)
             :base(game)
         {
             Client = client;
             IP = ip;
         }
-        //Temporaire
         public JoueurMultijoueur(Game game, NetConnection ip)
             : base(game)
         {
@@ -42,12 +40,14 @@ namespace AtelierXNA
         //Constructeur sérialiseur
         public JoueurMultijoueur(Game game, InfoJoueurMultijoueur infoJoueurMultijoueur):base(game)
         {
-                //Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
-                GamerTag = infoJoueurMultijoueur.Gamertag;
-                //ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
-                GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
-                EstActif = infoJoueurMultijoueur.EstActif;
-                //IP = new NetConnection();
+            //Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
+            GamerTag = infoJoueurMultijoueur.Gamertag;
+            //ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
+            GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
+            EstActif = infoJoueurMultijoueur.EstActif;
+            //IP = new NetConnection();
+            //Client = (NetworkClient)Game.Components.Where(x => x is NetworkClient) as NetworkClient;
+            Client = (NetworkClient)Game.Components[4]; // indice du client slave
         }
 
         public override void Initialize()

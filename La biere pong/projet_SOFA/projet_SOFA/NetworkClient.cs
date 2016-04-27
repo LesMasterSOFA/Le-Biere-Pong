@@ -286,6 +286,13 @@ namespace AtelierXNA
                         RecevoirInfoVerreÀEnlever(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Verre à enlever géré");
                     }
+
+                    if(byteEnum == (byte)PacketTypes.LANCER_BALLE_INFO)
+                    {
+                        Console.WriteLine("info lancer balle reçue");
+                        RecevoirInfoLancerBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
+                        Console.WriteLine("lancer balle géré");
+                    }
                 }
 
             }
@@ -433,6 +440,45 @@ namespace AtelierXNA
             catch (Exception e)
             {
                 Console.WriteLine("Erreur dans la réception et/ou la désérialisation de la position de la balle");
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public void EnvoyerInfoLancerBalle(Vector3 rotationInitialle, Vector3 positionInitiale, float vitesseInitiale, float angleHorizontal, float angleVertical)
+        {
+            Console.WriteLine("Envoie info lancer balle");
+            byte[] messagePositionBalle = new byte[9];
+            messagePositionBalle[0] = (byte)rotationInitialle.X;
+            messagePositionBalle[1] = (byte)rotationInitialle.Y;
+            messagePositionBalle[2] = (byte)rotationInitialle.Z;
+            messagePositionBalle[3] = (byte)positionInitiale.X;
+            messagePositionBalle[4] = (byte)positionInitiale.Y;
+            messagePositionBalle[5] = (byte)positionInitiale.Z;
+            messagePositionBalle[6] = (byte)vitesseInitiale;
+            messagePositionBalle[7] = (byte)angleHorizontal;
+            messagePositionBalle[8] = (byte)angleVertical;
+
+            EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, messagePositionBalle);
+        }
+
+        public void RecevoirInfoLancerBalle(byte[] infoLancerBalle)
+        {
+            Console.WriteLine("Essaie gestion lancer balle");
+            try
+            {
+                Vector3 rotationInitialleBalle = new Vector3(infoLancerBalle[0], infoLancerBalle[1], infoLancerBalle[2]);
+                Console.WriteLine("rotation initialle de la balle: X: {0} Y: {1} Z: {2}", rotationInitialleBalle.X, rotationInitialleBalle.Y, rotationInitialleBalle.Z);
+                Vector3 positionInitialleBalle = new Vector3(infoLancerBalle[3], infoLancerBalle[4], infoLancerBalle[5]);
+                Console.WriteLine("position initialle de la balle: X: {0} Y: {1} Z: {2}", positionInitialleBalle.X, positionInitialleBalle.Y, positionInitialleBalle.Z);
+                float vitesseInitialleBalle = infoLancerBalle[6];
+                float angleHorizontalBalle = infoLancerBalle[7];
+                float angleVerticalBalle = infoLancerBalle[8];
+                Console.WriteLine("info initialle de la balle: vitesse: {0} angle horizontale: {1} angle verticale: {2}", vitesseInitialleBalle, angleHorizontalBalle, angleVerticalBalle);
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("Erreur dans la réception et/ou la désérialisation du lancer de la balle");
                 Console.WriteLine(e.ToString());
             }
         }
