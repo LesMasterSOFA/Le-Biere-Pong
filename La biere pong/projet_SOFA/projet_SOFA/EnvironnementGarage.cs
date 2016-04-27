@@ -96,6 +96,7 @@ namespace AtelierXNA
       AffichageInfoLancer infoLancer { get; set; }
       bool ActiverLancer { get; set; }
       bool ActiverInfo { get; set; }
+      AI Ai { get; set; }
 
       public EnvironnementGarage(Game game, GestionEnvironnement gestionEnv, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher, string nomAvant, string nomArrière,
           string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture, string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture)
@@ -160,6 +161,7 @@ namespace AtelierXNA
          ListePositionVerresAdv = new List<Vector3>();
          FixerLesPositions();
          AjouterBiere();
+         Ai = new AI(ModeDifficulté.Difficile);
 
          Table = new ObjetDeBase(Game, "table_plastique", "table_plastique", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
          BoundingTable = new BoundingBox(new Vector3(-DIMENSION_TABLE.X / 2, DIMENSION_TABLE.Y - 0.1f, -DIMENSION_TABLE.Z / 2), new Vector3(DIMENSION_TABLE.X / 2, DIMENSION_TABLE.Y, DIMENSION_TABLE.Z / 2));
@@ -287,6 +289,14 @@ namespace AtelierXNA
             TempsTotal += TempsÉcouléDepuisMAJ;
             EffectuerÉvènement();
             TempsÉcouléDepuisMAJ = 0;
+         }
+         float[] tableau = Ai.GérerAI();
+         if (GestionClavier.EstNouvelleTouche(Keys.N))
+         {
+             Game.Components.Insert(13, new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalleAdv,
+                                           tableau[0], tableau[1],
+                                           tableau[2], BoundingTable, BoundingBonhommeSecondaire,
+                                           ListePositionVerres, RAYON_VERRE, HAUTEUR_VERRE, DIMENSION_TABLE.Y, DIMENSION_TERRAIN, false, INTERVALLE_MAJ_STANDARD));
          }
          base.Update(gameTime);
       }

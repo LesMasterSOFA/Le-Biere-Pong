@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AffichageInfoLancer.cs" />
+    <Compile Include="AI.cs" />
     <Compile Include="Atelier.cs" />
     <Compile Include="ATH.cs" />
     <Compile Include="BallePhysique.cs" />
