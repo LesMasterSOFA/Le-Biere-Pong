@@ -19,10 +19,11 @@ namespace AtelierXNA
         RessourcesManager<SpriteFont> GestionFonts { get; set; }
         SpriteBatch GestionSprites { get; set; }
 
-        float InfoAngle { get; set; }
-        int Force { get; set; }
+        public float InfoAngleHor { get; set; }
+        public float InfoAngleVert { get; set; }
+        public float Force { get; set; }
 
-        public AffichageInfoLancer(Game game,int force)
+        public AffichageInfoLancer(Game game, float force)
             : base(game)
         {
             Force = force;
@@ -31,19 +32,25 @@ namespace AtelierXNA
         public override void Initialize()
         {
             CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
-            
-            if (CaméraJeu.Vue.Forward.X != 0 &&CaméraJeu.Vue.Forward.Z != 0)
+            if (CaméraJeu.Vue.Forward.Z != 0)
             {
-                InfoAngle = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                if (CaméraJeu.Position.Z > 0)
+                {
+                    InfoAngleHor = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                }
+                else
+                {
+                    InfoAngleHor = (float)MathHelper.ToDegrees((float)Math.Tan(-CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                }
+                InfoAngleVert = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.Y / CaméraJeu.Vue.Forward.Z)) + 31.3f;
             }
             else 
             {
-                InfoAngle = 0;
+                InfoAngleHor = 0;
+                InfoAngleVert = 0;
             }
-
             GestionFonts = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
-
             base.Initialize();
         }
         public override void Update(GameTime gameTime)
@@ -53,8 +60,9 @@ namespace AtelierXNA
         public override void Draw(GameTime gameTime)
         {
             GestionSprites.Begin();
-            GestionSprites.DrawString(GestionFonts.Find("Impact20"), "Force : " + Force.ToString(), Vector2.Zero, Color.Black);
-            GestionSprites.DrawString(GestionFonts.Find("Impact20"), "Angle : " + InfoAngle.ToString(), new Vector2(0,50), Color.Black);
+            GestionSprites.DrawString(GestionFonts.Find("Impact20"), "Force : " + ((int)Force).ToString() + "%", Vector2.Zero, Color.Black);
+            GestionSprites.DrawString(GestionFonts.Find("Impact20"), "Angle horizontal : " + Math.Abs(InfoAngleHor).ToString("0.00") + "°", new Vector2(0, 50), Color.Black);
+            GestionSprites.DrawString(GestionFonts.Find("Impact20"), "Angle vertical : " + InfoAngleVert.ToString("0.00") + "°", new Vector2(0, 100), Color.Black);
             GestionSprites.End();
             base.Draw(gameTime);
         }

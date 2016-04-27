@@ -104,7 +104,7 @@ namespace AtelierXNA
                 Game.Components.Remove(indicateurForce);
             }
             Game.Components.Add(indicateurForce);
-            BoutonLancer.Enabled = false;
+            BoutonLancer.Enabled = true;
         }
         public override void Update(GameTime gameTime)
         {

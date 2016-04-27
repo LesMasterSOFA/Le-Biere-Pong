@@ -62,3 +62,4 @@ Content\Sounds\ChansonMenu.xnb
 Content\Sounds\ChansonMenu.wma
 Content\Sounds\Tadah.xnb
 Content\Sounds\WOW.xnb
+Content\Sounds\Bounce2.xnb

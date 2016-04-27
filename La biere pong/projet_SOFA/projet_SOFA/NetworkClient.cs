@@ -386,15 +386,10 @@ namespace AtelierXNA
             }
         }
 
-        public void EnvoyerInfoAnimationJoueur(JoueurMultijoueur joueurÀAnimer, TypeActionPersonnage nomAnimation)
+        public void EnvoyerInfoAnimationJoueur(bool estJoueurPrincipal, TypeActionPersonnage nomAnimation)
         {
-            int indiceJoueur = 0;
-            if(joueurÀAnimer == ListeJoueurs[1])
-            {
-                indiceJoueur = 1;
-            }
             byte[] message = new byte[2];
-            message[0] = (byte)indiceJoueur;
+            message[0] = (byte)Convert.ToByte(estJoueurPrincipal);
             message[1] = (byte)nomAnimation;
             EnvoyerMessageServeur(PacketTypes.ANIMATION, message);
 
@@ -405,9 +400,19 @@ namespace AtelierXNA
             Console.WriteLine("Essaie gestion animation");
             try
             {
-                int indiceJoueur = infoAnimation[0];
+               Personnage personnageÀChanger;
+               List<Personnage> ListePerso = new List<Personnage>();
+                foreach (Personnage perso in Game.Components.Where(item => item is Personnage))
+                {
+                   ListePerso.Add(perso);
+                }
+                bool estTourJoueurPrincipal = Convert.ToBoolean(infoAnimation[0]);
                 TypeActionPersonnage animation = (TypeActionPersonnage) infoAnimation[1];
-                ListeJoueurs[indiceJoueur].ChangerAnimation(animation, ListeJoueurs[indiceJoueur]);
+                if(estTourJoueurPrincipal)
+                   personnageÀChanger = ListePerso.Find(perso => perso.Position.Z > 0);
+                else
+                   personnageÀChanger = ListePerso.Find(perso => perso.Position.Z < 0);
+                ListeJoueurs[0].ChangerAnimation(animation, personnageÀChanger);
             }
 
             catch(Exception e)

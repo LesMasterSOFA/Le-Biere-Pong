@@ -13,12 +13,12 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {
    public enum Environnements { Garage, SalleManger, SousSol } //À ajouter les environnement dedans
-   public enum SuperboyPersonnage {superBoy, superBoyTex,superBoy_tex2 } //Contient les informations pour le personnage Superboy
+   public enum SuperboyPersonnage { superBoy, superBoyTex, superBoy_tex2 } //Contient les informations pour le personnage Superboy
 
    public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
    {
       const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-      
+
       public Caméra CaméraJeu { get; set; }
 
       public Environnements NomEnvironnement { get; private set; }
@@ -29,28 +29,29 @@ namespace AtelierXNA
       public string PersonnageJoueurSecondaireTexture { get; private set; }
 
       public GestionEnvironnement(Game game, Environnements nomEnvironnement, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture, string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture)
-          : base(game)
+         : base(game)
       {
-          NomEnvironnement = nomEnvironnement;
-          PersonnageJoueurPrincipalModel = personnageJoueurPrincipalModel;
-          PersonnageJoueurPrincipalTexture = personnageJoueurPrincipalTexture;
-          PersonnageJoueurSecondaireModel = personnageJoueurSecondaireModel;
-          PersonnageJoueurSecondaireTexture = personnageJoueurSecondaireTexture;
+         NomEnvironnement = nomEnvironnement;
+         PersonnageJoueurPrincipalModel = personnageJoueurPrincipalModel;
+         PersonnageJoueurPrincipalTexture = personnageJoueurPrincipalTexture;
+         PersonnageJoueurSecondaireModel = personnageJoueurSecondaireModel;
+         PersonnageJoueurSecondaireTexture = personnageJoueurSecondaireTexture;
       }
 
       //Constructeur Sérialiseur -> reste à ajouter modif personnages ***
       public GestionEnvironnement(Game game, InfoGestionEnvironnement infoGestionEnvironnement)
-          : base(game)
+         : base(game)
       {
-          NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
+         NomEnvironnement = infoGestionEnvironnement.NomEnvironnement;
       }
 
-      public override void Initialize() 
+      public override void Initialize()
       {
          //Instanciation et ajout dans components de caméra
-         Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
+         Vector3 positionCaméra = new Vector3(0, 1.5f, 1.0f);
+         //Vector3 positionCaméra = new Vector3(-2, 1.5f, 0f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-         CaméraJeu = new  CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+         CaméraJeu = new CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
          Game.Services.AddService(typeof(Caméra), CaméraJeu);
          InstancierEnvironnement();
@@ -61,18 +62,16 @@ namespace AtelierXNA
       {
               switch (NomEnvironnement)
               {
-
                   case Environnements.Garage:
-                      EnvironnementGarage Garage = new EnvironnementGarage(Game, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
+                      EnvironnementGarage Garage = new EnvironnementGarage(Game,this, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                       Game.Components.Add(Garage);
                       break;
                   case Environnements.SalleManger:
-                      EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
+                      EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game,this, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                       Game.Components.Add(SalleManger);
                       break;
                   case Environnements.SousSol:
-                      EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture);
-                      Game.Components.Add(SousSol);
+                      EnvironnementSousSol SousSol = new EnvironnementSousSol(Game,this, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                       break;
                   default:
                       throw new Exception();
@@ -81,23 +80,23 @@ namespace AtelierXNA
 
       public override void Update(GameTime gameTime)
       {
-          //pour essai
-          //if (GestionClavier.EstNouvelleTouche(Keys.E))
-          //{
-          //   GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
-          //}
-          base.Update(gameTime);
+         //pour essai
+         //if (GestionClavier.EstNouvelleTouche(Keys.E))
+         //{
+         //   GestionÉvénements.EnleverVerres(VerresJoueur, Game, VerreJoueur1, true, true);
+         //}
+         base.Update(gameTime);
       }
-    }
+   }
 
-    [Serializable]
-    public class InfoGestionEnvironnement
-    {
-        public Environnements NomEnvironnement { get; private set; }
-        public InfoGestionEnvironnement(Environnements nomEnvironnement)
-        {
-            NomEnvironnement = nomEnvironnement;
-        }
-    }
+   [Serializable]
+   public class InfoGestionEnvironnement
+   {
+      public Environnements NomEnvironnement { get; private set; }
+      public InfoGestionEnvironnement(Environnements nomEnvironnement)
+      {
+         NomEnvironnement = nomEnvironnement;
+      }
+   }
 }
 

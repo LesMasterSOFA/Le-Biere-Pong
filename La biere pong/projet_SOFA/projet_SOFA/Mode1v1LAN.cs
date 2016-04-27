@@ -39,6 +39,7 @@ namespace AtelierXNA
         Texture2D BoutonBleu { get; set; }
         bool MenuActif { get; set; }
         InputManager GestionInput { get; set; }
+        List<Personnage> ListePerso { get; set; }
         
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
@@ -65,6 +66,7 @@ namespace AtelierXNA
 
         protected override void LoadContent()
         {
+
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
@@ -89,8 +91,8 @@ namespace AtelierXNA
                 //Pour tester l'animation
                 if(GestionInput.EstNouvelleTouche(Keys.B))
                 {
-                    JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, JoueurPrincipal);
-                    JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(JoueurPrincipal, TypeActionPersonnage.Boire);
+                   JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(perso => perso.Position.Z > 0));
+                   JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(false, TypeActionPersonnage.Boire);
                 }
                 //Pour tester envoie vector3 position balle
                 if(GestionInput.EstNouvelleTouche(Keys.X))
@@ -126,6 +128,12 @@ namespace AtelierXNA
                 EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
+
+                ListePerso = new List<Personnage>();
+                foreach (Personnage perso in Game.Components.Where(item => item is Personnage))
+                {
+                   ListePerso.Add(perso);
+                }
             }
         }
 

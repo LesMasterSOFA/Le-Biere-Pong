@@ -18,6 +18,8 @@ namespace AtelierXNA
         const float DELTA_LACET = MathHelper.Pi / 180; // 1 degré à la fois
         const float DELTA_TANGAGE = MathHelper.Pi / 180; // 1 degré à la fois
         const float RAYON_COLLISION = 1f;
+        const float TEMPS_LANCER = 2.71f;
+        const float TEMPS_TOURNER = MathHelper.Pi + 2 * TEMPS_LANCER;
 
 
         Vector3 Direction { get; set; }
@@ -32,6 +34,9 @@ namespace AtelierXNA
         float TempsÉcouléDepuisMAJ { get; set; }
         InputManager GestionInput { get; set; }
 
+        public bool EstMouvCamActif { get; set; }
+        bool RotationAntiHoraire { get; set; }
+        public float TempsTotal { get; set; }
    
 
         public CaméraJoueur(Game jeu, Vector3 positionCaméra, Vector3 cible, Vector3 orientation, float intervalleMAJ)
@@ -44,6 +49,12 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
+            Cible = new Vector3(0, 1f, 0);
+
+            TempsTotal = 0;
+            EstMouvCamActif = false;
+            RotationAntiHoraire = true;
+
             VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
             VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
             VitesseRotationBas = VITESSE_INITIALE_ROTATION;
@@ -78,8 +89,10 @@ namespace AtelierXNA
             TempsÉcouléDepuisMAJ += TempsÉcoulé;
             if (TempsÉcouléDepuisMAJ >= IntervalleMAJ)
             {
+                TempsTotal += TempsÉcouléDepuisMAJ;
                 GérerRotation();
                 CréerPointDeVue();
+                MouvJoueurPrincipal();
                 TempsÉcouléDepuisMAJ = 0;
             }
             base.Update(gameTime);
@@ -113,26 +126,42 @@ namespace AtelierXNA
             {
                 matriceTangage = Matrix.CreateFromAxisAngle(Latéral, -DELTA_TANGAGE * VitesseRotationBas);
             }
-
-
-
-            if (Vue.Forward.Y <= -MathHelper.Pi/6)
+            if (Position.Z > 0)
             {
-                VitesseRotationHaut = 0f;
-            }
-            else if (Vue.Forward.Y >= 0.5f)
-            {
-                VitesseRotationBas = 0f;
+                if (Vue.Forward.Y <= -MathHelper.Pi / 6)
+                {
+                    VitesseRotationHaut = 0f;
+                }
+                else if (Vue.Forward.Y >= 0.5f)
+                {
+                    VitesseRotationBas = 0f;
+                }
+                else
+                {
+                    VitesseRotationBas = VITESSE_INITIALE_ROTATION;
+                    VitesseRotationHaut = VITESSE_INITIALE_ROTATION;
+                }
             }
             else
             {
-                VitesseRotationBas = VITESSE_INITIALE_ROTATION;
-                VitesseRotationHaut = VITESSE_INITIALE_ROTATION;
+
+                if (Vue.Forward.Y >= MathHelper.Pi / 6)
+                {
+                    VitesseRotationHaut = 0f;
+                }
+                else if (Vue.Forward.Y <= -0.5f)
+                {
+                    VitesseRotationBas = 0f;
+                }
+                else
+                {
+                    VitesseRotationBas = VITESSE_INITIALE_ROTATION;
+                    VitesseRotationHaut = VITESSE_INITIALE_ROTATION;
+                }
             }
             Direction = Vector3.Transform(Direction, matriceTangage);
             Direction = Vector3.Normalize(Direction);
-            OrientationVerticale = Vector3.Transform(OrientationVerticale, matriceTangage);
-            OrientationVerticale = Vector3.Normalize(OrientationVerticale);
+            OrientationVerticale = Vector3.Up;
         }
         private void GérerLacet()
         {
@@ -145,26 +174,104 @@ namespace AtelierXNA
             {
                 matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, DELTA_LACET * VitesseRotationGauche);
             }
-
-
-
-            if (Vue.Forward.X <= -0.15f)
+            if (Position.Z > 0)
             {
-                VitesseRotationDroite = 0f;
-            }
-            else if(Vue.Forward.X >= 0.15f)
-            {
-                VitesseRotationGauche = 0f;
+                if (Vue.Forward.X <= -0.15f)
+                {
+                    VitesseRotationDroite = 0f;
+                }
+                else if (Vue.Forward.X >= 0.15f)
+                {
+                    VitesseRotationGauche = 0f;
+                }
+                else
+                {
+                    VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
+                    VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
+                }
             }
             else
             {
-                VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
-                VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
+                if (Vue.Forward.X >= 0.15f)
+                {
+                    VitesseRotationDroite = 0f;
+                }
+                else if (Vue.Forward.X <= -0.15f)
+                {
+                    VitesseRotationGauche = 0f;
+                }
+                else
+                {
+                    VitesseRotationGauche = VITESSE_INITIALE_ROTATION;
+                    VitesseRotationDroite = VITESSE_INITIALE_ROTATION;
+                }
             }
             Direction = Vector3.Transform(Direction, matriceLacet);
             Direction = Vector3.Normalize(Direction);
             Latéral = Vector3.Cross(Direction, OrientationVerticale);
             Latéral = Vector3.Normalize(Latéral);
+        }
+
+        void MouvJoueurPrincipal()
+        {
+           if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)
+           {
+              if (Position.Z > 0)
+              {
+                 EffectuerMouvLancerCam(new Vector3(0, 0.005f, 0.007f));
+              }
+              else
+              {
+                 EffectuerMouvLancerCam(new Vector3(0, 0.005f, -0.007f));
+                 RotationAntiHoraire = false;
+              }
+           }
+           if (EstMouvCamActif && TempsTotal >= 2 * TEMPS_LANCER && TempsTotal <= TEMPS_TOURNER)
+           {
+               if (RotationAntiHoraire)
+               {
+                   EffectuerMouvTournerCam(1);
+               }
+               else
+               {
+                   EffectuerMouvTournerCam(-1);
+               }
+           }
+           if (EstMouvCamActif && TempsTotal >= TEMPS_TOURNER)
+           {
+              if (Position.Z < 0)
+              {
+                  EffectuerMouvLancerCam(new Vector3(0, -0.005f, 0.007f));
+              }
+              else
+              {
+                 EffectuerMouvLancerCam(new Vector3(0, -0.005f, -0.007f));
+              }
+           }
+           if (TempsTotal >= TEMPS_TOURNER + TEMPS_LANCER && EstMouvCamActif)
+           {
+              EstMouvCamActif = false;
+              RotationAntiHoraire = true;
+              if (Position.Z < 0)
+              {
+                 Déplacer(new Vector3(0, 1.5f, -1.0f), Cible, Vector3.Up);
+              }
+              else
+              {
+                 Déplacer(new Vector3(0, 1.5f, 1.0f), Cible, Vector3.Up);
+              }
+           }
+        }
+
+        void EffectuerMouvLancerCam(Vector3 mouvement)
+        {
+           Position += mouvement;
+           Déplacer(Position, Cible, Vector3.Up);
+        }
+        void EffectuerMouvTournerCam(int bord1OuMoins1)
+        {
+           float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
+           Déplacer(new Vector3(bord1OuMoins1 * rayon * (float)Math.Sin(TempsTotal - 2 * TEMPS_LANCER), Position.Y, bord1OuMoins1 * rayon * (float)Math.Cos(TempsTotal - 2 * TEMPS_LANCER)), Cible, Vector3.Up);
         }
     }
 }

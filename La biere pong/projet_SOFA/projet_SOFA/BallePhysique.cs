@@ -14,13 +14,13 @@ namespace AtelierXNA
 {
    public class BallePhysique : ObjetDeBase
    {
-      const float INCERTITUDE = 0.0000001f;
-      const float CONSTANTE_RESTITUTION_VERTICALE = 0.8f;
+      const float INCERTITUDE = 0.000001f;
+      const float CONSTANTE_RESTITUTION_VERT = 0.8f; 
       const float CONSTANTE_RESTITUTION_BONHOMME = 0.2f;
       const float COEFFICIENT_FROTTEMENT = 0.85f;
       const float CHANGEMENT_DIRECTION = -1f;
       const float GRAVITÉ = 9.81f;
-      const float RAYON_BALLE = 0.03f;
+      const float RAYON_BALLE = 0.02f;
       BoundingSphere SphèreBalle { get; set; }
       float VitesseInitiale { get; set; }
       float VitesseEnX { get; set; }
@@ -29,6 +29,7 @@ namespace AtelierXNA
       float IntervalleMAJ { get; set; }
       float TempsÉcouléDepuisMAJ { get; set; }
       float TempsTotal { get; set; }
+      float TempsRetirerBalle { get; set; }
       Vector3 PositionInitiale { get; set; }
       float AngleHorizontal { get; set; }
       float AngleVertical { get; set; }
@@ -40,13 +41,20 @@ namespace AtelierXNA
       float HauteurTable { get; set; }
       float RayonCollision { get; set; }
       float AngleLimiteVert { get; set; }
-      public bool EnleverBalle { get; private set; }
-      float Réduction { get; set; }
+      //float Réduction { get; set; }
       int IndexCollision { get; set; }
       float DimensionTerrain { get; set; }
+      SoundEffect Pong { get; set; }
+      public bool RetirerBalle { get; private set; }
+      public bool EstDansVerre { get; private set; }
+      public bool RebondSurTable { get; private set; }
+      public bool EstJoueurPrincipal { get; private set; }
+      public int IndexÀRetirer { get; private set; }
+      //public Vector3 PositionPrécédente { get; private set; }
 
       public BallePhysique(Game jeu, string nomModèle, string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
-           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, BoundingBox boundingBonhomme, List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float hauteurTable, float dimensionTerrain, float intervalleMAJ)
+                          float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, BoundingBox boundingBonhomme,
+                          List<Vector3> listePositionVerresAdv, float rayonVerre, float hauteurVerre, float hauteurTable, float dimensionTerrain, bool estJoeurPrincipal, float intervalleMAJ)
          : base(jeu, nomModèle, nomTexture, nomEffet, échelleInitiale, rotationInitiale, positionInitiale)
       {
          PositionInitiale = positionInitiale;
@@ -61,22 +69,38 @@ namespace AtelierXNA
          HauteurVerre = hauteurVerre;
          HauteurTable = hauteurTable;
          DimensionTerrain = dimensionTerrain;
+         EstJoueurPrincipal = estJoeurPrincipal;
          IntervalleMAJ = intervalleMAJ;
       }
 
+      public BallePhysique(Game jeu, string nomModèle, string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale)
+         : base(jeu, nomModèle, nomTexture, nomEffet, échelleInitiale, rotationInitiale, positionInitiale)
+      { }
+
       public override void Initialize()
       {
-         Réduction = 1;
-         EnleverBalle = false;
+         TempsRetirerBalle = 0;
+         //PositionPrécédente = PositionInitiale;
+         IndexÀRetirer = -1;
+         //Réduction = 1;
+         RebondSurTable = false;
+         EstDansVerre = false;
+         RetirerBalle = false;
          AngleLimiteVert = (float)Math.Atan(RayonVerre / HauteurVerre);
          RayonCollision = (float)Math.Sqrt(Math.Pow(HauteurVerre, 2) + Math.Pow(RayonVerre, 2));
-         VitesseEnX = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Sin(AngleHorizontal);
-         VitesseEnY = VitesseInitiale * (float)Math.Sin(AngleVertical);
+         VitesseEnX = Math.Abs(VitesseInitiale) * (float)Math.Cos(AngleVertical) * (float)Math.Sin(AngleHorizontal);
+         VitesseEnY = Math.Abs(VitesseInitiale) * (float)Math.Sin(AngleVertical);
          VitesseEnZ = VitesseInitiale * (float)Math.Cos(AngleVertical) * (float)Math.Cos(AngleHorizontal);
          SphèreBalle = new BoundingSphere(Position, RAYON_BALLE);
          TempsÉcouléDepuisMAJ = 0;
          TempsTotal = TempsÉcouléDepuisMAJ;
          base.Initialize();
+      }
+
+      protected override void LoadContent()
+      {
+          Pong = Game.Content.Load<SoundEffect>("Sounds\\Bounce2");
+          base.LoadContent();
       }
 
       public override void Update(GameTime gameTime)
@@ -86,6 +110,7 @@ namespace AtelierXNA
          if (TempsÉcouléDepuisMAJ >= IntervalleMAJ)
          {
             TempsTotal += TempsÉcouléDepuisMAJ;
+            TempsRetirerBalle += TempsÉcouléDepuisMAJ;
             EffectuerDéplacement();
             Monde = GetMonde();
             TempsÉcouléDepuisMAJ = 0;
@@ -94,15 +119,18 @@ namespace AtelierXNA
       }
       void EffectuerDéplacement()
       {
+         //PositionPrécédente = Position;
+
          GérerCollisionVerres();
          GérerCollisionTable();
          GérerCollisionBonhomme();
          GérerCollisionPlancher();
          GérerCollisionMursFond();
+         GérerTempsRetirerBaller();
 
          Position = new Vector3(PositionInitiale.X + VitesseEnX * TempsTotal,
                                 PositionInitiale.Y + VitesseEnY * TempsTotal - GRAVITÉ * TempsTotal * TempsTotal / 2,
-                                PositionInitiale.Z - VitesseEnZ * TempsTotal);
+                                PositionInitiale.Z + VitesseEnZ * TempsTotal);
          SphèreBalle = new BoundingSphere(Position, RAYON_BALLE);
       }
 
@@ -124,7 +152,7 @@ namespace AtelierXNA
       }
       void GérerCollisionVerres()
       {
-         if (Position.Y <= HauteurTable + HauteurVerre + RAYON_BALLE)
+         if (Position.Y <= HauteurTable + HauteurVerre + RAYON_BALLE && Position.Y >= HauteurTable - RAYON_BALLE)
          {
             for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
             {
@@ -133,9 +161,10 @@ namespace AtelierXNA
                {
                   if (CollisionEntreDeuxVerres() == true)
                   {
+                     Pong.Play();
                       VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
                       VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
-                     VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+                     VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
                      PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE + INCERTITUDE, Position.Z);
                   }
                   else
@@ -146,13 +175,16 @@ namespace AtelierXNA
                      {
                         if (Math.Abs(angleDirection - AngleLimiteVert) <= 0.2f)
                         {
+                           Pong.Play();
                             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
                             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
-                           VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+                           VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
                            PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE + INCERTITUDE, Position.Z);
                         }
                         else
                         {
+                           EstDansVerre = true;
+                           IndexÀRetirer = i;
                            VitesseEnX = 0;
                            VitesseEnZ = 0;
                            VitesseEnY = 0;
@@ -161,11 +193,12 @@ namespace AtelierXNA
                      }
                      else
                      {
+                        Pong.Play();
                         Vector2 replacerBalle = new Vector2(Position.X - ListePositionVerresAdv[i].X, Position.Z - ListePositionVerresAdv[i].Z);
                         replacerBalle = ((RayonVerre + RAYON_BALLE + INCERTITUDE) / replacerBalle.Length()) * replacerBalle;
                         VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
                         VitesseEnZ = COEFFICIENT_FROTTEMENT * CHANGEMENT_DIRECTION * VitesseEnZ;
-                        VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * (VitesseEnY - GRAVITÉ * TempsTotal);
+                        VitesseEnY = CONSTANTE_RESTITUTION_VERT * (VitesseEnY - GRAVITÉ * TempsTotal);
                         PositionInitiale = new Vector3(ListePositionVerresAdv[i].X + replacerBalle.X, Position.Y, ListePositionVerresAdv[i].Z + replacerBalle.Y);
                      }
                   }
@@ -179,17 +212,30 @@ namespace AtelierXNA
       {
          if (SphèreBalle.Intersects(BoundingTable))
          {
-            PositionInitiale = new Vector3(Position.X, HauteurTable + RAYON_BALLE + INCERTITUDE, Position.Z);
-            VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+            Pong.Play();
+            if (PositionInitiale.Y <= BoundingTable.Min.Y)
+            {
+               VitesseEnY = CHANGEMENT_DIRECTION * CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+               PositionInitiale = new Vector3(Position.X, BoundingTable.Min.Y - RAYON_BALLE - INCERTITUDE, Position.Z);
+            }
+            else
+            {
+               RebondSurTable = true;
+               VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+               PositionInitiale = new Vector3(Position.X, HauteurTable + RAYON_BALLE + INCERTITUDE, Position.Z);
+            }
             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
             TempsTotal = 0;
-            if (Math.Abs(VitesseEnZ) < 0.1f)
-            {
-               Réduction += 0.04f;
-               EnleverBalle = true;
-               VitesseEnY /= Réduction;
-            }
+            //if (Math.Abs(VitesseEnZ) < 0.1f)
+            //{
+            //   Réduction += 0.04f;
+            //   VitesseEnY /= Réduction;
+            //   if (VitesseEnY < 0.3f)
+            //   {
+            //      RetirerBalle = true;
+            //   }
+            //}
          }
       }
 
@@ -198,8 +244,8 @@ namespace AtelierXNA
           if (SphèreBalle.Intersects(BoundingBonhomme))
           {
               VitesseEnX = CONSTANTE_RESTITUTION_BONHOMME * VitesseEnX;
-              VitesseEnZ = CHANGEMENT_DIRECTION * CONSTANTE_RESTITUTION_BONHOMME * VitesseEnZ;
-              VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * (VitesseEnY - GRAVITÉ * TempsTotal);
+              VitesseEnZ = CONSTANTE_RESTITUTION_BONHOMME * CHANGEMENT_DIRECTION * VitesseEnZ;
+              VitesseEnY = CONSTANTE_RESTITUTION_BONHOMME * (VitesseEnY - GRAVITÉ * TempsTotal);
               PositionInitiale = new Vector3(Position.X, Position.Y, Position.Z >= (BoundingBonhomme.Max.Z + BoundingBonhomme.Min.Z) / 2 ? BoundingBonhomme.Max.Z + RAYON_BALLE + INCERTITUDE : BoundingBonhomme.Min.Z - RAYON_BALLE - INCERTITUDE);
               TempsTotal = 0;
           }
@@ -209,17 +255,21 @@ namespace AtelierXNA
       {
          if (Position.Y <= RAYON_BALLE)
          {
+            Pong.Play();
             PositionInitiale = new Vector3(Position.X, RAYON_BALLE + INCERTITUDE, Position.Z);
-            VitesseEnY = CONSTANTE_RESTITUTION_VERTICALE * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
+            VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
             TempsTotal = 0;
-            if (Math.Abs(VitesseEnZ) < 0.1f)
-            {
-               Réduction += 0.04f;
-               EnleverBalle = true;
-               VitesseEnY /= Réduction;
-            }
+            //if (Math.Abs(VitesseEnZ) < 0.1f)
+            //{
+            //   Réduction += 0.04f;
+            //   VitesseEnY /= Réduction;
+            //   if (VitesseEnY < 0.3f)
+            //   {
+            //      RetirerBalle = true;
+            //   }
+            //}
          }
       }
 
@@ -227,12 +277,22 @@ namespace AtelierXNA
       {
           if (Math.Abs(Position.Z) >= DimensionTerrain / 2 - RAYON_BALLE)
           {
+              Pong.Play();
               VitesseEnX = VitesseEnX;
               VitesseEnZ = CHANGEMENT_DIRECTION * VitesseEnZ;
-              VitesseEnY = 1 * (VitesseEnY - GRAVITÉ * TempsTotal);
-              PositionInitiale = new Vector3(Position.X, Position.Y, Position.Z > 0 ? DimensionTerrain / 2 - RAYON_BALLE - INCERTITUDE : -DimensionTerrain / 2 + RAYON_BALLE + INCERTITUDE);
+              VitesseEnY = CONSTANTE_RESTITUTION_VERT * (VitesseEnY - GRAVITÉ * TempsTotal);
+              float distanZ = DimensionTerrain / 2 - RAYON_BALLE - INCERTITUDE;
+              PositionInitiale = new Vector3(Position.X, Position.Y, Position.Z > 0 ? DimensionTerrain / 2 - RAYON_BALLE - INCERTITUDE : -distanZ);
               TempsTotal = 0;
           }
+      }
+
+      void GérerTempsRetirerBaller()
+      {
+         if (TempsRetirerBalle >= 2.71f)
+         {
+            RetirerBalle = true;
+         }
       }
 
       public override Matrix GetMonde()

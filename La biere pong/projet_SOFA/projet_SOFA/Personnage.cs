@@ -60,16 +60,16 @@ namespace AtelierXNA
                 switch (NomModèle)
                 {
                     case "superBoyLancer":
-                        joueur.ChangerAnimation(TypeActionPersonnage.ApresLancer, this.joueur);
+                        joueur.ChangerAnimation(TypeActionPersonnage.ApresLancer, this);
                         break;
                     case "superBoyBoire":
-                        joueur.ChangerAnimation(TypeActionPersonnage.ApresBoire, this.joueur);
+                        joueur.ChangerAnimation(TypeActionPersonnage.ApresBoire, this);
                         break;
                 }
             }
             if (time.Seconds >= animationPlayer.CurrentClip.Duration.Seconds + 1 && NomModèle != "superBoy")
             {
-                joueur.ChangerAnimation(TypeActionPersonnage.Rien, this.joueur);
+                joueur.ChangerAnimation(TypeActionPersonnage.Rien, this);
             }
             base.Update(gameTime);
         }
