@@ -30,7 +30,7 @@ namespace AtelierXNA
       {
          PériphériqueGraphique = new GraphicsDeviceManager(this);
          Content.RootDirectory = "Content";
-         PériphériqueGraphique.SynchronizeWithVerticalRetrace = false;
+         PériphériqueGraphique.SynchronizeWithVerticalRetrace = true;
          Résolution = new Vector2(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
          PériphériqueGraphique.PreferMultiSampling = false;
          PériphériqueGraphique.PreferredBackBufferWidth = (int)Résolution.X;
