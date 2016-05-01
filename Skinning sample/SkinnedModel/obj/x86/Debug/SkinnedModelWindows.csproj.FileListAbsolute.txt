@@ -28,3 +28,9 @@ C:\Users\201446925\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\De
 C:\Users\201446925\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\201446925\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\SkinnedModel.dll
 C:\Users\201446925\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\SkinnedModel.pdb
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Debug\SkinnedModel.dll
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Debug\SkinnedModel.pdb
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\SkinnedModelWindows.csprojResolveAssemblyReference.cache
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\SkinnedModel.dll
+C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Debug\SkinnedModel.pdb
