@@ -83,7 +83,7 @@ namespace AtelierXNA
 
         void InitialiserGarage()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
             ModifierActivation();
             if (EstPartieActive)
             {
@@ -99,7 +99,7 @@ namespace AtelierXNA
 
         void InitialiserSalle()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
             ModifierActivation();
             if (EstPartieActive)
             {
@@ -116,7 +116,7 @@ namespace AtelierXNA
 
         void InitialiserSousSol()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Local);
             ModifierActivation();
             if (EstPartieActive)
             {

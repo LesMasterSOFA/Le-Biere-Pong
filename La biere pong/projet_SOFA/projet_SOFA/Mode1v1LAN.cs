@@ -125,7 +125,7 @@ namespace AtelierXNA
         {
             if (EstPartieActive)
             {
-                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.LAN);
+                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.LAN);
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
 

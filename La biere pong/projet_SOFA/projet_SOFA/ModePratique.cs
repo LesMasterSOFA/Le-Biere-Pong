@@ -82,7 +82,7 @@ namespace AtelierXNA
 
         void InitialiserGarage()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoy_tex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoy_tex2.ToString(),TypePartie.Pratique);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.Garage, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Pratique);
             ModifierActivation();
             if (EstPartieActive)
             {
@@ -99,7 +99,7 @@ namespace AtelierXNA
 
         void InitialiserSalle()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Pratique);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Pratique);
             ModifierActivation();
             if (EstPartieActive)
             {
@@ -117,7 +117,7 @@ namespace AtelierXNA
 
         void InitialiserSousSol()
         {
-            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Pratique);
+            EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.Pratique);
             ModifierActivation();
             if (EstPartieActive)
             {

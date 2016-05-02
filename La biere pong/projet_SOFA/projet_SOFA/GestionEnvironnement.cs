@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {
     public enum Environnements { Garage, SalleManger, SousSol } //À ajouter les environnement dedans
-    public enum SuperboyPersonnage { superBoy, superBoyTex, superBoy_tex2 } //Contient les informations pour le personnage Superboy
+    public enum SuperboyPersonnage { superBoy, superBoyTex, superBoyTex2 } //Contient les informations pour le personnage Superboy
     public enum TypePartie { Pratique, LAN, Histoire, Local }
     public class GestionEnvironnement : Microsoft.Xna.Framework.GameComponent
     {
@@ -66,15 +66,15 @@ namespace AtelierXNA
             switch (NomEnvironnement)
             {
                 case Environnements.Garage:
-                    EnvironnementGarage Garage = new EnvironnementGarage(Game, this, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.76f, 0.74f, 1.8f), 0.8f, TypeDePartie);
+                    EnvironnementGarage Garage = new EnvironnementGarage(Game, this, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture, new Vector3(0.76f, 0.74f, 1.8f), 0.8f, TypeDePartie);
                     Game.Components.Add(Garage);
                     break;
                 case Environnements.SalleManger:
-                    EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, this, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.9f, 0.847f, 2.2f), 1f,TypeDePartie);
+                    EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, this, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture, new Vector3(0.9f, 0.847f, 2.2f), 1f, TypeDePartie);
                     Game.Components.Add(SalleManger);
                     break;
                 case Environnements.SousSol:
-                    EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, this, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.76f, 0.74f, 1.8f), 0.8f, TypeDePartie);
+                    EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, this, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", PersonnageJoueurPrincipalModel, PersonnageJoueurPrincipalTexture, PersonnageJoueurSecondaireModel, PersonnageJoueurSecondaireTexture, new Vector3(0.76f, 0.74f, 1.8f), 0.8f, TypeDePartie);
                     Game.Components.Add(SousSol);
                     break;
                 default:
