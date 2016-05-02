@@ -24,9 +24,9 @@ namespace AtelierXNA
       ObjetDeBase Table { get; set; }
       public EnvironnementSalleManger(Game game, GestionEnvironnement gestionEnv, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher,
                                 string nomAvant, string nomArrière, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
-                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, Vector3 dimensionTable, float distanceVerre)
+                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, Vector3 dimensionTable, float distanceVerre, TypePartie typeDePartie)
          : base(game, gestionEnv, nomGauche, nomDroite, nomPlafond, nomPlancher, nomAvant, nomArrière, personnageJoueurPrincipalModel, personnageJoueurPrincipalTexture,
-                personnageJoueurSecondaireModel, personnageJoueurSecondaireTexture, dimensionTable, distanceVerre)
+                personnageJoueurSecondaireModel, personnageJoueurSecondaireTexture, dimensionTable, distanceVerre,typeDePartie)
       { }
       public override void Initialize()
       {

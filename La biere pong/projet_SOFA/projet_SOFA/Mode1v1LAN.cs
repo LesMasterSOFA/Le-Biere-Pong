@@ -114,7 +114,7 @@ namespace AtelierXNA
                 //pour tester envoie lancer balle
                 if(GestionInput.EstNouvelleTouche(Keys.N))
                 {
-                    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(new Vector3(1, 2, 3), new Vector3(4, 5, 6), 7f, 8f, 9f);
+                    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(7f, 8f, 9f);
                 }
                 
             }
@@ -125,7 +125,7 @@ namespace AtelierXNA
         {
             if (EstPartieActive)
             {
-                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
+                EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.LAN);
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
 

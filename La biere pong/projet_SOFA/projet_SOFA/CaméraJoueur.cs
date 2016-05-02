@@ -37,8 +37,9 @@ namespace AtelierXNA
         public bool EstMouvCamActif { get; set; }
         bool RotationAntiHoraire { get; set; }
         public float TempsTotal { get; set; }
+        GestionEnvironnement gestionEnviro { get; set; }
         ATH ath { get; set; }
-   
+
 
         public CaméraJoueur(Game jeu, Vector3 positionCaméra, Vector3 cible, Vector3 orientation, float intervalleMAJ)
             : base(jeu)
@@ -50,6 +51,11 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
+            foreach (GestionEnvironnement gestion in Game.Components.Where(gestion => gestion is GestionEnvironnement))
+            {
+                gestionEnviro = gestion;
+            }
+
             Cible = new Vector3(0, 1f, 0);
 
             TempsTotal = 0;
@@ -104,7 +110,7 @@ namespace AtelierXNA
             return GestionInput.EstEnfoncée(touche) ? 1 : 0;
         }
 
-   
+
         private void GérerRotation()
         {
             if (GestionInput.EstEnfoncée(Keys.Right) || GestionInput.EstEnfoncée(Keys.Left))
@@ -215,69 +221,79 @@ namespace AtelierXNA
 
         void MouvJoueurPrincipal()
         {
-           if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)
-           {
-              if (Position.Z > 0)
-              {
-                 EffectuerMouvLancerCam(new Vector3(0, 0.005f, 0.007f));
-              }
-              else
-              {
-                 EffectuerMouvLancerCam(new Vector3(0, 0.005f, -0.007f));
-                 RotationAntiHoraire = false;
-              }
-           }
-           if (EstMouvCamActif && TempsTotal >= 2 * TEMPS_LANCER && TempsTotal <= TEMPS_TOURNER)
-           {
-               if (RotationAntiHoraire)
-               {
-                   EffectuerMouvTournerCam(1);
-               }
-               else
-               {
-                   EffectuerMouvTournerCam(-1);
-               }
-           }
-           if (EstMouvCamActif && TempsTotal >= TEMPS_TOURNER)
-           {
-              if (Position.Z < 0)
-              {
-                  EffectuerMouvLancerCam(new Vector3(0, -0.005f, 0.007f));
-              }
-              else
-              {
-                 EffectuerMouvLancerCam(new Vector3(0, -0.005f, -0.007f));
-              }
-           }
-           if (TempsTotal >= TEMPS_TOURNER + TEMPS_LANCER && EstMouvCamActif)
-           {
-              EstMouvCamActif = false;
-              RotationAntiHoraire = true;
-              foreach (ATH hud in Game.Components.Where(boogey => boogey is ATH))
-              {
-                 ath = hud;
-              }
-              ath.BoutonLancer.EstActif = !ath.BoutonLancer.EstActif;
-              if (Position.Z < 0)
-              {
-                 Déplacer(new Vector3(0, 1.5f, -1.0f), Cible, Vector3.Up);
-              }
-              else
-              {
-                 Déplacer(new Vector3(0, 1.5f, 1.0f), Cible, Vector3.Up);
-              }
-           }
+            foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
+            {
+                ath = hud;
+            }
+
+            if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)
+            {
+                if (Position.Z > 0)
+                {
+                    EffectuerMouvLancerCam(new Vector3(0, 0.005f, 0.007f));
+                }
+                else
+                {
+                    EffectuerMouvLancerCam(new Vector3(0, 0.005f, -0.007f));
+                    RotationAntiHoraire = false;
+                }
+            }
+            if (EstMouvCamActif && TempsTotal >= 2 * TEMPS_LANCER && TempsTotal <= TEMPS_TOURNER)
+            {
+                ath.BoutonLancer.EstActif = false;
+                if (RotationAntiHoraire)
+                {
+                    EffectuerMouvTournerCam(1);
+                }
+                else
+                {
+                    EffectuerMouvTournerCam(-1);
+                }
+            }
+            if (EstMouvCamActif && TempsTotal >= TEMPS_TOURNER)
+            {
+                if (Position.Z < 0)
+                {
+                    EffectuerMouvLancerCam(new Vector3(0, -0.005f, 0.007f));
+                }
+                else
+                {
+                    EffectuerMouvLancerCam(new Vector3(0, -0.005f, -0.007f));
+                }
+            }
+            if (TempsTotal >= TEMPS_TOURNER + TEMPS_LANCER && EstMouvCamActif)
+            {
+                EstMouvCamActif = false;
+                RotationAntiHoraire = true;
+                if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique)
+                {
+                    ath.BoutonLancer.EstActif = true;
+                }
+                else if (gestionEnviro.TypeDePartie == TypePartie.LAN)
+                {
+                    ath.EstTourJoueurPrincipal = !ath.EstTourJoueurPrincipal;
+                    ath.BoutonLancer.EstActif = ath.EstTourJoueurPrincipal;
+                }
+                if (Position.Z < 0)
+                {
+                    Déplacer(new Vector3(0, 1.5f, -1.0f), Cible, Vector3.Up);
+                }
+                else
+                {
+                    Déplacer(new Vector3(0, 1.5f, 1.0f), Cible, Vector3.Up);
+                }
+            }
         }
 
         void EffectuerMouvLancerCam(Vector3 mouvement)
         {
-           Position += mouvement;
-           Déplacer(Position, Cible, Vector3.Up);
+            Position += mouvement;
+            Déplacer(Position, Cible, Vector3.Up);
         }
         void EffectuerMouvTournerCam(int bord1OuMoins1)
         {
-           float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
-           Déplacer(new Vector3(bord1OuMoins1 * rayon * (float)Math.Sin(TempsTotal - 2 * TEMPS_LANCER), Position.Y, bord1OuMoins1 * rayon * (float)Math.Cos(TempsTotal - 2 * TEMPS_LANCER)), Cible, Vector3.Up);
+            float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
+            Déplacer(new Vector3(bord1OuMoins1 * rayon * (float)Math.Sin(TempsTotal - 2 * TEMPS_LANCER), Position.Y, bord1OuMoins1 * rayon * (float)Math.Cos(TempsTotal - 2 * TEMPS_LANCER)), Cible, Vector3.Up);
         }
     }
 }

@@ -73,10 +73,12 @@ namespace AtelierXNA
       bool ActiverInfo { get; set; }
       Random RandGen { get; set; }
       AI Ai { get; set; }
+      TypePartie TypeDePartie { get; set; }
+      ATH ath { get; set; }
 
       public EnrivonnementDeBase(Game game, GestionEnvironnement gestionEnv, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher,
                                 string nomAvant, string nomArriËre, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
-                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, Vector3 dimensionTable, float distanceVerre)
+                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, Vector3 dimensionTable, float distanceVerre, TypePartie typePartie)
          : base(game)
       {
          NomGauche = nomGauche;
@@ -92,6 +94,7 @@ namespace AtelierXNA
          gestionEnviro = gestionEnv;
          DimensionTable = dimensionTable;
          DistanceVerre = distanceVerre;
+         TypeDePartie = typePartie;
       }
       public override void Initialize()
       {
@@ -201,20 +204,55 @@ namespace AtelierXNA
          }
       }
 
-      public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
       {
          float Temps…coulÈ = (float)gameTime.ElapsedGameTime.TotalSeconds;
          Temps…coulÈDepuisMAJ += Temps…coulÈ;
          if (Temps…coulÈDepuisMAJ >= INTERVALLE_MAJ_STANDARD)
          {
             TempsTotal += Temps…coulÈDepuisMAJ;
-            Effectuer…vËnement();
+            if (Game.Components.Where(net => net is NetworkClient).Count() == 1)
+            {
+                NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+                Effectuer…vÈnementLAN(client);
+            }
+            Effectuer…vÈnementLocal();
             Temps…coulÈDepuisMAJ = 0;
          }
          base.Update(gameTime);
       }
 
-      void Effectuer…vËnement()
+      void Effectuer…vÈnementLAN(NetworkClient client)
+      {
+          if (client.EstMessageReÁuLancerBalle)
+          {
+              client.EstMessageReÁuLancerBalle = false;
+              float[] tableauInfoLancer = client.InfoBalle;
+              Console.WriteLine(tableauInfoLancer[0]);
+              if (Game.Components.Where(affinfo => affinfo is AffichageInfoLancer).Count() != 0)
+              {
+                  Game.Components.Remove(Game.Components.Where(affinfo => affinfo is AffichageInfoLancer).ElementAt(0));
+              }
+              Game.Components.Add(new AffichageInfoLancer(Game, tableauInfoLancer[0], tableauInfoLancer[1], tableauInfoLancer[2]));
+              Joueur joueur = new Joueur(Game);
+              List<Personnage> ListePerso = new List<Personnage>();
+              foreach (Personnage perso in Game.Components.Where(person => person is Personnage))
+              {
+                  ListePerso.Add(perso);
+              }
+              if (gestionEnviro.CamÈraJeu.Position.Z > 0)
+              {
+                  joueur.ChangerAnimation(TypeActionPersonnage.Lancer, ListePerso.Find(peros => peros.Position.Z > 0));
+              }
+              else
+              {
+                  joueur.ChangerAnimation(TypeActionPersonnage.Lancer, ListePerso.Find(peros => peros.Position.Z < 0));
+              }
+              gestionEnviro.CamÈraJeu.TempsTotal = 0;
+              gestionEnviro.CamÈraJeu.EstMouvCamActif = true;
+          }
+      }
+      void Effectuer…vÈnementLocal()
       {
          if (Game.Components.Where(info => info is AffichageInfoLancer).Count() == 1)
          {
@@ -231,6 +269,18 @@ namespace AtelierXNA
                   infoLancer = info;
                }
 
+               #region //pour rÈseau
+                foreach(ATH hud in Game.Components.Where(hud => hud is ATH))
+                {
+                    ath = hud;
+                }
+               if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
+               {
+                   NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+                   client.EnvoyerInfoLancerBalle(infoLancer.Force, infoLancer.InfoAngleHor, infoLancer.InfoAngleVert);
+               }
+               #endregion
+
                if (gestionEnviro.CamÈraJeu.Position.Z > 0)
                {
                   Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalle,
@@ -240,7 +290,6 @@ namespace AtelierXNA
                }
                else
                {
-                  //float[] tableau = Ai.GÈrerAI();
                   Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalleAdv,
                                            (4f * infoLancer.Force) / 100f + 0.5f, (float)MathHelper.ToRadians(infoLancer.InfoAngleHor),
                                            (float)MathHelper.ToRadians(infoLancer.InfoAngleVert), BoundingTable, BoundingBonhommeSecondaire,
@@ -267,36 +316,22 @@ namespace AtelierXNA
          {
             if (Balle.EstJoueurPrincipal)
             {
-               Game.Components.Remove(ListeBiereAdv[Balle.Index¿Retirer]);
                Game.Components.Remove(VerresAdversaire[Balle.Index¿Retirer]);
-               ListeBiereAdv.RemoveAt(Balle.Index¿Retirer);
-               VerresAdversaire.RemoveAt(Balle.Index¿Retirer);
-               ListePositionVerresAdv.RemoveAt(Balle.Index¿Retirer);
+               ListePositionVerresAdv.Remove(ListePositionVerresAdv[Balle.Index¿Retirer]);
                if (Balle.RebondSurTable)
                {
-                  int indexDeuxieme = RandGen.Next(VerresAdversaire.Count);
-                  Game.Components.Remove(ListeBiereAdv[indexDeuxieme]);
-                  Game.Components.Remove(VerresAdversaire[indexDeuxieme]);
-                  ListeBiereAdv.RemoveAt(indexDeuxieme);
-                  VerresAdversaire.RemoveAt(indexDeuxieme);
-                  ListePositionVerresAdv.RemoveAt(indexDeuxieme);
+                  Game.Components.Remove(VerresAdversaire[Balle.Index¿Retirer == 0 ? 1 : 0]);
+                  ListePositionVerresAdv.Remove(ListePositionVerresAdv[Balle.Index¿Retirer == 0 ? 1 : 0]);
                }
             }
             else
             {
-               Game.Components.Remove(ListeBiereJoueur[Balle.Index¿Retirer]);
                Game.Components.Remove(VerresJoueur[Balle.Index¿Retirer]);
-               ListeBiereJoueur.RemoveAt(Balle.Index¿Retirer);
-               VerresJoueur.RemoveAt(Balle.Index¿Retirer);
-               ListePositionVerres.RemoveAt(Balle.Index¿Retirer);
+               ListePositionVerresAdv.Remove(ListePositionVerres[Balle.Index¿Retirer]);
                if (Balle.RebondSurTable)
                {
-                  int indexDeuxieme = RandGen.Next(VerresJoueur.Count);
-                  Game.Components.Remove(ListeBiereJoueur[indexDeuxieme]);
-                  Game.Components.Remove(VerresJoueur[indexDeuxieme]);
-                  ListeBiereJoueur.RemoveAt(indexDeuxieme);
-                  VerresJoueur.RemoveAt(indexDeuxieme);
-                  ListePositionVerres.RemoveAt(indexDeuxieme);
+                  Game.Components.Remove(VerresJoueur[Balle.Index¿Retirer == 0 ? 1 : 0]);
+                  ListePositionVerresAdv.Remove(ListePositionVerres[Balle.Index¿Retirer == 0 ? 1 : 0]);
                }
             }
 
@@ -305,11 +340,6 @@ namespace AtelierXNA
 
             ActiverLancer = true;
             ActiverInfo = true;
-         }
-
-         if (ListePositionVerresAdv.Count == 0 || ListePositionVerres.Count == 0)
-         {
-            //faire de quoi pour la fin de la partie
          }
       }
 

@@ -26,11 +26,12 @@ namespace AtelierXNA
         string NombreDePoints { get; set; }
         int LargeurÉcran { get; set; }
         int HauteurÉcran { get; set; }
+        public bool EstTourJoueurPrincipal { get; set; }
 
         public Joueur JoueurCourant { get; private set; }
 
         public ATH(Game game, Joueur joueurCourant)
-            : base(game){}
+            : base(game) { }
         public override void Initialize()
         {
             listeBoutons = new List<BoutonDeCommande>();
@@ -49,7 +50,17 @@ namespace AtelierXNA
             PositionBoutonLancer = new Vector2(Game.Window.ClientBounds.Width - 60, Game.Window.ClientBounds.Height - 40);
             PositionBoutonPause = new Vector2(Game.Window.ClientBounds.Width - 60, 40);
             BoutonLancer = new BoutonDeCommande(Game, "Lancer", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionBoutonLancer, true, ActionLancer);
-            BoutonLancer.EstActif = true;////
+            BoutonLancer.EstActif = true;
+
+            if (Game.Components.Where(client => client is NetworkClient).Count() == 1)
+            {
+                NetworkClient Client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+                if (Client != null && !Client.EstMaster)
+                {
+                    BoutonLancer.EstActif = false;
+                }
+            }
+            EstTourJoueurPrincipal = BoutonLancer.EstActif;
             BoutonPause = new BoutonDeCommande(Game, "Pause", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionBoutonPause, true, MettreEnPause);
 
             Game.Components.Add(BoutonLancer);
@@ -68,11 +79,11 @@ namespace AtelierXNA
             BoutonRésumer = new BoutonDeCommande(Game, "Résumer", "Impact20", "BoutonBleu", "BoutonBleuPale", Position1, true, MettreEnPlay);
             BoutonQuitter = new BoutonDeCommande(Game, "Quitter", "Impact20", "BoutonBleu", "BoutonBleuPale", Position2, true, Game.Exit);
 
-            
+
             Game.Components.Add(planPause);
             Game.Components.Add(BoutonRésumer);
-            Game.Components.Add(BoutonQuitter); 
-            
+            Game.Components.Add(BoutonQuitter);
+
         }
 
         public void MettreEnPlay()

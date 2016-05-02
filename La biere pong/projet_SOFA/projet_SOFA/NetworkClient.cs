@@ -28,19 +28,22 @@ namespace AtelierXNA
         DateTime Temps { get; set; }
         public string NomJeu { get; private set; }
         public int Port { get; private set; }
-        public string HostIP{ get; private set; } //ip de l'host
+        public string HostIP { get; private set; } //ip de l'host
         NetIncomingMessage MessageInc { get; set; } //message entrant
         NetOutgoingMessage MessageOut { get; set; } //message sortant
         public string NomJoueur { get; private set; }
         TimeSpan IntervalleRafraichissement { get; set; }
         NetworkServer Serveur { get; set; }
         public bool EstMaster { get; private set; }
+        public bool EstMessageReçuLancerBalle { get; set; }
+        public float[] InfoBalle { get; private set; } //sert a stocker les infos de la balle pour la gestion d'événements
 
         #endregion
 
         #region Création d'un client
 
-        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster):base(jeu)
+        public NetworkClient(Game jeu, string nomJeu, int port, string nomJoueur, NetworkServer serveur, bool estMaster)
+            : base(jeu)
         {
             NomJeu = nomJeu;
             Port = port;
@@ -51,6 +54,7 @@ namespace AtelierXNA
             Connect();
             ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
+            EstMessageReçuLancerBalle = false;
         }
 
         public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur, bool estMaster)
@@ -66,6 +70,7 @@ namespace AtelierXNA
             Connect();
             ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
+            EstMessageReçuLancerBalle = false;
         }
 
         void Create(string nomJeu, int port)
@@ -111,7 +116,7 @@ namespace AtelierXNA
 
             //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
             //Probablement revoir la structure
-            catch(NetworkNotAvailableException)
+            catch (NetworkNotAvailableException)
             {
                 Console.WriteLine("La connection est invalide -> peut-être l'adresse est erronée?");
                 Menu menu = new Menu(Game);
@@ -126,8 +131,8 @@ namespace AtelierXNA
                 menu.BoutonsLAN();
             }
 
-            catch(Exception)
-            { 
+            catch (Exception)
+            {
                 Console.WriteLine("Exception client");
                 throw new Exception(); //Envoie de l'exception vers network manager
             }
@@ -146,7 +151,7 @@ namespace AtelierXNA
                 //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
                 //tant que nous serons dans cette fonction 
                 //Doit avoir une condition pour faire sur que le serveur n'est pas partie
-                if(Serveur != null)
+                if (Serveur != null)
                     Serveur.UpdateServeur();
 
                 //Regarde si un nouveau message est arrivé
@@ -168,16 +173,16 @@ namespace AtelierXNA
                                 PeutPartir = true;
                             }
                             break;
-                            
+
                         case NetIncomingMessageType.StatusChanged:
-                            if(MessageInc.ReadString() == "=Failed")
+                            if (MessageInc.ReadString() == "=Failed")
                                 throw new NetworkNotAvailableException("La connection a échouée");
                             break;
 
                         default:
                             //ne devrait pas arriver, envoie un message d'erreur
                             string messageRecu = MessageInc.ReadString();
-                            Console.WriteLine( messageRecu + " Message reçu non géré");
+                            Console.WriteLine(messageRecu + " Message reçu non géré");
                             break;
                     }
                 }
@@ -222,7 +227,7 @@ namespace AtelierXNA
             //On recrée les joueurs présents
             for (int i = 0; i < NbDeJoueurs; i++)
             {
-                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection,this);
+                JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection, this);
 
                 //On lit toutes les propriétés du joueur
                 MessageInc.ReadAllProperties(j);
@@ -247,7 +252,7 @@ namespace AtelierXNA
                         WorldStateUpdate();
                     }
 
-                    if(byteEnum == (byte)PacketTypes.STARTGAME_INFO)
+                    if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                     {
                         Console.WriteLine("STARTGAME_INFO recue _ Client");
                         if (EstMaster == false)
@@ -259,14 +264,14 @@ namespace AtelierXNA
                         }
                     }
 
-                    if(byteEnum == (byte)PacketTypes.ANIMATION)
+                    if (byteEnum == (byte)PacketTypes.ANIMATION)
                     {
                         Console.WriteLine("info animation Reçue");
                         RecevoirInfoAnimationJoueur(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Animation Gérée");
                     }
 
-                    if(byteEnum == (byte)PacketTypes.POSITION_BALLE)
+                    if (byteEnum == (byte)PacketTypes.POSITION_BALLE)
                     {
                         Console.WriteLine("info position balle reçue");
                         RecevoirInfoPositionBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
@@ -280,18 +285,19 @@ namespace AtelierXNA
                         Console.WriteLine("Position balle gérée");
                     }
 
-                    if(byteEnum == (byte) PacketTypes.VERRE_À_ENLEVER)
+                    if (byteEnum == (byte)PacketTypes.VERRE_À_ENLEVER)
                     {
                         Console.WriteLine("info verre à enlever reçue");
                         RecevoirInfoVerreÀEnlever(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("Verre à enlever géré");
                     }
 
-                    if(byteEnum == (byte)PacketTypes.LANCER_BALLE_INFO)
+                    if (byteEnum == (byte)PacketTypes.LANCER_BALLE_INFO)
                     {
                         Console.WriteLine("info lancer balle reçue");
                         RecevoirInfoLancerBalle(MessageInc.ReadBytes((int)MessageInc.LengthBytes - 1));
                         Console.WriteLine("lancer balle géré");
+                        EstMessageReçuLancerBalle = true;
                     }
                 }
 
@@ -400,22 +406,22 @@ namespace AtelierXNA
             Console.WriteLine("Essaie gestion animation");
             try
             {
-               Personnage personnageÀChanger;
-               List<Personnage> ListePerso = new List<Personnage>();
+                Personnage personnageÀChanger;
+                List<Personnage> ListePerso = new List<Personnage>();
                 foreach (Personnage perso in Game.Components.Where(item => item is Personnage))
                 {
-                   ListePerso.Add(perso);
+                    ListePerso.Add(perso);
                 }
                 bool estTourJoueurPrincipal = Convert.ToBoolean(infoAnimation[0]);
-                TypeActionPersonnage animation = (TypeActionPersonnage) infoAnimation[1];
-                if(estTourJoueurPrincipal)
-                   personnageÀChanger = ListePerso.Find(perso => perso.Position.Z > 0);
+                TypeActionPersonnage animation = (TypeActionPersonnage)infoAnimation[1];
+                if (estTourJoueurPrincipal)
+                    personnageÀChanger = ListePerso.Find(perso => perso.Position.Z > 0);
                 else
-                   personnageÀChanger = ListePerso.Find(perso => perso.Position.Z < 0);
+                    personnageÀChanger = ListePerso.Find(perso => perso.Position.Z < 0);
                 ListeJoueurs[0].ChangerAnimation(animation, personnageÀChanger);
             }
 
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Erreur dans la réception et/ou la désérialisation de l'animation");
                 Console.WriteLine(e.ToString());
@@ -449,21 +455,17 @@ namespace AtelierXNA
             }
         }
 
-        public void EnvoyerInfoLancerBalle(Vector3 rotationInitialle, Vector3 positionInitiale, float vitesseInitiale, float angleHorizontal, float angleVertical)
+        public void EnvoyerInfoLancerBalle(float forceInitiale, float angleHorizontal, float angleVertical)
         {
             Console.WriteLine("Envoie info lancer balle");
-            byte[] messagePositionBalle = new byte[9];
-            messagePositionBalle[0] = (byte)rotationInitialle.X;
-            messagePositionBalle[1] = (byte)rotationInitialle.Y;
-            messagePositionBalle[2] = (byte)rotationInitialle.Z;
-            messagePositionBalle[3] = (byte)positionInitiale.X;
-            messagePositionBalle[4] = (byte)positionInitiale.Y;
-            messagePositionBalle[5] = (byte)positionInitiale.Z;
-            messagePositionBalle[6] = (byte)vitesseInitiale;
-            messagePositionBalle[7] = (byte)angleHorizontal;
-            messagePositionBalle[8] = (byte)angleVertical;
+            float[] messagePositionBalle = new float[5];
+            messagePositionBalle[0] = forceInitiale;
+            messagePositionBalle[1] = Math.Abs(angleHorizontal);
+            messagePositionBalle[2] = Math.Abs(angleVertical);
+            messagePositionBalle[3] = (angleHorizontal < 0 ? 1 : 0);
+            messagePositionBalle[4] = (angleVertical < 0 ? 1 : 0);
 
-            EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, messagePositionBalle);
+            EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, Serialiseur.ObjToByteArray(messagePositionBalle));
         }
 
         public void RecevoirInfoLancerBalle(byte[] infoLancerBalle)
@@ -471,14 +473,21 @@ namespace AtelierXNA
             Console.WriteLine("Essaie gestion lancer balle");
             try
             {
-                Vector3 rotationInitialleBalle = new Vector3(infoLancerBalle[0], infoLancerBalle[1], infoLancerBalle[2]);
-                Console.WriteLine("rotation initialle de la balle: X: {0} Y: {1} Z: {2}", rotationInitialleBalle.X, rotationInitialleBalle.Y, rotationInitialleBalle.Z);
-                Vector3 positionInitialleBalle = new Vector3(infoLancerBalle[3], infoLancerBalle[4], infoLancerBalle[5]);
-                Console.WriteLine("position initialle de la balle: X: {0} Y: {1} Z: {2}", positionInitialleBalle.X, positionInitialleBalle.Y, positionInitialleBalle.Z);
-                float vitesseInitialleBalle = infoLancerBalle[6];
-                float angleHorizontalBalle = infoLancerBalle[7];
-                float angleVerticalBalle = infoLancerBalle[8];
-                Console.WriteLine("info initialle de la balle: vitesse: {0} angle horizontale: {1} angle verticale: {2}", vitesseInitialleBalle, angleHorizontalBalle, angleVerticalBalle);
+                float[] Tab = Serialiseur.ByteArrayToObj<float[]>(infoLancerBalle);
+
+                InfoBalle = new float[3];
+                InfoBalle[0] = Tab[0]; //force
+                InfoBalle[1] = Tab[1]; //angle horizontal
+                InfoBalle[2] = Tab[2]; //angle vertical
+                if (Tab[3] == 1)
+                {
+                    Tab[1] = -Tab[1];
+                }
+                if (Tab[4] == 1)
+                {
+                    Tab[2] = -Tab[2];
+                }
+                Console.WriteLine("info initialle de la balle: force: {0} angle horizontale: {1} angle verticale: {2}", InfoBalle[0], InfoBalle[1], InfoBalle[2]);
             }
 
             catch (Exception e)
@@ -487,6 +496,45 @@ namespace AtelierXNA
                 Console.WriteLine(e.ToString());
             }
         }
+
+        //public void EnvoyerInfoLancerBalle(Vector3 rotationInitialle, Vector3 positionInitiale, float vitesseInitiale, float angleHorizontal, float angleVertical)
+        //{
+        //    Console.WriteLine("Envoie info lancer balle");
+        //    byte[] messagePositionBalle = new byte[9];
+        //    messagePositionBalle[0] = (byte)rotationInitialle.X;
+        //    messagePositionBalle[1] = (byte)rotationInitialle.Y;
+        //    messagePositionBalle[2] = (byte)rotationInitialle.Z;
+        //    messagePositionBalle[3] = (byte)positionInitiale.X;
+        //    messagePositionBalle[4] = (byte)positionInitiale.Y;
+        //    messagePositionBalle[5] = (byte)positionInitiale.Z;
+        //    messagePositionBalle[6] = (byte)vitesseInitiale;
+        //    messagePositionBalle[7] = (byte)angleHorizontal;
+        //    messagePositionBalle[8] = (byte)angleVertical;
+
+        //    EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, messagePositionBalle);
+        //}
+
+        //public void RecevoirInfoLancerBalle(byte[] infoLancerBalle)
+        //{
+        //    Console.WriteLine("Essaie gestion lancer balle");
+        //    try
+        //    {
+        //        Vector3 rotationInitialleBalle = new Vector3(infoLancerBalle[0], infoLancerBalle[1], infoLancerBalle[2]);
+        //        Console.WriteLine("rotation initialle de la balle: X: {0} Y: {1} Z: {2}", rotationInitialleBalle.X, rotationInitialleBalle.Y, rotationInitialleBalle.Z);
+        //        Vector3 positionInitialleBalle = new Vector3(infoLancerBalle[3], infoLancerBalle[4], infoLancerBalle[5]);
+        //        Console.WriteLine("position initialle de la balle: X: {0} Y: {1} Z: {2}", positionInitialleBalle.X, positionInitialleBalle.Y, positionInitialleBalle.Z);
+        //        float vitesseInitialleBalle = infoLancerBalle[6];
+        //        float angleHorizontalBalle = infoLancerBalle[7];
+        //        float angleVerticalBalle = infoLancerBalle[8];
+        //        Console.WriteLine("info initialle de la balle: vitesse: {0} angle horizontale: {1} angle verticale: {2}", vitesseInitialleBalle, angleHorizontalBalle, angleVerticalBalle);
+        //    }
+
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("Erreur dans la réception et/ou la désérialisation du lancer de la balle");
+        //        Console.WriteLine(e.ToString());
+        //    }
+        //}
 
         public void EnvoyerInfoEstTourJoueurPrincipal(bool estTourJoueurPrincipal)
         {
@@ -523,7 +571,7 @@ namespace AtelierXNA
             }
         }
 
-        public void EnvoyerInfoVerreÀEnlever( bool estListeVerresJoueurPrincipal, int indiceVerreÀEnlever)
+        public void EnvoyerInfoVerreÀEnlever(bool estListeVerresJoueurPrincipal, int indiceVerreÀEnlever)
         {
             Console.WriteLine("Envoie info verre à enlever");
             byte[] messageInfoVerreÀEnlever = new byte[2];

@@ -22,17 +22,30 @@ namespace AtelierXNA
         public float InfoAngleHor { get; set; }
         public float InfoAngleVert { get; set; }
         public float Force { get; set; }
+        ATH ath { get; set; }
 
         public AffichageInfoLancer(Game game, float force)
             : base(game)
         {
             Force = force;
         }
+        public AffichageInfoLancer(Game game, float force, float angleH, float angleV)
+            : base(game)
+        {
+            Force = force;
+            InfoAngleHor = angleH;
+            InfoAngleVert = angleV;
+        }
 
         public override void Initialize()
         {
             CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
-            if (CaméraJeu.Vue.Forward.Z != 0)
+
+            foreach (ATH hud in Game.Components.Where(item => item is ATH))
+            {
+                ath = hud;
+            }
+            if (ath.EstTourJoueurPrincipal)
             {
                 if (CaméraJeu.Position.Z > 0)
                 {
@@ -44,11 +57,11 @@ namespace AtelierXNA
                 }
                 InfoAngleVert = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.Y / CaméraJeu.Vue.Forward.Z)) + 31.3f;
             }
-            else 
-            {
-                InfoAngleHor = 0;
-                InfoAngleVert = 0;
-            }
+            //else 
+            //{
+            //    InfoAngleHor = 0;
+            //    InfoAngleVert = 0;
+            //}
             GestionFonts = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             base.Initialize();
