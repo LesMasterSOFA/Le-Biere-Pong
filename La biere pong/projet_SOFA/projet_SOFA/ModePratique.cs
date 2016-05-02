@@ -34,7 +34,6 @@ namespace AtelierXNA
             : base(game)
         {
             Random PileOuFace = new Random();
-            EstTourJoueur = Convert.ToBoolean(PileOuFace.Next(0, 1));
         }
 
         public override void Initialize()
@@ -45,7 +44,7 @@ namespace AtelierXNA
             RectangleSalleManger = new Rectangle(40 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSousSol = new Rectangle(75 * Game.Window.ClientBounds.Width / 100, 150, Game.Window.ClientBounds.Width / 5, 233);
 
-	    ath = new ATH(Game, JoueurPrincipal);
+	         ath = new ATH(Game, JoueurPrincipal);
             base.Initialize();
             MenuSélectionEnvironnement();
 

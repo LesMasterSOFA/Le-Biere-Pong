@@ -46,8 +46,8 @@ namespace AtelierXNA
       List<ObjetDeBase> ListeBiereJoueur { get; set; }
       List<ObjetDeBase> ListeBiereAdv { get; set; }
       Personnage personnagePrincipal { get; set; }
-      List<VerreJoueurPrincipal> VerresJoueur { get; set; }
-      List<VerreAdversaire> VerresAdversaire { get; set; }
+      public List<VerreJoueurPrincipal> VerresJoueur { get; private set; }
+      public List<VerreAdversaire> VerresAdversaire { get; private set; }
       List<Vector3> ListePositionVerres { get; set; }
       List<Vector3> ListePositionVerresAdv { get; set; }
       BoundingBox BoundingTable { get; set; }
@@ -71,7 +71,6 @@ namespace AtelierXNA
       AffichageInfoLancer infoLancer { get; set; }
       bool ActiverLancer { get; set; }
       bool ActiverInfo { get; set; }
-      Random RandGen { get; set; }
       AI Ai { get; set; }
 
       public EnrivonnementDeBase(Game game, GestionEnvironnement gestionEnv, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher,
@@ -96,7 +95,6 @@ namespace AtelierXNA
       public override void Initialize()
       {
          Ai = new AI(ModeDifficulté.Difficile);
-         RandGen = new Random();
          ActiverLancer = true;
          ActiverInfo = true;
          RotationInitialePersonnagePrincipal = new Vector3(-MathHelper.PiOver2, 0, 0);
@@ -158,7 +156,7 @@ namespace AtelierXNA
       void AjouterBiere()
       {
          ListeBiereJoueur = new List<ObjetDeBase>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerres.Count; ++i)
          {
             ListeBiereJoueur.Add(new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(ListePositionVerres[i].X, ListePositionVerres[i].Y + 0.07f, ListePositionVerres[i].Z)));
          }
@@ -168,7 +166,7 @@ namespace AtelierXNA
          }
 
          ListeBiereAdv = new List<ObjetDeBase>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
          {
             ListeBiereAdv.Add(new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(ListePositionVerresAdv[i].X, ListePositionVerresAdv[i].Y + 0.07f, ListePositionVerresAdv[i].Z)));
          }
@@ -181,7 +179,7 @@ namespace AtelierXNA
       void CréerLesVerres()
       {
          VerresJoueur = new List<VerreJoueurPrincipal>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerres.Count; ++i)
          {
             VerresJoueur.Add(new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerres[i]));
          }
@@ -191,7 +189,7 @@ namespace AtelierXNA
          }
 
          VerresAdversaire = new List<VerreAdversaire>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
          {
             VerresAdversaire.Add(new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[i]));
          }
@@ -240,10 +238,10 @@ namespace AtelierXNA
                }
                else
                {
-                  //float[] tableau = Ai.GérerAI();
+                  float[] tableau = Ai.GérerAI();
                   Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalleAdv,
-                                           (4f * infoLancer.Force) / 100f + 0.5f, (float)MathHelper.ToRadians(infoLancer.InfoAngleHor),
-                                           (float)MathHelper.ToRadians(infoLancer.InfoAngleVert), BoundingTable, BoundingBonhommeSecondaire,
+                                           tableau[0], (float)MathHelper.ToRadians(tableau[1]),
+                                           (float)MathHelper.ToRadians(tableau[2]), BoundingTable, BoundingBonhommeSecondaire,
                                            ListePositionVerres, RAYON_VERRE, HAUTEUR_VERRE, DimensionTable.Y, DIMENSION_TERRAIN, false, INTERVALLE_MAJ_STANDARD);
                }
                Game.Components.Insert(13, Balle);
@@ -272,14 +270,13 @@ namespace AtelierXNA
                ListeBiereAdv.RemoveAt(Balle.IndexÀRetirer);
                VerresAdversaire.RemoveAt(Balle.IndexÀRetirer);
                ListePositionVerresAdv.RemoveAt(Balle.IndexÀRetirer);
-               if (Balle.RebondSurTable)
+               if (Balle.RebondSurTable && ListeBiereAdv.Count >= 1)
                {
-                  int indexDeuxieme = RandGen.Next(VerresAdversaire.Count);
-                  Game.Components.Remove(ListeBiereAdv[indexDeuxieme]);
-                  Game.Components.Remove(VerresAdversaire[indexDeuxieme]);
-                  ListeBiereAdv.RemoveAt(indexDeuxieme);
-                  VerresAdversaire.RemoveAt(indexDeuxieme);
-                  ListePositionVerresAdv.RemoveAt(indexDeuxieme);
+                  Game.Components.Remove(ListeBiereAdv[0]);
+                  Game.Components.Remove(VerresAdversaire[0]);
+                  ListeBiereAdv.RemoveAt(0);
+                  VerresAdversaire.RemoveAt(0);
+                  ListePositionVerresAdv.RemoveAt(0);
                }
             }
             else
@@ -289,14 +286,13 @@ namespace AtelierXNA
                ListeBiereJoueur.RemoveAt(Balle.IndexÀRetirer);
                VerresJoueur.RemoveAt(Balle.IndexÀRetirer);
                ListePositionVerres.RemoveAt(Balle.IndexÀRetirer);
-               if (Balle.RebondSurTable)
+               if (Balle.RebondSurTable && ListeBiereJoueur.Count >= 1)
                {
-                  int indexDeuxieme = RandGen.Next(VerresJoueur.Count);
-                  Game.Components.Remove(ListeBiereJoueur[indexDeuxieme]);
-                  Game.Components.Remove(VerresJoueur[indexDeuxieme]);
-                  ListeBiereJoueur.RemoveAt(indexDeuxieme);
-                  VerresJoueur.RemoveAt(indexDeuxieme);
-                  ListePositionVerres.RemoveAt(indexDeuxieme);
+                  Game.Components.Remove(ListeBiereJoueur[0]);
+                  Game.Components.Remove(VerresJoueur[0]);
+                  ListeBiereJoueur.RemoveAt(0);
+                  VerresJoueur.RemoveAt(0);
+                  ListePositionVerres.RemoveAt(0);
                }
             }
 
