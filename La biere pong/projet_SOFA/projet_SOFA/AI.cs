@@ -20,7 +20,7 @@ namespace AtelierXNA
     {
         const float VITESSE_FACILE = 280f;
         const float VITESSE_MOYEN = 250f;
-        const float VITESSE_DIFFICILE = 370;
+        const float VITESSE_DIFFICILE = 1000;
 
         const float ANGLE_HORIZONTAL_FACILE = 10;
         const float ANGLE_HORIZONTAL_MOYEN = 7;
@@ -83,7 +83,7 @@ namespace AtelierXNA
             Cpt++;
 
             Random vitesseRand = new Random();
-            tableau[0] = vitesseRand.Next(330, (int)Vitesse + 1);
+            tableau[0] = vitesseRand.Next(500, (int)Vitesse + 1);
             tableau[0] = tableau[0] / 10;
              
 

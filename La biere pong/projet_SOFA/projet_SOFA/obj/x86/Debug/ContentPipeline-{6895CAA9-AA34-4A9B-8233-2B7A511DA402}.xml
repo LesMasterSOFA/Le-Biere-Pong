@@ -743,6 +743,42 @@
       <Output>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Models\Biere_0.xml</Output>
       <Time>2016-04-25T08:25:45.1097704-04:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\superBoyTex2.tga</Source>
+      <Name>Textures\superBoyTex2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\superBoyTex2.xnb</Output>
+      <Time>2016-05-02T19:19:37.2335512-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\cashRegister.mp3</Source>
+      <Name>Sounds\cashRegister</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\cashRegister.xnb</Output>
+      <Time>2016-05-02T19:19:37.2235492-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\Like-a-Boss.mp3</Source>
+      <Name>Sounds\Like-a-Boss</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Like-a-Boss.xnb</Output>
+      <Time>2016-05-02T19:19:37.221049-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\Punch.mp3</Source>
+      <Name>Sounds\Punch</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Punch.xnb</Output>
+      <Time>2016-05-02T19:19:37.2225497-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{6895CAA9-AA34-4A9B-8233-2B7A511DA402}</ContentProjectGUID>
