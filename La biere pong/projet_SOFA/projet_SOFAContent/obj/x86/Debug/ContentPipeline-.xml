@@ -770,6 +770,15 @@
       <Output>obj\x86\Debug\Models\Biere_0.xml</Output>
       <Time>2016-05-02T08:31:20.9467078-04:00</Time>
     </Item>
+    <Item>
+      <Source>Textures\superBoyTex2.tga</Source>
+      <Name>Textures\superBoyTex2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\superBoyTex2.xnb</Output>
+      <Time>2016-05-02T12:19:10.1722804-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

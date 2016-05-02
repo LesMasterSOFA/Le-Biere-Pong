@@ -75,6 +75,7 @@ namespace AtelierXNA
 
             Vector2 Position1 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 - 30);
             Vector2 Position2 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 + 30);
+            Vector2 Position3 = new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2 + 60);
             planPause = new RectangleColoré(Game);
             BoutonRésumer = new BoutonDeCommande(Game, "Résumer", "Impact20", "BoutonBleu", "BoutonBleuPale", Position1, true, MettreEnPlay);
             BoutonQuitter = new BoutonDeCommande(Game, "Quitter", "Impact20", "BoutonBleu", "BoutonBleuPale", Position2, true, Game.Exit);
