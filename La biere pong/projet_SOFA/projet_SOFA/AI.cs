@@ -84,7 +84,7 @@ namespace AtelierXNA
 
             Random vitesseRand = new Random();
             tableau[0] = vitesseRand.Next(330, (int)Vitesse + 1);
-            tableau[0] = tableau[0] / 100;
+            tableau[0] = tableau[0] / 10;
              
 
             Random angleHorizontalRand = new Random();
