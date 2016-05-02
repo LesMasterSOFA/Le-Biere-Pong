@@ -35,7 +35,13 @@ namespace AtelierXNA
          PériphériqueGraphique.PreferMultiSampling = false;
          PériphériqueGraphique.PreferredBackBufferWidth = (int)Résolution.X;
          PériphériqueGraphique.PreferredBackBufferHeight = (int)Résolution.Y;
-         PériphériqueGraphique.IsFullScreen = true;
+
+         //PériphériqueGraphique.IsFullScreen = true;
+         //Permet d'avoir le jeu en borderless
+         IntPtr hWnd = this.Window.Handle;
+         var control = System.Windows.Forms.Control.FromHandle(hWnd);
+         var form = control.FindForm();
+         form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
          IsFixedTimeStep = true;
          IsMouseVisible = true;
       }
