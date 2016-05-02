@@ -17,25 +17,28 @@ namespace AtelierXNA
         #region propriétés de la classe
 
         //Objet Client
-        static NetClient Client;
+        NetClient Client;
 
         //Liste de joueur
-        static List<JoueurMultijoueur> ListeJoueurs;
+        List<JoueurMultijoueur> ListeJoueurs;
 
         // indique si le client roule
-        public static bool EstEnMarche = false;
+        public bool EstEnMarche { get; set; }
+
+        //Serveur auquel le client est connecté
+        NetworkServer Serveur { get; set; }
 
         DateTime Temps { get; set; }
-        public string NomJeu { get; private set; }
+        public string NomJeu { get; private set; } //Nécessaire pour l'authentification
         public int Port { get; private set; }
         public string HostIP { get; private set; } //ip de l'host
         NetIncomingMessage MessageInc { get; set; } //message entrant
         NetOutgoingMessage MessageOut { get; set; } //message sortant
         public string NomJoueur { get; private set; }
         TimeSpan IntervalleRafraichissement { get; set; }
-        NetworkServer Serveur { get; set; }
+        
         public bool EstMaster { get; private set; }
-        public bool EstMessageReçuLancerBalle { get; set; }
+        public bool EstMessageReçuLancerBalle { get; set; } //Doit pouvoir être changé dans la gestion d'évènements
         public float[] InfoBalle { get; private set; } //sert a stocker les infos de la balle pour la gestion d'événements
 
         #endregion
@@ -50,11 +53,12 @@ namespace AtelierXNA
             NomJoueur = nomJoueur;
             Serveur = serveur;
             EstMaster = estMaster;
-            Create(NomJeu, Port);
-            Connect();
+            EstEnMarche = false;
             ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             EstMessageReçuLancerBalle = false;
+            Create(NomJeu, Port);
+            Connect();
         }
 
         public NetworkClient(Game jeu, string nomJeu, string adresse, int port, string nomJoueur, NetworkServer serveur, bool estMaster)
@@ -66,11 +70,12 @@ namespace AtelierXNA
             NomJoueur = nomJoueur;
             Serveur = serveur;
             EstMaster = estMaster;
-            Create(NomJeu, Port);
-            Connect();
+            EstEnMarche = false;
             ListeJoueurs = new List<JoueurMultijoueur>();
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             EstMessageReçuLancerBalle = false;
+            Create(NomJeu, Port);
+            Connect();
         }
 
         void Create(string nomJeu, int port)
@@ -78,13 +83,14 @@ namespace AtelierXNA
             // Demande l'ip si aucune adresse a été fournie
             if (HostIP == null)
             {
+                ConsoleWindow.ShowConsoleWindow();
                 Console.WriteLine("Enter IP To Connect");
                 HostIP = Console.ReadLine();
+                ConsoleWindow.HideConsoleWindow();
             }
 
             //Crée la configuration du client -> doit avoir le même nom que le serveur
             NetPeerConfiguration Config = new NetPeerConfiguration(NomJeu);
-            //Config.Port = Port;
             Client = new NetClient(Config);
             Client.Start();
             Temps = DateTime.Now;
@@ -114,8 +120,6 @@ namespace AtelierXNA
                 EstEnMarche = true;
             }
 
-            //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
-            //Probablement revoir la structure
             catch (NetworkNotAvailableException)
             {
                 Console.WriteLine("La connection est invalide -> peut-être l'adresse est erronée?");
@@ -150,7 +154,7 @@ namespace AtelierXNA
             {
                 //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
                 //tant que nous serons dans cette fonction 
-                //Doit avoir une condition pour faire sur que le serveur n'est pas partie
+                //Doit avoir une condition pour faire sur que le serveur soit intancié
                 if (Serveur != null)
                     Serveur.UpdateServeur();
 
@@ -166,10 +170,7 @@ namespace AtelierXNA
                             //Lit le premier byte repsésentant le type de message dans l'énumération
                             if (MessageInc.ReadByte() == (byte)PacketTypes.WORLDSTATE)
                             {
-                                //Reste à implanter quoi faire -> début ici 
-                                //WorldStateUpdate();
-
-                                //Après que tous les joueurs sont instanciés, on peut partir le jeu
+                                //on peut partir le jeu
                                 PeutPartir = true;
                             }
                             break;
@@ -180,7 +181,7 @@ namespace AtelierXNA
                             break;
 
                         default:
-                            //ne devrait pas arriver, envoie un message d'erreur
+                            //Messages non important pour l'execution du réseau
                             string messageRecu = MessageInc.ReadString();
                             Console.WriteLine(messageRecu + " Message reçu non géré");
                             break;
@@ -198,12 +199,8 @@ namespace AtelierXNA
             // Si l'intervalle de temps est passé
             if ((Temps + IntervalleRafraichissement) < DateTime.Now)
             {
-                GérerÉvénementEtEnvoyerAuServeur();
-
-                //Regarde si le serveur a envoyé un message
                 RegarderNouveauMessageServeur();
 
-                //Update le temps
                 Temps = DateTime.Now;
             }
             base.Update(gameTime);
@@ -212,13 +209,10 @@ namespace AtelierXNA
         //Update le monde(liste joueurs)
         void WorldStateUpdate()
         {
-            //Console.WriteLine("WorldState Update");
-
             //On vide la liste des joueurs contenant les informations
             if (ListeJoueurs != null)
                 ListeJoueurs.Clear();
 
-            // Declare count
             int NbDeJoueurs = 0;
 
             //On lit le nombre de joueurs envoyé dans le message
@@ -228,10 +222,7 @@ namespace AtelierXNA
             for (int i = 0; i < NbDeJoueurs; i++)
             {
                 JoueurMultijoueur j = new JoueurMultijoueur(this.Game, MessageInc.SenderConnection, this);
-
-                //On lit toutes les propriétés du joueur
                 MessageInc.ReadAllProperties(j);
-
                 ListeJoueurs.Add(j);
             }
         }
@@ -304,37 +295,19 @@ namespace AtelierXNA
             }
         }
 
-        private void GérerÉvénementEtEnvoyerAuServeur()
-        {
-            //Crée un Message en string contenant les actions
-            string message = "";
-            //message = GérerAction();
-
-            //Si un action à été effectuée
-            if (message != "")
-            {
-                MessageOut = Client.CreateMessage();
-
-                MessageOut.Write(message);
-
-                // Send it to server
-                Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
-            }
-        }
-
         #endregion
 
         #region Envoie et réception de messages
 
+        //Inutilisée, utile pour envoyer un string
         public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
         {
             if (messageToSend != null)
             {
                 MessageOut = Client.CreateMessage();
-
+                MessageOut.Write((byte)typeInfo);
                 MessageOut.Write(messageToSend);
 
-                // Send it to server
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
             }
         }
@@ -348,7 +321,6 @@ namespace AtelierXNA
                 MessageOut.Write((byte)typeInfo);
                 MessageOut.Write(messageToSend);
 
-                // Send it to server
                 Client.SendMessage(MessageOut, NetDeliveryMethod.ReliableOrdered);
 
                 Console.WriteLine(MessageOut.ToString());
@@ -378,7 +350,6 @@ namespace AtelierXNA
             Console.WriteLine("Essai Désérialisation");
             try
             {
-                //Problème ici, incapable de démarrer une partie. Probablement a cause que les classe serializable s'instancie pas comme il le faut
                 InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
                 Serveur = new NetworkServer(Game, infoMode1v1LAN.InfoServer.NomJeu, infoMode1v1LAN.InfoServer.Port, infoMode1v1LAN.InfoServer.TempsServeurMaster);
                 Serveur.PartieEnCours = new Mode1v1LAN(this.Game, infoMode1v1LAN.InfoJoueurPrincipal, infoMode1v1LAN.InfoJoueurSecondaire, infoMode1v1LAN.EstPartieActive, infoMode1v1LAN.InfoGestionnaireEnvironnement, Serveur);
@@ -440,7 +411,6 @@ namespace AtelierXNA
 
         public void RecevoirInfoPositionBalle(byte[] infoPositionBalle)
         {
-
             Console.WriteLine("Essaie gestion position balle");
             try
             {
@@ -486,45 +456,6 @@ namespace AtelierXNA
                 Console.WriteLine(e.ToString());
             }
         }
-
-        //public void EnvoyerInfoLancerBalle(Vector3 rotationInitialle, Vector3 positionInitiale, float vitesseInitiale, float angleHorizontal, float angleVertical)
-        //{
-        //    Console.WriteLine("Envoie info lancer balle");
-        //    byte[] messagePositionBalle = new byte[9];
-        //    messagePositionBalle[0] = (byte)rotationInitialle.X;
-        //    messagePositionBalle[1] = (byte)rotationInitialle.Y;
-        //    messagePositionBalle[2] = (byte)rotationInitialle.Z;
-        //    messagePositionBalle[3] = (byte)positionInitiale.X;
-        //    messagePositionBalle[4] = (byte)positionInitiale.Y;
-        //    messagePositionBalle[5] = (byte)positionInitiale.Z;
-        //    messagePositionBalle[6] = (byte)vitesseInitiale;
-        //    messagePositionBalle[7] = (byte)angleHorizontal;
-        //    messagePositionBalle[8] = (byte)angleVertical;
-
-        //    EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, messagePositionBalle);
-        //}
-
-        //public void RecevoirInfoLancerBalle(byte[] infoLancerBalle)
-        //{
-        //    Console.WriteLine("Essaie gestion lancer balle");
-        //    try
-        //    {
-        //        Vector3 rotationInitialleBalle = new Vector3(infoLancerBalle[0], infoLancerBalle[1], infoLancerBalle[2]);
-        //        Console.WriteLine("rotation initialle de la balle: X: {0} Y: {1} Z: {2}", rotationInitialleBalle.X, rotationInitialleBalle.Y, rotationInitialleBalle.Z);
-        //        Vector3 positionInitialleBalle = new Vector3(infoLancerBalle[3], infoLancerBalle[4], infoLancerBalle[5]);
-        //        Console.WriteLine("position initialle de la balle: X: {0} Y: {1} Z: {2}", positionInitialleBalle.X, positionInitialleBalle.Y, positionInitialleBalle.Z);
-        //        float vitesseInitialleBalle = infoLancerBalle[6];
-        //        float angleHorizontalBalle = infoLancerBalle[7];
-        //        float angleVerticalBalle = infoLancerBalle[8];
-        //        Console.WriteLine("info initialle de la balle: vitesse: {0} angle horizontale: {1} angle verticale: {2}", vitesseInitialleBalle, angleHorizontalBalle, angleVerticalBalle);
-        //    }
-
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine("Erreur dans la réception et/ou la désérialisation du lancer de la balle");
-        //        Console.WriteLine(e.ToString());
-        //    }
-        //}
 
         public void EnvoyerInfoEstTourJoueurPrincipal(bool estTourJoueurPrincipal)
         {

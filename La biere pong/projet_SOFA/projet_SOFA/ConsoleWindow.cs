@@ -48,13 +48,13 @@ namespace AtelierXNA
 
         public static void PutInForeGround()
         {
-        Process currentProcess = Process.GetCurrentProcess();
-        IntPtr hWnd = currentProcess.MainWindowHandle;
-        if (hWnd != IntPtr.Zero)
-        {
-            SetForegroundWindow(hWnd);
-            ShowWindow(hWnd, SW_SHOW);
-        }
+            Process currentProcess = Process.GetCurrentProcess();
+            IntPtr hWnd = currentProcess.MainWindowHandle;
+            if (hWnd != IntPtr.Zero)
+            {
+                SetForegroundWindow(hWnd);
+                ShowWindow(hWnd, SW_SHOW);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace AtelierXNA
         public NetworkServer Serveur { get; private set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         public Environnements Environnement { get; private set; }
-        public NetworkManager GestionNetwork { get; set; }
+        public NetworkManager GestionNetwork { get; private set; }
 
         BoutonDeCommande BoutonGarage { get; set; }
         BoutonDeCommande BoutonSalleManger { get; set; }
@@ -55,7 +55,6 @@ namespace AtelierXNA
             bool estPartieActive, InfoGestionEnvironnement infoEnvironnementPartie, NetworkServer infoServeur)
             : base(game)
         {
-            //Reste à créer des constructeur pour ces champs
             JoueurPrincipal = new JoueurMultijoueur(this.Game,infoJoueurPrincipal);
             if(infoJoueurSecondaire != null)
                 JoueurSecondaire = new JoueurMultijoueur(this.Game, infoJoueurSecondaire);
@@ -86,38 +85,41 @@ namespace AtelierXNA
             {
                 BoutonJouer.EstActif = true;
             }
-            if(EstPartieActive)
-            {
-                //Pour tester l'animation
-                if(GestionInput.EstNouvelleTouche(Keys.B))
-                {
-                   JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(perso => perso.Position.Z > 0));
-                   JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(false, TypeActionPersonnage.Boire);
-                }
-                //Pour tester envoie vector3 position balle
-                if(GestionInput.EstNouvelleTouche(Keys.X))
-                {
-                    var p = new Vector3(4,5,6);
-                    JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
-                }
-                //pour tester envoie est tour joueur principal
-                if(GestionInput.EstNouvelleTouche(Keys.C))
-                {
-                    bool b = true;
-                    JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
-                }
-                //pour tester envoie verre à enlever
-                if(GestionInput.EstNouvelleTouche(Keys.V))
-                {
-                    JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
-                }
-                //pour tester envoie lancer balle
-                if(GestionInput.EstNouvelleTouche(Keys.N))
-                {
-                    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(7f, 8f, 9f);
-                }
-                
-            }
+
+            #region tests réseau
+            //if (EstPartieActive)
+            //{  
+                ////Pour tester l'animation
+                //if(GestionInput.EstNouvelleTouche(Keys.B))
+                //{
+                //   JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(perso => perso.Position.Z > 0));
+                //   JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(false, TypeActionPersonnage.Boire);
+                //}
+                ////Pour tester envoie vector3 position balle
+                //if(GestionInput.EstNouvelleTouche(Keys.X))
+                //{
+                //    var p = new Vector3(4,5,6);
+                //    JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
+                //}
+                ////pour tester envoie est tour joueur principal
+                //if(GestionInput.EstNouvelleTouche(Keys.C))
+                //{
+                //    bool b = true;
+                //    JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
+                //}
+                ////pour tester envoie verre à enlever
+                //if(GestionInput.EstNouvelleTouche(Keys.V))
+                //{
+                //    JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
+                //}
+                ////pour tester envoie lancer balle
+                //if(GestionInput.EstNouvelleTouche(Keys.N))
+                //{
+                //    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(7f, 8f, 9f);
+                //}
+            //}
+            #endregion
+
             base.Update(gameTime);
         }
 
@@ -216,7 +218,7 @@ namespace AtelierXNA
                     ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
                 }
             }
-            
+
             DrawMenuEnivronnement(gameTime, MenuActif);
             base.Draw(gameTime);
             GestionSprites.End();
@@ -226,7 +228,7 @@ namespace AtelierXNA
         {
             if (MenuActif)
             {
-                //L'image de fond d'écran se dessine par dessus les autres
+                //L'image de fond d'écran se dessine par dessus les boutons
                 //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
