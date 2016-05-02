@@ -1,0 +1,5 @@
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Release\SkinnedModel.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Release\SkinnedModel.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.pdb

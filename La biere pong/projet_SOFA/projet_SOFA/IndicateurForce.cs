@@ -117,7 +117,7 @@ namespace AtelierXNA
 
                     cam.TempsTotal = 0;
                     cam.EstMouvCamActif = true;
-                    ath.BoutonLancer.EstActif = !ath.BoutonLancer.EstActif;
+                    
                 }
             }
             base.Update(gameTime);
