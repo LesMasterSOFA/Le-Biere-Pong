@@ -202,6 +202,7 @@
     <Compile Include="Lidgren Fichiers\Platform\PlatformWinRT.cs" />
     <Compile Include="Lidgren Fichiers\XNAExtensions.cs" />
     <Compile Include="Mode1v1Local.cs" />
+    <Compile Include="ModeHistoire.cs" />
     <Compile Include="NetworkClient.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkServer.cs" />
@@ -221,7 +222,6 @@
     <Compile Include="JoueurMultijoueur.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Mode1v1LAN.cs" />
-    <Compile Include="ModeHistoire.cs" />
     <Compile Include="ModePratique.cs" />
     <Compile Include="Outils\InputManager.cs" />
     <Compile Include="Outils\ObjetDeBase.cs" />

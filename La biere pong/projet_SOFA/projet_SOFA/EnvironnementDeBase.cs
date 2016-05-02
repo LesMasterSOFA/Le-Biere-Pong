@@ -46,8 +46,8 @@ namespace AtelierXNA
       List<ObjetDeBase> ListeBiereJoueur { get; set; }
       List<ObjetDeBase> ListeBiereAdv { get; set; }
       Personnage personnagePrincipal { get; set; }
-      List<VerreJoueurPrincipal> VerresJoueur { get; set; }
-      List<VerreAdversaire> VerresAdversaire { get; set; }
+      public List<VerreJoueurPrincipal> VerresJoueur { get; private set; }
+      public List<VerreAdversaire> VerresAdversaire { get; private set; }
       List<Vector3> ListePositionVerres { get; set; }
       List<Vector3> ListePositionVerresAdv { get; set; }
       BoundingBox BoundingTable { get; set; }
@@ -154,14 +154,16 @@ namespace AtelierXNA
          ListePositionVerres.Add(new Vector3(-DIAM»TRE_VERRE, DimensionTable.Y, DistanceVerre)); ListePositionVerres.Add(new Vector3(DIAM»TRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3)));
          ListePositionVerres.Add(new Vector3(-DIAM»TRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre - 2 * DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3)));
 
-         ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre)); ListePositionVerresAdv.Add(new Vector3(DIAM»TRE_VERRE, DimensionTable.Y, -DistanceVerre));
+         ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre)); 
+         ListePositionVerresAdv.Add(new Vector3(DIAM»TRE_VERRE, DimensionTable.Y, -DistanceVerre));
          ListePositionVerresAdv.Add(new Vector3(-DIAM»TRE_VERRE, DimensionTable.Y, -DistanceVerre)); ListePositionVerresAdv.Add(new Vector3(DIAM»TRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerresAdv.Add(new Vector3(-DIAM»TRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre + 2 * DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(-DIAM»TRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3))); 
+         ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre + 2 * DIAM»TRE_VERRE * (float)Math.Sin(Math.PI / 3)));
       }
       void AjouterBiere()
       {
          ListeBiereJoueur = new List<ObjetDeBase>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerres.Count; ++i)
          {
             ListeBiereJoueur.Add(new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(ListePositionVerres[i].X, ListePositionVerres[i].Y + 0.07f, ListePositionVerres[i].Z)));
          }
@@ -171,7 +173,7 @@ namespace AtelierXNA
          }
 
          ListeBiereAdv = new List<ObjetDeBase>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
          {
             ListeBiereAdv.Add(new ObjetDeBase(Game, "Biere", "TextureBiere", "Shader", 1, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(ListePositionVerresAdv[i].X, ListePositionVerresAdv[i].Y + 0.07f, ListePositionVerresAdv[i].Z)));
          }
@@ -184,7 +186,7 @@ namespace AtelierXNA
       void CrÈerLesVerres()
       {
          VerresJoueur = new List<VerreJoueurPrincipal>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerres.Count; ++i)
          {
             VerresJoueur.Add(new VerreJoueurPrincipal(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerres[i]));
          }
@@ -194,7 +196,7 @@ namespace AtelierXNA
          }
 
          VerresAdversaire = new List<VerreAdversaire>();
-         for (int i = 0; i < 6; ++i)
+         for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
          {
             VerresAdversaire.Add(new VerreAdversaire(Game, "verre", "verre_tex", "Shader", 1f, Vector3.Zero, ListePositionVerresAdv[i]));
          }
@@ -204,24 +206,59 @@ namespace AtelierXNA
          }
       }
 
-        public override void Update(GameTime gameTime)
+      public override void Update(GameTime gameTime)
       {
          float Temps…coulÈ = (float)gameTime.ElapsedGameTime.TotalSeconds;
          Temps…coulÈDepuisMAJ += Temps…coulÈ;
          if (Temps…coulÈDepuisMAJ >= INTERVALLE_MAJ_STANDARD)
          {
-            TempsTotal += Temps…coulÈDepuisMAJ;
+            TempsTotal += Temps…coulÈDepuisMAJ; 
+            
+            foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
+            {
+               ath = hud;
+            }
+
             Effectuer…vÈnementLocal();
+            Effectuer…vÈnementHistoire();
+
             if (Game.Components.Where(net => net is NetworkClient).Count() == 1)
             {
-                NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
-                Effectuer…vÈnementLAN(client);
+               NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+               Effectuer…vÈnementLAN(client);
             }
             Temps…coulÈDepuisMAJ = 0;
+            base.Update(gameTime);
          }
-         base.Update(gameTime);
       }
 
+      void Effectuer…vÈnementHistoire()
+      {
+         if (TypeDePartie == TypePartie.Histoire)
+         {
+            if (!ath.EstTourJoueurPrincipal && ath.BoutonLancer.EstActif)
+            {
+               ath.BoutonLancer.EstActif = false;
+               float[] tab = Ai.GÈrerAI();
+               Game.Components.Add(new AffichageInfoLancer(Game, tab[0], tab[1], tab[2]));
+               Joueur joueur = new Joueur(Game); List<Personnage> ListePerso = new List<Personnage>();
+               foreach (Personnage perso in Game.Components.Where(person => person is Personnage))
+               {
+                  ListePerso.Add(perso);
+               }
+               if (gestionEnviro.CamÈraJeu.Position.Z > 0)
+               {
+                  joueur.ChangerAnimation(TypeActionPersonnage.Lancer, ListePerso.Find(peros => peros.Position.Z > 0));
+               }
+               else
+               {
+                  joueur.ChangerAnimation(TypeActionPersonnage.Lancer, ListePerso.Find(peros => peros.Position.Z < 0));
+               }
+               gestionEnviro.CamÈraJeu.TempsTotal = 0;
+               gestionEnviro.CamÈraJeu.EstMouvCamActif = true;
+            }
+         }
+      }
       void Effectuer…vÈnementLAN(NetworkClient client)
       {
           if (client.EstMessageReÁuLancerBalle)
@@ -264,11 +301,8 @@ namespace AtelierXNA
                {
                   infoLancer = info;
                }
-                #region //pour rÈseau
-                foreach(ATH hud in Game.Components.Where(hud => hud is ATH))
-                {
-                    ath = hud;
-                }
+               #region //pour rÈseau
+               
                if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
                {
                    NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
@@ -320,7 +354,7 @@ namespace AtelierXNA
                  ListeBiereAdv.RemoveAt(Balle.Index¿Retirer);
                  VerresAdversaire.RemoveAt(Balle.Index¿Retirer);
                  ListePositionVerresAdv.RemoveAt(Balle.Index¿Retirer);
-                 if (Balle.RebondSurTable && ListeBiereAdv.Count > 1)
+                 if (Balle.RebondSurTable && ListeBiereAdv.Count >= 1)
                  {
                      Game.Components.Remove(ListeBiereAdv[0]);
                      Game.Components.Remove(VerresAdversaire[0]);
@@ -336,7 +370,7 @@ namespace AtelierXNA
                  ListeBiereJoueur.RemoveAt(Balle.Index¿Retirer);
                  VerresJoueur.RemoveAt(Balle.Index¿Retirer);
                  ListePositionVerres.RemoveAt(Balle.Index¿Retirer);
-                 if (Balle.RebondSurTable && ListeBiereJoueur.Count > 1)
+                 if (Balle.RebondSurTable && ListeBiereJoueur.Count >= 1)
                  {
                      Game.Components.Remove(ListeBiereJoueur[0]);
                      Game.Components.Remove(VerresJoueur[0]);

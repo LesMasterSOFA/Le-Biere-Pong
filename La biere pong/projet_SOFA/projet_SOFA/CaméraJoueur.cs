@@ -265,9 +265,10 @@ namespace AtelierXNA
             {
                 EstMouvCamActif = false;
                 RotationAntiHoraire = true;
-                if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique)
+                if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique||gestionEnviro.TypeDePartie ==TypePartie.Histoire)
                 {
                     ath.BoutonLancer.EstActif = true;
+                    ath.EstTourJoueurPrincipal = !ath.EstTourJoueurPrincipal;
                 }
                 else if (gestionEnviro.TypeDePartie == TypePartie.LAN)
                 {
