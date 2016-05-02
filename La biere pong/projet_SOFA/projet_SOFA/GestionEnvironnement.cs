@@ -51,7 +51,7 @@ namespace AtelierXNA
          Vector3 positionCaméra = new Vector3(0, 1.5f, 1.0f);
          //Vector3 positionCaméra = new Vector3(-2, 1.5f, 0f);
          Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-         CaméraJeu = new CaméraSubjective(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
+         CaméraJeu = new CaméraJoueur(Game, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
          Game.Components.Add(CaméraJeu);
          Game.Services.AddService(typeof(Caméra), CaméraJeu);
          InstancierEnvironnement();
@@ -60,22 +60,23 @@ namespace AtelierXNA
       //Cette fonction envoi les textures des différents murs aux environnements, pour les modèles propre à l'environnement ils sont instanciés directement dans ce dernier.
       void InstancierEnvironnement()
       {
-              switch (NomEnvironnement)
-              {
-                  case Environnements.Garage:
-                      EnvironnementGarage Garage = new EnvironnementGarage(Game,this, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-                      Game.Components.Add(Garage);
-                      break;
-                  case Environnements.SalleManger:
-                      EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game,this, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-                      Game.Components.Add(SalleManger);
-                      break;
-                  case Environnements.SousSol:
-                      EnvironnementSousSol SousSol = new EnvironnementSousSol(Game,this, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString());
-                      break;
-                  default:
-                      throw new Exception();
-              }
+         switch (NomEnvironnement)
+         {
+            case Environnements.Garage:
+               EnvironnementGarage Garage = new EnvironnementGarage(Game, this, "DroiteGarage", "GaucheGarage", "PlafondGarage", "PlancherGarage", "AvantGarage", "ArriereGarage", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.76f, 0.74f, 1.8f), 0.8f);
+               Game.Components.Add(Garage);
+               break;
+            case Environnements.SalleManger:
+               EnvironnementSalleManger SalleManger = new EnvironnementSalleManger(Game, this, "GaucheSallePetiteFoyer", "DroiteSallePlinthe", "PlafondSalle", "PlancherSalle", "AvantSallePlinthe", "ArriereSallePlinthe", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.9f, 0.847f, 2.2f), 1f);
+               Game.Components.Add(SalleManger);
+               break;
+            case Environnements.SousSol:
+               EnvironnementSousSol SousSol = new EnvironnementSousSol(Game, this, "GaucheSousSol", "DroiteSousSol", "PlafondSousSol", "PlancherSousSol", "AvantSousSol", "ArriereSousSol", SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), new Vector3(0.76f, 0.74f, 1.8f), 0.8f);
+               Game.Components.Add(SousSol);
+               break;
+            default:
+               throw new Exception();
+         }
       }
 
       public override void Update(GameTime gameTime)

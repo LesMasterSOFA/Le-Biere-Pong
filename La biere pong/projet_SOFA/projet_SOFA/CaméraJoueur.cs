@@ -37,6 +37,7 @@ namespace AtelierXNA
         public bool EstMouvCamActif { get; set; }
         bool RotationAntiHoraire { get; set; }
         public float TempsTotal { get; set; }
+        ATH ath { get; set; }
    
 
         public CaméraJoueur(Game jeu, Vector3 positionCaméra, Vector3 cible, Vector3 orientation, float intervalleMAJ)
@@ -252,6 +253,11 @@ namespace AtelierXNA
            {
               EstMouvCamActif = false;
               RotationAntiHoraire = true;
+              foreach (ATH hud in Game.Components.Where(boogey => boogey is ATH))
+              {
+                 ath = hud;
+              }
+              ath.BoutonLancer.EstActif = !ath.BoutonLancer.EstActif;
               if (Position.Z < 0)
               {
                  Déplacer(new Vector3(0, 1.5f, -1.0f), Cible, Vector3.Up);

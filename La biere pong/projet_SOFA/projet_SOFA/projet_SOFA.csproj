@@ -121,8 +121,10 @@
     <Compile Include="BallePhysique.cs" />
     <Compile Include="CaméraJoueur.cs" />
     <Compile Include="ConsoleWindow.cs" />
+    <Compile Include="EnvironnementDeBase.cs" />
     <Compile Include="EnvironnementSalleManger.cs" />
     <Compile Include="EnvironnementSousSol.cs" />
+    <Compile Include="IndicateurForce.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetAESEncryption.cs" />
     <Compile Include="Lidgren Fichiers\Encryption\NetBlockEncryptionBase.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Lidgren Fichiers\Platform\PlatformWin32.cs" />
     <Compile Include="Lidgren Fichiers\Platform\PlatformWinRT.cs" />
     <Compile Include="Lidgren Fichiers\XNAExtensions.cs" />
+    <Compile Include="Mode1v1Local.cs" />
     <Compile Include="NetworkClient.cs" />
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkServer.cs" />
@@ -214,11 +217,9 @@
     <Compile Include="GestionPhysique.cs" />
     <Compile Include="GestionÉvénements.cs" />
     <Compile Include="Outils\IActivable.cs" />
-    <Compile Include="IndicateurForce.cs" />
     <Compile Include="JoueurMultijoueur.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Mode1v1LAN.cs" />
-    <Compile Include="Mode1v1Local.cs" />
     <Compile Include="ModeHistoire.cs" />
     <Compile Include="ModePratique.cs" />
     <Compile Include="Outils\InputManager.cs" />

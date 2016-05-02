@@ -554,3 +554,6 @@ C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOF
 C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.exe
 C:\Users\Olivier\Desktop\Intégration SIM\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\obj\x86\Debug\AS-3D-2015.pdb
+C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\cashRegister.xnb
+C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Like-a-Boss.xnb
+C:\Users\201469028\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Punch.xnb

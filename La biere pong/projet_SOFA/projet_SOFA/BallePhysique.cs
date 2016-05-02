@@ -41,16 +41,17 @@ namespace AtelierXNA
       float HauteurTable { get; set; }
       float RayonCollision { get; set; }
       float AngleLimiteVert { get; set; }
-      //float Réduction { get; set; }
       int IndexCollision { get; set; }
       float DimensionTerrain { get; set; }
       SoundEffect Pong { get; set; }
+      SoundEffect Punch { get; set; }
+      SoundEffect[] EffetSonore { get; set; }
       public bool RetirerBalle { get; private set; }
       public bool EstDansVerre { get; private set; }
       public bool RebondSurTable { get; private set; }
       public bool EstJoueurPrincipal { get; private set; }
       public int IndexÀRetirer { get; private set; }
-      //public Vector3 PositionPrécédente { get; private set; }
+      Random RandGen { get; set; }
 
       public BallePhysique(Game jeu, string nomModèle, string nomTexture, string nomEffet, float échelleInitiale, Vector3 rotationInitiale, Vector3 positionInitiale,
                           float vitesseInitiale, float angleHorizontal, float angleVertical, BoundingBox boundingTable, BoundingBox boundingBonhomme,
@@ -79,10 +80,9 @@ namespace AtelierXNA
 
       public override void Initialize()
       {
+         RandGen = new Random();
          TempsRetirerBalle = 0;
-         //PositionPrécédente = PositionInitiale;
          IndexÀRetirer = -1;
-         //Réduction = 1;
          RebondSurTable = false;
          EstDansVerre = false;
          RetirerBalle = false;
@@ -100,6 +100,8 @@ namespace AtelierXNA
       protected override void LoadContent()
       {
           Pong = Game.Content.Load<SoundEffect>("Sounds\\Bounce2");
+          Punch = Game.Content.Load<SoundEffect>("Sounds\\Punch");
+          EffetSonore = new SoundEffect[] { Game.Content.Load<SoundEffect>("Sounds\\cashRegister"), Game.Content.Load<SoundEffect>("Sounds\\Like-a-Boss"), Game.Content.Load<SoundEffect>("Sounds\\WOW") };
           base.LoadContent();
       }
 
@@ -119,8 +121,6 @@ namespace AtelierXNA
       }
       void EffectuerDéplacement()
       {
-         //PositionPrécédente = Position;
-
          GérerCollisionVerres();
          GérerCollisionTable();
          GérerCollisionBonhomme();
@@ -162,8 +162,8 @@ namespace AtelierXNA
                   if (CollisionEntreDeuxVerres() == true)
                   {
                      Pong.Play();
-                      VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
-                      VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
+                     VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+                     VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
                      VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
                      PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE + INCERTITUDE, Position.Z);
                   }
@@ -176,13 +176,15 @@ namespace AtelierXNA
                         if (Math.Abs(angleDirection - AngleLimiteVert) <= 0.2f)
                         {
                            Pong.Play();
-                            VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
-                            VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
+                           VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
+                           VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
                            VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
                            PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE + INCERTITUDE, Position.Z);
                         }
                         else
                         {
+                           int index = RandGen.Next(EffetSonore.Length);
+                           EffetSonore[index].Play();
                            EstDansVerre = true;
                            IndexÀRetirer = i;
                            VitesseEnX = 0;
@@ -227,15 +229,6 @@ namespace AtelierXNA
             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
             TempsTotal = 0;
-            //if (Math.Abs(VitesseEnZ) < 0.1f)
-            //{
-            //   Réduction += 0.04f;
-            //   VitesseEnY /= Réduction;
-            //   if (VitesseEnY < 0.3f)
-            //   {
-            //      RetirerBalle = true;
-            //   }
-            //}
          }
       }
 
@@ -243,6 +236,7 @@ namespace AtelierXNA
       {
           if (SphèreBalle.Intersects(BoundingBonhomme))
           {
+             Punch.Play();
               VitesseEnX = CONSTANTE_RESTITUTION_BONHOMME * VitesseEnX;
               VitesseEnZ = CONSTANTE_RESTITUTION_BONHOMME * CHANGEMENT_DIRECTION * VitesseEnZ;
               VitesseEnY = CONSTANTE_RESTITUTION_BONHOMME * (VitesseEnY - GRAVITÉ * TempsTotal);
@@ -261,15 +255,6 @@ namespace AtelierXNA
             VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;
             VitesseEnZ = COEFFICIENT_FROTTEMENT * VitesseEnZ;
             TempsTotal = 0;
-            //if (Math.Abs(VitesseEnZ) < 0.1f)
-            //{
-            //   Réduction += 0.04f;
-            //   VitesseEnY /= Réduction;
-            //   if (VitesseEnY < 0.3f)
-            //   {
-            //      RetirerBalle = true;
-            //   }
-            //}
          }
       }
 

@@ -35,6 +35,7 @@ namespace AtelierXNA
       CaméraJoueur cam { get; set; }
       BallePhysique balle { get; set; }
       List<Personnage> ListePerso { get; set; }
+      ATH HUD { get; set; }
 
       public IndicateurForce(Game game, Joueur joueur)
          : base(game)
@@ -53,6 +54,10 @@ namespace AtelierXNA
          foreach (Personnage perso in Game.Components.Where(item => item is Personnage))
          {
             ListePerso.Add(perso);
+         }
+         foreach (ATH ath in Game.Components.Where(hud => hud is ATH))
+         {
+            HUD = ath;
          }
          estActifBarre = true;
 
@@ -111,6 +116,7 @@ namespace AtelierXNA
 
                cam.TempsTotal = 0;
                cam.EstMouvCamActif = true;
+               HUD.BoutonLancer.EstActif = !HUD.BoutonLancer.EstActif;
             }
          }
          base.Update(gameTime);
