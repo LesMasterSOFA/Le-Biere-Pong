@@ -29,7 +29,8 @@ namespace AtelierXNA
         public NetworkManager(Game game)
             : base(game)
         {
-            ConsoleWindow.ShowConsoleWindow();
+            //sert au Debug
+            //ConsoleWindow.ShowConsoleWindow();
         }
 
         void CréerServeur()

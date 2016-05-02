@@ -404,7 +404,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\superBoyTex2.xnb</Output>
-      <Time>2016-05-02T11:11:26.752763-04:00</Time>
+      <Time>2016-05-02T12:06:36.6340171-04:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>
@@ -645,7 +645,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Bounce2.xnb</Output>
-      <Time>2016-04-27T09:52:56.2753188-04:00</Time>
+      <Time>2016-05-02T12:06:36.6149866-04:00</Time>
     </Item>
     <Item>
       <Source>Sounds\cashRegister.mp3</Source>
@@ -654,7 +654,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\cashRegister.xnb</Output>
-      <Time>2016-05-02T09:51:28.6711513-04:00</Time>
+      <Time>2016-05-02T12:06:36.623993-04:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Like-a-Boss.mp3</Source>
@@ -663,7 +663,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Like-a-Boss.xnb</Output>
-      <Time>2016-05-02T09:51:28.6531381-04:00</Time>
+      <Time>2016-05-02T12:06:36.6179895-04:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Punch.mp3</Source>
@@ -672,7 +672,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Punch.xnb</Output>
-      <Time>2016-05-02T09:51:28.6621457-04:00</Time>
+      <Time>2016-05-02T12:06:36.6219916-04:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>

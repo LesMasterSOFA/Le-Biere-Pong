@@ -17,9 +17,9 @@ namespace AtelierXNA
         #region propriétés de la classe
 
         // Server object
-        static NetServer Serveur;
-        // Configuration object
-        static NetPeerConfiguration Config;
+        NetServer Serveur;
+        // Configuration serveur
+        NetPeerConfiguration Config;
 
         public string NomJeu { get; private set; }
         public int Port { get; private set; }
@@ -28,8 +28,8 @@ namespace AtelierXNA
         NetIncomingMessage MessageInc { get; set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         byte[] message { get; set; }
-        public Mode1v1LAN PartieEnCours { get; set; }
-        public long TempsServeurMaster { get; set; }
+        public Mode1v1LAN PartieEnCours { get; set; } //doit pouvoir être modifié dans le mode de jeu
+        public long TempsServeurMaster { get; private set; }
 
         #endregion
 
@@ -41,9 +41,10 @@ namespace AtelierXNA
             Port = port;
             Create(NomJeu, Port);
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
-            Console.WriteLine("Waiting for new connections and updateing world state to current ones");
+            Console.WriteLine("En attente d'une nouvelle connection et update de WorldState");
             ListeJoueurs = new List<JoueurMultijoueur>();
         }
+
         //Constructeur sérialiseur
         public NetworkServer(Game jeu, string nomJeu, int port, long tempsServeurMaster)
             : base(jeu)
@@ -67,11 +68,9 @@ namespace AtelierXNA
                 Serveur = new NetServer(Config);
                 Serveur.Start();
                 Temps = DateTime.Now;
-                Console.WriteLine("Server Started" + Temps.ToString());
+                Console.WriteLine("Serveur démaré" + Temps.ToString());
             }
 
-            //Doit être amélioré pour ajouter d'autre exceptions, mais cest un début
-            //Probablement revoir la structure
             catch(Exception)
             {
                 Console.WriteLine("Exception Serveur");
@@ -107,20 +106,6 @@ namespace AtelierXNA
                         //Lit le type d'information
                         byte byteEnum = MessageInc.ReadByte();
 
-                        //// Détermination tu type d'information
-                        //if (byteEnum == (byte)PacketTypes.MOVE)
-                        //{
-                        //    //On regarde qui a envoyé le message
-                        //    foreach (JoueurMultijoueur j in ListeJoueurs)
-                        //    {
-                        //        if (j.IP == MessageInc.SenderConnection)
-                        //        {
-                        //            //On gère le message tout dépendant de ce qu'il faut faire( switch/case)
-                        //        }
-                        //        //EnvoieNouveauMessage();
-                        //    }
-                        //}
-
                         if (byteEnum == (byte)PacketTypes.STARTGAME_INFO)
                         {
                             GérerStartGameInfo();
@@ -155,7 +140,6 @@ namespace AtelierXNA
 
                     //S'il y a un message parmi: NetConnectionStatus.Connected, NetConnectionStatus.Connecting ,
                     //NetConnectionStatus.Disconnected, NetConnectionStatus.Disconnecting, NetConnectionStatus.None
-
                     case NetIncomingMessageType.StatusChanged:
 
                         GérerChangementStatutJoueur();
@@ -194,12 +178,11 @@ namespace AtelierXNA
             //Création d'un message pouvant être envoyé
             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
 
-            //Tout d'abord on dit quel sorte de message on envoir en Byte
+            //Tout d'abord on dit quel sorte de message on envoie en Byte
             //Envoie d'un message renvoyant l'état du monde
             MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
 
             //Ensuite on écrit l'information à être envoyée
-            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
             MessageSortant.Write(ListeJoueurs.Count);
 
             //Passe sur tous les joueurs dans le jeu
@@ -219,16 +202,14 @@ namespace AtelierXNA
             //Création d'un message pouvant être envoyé
             NetOutgoingMessage MessageSortant = Serveur.CreateMessage();
 
-            //Tout d'abord on dit quel sorte de message on envoir en Byte
+            //Tout d'abord on dit quel sorte de message on envoie en Byte
             //Envoie d'un message renvoyant l'état du monde
             MessageSortant.Write((byte)typeInfo);
 
             //Ensuite on écrit l'information à être envoyée
-            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
             MessageSortant.Write(messageToSend);
 
-            //Envoie du message à toutes les connections dans l'ordre qu'il a été envoyé
-            //Serveur.SendMessage(MessageSortant, Serveur.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            //Envoie le message à un joueur en particulier
             Serveur.SendMessage(MessageSortant, ListeJoueurs[indiceJoueur].IP, NetDeliveryMethod.ReliableOrdered, 0);
         }
 
@@ -258,7 +239,6 @@ namespace AtelierXNA
             MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
 
             // Ensuite on écrit l'information à être envoyée
-            //Doit être modifié, probablemement un int servant à dire combien de joueurs il y a
             MessageSortant.Write(ListeJoueurs.Count);
 
             //Passe sur tous les joueurs dans le jeu
