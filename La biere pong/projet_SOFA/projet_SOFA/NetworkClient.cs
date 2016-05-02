@@ -458,10 +458,12 @@ namespace AtelierXNA
         public void EnvoyerInfoLancerBalle(float forceInitiale, float angleHorizontal, float angleVertical)
         {
             Console.WriteLine("Envoie info lancer balle");
-            float[] messagePositionBalle = new float[3];
+            float[] messagePositionBalle = new float[5];
             messagePositionBalle[0] = forceInitiale;
-            messagePositionBalle[1] = angleHorizontal;
-            messagePositionBalle[2] = angleVertical;
+            messagePositionBalle[1] = Math.Abs(angleHorizontal);
+            messagePositionBalle[2] = Math.Abs(angleVertical);
+            messagePositionBalle[3] = (angleHorizontal < 0 ? 1 : 0);
+            messagePositionBalle[4] = (angleVertical < 0 ? 1 : 0);
 
             EnvoyerMessageServeur(PacketTypes.LANCER_BALLE_INFO, Serialiseur.ObjToByteArray(messagePositionBalle));
         }
@@ -477,6 +479,14 @@ namespace AtelierXNA
                 InfoBalle[0] = Tab[0]; //force
                 InfoBalle[1] = Tab[1]; //angle horizontal
                 InfoBalle[2] = Tab[2]; //angle vertical
+                if (Tab[3] == 1)
+                {
+                    Tab[1] = -Tab[1];
+                }
+                if (Tab[4] == 1)
+                {
+                    Tab[2] = -Tab[2];
+                }
                 Console.WriteLine("info initialle de la balle: force: {0} angle horizontale: {1} angle verticale: {2}", InfoBalle[0], InfoBalle[1], InfoBalle[2]);
             }
 

@@ -211,12 +211,12 @@ namespace AtelierXNA
          if (Temps…coulÈDepuisMAJ >= INTERVALLE_MAJ_STANDARD)
          {
             TempsTotal += Temps…coulÈDepuisMAJ;
-            Effectuer…vÈnementLocal();
             if (Game.Components.Where(net => net is NetworkClient).Count() == 1)
             {
                 NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
                 Effectuer…vÈnementLAN(client);
             }
+            Effectuer…vÈnementLocal();
             Temps…coulÈDepuisMAJ = 0;
          }
          base.Update(gameTime);
@@ -260,28 +260,26 @@ namespace AtelierXNA
             {
                TempsTotal = 0;
                ActiverLancer = false;
+            }
+            else if (ActiverInfo && TempsTotal >= 2.5f)
+            {
+               ActiverInfo = false;
                foreach (AffichageInfoLancer info in Game.Components.Where(info => info is AffichageInfoLancer))
                {
-                   infoLancer = info;
+                  infoLancer = info;
                }
 
                #region //pour rÈseau
-
-               foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
-               {
-                   ath = hud;
-               }
+                foreach(ATH hud in Game.Components.Where(hud => hud is ATH))
+                {
+                    ath = hud;
+                }
                if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
                {
                    NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
                    client.EnvoyerInfoLancerBalle(infoLancer.Force, infoLancer.InfoAngleHor, infoLancer.InfoAngleVert);
                }
-               ath.BoutonLancer.EstActif = false;
                #endregion
-            }
-            else if (ActiverInfo && TempsTotal >= 2.5f)
-            {
-               ActiverInfo = false;
 
                if (gestionEnviro.CamÈraJeu.Position.Z > 0)
                {
@@ -316,44 +314,32 @@ namespace AtelierXNA
          }
          if (Balle.EstDansVerre)
          {
-             if (Balle.EstJoueurPrincipal)
-             {
-                 Game.Components.Remove(ListeBiereAdv[Balle.Index¿Retirer]);
-                 Game.Components.Remove(VerresAdversaire[Balle.Index¿Retirer]);
-                 ListeBiereAdv.RemoveAt(Balle.Index¿Retirer);
-                 VerresAdversaire.RemoveAt(Balle.Index¿Retirer);
-                 ListePositionVerresAdv.RemoveAt(Balle.Index¿Retirer);
-                 if (Balle.RebondSurTable && ListeBiereAdv.Count > 1)
-                 {
-                     Game.Components.Remove(ListeBiereAdv[0]);
-                     Game.Components.Remove(VerresAdversaire[0]);
-                     ListeBiereAdv.RemoveAt(0);
-                     VerresAdversaire.RemoveAt(0);
-                     ListePositionVerresAdv.RemoveAt(0);
-                 }
-             }
-             else
-             {
-                 Game.Components.Remove(ListeBiereJoueur[Balle.Index¿Retirer]);
-                 Game.Components.Remove(VerresJoueur[Balle.Index¿Retirer]);
-                 ListeBiereJoueur.RemoveAt(Balle.Index¿Retirer);
-                 VerresJoueur.RemoveAt(Balle.Index¿Retirer);
-                 ListePositionVerres.RemoveAt(Balle.Index¿Retirer);
-                 if (Balle.RebondSurTable && ListeBiereJoueur.Count > 1)
-                 {
-                     Game.Components.Remove(ListeBiereJoueur[0]);
-                     Game.Components.Remove(VerresJoueur[0]);
-                     ListeBiereJoueur.RemoveAt(0);
-                     VerresJoueur.RemoveAt(0);
-                     ListePositionVerres.RemoveAt(0);
-                 }
-             }
+            if (Balle.EstJoueurPrincipal)
+            {
+               Game.Components.Remove(VerresAdversaire[Balle.Index¿Retirer]);
+               ListePositionVerresAdv.Remove(ListePositionVerresAdv[Balle.Index¿Retirer]);
+               if (Balle.RebondSurTable)
+               {
+                  Game.Components.Remove(VerresAdversaire[Balle.Index¿Retirer == 0 ? 1 : 0]);
+                  ListePositionVerresAdv.Remove(ListePositionVerresAdv[Balle.Index¿Retirer == 0 ? 1 : 0]);
+               }
+            }
+            else
+            {
+               Game.Components.Remove(VerresJoueur[Balle.Index¿Retirer]);
+               ListePositionVerresAdv.Remove(ListePositionVerres[Balle.Index¿Retirer]);
+               if (Balle.RebondSurTable)
+               {
+                  Game.Components.Remove(VerresJoueur[Balle.Index¿Retirer == 0 ? 1 : 0]);
+                  ListePositionVerresAdv.Remove(ListePositionVerres[Balle.Index¿Retirer == 0 ? 1 : 0]);
+               }
+            }
 
-             Game.Components.Remove(Balle);
-             Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
+            Game.Components.Remove(Balle);
+            Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
 
-             ActiverLancer = true;
-             ActiverInfo = true;
+            ActiverLancer = true;
+            ActiverInfo = true;
          }
       }
 
