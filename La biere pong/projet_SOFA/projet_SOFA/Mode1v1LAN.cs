@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Input;
 
 namespace AtelierXNA
 {
@@ -82,39 +82,64 @@ namespace AtelierXNA
 
             #region tests réseau
             //if (EstPartieActive)
-            //{  
-                ////Pour tester l'animation
-                //if(GestionInput.EstNouvelleTouche(Keys.B))
-                //{
-                //   JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(perso => perso.Position.Z > 0));
-                //   JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(false, TypeActionPersonnage.Boire);
-                //}
-                ////Pour tester envoie vector3 position balle
-                //if(GestionInput.EstNouvelleTouche(Keys.X))
-                //{
-                //    var p = new Vector3(4,5,6);
-                //    JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
-                //}
-                ////pour tester envoie est tour joueur principal
-                //if(GestionInput.EstNouvelleTouche(Keys.C))
-                //{
-                //    bool b = true;
-                //    JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
-                //}
-                ////pour tester envoie verre à enlever
-                //if(GestionInput.EstNouvelleTouche(Keys.V))
-                //{
-                //    JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
-                //}
-                ////pour tester envoie lancer balle
-                //if(GestionInput.EstNouvelleTouche(Keys.N))
-                //{
-                //    JoueurPrincipal.Client.EnvoyerInfoLancerBalle(7f, 8f, 9f);
-                //}
+            //{
+            //    //Pour tester l'animation
+            //    if (GestionInput.EstNouvelleTouche(Keys.B))
+            //    {
+            //        JoueurPrincipal.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(perso => perso.Position.Z > 0));
+            //        JoueurPrincipal.Client.EnvoyerInfoAnimationJoueur(false, TypeActionPersonnage.Boire);
+            //    }
+            //    //Pour tester envoie vector3 position balle
+            //    if (GestionInput.EstNouvelleTouche(Keys.X))
+            //    {
+            //        var p = new Vector3(4, 5, 6);
+            //        JoueurPrincipal.Client.EnvoyerInfoPositionBalle(p);
+            //    }
+            //    //pour tester envoie est tour joueur principal
+            //    if (GestionInput.EstNouvelleTouche(Keys.C))
+            //    {
+            //        bool b = true;
+            //        JoueurPrincipal.Client.EnvoyerInfoEstTourJoueurPrincipal(b);
+            //    }
+            //    //pour tester envoie verre à enlever
+            //    if (GestionInput.EstNouvelleTouche(Keys.V))
+            //    {
+            //        JoueurPrincipal.Client.EnvoyerInfoVerreÀEnlever(true, 3);
+            //    }
+            //    //pour tester envoie lancer balle
+            //    if (GestionInput.EstNouvelleTouche(Keys.N))
+            //    {
+            //        JoueurPrincipal.Client.EnvoyerInfoLancerBalle(7f, 8f, 9f);
+            //    }
             //}
             #endregion
 
+            EnrivonnementDeBase Enviro = null;
+            if (Game.Components.Where(item => item is EnrivonnementDeBase).Count() == 1)
+            {
+                foreach (EnrivonnementDeBase env in Game.Components.Where(item => item is EnrivonnementDeBase))
+                {
+                    Enviro = env;
+                }
+            }
+            if (Enviro != null && (Enviro.VerresJoueur.Count == 0 || Enviro.VerresAdversaire.Count == 0))
+                RetourAuMenu();
+
             base.Update(gameTime);
+        }
+
+        void RetourAuMenu()
+        {
+            for (int i = 3; i < Game.Components.Count; i++)
+            {
+                Game.Components.RemoveAt(i);
+                i--;
+            }
+            Game.Components.Remove(ath);
+            Game.Services.RemoveService(typeof(Caméra));
+            Menu menu = new Menu(Game);
+            Game.Components.Add(menu);
+            menu.Initialize();
         }
 
         void ActiverEnvironnement()
