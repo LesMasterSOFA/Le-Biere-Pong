@@ -10,10 +10,12 @@ namespace AtelierXNA
     public class ModeHistoire : PartieSolo
     {
         const int MARGE_BOUTONS = 60;
-        BoutonDeCommande BoutonTest { get; set; }
-        Vector2 PositionTest { get; set; }
-        BoutonDeCommande BoutonTest2 { get; set; }
-        Vector2 PositionTest2 { get; set; }
+        //BoutonDeCommande BoutonTest { get; set; }
+        //Vector2 PositionTest { get; set; }
+        //BoutonDeCommande BoutonTest2 { get; set; }
+        //Vector2 PositionTest2 { get; set; }
+        //BoutonDeCommande BoutonTest3 { get; set; }
+        //Vector2 PositionTest3 { get; set; }
         int ChangerNiveau { get; set; }
         EnrivonnementDeBase Environnement { get; set; }
         Menu Menu { get; set; }
@@ -37,6 +39,8 @@ namespace AtelierXNA
             //BoutonTest = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, SecondNiveau);
             //PositionTest2 = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
             //BoutonTest2 = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, TroisièmeNiveau);
+            //PositionTest3 = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
+            //BoutonTest3 = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, RetourAuMenu);
             //Game.Components.Add(BoutonTest);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
             base.Initialize();
@@ -78,8 +82,8 @@ namespace AtelierXNA
             }
             Game.Services.RemoveService(typeof(Caméra));
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), TypePartie.Histoire);
-            Game.Components.Add(EnvironnementPartie);
-            //Game.Components.Add(BoutonTest2);
+            //Game.Components.Add(EnvironnementPartie);
+            //Game.Components.Add(BoutonTest3);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
         }
         void SecondNiveau()
@@ -92,7 +96,8 @@ namespace AtelierXNA
             Game.Components.Remove(ath);
             Game.Services.RemoveService(typeof(Caméra));
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), TypePartie.Histoire);
-            Game.Components.Add(EnvironnementPartie);
+            //Game.Components.Add(EnvironnementPartie);
+            //Game.Components.Add(BoutonTest2);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
             
         }
@@ -107,6 +112,7 @@ namespace AtelierXNA
            Game.Services.RemoveService(typeof(Caméra));
            Menu = new Menu(Game);
            Game.Components.Add(Menu);
+           //Menu.Initialize();
         }
 
         #region Fonction Saoul

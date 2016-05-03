@@ -404,7 +404,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Textures\superBoyTex2.xnb</Output>
-      <Time>2016-05-03T14:59:05.7488013-04:00</Time>
+      <Time>2016-05-03T16:06:13.5031756-04:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>
@@ -416,7 +416,7 @@
       <Time>2016-05-03T14:58:59.5184449-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\mur_0.xml</Key>
-        <Value>2016-05-03T15:16:53.4078679-04:00</Value>
+        <Value>2016-05-03T16:12:14.1838054-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -429,7 +429,7 @@
       <Time>2016-05-03T14:58:58.5633903-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\balle_0.xml</Key>
-        <Value>2016-05-03T15:16:53.9769004-04:00</Value>
+        <Value>2016-05-03T16:12:14.7278365-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -442,7 +442,7 @@
       <Time>2016-05-03T14:58:59.6084501-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\table_plastique_0.xml</Key>
-        <Value>2016-05-03T15:16:54.1359095-04:00</Value>
+        <Value>2016-05-03T16:12:14.8968462-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -455,7 +455,7 @@
       <Time>2016-05-03T14:58:59.8424634-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\verre_0.xml</Key>
-        <Value>2016-05-03T15:16:54.7379439-04:00</Value>
+        <Value>2016-05-03T16:12:15.4978805-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -468,7 +468,7 @@
       <Time>2016-05-03T14:58:59.8234624-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\urinoir_0.xml</Key>
-        <Value>2016-05-03T15:16:55.1149655-04:00</Value>
+        <Value>2016-05-03T16:12:15.8399001-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -481,7 +481,7 @@
       <Time>2016-05-03T14:58:58.5633903-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\etabli_0.xml</Key>
-        <Value>2016-05-03T15:16:55.1819693-04:00</Value>
+        <Value>2016-05-03T16:12:15.9119042-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -494,7 +494,7 @@
       <Time>2016-05-03T14:58:58.5523897-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Chaise_0.xml</Key>
-        <Value>2016-05-03T15:16:55.2319722-04:00</Value>
+        <Value>2016-05-03T16:12:15.9659073-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -507,7 +507,7 @@
       <Time>2016-05-03T14:58:59.8014611-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\tablesallemanger_0.xml</Key>
-        <Value>2016-05-03T15:16:55.2819751-04:00</Value>
+        <Value>2016-05-03T16:12:16.0189104-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -520,7 +520,7 @@
       <Time>2016-05-03T14:58:59.5284455-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoy_0.xml</Key>
-        <Value>2016-05-03T15:16:55.841007-04:00</Value>
+        <Value>2016-05-03T16:12:16.5699419-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -533,7 +533,7 @@
       <Time>2016-05-03T14:58:59.5364459-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoyApresBoire_0.xml</Key>
-        <Value>2016-05-03T15:16:56.2300293-04:00</Value>
+        <Value>2016-05-03T16:12:16.9639644-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -546,7 +546,7 @@
       <Time>2016-05-03T14:58:59.5504467-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoyApresLancer_0.xml</Key>
-        <Value>2016-05-03T15:16:56.5850496-04:00</Value>
+        <Value>2016-05-03T16:12:17.323985-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -559,7 +559,7 @@
       <Time>2016-05-03T14:58:59.5844487-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoyBoire_0.xml</Key>
-        <Value>2016-05-03T15:16:58.130138-04:00</Value>
+        <Value>2016-05-03T16:12:18.8670733-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -572,7 +572,7 @@
       <Time>2016-05-03T14:58:59.5994495-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoyLancer_0.xml</Key>
-        <Value>2016-05-03T15:16:59.1841983-04:00</Value>
+        <Value>2016-05-03T16:12:19.9331342-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -585,7 +585,7 @@
       <Time>2016-05-03T14:58:59.6034498-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\superBoySwing_0.xml</Key>
-        <Value>2016-05-03T15:16:59.5352183-04:00</Value>
+        <Value>2016-05-03T16:12:20.2841543-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -598,7 +598,7 @@
       <Time>2016-05-03T14:58:56.793289-04:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Biere_0.xml</Key>
-        <Value>2016-05-03T15:16:59.5752206-04:00</Value>
+        <Value>2016-05-03T16:12:20.3161561-04:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -654,7 +654,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\cashRegister.xnb</Output>
-      <Time>2016-05-03T14:58:59.8994667-04:00</Time>
+      <Time>2016-05-03T16:06:13.4971753-04:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Like-a-Boss.mp3</Source>
@@ -663,7 +663,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Like-a-Boss.xnb</Output>
-      <Time>2016-05-03T14:58:59.8684649-04:00</Time>
+      <Time>2016-05-03T16:06:13.4961752-04:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Punch.mp3</Source>
@@ -672,7 +672,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Sounds\Punch.xnb</Output>
-      <Time>2016-05-03T14:58:59.8804656-04:00</Time>
+      <Time>2016-05-03T16:06:13.4961752-04:00</Time>
     </Item>
     <Item>
       <Source>Models\mur.fbx</Source>
@@ -793,7 +793,7 @@
     <Assemblies>
       <Assembly>
         <Key>C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll</Key>
-        <Value>2016-05-03T14:59:06.0518186-04:00</Value>
+        <Value>2016-05-03T16:06:13.5411778-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
