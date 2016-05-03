@@ -16,6 +16,7 @@ namespace AtelierXNA
         Vector2 PositionTest2 { get; set; }
         int ChangerNiveau { get; set; }
         EnrivonnementDeBase Environnement { get; set; }
+        Menu Menu { get; set; }
         public ModeHistoire(Game game)
             : base(game)
         { }
@@ -61,6 +62,11 @@ namespace AtelierXNA
               {
                  TroisièmeNiveau();
               }
+              else if (ChangerNiveau == 3)
+              {
+                 RetourAuMenu();
+              }
+
            }
         }
         void TroisièmeNiveau()
@@ -89,6 +95,18 @@ namespace AtelierXNA
             Game.Components.Add(EnvironnementPartie);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
             
+        }
+        void RetourAuMenu()
+        {
+           for (int i = 3; i < Game.Components.Count; i++)
+           {
+              Game.Components.RemoveAt(i);
+              i--;
+           }
+           Game.Components.Remove(ath);
+           Game.Services.RemoveService(typeof(Caméra));
+           Menu = new Menu(Game);
+           Game.Components.Add(Menu);
         }
 
         #region Fonction Saoul
