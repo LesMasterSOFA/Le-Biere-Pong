@@ -112,7 +112,7 @@ namespace AtelierXNA
            Game.Services.RemoveService(typeof(Caméra));
            Menu = new Menu(Game);
            Game.Components.Add(Menu);
-           //Menu.Initialize();
+           Menu.Initialize();
         }
 
         #region Fonction Saoul
