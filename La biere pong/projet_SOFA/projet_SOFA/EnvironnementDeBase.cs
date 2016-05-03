@@ -2,19 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
 
-   class EnrivonnementDeBase : Microsoft.Xna.Framework.DrawableGameComponent
+   abstract class EnrivonnementDeBase : Microsoft.Xna.Framework.DrawableGameComponent
    {
-      const int DIMENSION_TERRAIN = 7;
+       #region propriétés
+       const int DIMENSION_TERRAIN = 7;
       Vector2 étenduePlanMur = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN - 4);
       Vector2 étenduePlanPlafond = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
       Vector2 charpentePlan = new Vector2(4, 3);
@@ -24,17 +19,18 @@ namespace AtelierXNA
       const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
       const float HAUTEUR_VERRE = 0.1199f;
       //
-      Vector3 DimensionTable { get; set; }
-      float DistanceVerre { get; set; }
-      //
-      string NomGauche { get; set; }
-      string NomDroite { get; set; }
-      string NomPlafond { get; set; }
-      string NomPlancher { get; set; }
-      string NomAvant { get; set; }
-      string NomArrière { get; set; }
+      protected Vector3 DimensionTable { get; set; }
+      protected float DistanceVerre { get; set; }
       float TempsÉcouléDepuisMAJ { get; set; }
       float TempsTotal { get; set; }
+      //
+      protected string NomGauche { get; set; }
+      protected string NomDroite { get; set; }
+      protected string NomPlafond { get; set; }
+      protected string NomPlancher { get; set; }
+      protected string NomAvant { get; set; }
+      protected string NomArrière { get; set; }
+      //
       InputManager GestionClavier { get; set; }
       PlanTexturé Gauche { get; set; }
       PlanTexturé Droite { get; set; }
@@ -53,7 +49,6 @@ namespace AtelierXNA
       BoundingBox BoundingTable { get; set; }
       BoundingBox BoundingBonhommePrincipal { get; set; }
       BoundingBox BoundingBonhommeSecondaire { get; set; }
-
       //Pour personnages
       Vector3 RotationInitialePersonnagePrincipal { get; set; }
       Vector3 PositionInitialePersonnagePrincipal { get; set; }
@@ -65,6 +60,7 @@ namespace AtelierXNA
       public string PersonnageJoueurSecondaireTexture { get; private set; }
       Personnage PersonnagePrincipal { get; set; }
       Personnage PersonnageSecondaire { get; set; }
+      //
       GestionEnvironnement gestionEnviro { get; set; }
       Vector3 PositionIniBalle { get; set; }
       Vector3 PositionIniBalleAdv { get; set; }
@@ -75,27 +71,22 @@ namespace AtelierXNA
       AI Ai { get; set; }
       TypePartie TypeDePartie { get; set; }
       ATH ath { get; set; }
+       #endregion
 
-      public EnrivonnementDeBase(Game game, GestionEnvironnement gestionEnv, string nomGauche, string nomDroite, string nomPlafond, string nomPlancher,
-                                string nomAvant, string nomArrière, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
-                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, Vector3 dimensionTable, float distanceVerre, TypePartie typePartie)
+      public EnrivonnementDeBase(Game game, GestionEnvironnement gestionEnv, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
+                                string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, TypePartie typePartie)
          : base(game)
       {
-         NomGauche = nomGauche;
-         NomDroite = nomDroite;
-         NomPlafond = nomPlafond;
-         NomPlancher = nomPlancher;
-         NomAvant = nomAvant;
-         NomArrière = nomArrière;
          PersonnageJoueurPrincipalModel = personnageJoueurPrincipalModel;
          PersonnageJoueurPrincipalTexture = personnageJoueurPrincipalTexture;
          PersonnageJoueurSecondaireModel = personnageJoueurSecondaireModel;
          PersonnageJoueurSecondaireTexture = personnageJoueurSecondaireTexture;
          gestionEnviro = gestionEnv;
-         DimensionTable = dimensionTable;
-         DistanceVerre = distanceVerre;
          TypeDePartie = typePartie;
       }
+
+      #region initialisation d'environnement
+
       public override void Initialize()
       {
          Ai = new AI(ModeDifficulté.Difficile);
@@ -148,6 +139,17 @@ namespace AtelierXNA
          InitialiserModèles();
          base.Initialize();
       }
+
+      protected void InitialiserMurs(string[] tabMurs)
+      {
+          NomGauche = tabMurs[0];
+          NomDroite = tabMurs[1];
+          NomPlafond = tabMurs[2];
+          NomPlancher = tabMurs[3];
+          NomAvant = tabMurs[4];
+          NomArrière = tabMurs[5];
+      }
+
       void FixerLesPositions()
       {
          ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE, DimensionTable.Y, DistanceVerre));
@@ -160,6 +162,7 @@ namespace AtelierXNA
          ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); 
          ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre + 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
       }
+
       void AjouterBiere()
       {
          ListeBiereJoueur = new List<ObjetDeBase>();
@@ -205,6 +208,11 @@ namespace AtelierXNA
             Game.Components.Add(verre);
          }
       }
+
+      abstract protected void InitialiserModèles();
+      #endregion
+
+      #region gestion d'événements
 
       public override void Update(GameTime gameTime)
       {
@@ -259,6 +267,7 @@ namespace AtelierXNA
             }
          }
       }
+
       void EffectuerÉvénementLAN(NetworkClient client)
       {
           if (client.EstMessageReçuLancerBalle)
@@ -289,6 +298,7 @@ namespace AtelierXNA
               gestionEnviro.CaméraJeu.EstMouvCamActif = true;
           }
       }
+
       void EffectuerÉvénementLocal()
       {
          if (Game.Components.Where(info => info is AffichageInfoLancer).Count() == 1)
@@ -387,8 +397,7 @@ namespace AtelierXNA
              ActiverInfo = true;
          }
       }
+      #endregion
 
-      public virtual void InitialiserModèles()
-      { }
    }
 }
