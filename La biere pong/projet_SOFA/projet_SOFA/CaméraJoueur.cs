@@ -14,6 +14,15 @@ namespace AtelierXNA
         const float RAYON_COLLISION = 1f;
         const float TEMPS_LANCER = 2.71f;
         const float TEMPS_TOURNER = MathHelper.Pi + 2 * TEMPS_LANCER;
+        const float MAX_MOUV_HOR = 0.15f;
+        const float MIN_MOUV_HOR = -0.15f;
+        const float MIN_MOUV_VERT = -MathHelper.Pi / 6;
+        const float MAX_MOUV_VERT = 0.5f;
+
+        Vector3 MouvCamLancerJoueur1 { get; set; }
+        Vector3 MouvCamLancerJoueur2 { get; set; }
+        Vector3 PositionLancerJoueur1 { get; set; }
+        Vector3 PositionLancerJoueur2 { get; set; }
 
 
         Vector3 Direction { get; set; }
@@ -51,6 +60,10 @@ namespace AtelierXNA
             }
 
             Cible = new Vector3(0, 1f, 0);
+            MouvCamLancerJoueur1 = new Vector3(0, 0.005f, 0.007f);
+            MouvCamLancerJoueur2 = new Vector3(0, 0.005f, -0.007f);
+            PositionLancerJoueur1 = new Vector3(0, 1.5f, -1.0f);
+            PositionLancerJoueur2 = new Vector3(0, 1.5f, 1.0f);
 
             TempsTotal = 0;
             EstMouvCamActif = false;
@@ -129,11 +142,11 @@ namespace AtelierXNA
             }
             if (Position.Z > 0)
             {
-                if (Vue.Forward.Y <= -MathHelper.Pi / 6)
+                if (Vue.Forward.Y <= MIN_MOUV_VERT)
                 {
                     VitesseRotationHaut = 0f;
                 }
-                else if (Vue.Forward.Y >= 0.5f)
+                else if (Vue.Forward.Y >= MAX_MOUV_VERT)
                 {
                     VitesseRotationBas = 0f;
                 }
@@ -146,11 +159,11 @@ namespace AtelierXNA
             else
             {
 
-                if (Vue.Forward.Y >= MathHelper.Pi / 6)
+                if (Vue.Forward.Y >= -MIN_MOUV_VERT)
                 {
                     VitesseRotationHaut = 0f;
                 }
-                else if (Vue.Forward.Y <= -0.5f)
+                else if (Vue.Forward.Y <= -MAX_MOUV_VERT)
                 {
                     VitesseRotationBas = 0f;
                 }
@@ -177,11 +190,11 @@ namespace AtelierXNA
             }
             if (Position.Z > 0)
             {
-                if (Vue.Forward.X <= -0.15f)
+                if (Vue.Forward.X <= MIN_MOUV_HOR)
                 {
                     VitesseRotationDroite = 0f;
                 }
-                else if (Vue.Forward.X >= 0.15f)
+                else if (Vue.Forward.X >= MAX_MOUV_HOR)
                 {
                     VitesseRotationGauche = 0f;
                 }
@@ -193,11 +206,11 @@ namespace AtelierXNA
             }
             else
             {
-                if (Vue.Forward.X >= 0.15f)
+                if (Vue.Forward.X >= -MIN_MOUV_HOR)
                 {
                     VitesseRotationDroite = 0f;
                 }
-                else if (Vue.Forward.X <= -0.15f)
+                else if (Vue.Forward.X <= -MAX_MOUV_HOR)
                 {
                     VitesseRotationGauche = 0f;
                 }
@@ -224,11 +237,11 @@ namespace AtelierXNA
             {
                 if (Position.Z > 0)
                 {
-                    EffectuerMouvLancerCam(new Vector3(0, 0.005f, 0.007f));
+                    EffectuerMouvLancerCam(MouvCamLancerJoueur1);
                 }
                 else
                 {
-                    EffectuerMouvLancerCam(new Vector3(0, 0.005f, -0.007f));
+                    EffectuerMouvLancerCam(MouvCamLancerJoueur2);
                     RotationAntiHoraire = false;
                 }
             }
@@ -248,11 +261,11 @@ namespace AtelierXNA
             {
                 if (Position.Z < 0)
                 {
-                    EffectuerMouvLancerCam(new Vector3(0, -0.005f, 0.007f));
+                    EffectuerMouvLancerCam(-MouvCamLancerJoueur2);
                 }
                 else
                 {
-                    EffectuerMouvLancerCam(new Vector3(0, -0.005f, -0.007f));
+                    EffectuerMouvLancerCam(-MouvCamLancerJoueur1);
                 }
             }
             if (TempsTotal >= TEMPS_TOURNER + TEMPS_LANCER && EstMouvCamActif)
@@ -271,11 +284,11 @@ namespace AtelierXNA
                 }
                 if (Position.Z < 0)
                 {
-                    Déplacer(new Vector3(0, 1.5f, -1.0f), Cible, Vector3.Up);
+                    Déplacer(PositionLancerJoueur1, Cible, Vector3.Up);
                 }
                 else
                 {
-                    Déplacer(new Vector3(0, 1.5f, 1.0f), Cible, Vector3.Up);
+                    Déplacer(PositionLancerJoueur2, Cible, Vector3.Up);
                 }
             }
         }
