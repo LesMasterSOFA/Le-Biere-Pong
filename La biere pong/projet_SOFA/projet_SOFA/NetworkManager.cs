@@ -12,7 +12,7 @@ namespace AtelierXNA
     {
         public NetworkServer Serveur { get; private set; }
         public const string NOM_JEU = "BEERPONG";
-        public const int PORT = 5011;
+        public const int PORT = 25565;
         public NetworkClient MasterClient { get; private set; } //Client local dirigeant la partie
         public NetworkClient SlaveClient { get; private set; } //Client extérieur se greffant à la partie
         public Mode1v1LAN PartieEnCours { get; private set; }
