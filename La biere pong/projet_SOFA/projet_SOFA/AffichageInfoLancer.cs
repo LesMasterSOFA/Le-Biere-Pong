@@ -17,6 +17,7 @@ namespace AtelierXNA
         public float InfoAngleVert { get; set; }
         public float Force { get; set; }
         ATH ath { get; set; }
+        GestionEnvironnement gestionEnviro { get; set; }
 
         public AffichageInfoLancer(Game game, float force)
             : base(game)
@@ -40,6 +41,24 @@ namespace AtelierXNA
                 ath = hud;
             }
             if (ath.EstTourJoueurPrincipal)
+            {
+                if (CaméraJeu.Position.Z > 0)
+                {
+                    InfoAngleHor = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                }
+                else
+                {
+                    InfoAngleHor = (float)MathHelper.ToDegrees((float)Math.Tan(-CaméraJeu.Vue.Forward.X / CaméraJeu.Vue.Forward.Z));
+                }
+                InfoAngleVert = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.Y / CaméraJeu.Vue.Forward.Z)) + 31.3f;
+            }
+
+            foreach (GestionEnvironnement gestionEnvironnement in Game.Components.Where(gestion => gestion is GestionEnvironnement))
+            {
+                gestionEnviro = gestionEnvironnement;
+            }
+
+            if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique)
             {
                 if (CaméraJeu.Position.Z > 0)
                 {
