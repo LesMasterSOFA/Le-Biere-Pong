@@ -14,7 +14,7 @@ namespace AtelierXNA
       const float COEFFICIENT_FROTTEMENT = 0.85f;
       const float CHANGEMENT_DIRECTION = -1f;
       const float GRAVITÉ = 9.81f;
-      const float RAYON_BALLE = 0.02f;
+      const float RAYON_BALLE = 0.01f;
       BoundingSphere SphèreBalle { get; set; }
       float VitesseInitiale { get; set; }
       float VitesseEnX { get; set; }
@@ -167,7 +167,7 @@ namespace AtelierXNA
 
                      if (angleDirection <= AngleLimiteVert + 0.01f)
                      {
-                        if (Math.Abs(angleDirection - AngleLimiteVert) <= 0.2f)
+                        if (Math.Abs(angleDirection - AngleLimiteVert) <= 0.1f)
                         {
                            Pong.Play();
                            VitesseEnX = COEFFICIENT_FROTTEMENT * VitesseEnX;

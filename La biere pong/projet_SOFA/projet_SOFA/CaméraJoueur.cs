@@ -8,7 +8,7 @@ namespace AtelierXNA
     public class CaméraJoueur : Caméra
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-        const float VITESSE_INITIALE_ROTATION = 0.1f;
+        const float VITESSE_INITIALE_ROTATION = 0.15f;
         const float DELTA_LACET = MathHelper.Pi / 180; // 1 degré à la fois
         const float DELTA_TANGAGE = MathHelper.Pi / 180; // 1 degré à la fois
         const float RAYON_COLLISION = 1f;
