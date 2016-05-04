@@ -390,6 +390,23 @@ namespace AtelierXNA
                  }
              }
 
+             #region changer animation pour boire
+             Joueur joueur = new Joueur(Game); 
+             List<Personnage> ListePerso = new List<Personnage>();
+             foreach (Personnage perso in Game.Components.Where(person => person is Personnage))
+             {
+                 ListePerso.Add(perso);
+             }
+             if (gestionEnviro.CaméraJeu.Position.Z > 0)
+             {
+                 joueur.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(peros => peros.Position.Z < 0));
+             }
+             else
+             {
+                 joueur.ChangerAnimation(TypeActionPersonnage.Boire, ListePerso.Find(peros => peros.Position.Z > 0));
+             }
+             #endregion
+
              Game.Components.Remove(Balle);
              Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
 
