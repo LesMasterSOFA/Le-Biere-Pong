@@ -52,6 +52,11 @@ namespace AtelierXNA
             Game.Services.AddService(typeof(Caméra), CaméraJeu);
             InstancierEnvironnement();
         }
+        public override void Update(GameTime gameTime)
+        {
+            CaméraJeu.EffectuerMouvTournerCam(1);
+            base.Update(gameTime);
+        }
 
         //Cette fonction envoi les textures des différents murs aux environnements, pour les modèles propre à l'environnement ils sont instanciés directement dans ce dernier.
         void InstancierEnvironnement()

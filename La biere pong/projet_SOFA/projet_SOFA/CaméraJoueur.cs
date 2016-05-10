@@ -298,9 +298,10 @@ namespace AtelierXNA
             Position += mouvement;
             Déplacer(Position, Cible, Vector3.Up);
         }
-        void EffectuerMouvTournerCam(int bord1OuMoins1)
+        public void EffectuerMouvTournerCam(int bord1OuMoins1)
         {
-            float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
+            //float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
+            float rayon = 2f;
             Déplacer(new Vector3(bord1OuMoins1 * rayon * (float)Math.Sin(TempsTotal - 2 * TEMPS_LANCER), Position.Y, bord1OuMoins1 * rayon * (float)Math.Cos(TempsTotal - 2 * TEMPS_LANCER)), Cible, Vector3.Up);
         }
     }
