@@ -8,22 +8,23 @@ namespace AtelierXNA
 
    abstract class EnrivonnementDeBase : Microsoft.Xna.Framework.DrawableGameComponent
    {
-       #region propriétés
-       const int DIMENSION_TERRAIN = 7;
-      Vector2 étenduePlanMur = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN - 4);
-      Vector2 étenduePlanPlafond = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
-      Vector2 charpentePlan = new Vector2(4, 3);
+       #region Constantes et propriétés
+
+      const int DIMENSION_TERRAIN = 7;
       const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-      Vector3 DIMENSION_BONHOMMME = new Vector3(0.50f, 1.705f, 0.367f);
       const float DIAMÈTRE_VERRE = 0.09225f;
       const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
       const float HAUTEUR_VERRE = 0.1199f;
-      //
+      Vector2 étenduePlanMur = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN - 4);
+      Vector2 étenduePlanPlafond = new Vector2(DIMENSION_TERRAIN, DIMENSION_TERRAIN);
+      Vector2 charpentePlan = new Vector2(4, 3);
+      Vector3 DIMENSION_BONHOMMME = new Vector3(0.50f, 1.705f, 0.367f);
+
       protected Vector3 DimensionTable { get; set; }
       protected float DistanceVerre { get; set; }
       float TempsÉcouléDepuisMAJ { get; set; }
       float TempsTotal { get; set; }
-      //
+      //String représentant les noms des murs (Changeant selon l'environnement)
       protected string NomGauche { get; set; }
       protected string NomDroite { get; set; }
       protected string NomPlafond { get; set; }
@@ -31,13 +32,14 @@ namespace AtelierXNA
       protected string NomAvant { get; set; }
       protected string NomArrière { get; set; }
       //
-      InputManager GestionClavier { get; set; }
       PlanTexturé Gauche { get; set; }
       PlanTexturé Droite { get; set; }
       PlanTexturé Plafond { get; set; }
       PlanTexturé Plancher { get; set; }
       PlanTexturé Avant { get; set; }
       PlanTexturé Arrière { get; set; }
+      //
+      InputManager GestionClavier { get; set; }
       BallePhysique Balle { get; set; }
       List<ObjetDeBase> ListeBiereJoueur { get; set; }
       List<ObjetDeBase> ListeBiereAdv { get; set; }
@@ -60,7 +62,6 @@ namespace AtelierXNA
       public string PersonnageJoueurSecondaireTexture { get; private set; }
       Personnage PersonnagePrincipal { get; set; }
       Personnage PersonnageSecondaire { get; set; }
-      //
       GestionEnvironnement gestionEnviro { get; set; }
       Vector3 PositionIniBalle { get; set; }
       Vector3 PositionIniBalleAdv { get; set; }
@@ -103,13 +104,14 @@ namespace AtelierXNA
          Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
          GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
 
+         //Initialise les murs (plans texturés) avec la texture nécessaire
          Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3((float)-DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN - 4) / 2, 0), étenduePlanMur, charpentePlan, NomGauche, INTERVALLE_MAJ_STANDARD);
          Droite = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.PiOver2, 0), new Vector3((float)DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN - 4) / 2, 0), étenduePlanMur, charpentePlan, NomDroite, INTERVALLE_MAJ_STANDARD);
          Plafond = new PlanTexturé(Game, 1f, new Vector3(MathHelper.PiOver2, 0, 0), new Vector3(0, DIMENSION_TERRAIN - 4, 0), étenduePlanPlafond, charpentePlan, NomPlafond, INTERVALLE_MAJ_STANDARD);
          Plancher = new PlanTexturé(Game, 1f, new Vector3(-MathHelper.PiOver2, 0, 0), new Vector3(0, 0, 0), étenduePlanPlafond, charpentePlan, NomPlancher, INTERVALLE_MAJ_STANDARD);
          Avant = new PlanTexturé(Game, 1f, Vector3.Zero, new Vector3(0, (float)(DIMENSION_TERRAIN - 4) / 2, (float)-DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, NomAvant, INTERVALLE_MAJ_STANDARD);
          Arrière = new PlanTexturé(Game, 1f, new Vector3(0, -MathHelper.Pi, 0), new Vector3(0, (float)(DIMENSION_TERRAIN - 4) / 2, (float)DIMENSION_TERRAIN / 2), étenduePlanMur, charpentePlan, NomArrière, INTERVALLE_MAJ_STANDARD);
-
+         //Ajoutes les murs aux composantes
          Game.Components.Add(Gauche);
          Game.Components.Add(Droite);
          Game.Components.Add(Plafond);
@@ -152,17 +154,23 @@ namespace AtelierXNA
 
       void FixerLesPositions()
       {
-         ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE, DimensionTable.Y, DistanceVerre));
-         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE, DimensionTable.Y, DistanceVerre)); ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
-         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre - 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
-
+         //Verres du joueur
+         ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre));
+         ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE, DimensionTable.Y, DistanceVerre));
+         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE, DimensionTable.Y, DistanceVerre));
+         ListePositionVerres.Add(new Vector3(DIAMÈTRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DimensionTable.Y, DistanceVerre - DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerres.Add(new Vector3(0, DimensionTable.Y, DistanceVerre - 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         //Verres de l'adversaire
          ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre)); 
          ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE, DimensionTable.Y, -DistanceVerre));
-         ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE, DimensionTable.Y, -DistanceVerre)); ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
+         ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE, DimensionTable.Y, -DistanceVerre));
+         ListePositionVerresAdv.Add(new Vector3(DIAMÈTRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
          ListePositionVerresAdv.Add(new Vector3(-DIAMÈTRE_VERRE / 2, DimensionTable.Y, -DistanceVerre + DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3))); 
          ListePositionVerresAdv.Add(new Vector3(0, DimensionTable.Y, -DistanceVerre + 2 * DIAMÈTRE_VERRE * (float)Math.Sin(Math.PI / 3)));
       }
 
+      //Ajoute la bière dans les verres (la bière étant un modèle avec une texture)
       void AjouterBiere()
       {
          ListeBiereJoueur = new List<ObjetDeBase>();
@@ -186,6 +194,7 @@ namespace AtelierXNA
          }
       }
 
+      //Ajoute les verres dans les composantes de jeu
       void CréerLesVerres()
       {
          VerresJoueur = new List<VerreJoueurPrincipal>();
@@ -212,7 +221,8 @@ namespace AtelierXNA
       abstract protected void InitialiserModèles();
       #endregion
 
-      #region gestion d'événements
+      //Gestion d'événements regroupées, chaque fonction représentant un mode de jeu particulier
+      #region Gestion d'événements
 
       public override void Update(GameTime gameTime)
       {
@@ -311,7 +321,7 @@ namespace AtelierXNA
                {
                   infoLancer = info;
                }
-               #region //pour réseau
+               #region //Pour réseau
                
                if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
                {
