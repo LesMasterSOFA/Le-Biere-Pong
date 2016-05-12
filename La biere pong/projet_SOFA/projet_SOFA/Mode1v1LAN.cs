@@ -164,7 +164,7 @@ namespace AtelierXNA
             RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverPartieMaster);
+            BoutonJouer = new BoutonDeCommande(Game, "Jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverPartieMaster);
             BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalleManger);
             BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
@@ -229,30 +229,16 @@ namespace AtelierXNA
         public override void Draw(GameTime gameTime)
         {
             GestionSprites.Begin();
-            int noDrawOrder = 0;
-            foreach (GameComponent item in Game.Components)
-            {
-                if (item is DrawableGameComponent)
-                {
-                    ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
-                }
-            }
-
-            DrawMenuEnivronnement(gameTime, MenuActif);
-            base.Draw(gameTime);
-            GestionSprites.End();
-        }
-
-        void DrawMenuEnivronnement(GameTime gameTime, bool MenuActif)
-        {
             if (MenuActif)
             {
                 //L'image de fond d'écran se dessine par dessus les boutons
-                //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+                GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
                 GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
             }
+            GestionSprites.End();
+            base.Draw(gameTime);
         }
     }
 

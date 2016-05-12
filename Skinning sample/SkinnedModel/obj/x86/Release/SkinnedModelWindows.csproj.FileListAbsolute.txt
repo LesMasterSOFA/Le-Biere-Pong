@@ -10,3 +10,9 @@ C:\Users\Olivier\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Rele
 C:\Users\Olivier\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Olivier\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.dll
 C:\Users\Olivier\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.pdb
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Release\SkinnedModel.dll
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\bin\x86\Release\SkinnedModel.pdb
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModelWindows.csprojResolveAssemblyReference.cache
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.dll
+C:\Users\201432418\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModel\obj\x86\Release\SkinnedModel.pdb

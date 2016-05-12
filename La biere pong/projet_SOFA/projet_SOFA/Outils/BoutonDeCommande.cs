@@ -126,6 +126,14 @@ namespace AtelierXNA
 
       public override void Draw(GameTime gameTime)
       {
+          int noDrawOrder = 0;
+          foreach (GameComponent item in Game.Components)
+          {
+              if (item is DrawableGameComponent)
+              {
+                  ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
+              }
+          }
          GestionSprites.Begin();
          GestionSprites.Draw(ImageBouton, RectangleDestination, Color.White);
          GestionSprites.DrawString(PoliceDeCaractères, Texte, PositionChaîne, CouleurTexte, 0, OrigineChaîne, 1f, SpriteEffects.None, 1);
