@@ -3,7 +3,7 @@
 namespace AtelierXNA
 {
 
-   class EnvironnementSousSol : EnrivonnementDeBase
+   class EnvironnementSousSol : EnvironnementDeBase
    {
       ObjetDeBase Table { get; set; }
 

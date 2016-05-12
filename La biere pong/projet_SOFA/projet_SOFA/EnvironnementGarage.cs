@@ -3,7 +3,7 @@
 namespace AtelierXNA
 {
 
-   class EnvironnementGarage : EnrivonnementDeBase
+   class EnvironnementGarage : EnvironnementDeBase
    {
       ObjetDeBase Etabli { get; set; }
       ObjetDeBase Urinoir { get; set; }

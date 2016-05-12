@@ -17,7 +17,7 @@ namespace AtelierXNA
         //BoutonDeCommande BoutonTest3 { get; set; }
         //Vector2 PositionTest3 { get; set; }
         int ChangerNiveau { get; set; }
-        EnrivonnementDeBase Environnement { get; set; }
+        EnvironnementDeBase Environnement { get; set; }
         Menu Menu { get; set; }
         public ModeHistoire(Game game)
             : base(game)
@@ -47,9 +47,9 @@ namespace AtelierXNA
         }
         void ChangerDeNiveau()
         {
-           if (Game.Components.Where(item => item is EnrivonnementDeBase).Count() == 1)
+           if (Game.Components.Where(item => item is EnvironnementDeBase).Count() == 1)
            {
-              foreach (EnrivonnementDeBase env in Game.Components.Where(item => item is EnrivonnementDeBase))
+              foreach (EnvironnementDeBase env in Game.Components.Where(item => item is EnvironnementDeBase))
               {
                  Environnement = env;
               }

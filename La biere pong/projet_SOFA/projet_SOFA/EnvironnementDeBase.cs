@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 namespace AtelierXNA
 {
 
-   abstract class EnrivonnementDeBase : Microsoft.Xna.Framework.DrawableGameComponent
+   abstract class EnvironnementDeBase : Microsoft.Xna.Framework.DrawableGameComponent
    {
        #region Constantes et propriétés
 
@@ -73,7 +73,7 @@ namespace AtelierXNA
       ATH ath { get; set; }
        #endregion
 
-      public EnrivonnementDeBase(Game game, GestionEnvironnement gestionEnv, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
+      public EnvironnementDeBase(Game game, GestionEnvironnement gestionEnv, string personnageJoueurPrincipalModel, string personnageJoueurPrincipalTexture,
                                 string personnageJoueurSecondaireModel, string personnageJoueurSecondaireTexture, TypePartie typePartie)
          : base(game)
       {

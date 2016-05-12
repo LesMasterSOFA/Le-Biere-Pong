@@ -114,10 +114,10 @@ namespace AtelierXNA
             //}
             #endregion
 
-            EnrivonnementDeBase Enviro = null;
-            if (Game.Components.Where(item => item is EnrivonnementDeBase).Count() == 1)
+            EnvironnementDeBase Enviro = null;
+            if (Game.Components.Where(item => item is EnvironnementDeBase).Count() == 1)
             {
-                foreach (EnrivonnementDeBase env in Game.Components.Where(item => item is EnrivonnementDeBase))
+                foreach (EnvironnementDeBase env in Game.Components.Where(item => item is EnvironnementDeBase))
                 {
                     Enviro = env;
                 }

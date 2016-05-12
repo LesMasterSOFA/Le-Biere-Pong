@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 namespace AtelierXNA
 {
 
-   class EnvironnementSalleManger : EnrivonnementDeBase
+   class EnvironnementSalleManger : EnvironnementDeBase
    {
       ObjetDeBase Urinoir { get; set; }
       List<ObjetDeBase> ListeChaise { get; set; }
