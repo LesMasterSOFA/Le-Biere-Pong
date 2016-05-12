@@ -78,7 +78,7 @@ namespace AtelierXNA
                 CréerServeur();
                 CréerMasterClient();
                 PartieEnCours = new Mode1v1LAN(Game, Serveur, this);
-                Game.Components.Add(PartieEnCours);
+                Game.Components.Insert(6,PartieEnCours);
             }
             //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)

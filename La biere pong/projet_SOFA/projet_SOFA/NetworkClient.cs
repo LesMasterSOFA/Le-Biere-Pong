@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AtelierXNA
 {
-    public class NetworkClient : Microsoft.Xna.Framework.GameComponent
+    public class NetworkClient : Microsoft.Xna.Framework.DrawableGameComponent
     {
         #region propriétés de la classe
 
@@ -34,6 +35,12 @@ namespace AtelierXNA
         public bool EstMaster { get; private set; }
         public bool EstMessageReçuLancerBalle { get; set; } //Doit pouvoir être changé dans la gestion d'évènements
         public float[] InfoBalle { get; private set; } //sert a stocker les infos de la balle pour la gestion d'événements
+        SpriteBatch GestionSprites { get; set; }
+        RessourcesManager<Texture2D> gestionnaireTexture { get; set; }
+        RessourcesManager<SpriteFont> gestionnaireFont { get; set; }
+        Texture2D ImageFondÉcran { get; set; }
+        SpriteFont Impact40 { get; set; }
+        Rectangle RectangleFondÉcran { get; set; }
 
         #endregion
 
@@ -71,7 +78,16 @@ namespace AtelierXNA
             Create(NomJeu, Port);
             Connect();
         }
-
+        protected override void LoadContent()
+        {
+            RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height + 15);
+            GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
+            gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
+            gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
+            ImageFondÉcran = gestionnaireTexture.Find("BeerPong");
+            Impact40 = gestionnaireFont.Find("Impact40");
+            base.LoadContent();
+        }
         void Create(string nomJeu, int port)
         {
             // Demande l'ip si aucune adresse a été fournie
@@ -526,5 +542,14 @@ namespace AtelierXNA
         }
 
         #endregion
+        public override void Draw(GameTime gameTime)
+        {
+            GestionSprites.Begin();
+            string allo = "Votre adversaire crée la partie...";
+            GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+            GestionSprites.DrawString(Impact40, allo, new Vector2(Game.Window.ClientBounds.Center.X - Impact40.MeasureString(allo).X / 2, Game.Window.ClientBounds.Center.Y - Impact40.MeasureString(allo).Y / 2), Color.White);
+            GestionSprites.End();
+            base.Draw(gameTime);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Net;
 
 namespace AtelierXNA
 {
@@ -34,6 +35,7 @@ namespace AtelierXNA
         bool MenuActif { get; set; }
         InputManager GestionInput { get; set; }
         List<Personnage> ListePerso { get; set; }
+        SpriteFont Impact40 { get; set; }
         
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
@@ -69,6 +71,7 @@ namespace AtelierXNA
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
             GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
+            Impact40 = gestionnaireFont.Find("Impact40");
             base.LoadContent();
         }
 
@@ -164,7 +167,7 @@ namespace AtelierXNA
             RectangleGarage = new Rectangle(Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSalleManger = new Rectangle(3 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
             RectangleSousSol = new Rectangle(5 * Game.Window.ClientBounds.Width / 7, 150, Game.Window.ClientBounds.Width / 5, 233);
-            BoutonJouer = new BoutonDeCommande(Game, "jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverPartieMaster);
+            BoutonJouer = new BoutonDeCommande(Game, "Jouer", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(100, 100), false, ActiverPartieMaster);
             BoutonGarage = new BoutonDeCommande(Game, "Garage", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(17 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserGarage);
             BoutonSalleManger = new BoutonDeCommande(Game, "Salle à manger", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(37 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSalleManger);
             BoutonSousSol = new BoutonDeCommande(Game, "Sous-sol", "Impact20", "BoutonBleu", "BoutonBleuPale", new Vector2(57 * Game.Window.ClientBounds.Width / 70, 100), true, InitialiserSousSol);
@@ -225,34 +228,34 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Add(new Afficheur3D(Game));
         }
-
+        string TrouverAdresseIPLocale()
+        {
+            IPHostEntry host;
+            string localIP = "?";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily.ToString() == "InterNetwork")
+                {
+                    localIP = ip.ToString();
+                }
+            }
+            return localIP;
+        }
         public override void Draw(GameTime gameTime)
         {
             GestionSprites.Begin();
-            int noDrawOrder = 0;
-            foreach (GameComponent item in Game.Components)
-            {
-                if (item is DrawableGameComponent)
-                {
-                    ((DrawableGameComponent)item).DrawOrder = noDrawOrder++;
-                }
-            }
-
-            DrawMenuEnivronnement(gameTime, MenuActif);
-            base.Draw(gameTime);
-            GestionSprites.End();
-        }
-
-        void DrawMenuEnivronnement(GameTime gameTime, bool MenuActif)
-        {
             if (MenuActif)
             {
                 //L'image de fond d'écran se dessine par dessus les boutons
-                //GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+                GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
                 GestionSprites.Draw(ImageMenuSousSol, RectangleSousSol, Color.White);
+                GestionSprites.DrawString(Impact40, "Votre adresse IP : " + TrouverAdresseIPLocale(), new Vector2(Game.Window.ClientBounds.Width /10, 4 * Game.Window.ClientBounds.Height / 5), Color.White);
             }
+            GestionSprites.End();
+            base.Draw(gameTime);
         }
     }
 
