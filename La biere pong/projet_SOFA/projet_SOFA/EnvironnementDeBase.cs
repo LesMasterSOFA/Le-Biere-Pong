@@ -68,7 +68,6 @@ namespace AtelierXNA
       AffichageInfoLancer infoLancer { get; set; }
       bool ActiverLancer { get; set; }
       bool ActiverInfo { get; set; }
-      Random RandGen { get; set; }
       AI Ai { get; set; }
       TypePartie TypeDePartie { get; set; }
       ATH ath { get; set; }
@@ -86,14 +85,15 @@ namespace AtelierXNA
          TypeDePartie = typePartie;
       }
 
-      #region initialisation d'environnement
+      #region Initialisation d'environnement
 
       public override void Initialize()
       {
+         GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
          Ai = new AI(ModeDifficulté.Difficile);
-         RandGen = new Random();
          ActiverLancer = true;
          ActiverInfo = true;
+
          RotationInitialePersonnagePrincipal = new Vector3(-MathHelper.PiOver2, 0, 0);
          PositionInitialePersonnagePrincipal = new Vector3(0.182f, 0, -DimensionTable.Z / 2 - 0.1f - 0.546f);
          RotationInitialePersonnageSecondaire = new Vector3(-MathHelper.PiOver2, MathHelper.Pi, 0);
@@ -102,7 +102,7 @@ namespace AtelierXNA
          PositionIniBalle = new Vector3(0, 1.4f, DimensionTable.Z / 2 + 0.1f);
          PositionIniBalleAdv = new Vector3(0, 1.4f, -DimensionTable.Z / 2 - 0.1f);
          Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
-         GestionClavier = Game.Services.GetService(typeof(InputManager)) as InputManager;
+
 
          //Initialise les murs (plans texturés) avec la texture nécessaire
          Gauche = new PlanTexturé(Game, 1f, new Vector3(0, MathHelper.PiOver2, 0), new Vector3((float)-DIMENSION_TERRAIN / 2, ((float)DIMENSION_TERRAIN - 4) / 2, 0), étenduePlanMur, charpentePlan, NomGauche, INTERVALLE_MAJ_STANDARD);
@@ -151,7 +151,7 @@ namespace AtelierXNA
           NomAvant = tabMurs[4];
           NomArrière = tabMurs[5];
       }
-
+      //Fixe les positions des verres
       void FixerLesPositions()
       {
          //Verres du joueur
@@ -217,7 +217,7 @@ namespace AtelierXNA
             Game.Components.Add(verre);
          }
       }
-
+      //Fonction abstract pour initialiser les modèles qui seront initialiser dans l'environnement même puisqu'ils varient selon l'environnement.
       abstract protected void InitialiserModèles();
       #endregion
 
