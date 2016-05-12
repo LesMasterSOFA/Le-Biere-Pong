@@ -9,7 +9,7 @@ namespace AtelierXNA
         #region propriétés de la classe
 
         // Server object
-        NetServer Serveur;
+        public NetServer Serveur { get; private set; }
         // Configuration serveur
         NetPeerConfiguration Config;
 
