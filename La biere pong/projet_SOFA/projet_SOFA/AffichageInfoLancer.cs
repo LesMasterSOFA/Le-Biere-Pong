@@ -36,10 +36,8 @@ namespace AtelierXNA
         {
             CaméraJeu = Game.Services.GetService(typeof(Caméra)) as Caméra;
 
-            foreach (ATH hud in Game.Components.Where(item => item is ATH))
-            {
-                ath = hud;
-            }
+            ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
+
             if (ath.EstTourJoueurPrincipal)
             {
                 if (CaméraJeu.Position.Z > 0)
@@ -53,10 +51,7 @@ namespace AtelierXNA
                 InfoAngleVert = (float)MathHelper.ToDegrees((float)Math.Tan(CaméraJeu.Vue.Forward.Y / CaméraJeu.Vue.Forward.Z)) + 31.3f;
             }
 
-            foreach (GestionEnvironnement gestionEnvironnement in Game.Components.Where(gestion => gestion is GestionEnvironnement))
-            {
-                gestionEnviro = gestionEnvironnement;
-            }
+            gestionEnviro = Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement;
 
             if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique)
             {

@@ -54,10 +54,7 @@ namespace AtelierXNA
 
         public override void Initialize()
         {
-            foreach (GestionEnvironnement gestion in Game.Components.Where(gestion => gestion is GestionEnvironnement))
-            {
-                gestionEnviro = gestion;
-            }
+            gestionEnviro = (Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement);
 
             Cible = new Vector3(0, 1f, 0);
             MouvCamLancerJoueur1 = new Vector3(0, 0.005f, 0.007f);
@@ -228,10 +225,7 @@ namespace AtelierXNA
 
         void MouvJoueurPrincipal()
         {
-            foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
-            {
-                ath = hud;
-            }
+            ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
 
             if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)
             {

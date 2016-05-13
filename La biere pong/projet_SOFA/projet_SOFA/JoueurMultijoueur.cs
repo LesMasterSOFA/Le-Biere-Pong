@@ -10,13 +10,6 @@ namespace AtelierXNA
         public NetConnection IP { get; private set; }
         public NetworkClient Client { get; private set; }
         
-        ////Constructeur normal
-        //public JoueurMultijoueur(Game game, Personnage avatar, Texture2D imageJoueur, GestionPartie gestionnaireDeLaPartie, Viewport écranDeJeu, NetConnection ip, string gamerTag, NetworkClient client)
-        //    : base(game, avatar, imageJoueur, gestionnaireDeLaPartie, écranDeJeu, gamerTag)
-        //{
-        //    IP = ip;
-        //    Client = client;
-        //}
 
         public JoueurMultijoueur(Game game, NetConnection ip, NetworkClient client)
             :base(game)
@@ -32,13 +25,9 @@ namespace AtelierXNA
         //Constructeur sérialiseur
         public JoueurMultijoueur(Game game, InfoJoueurMultijoueur infoJoueurMultijoueur):base(game)
         {
-            //Avatar = new Personnage(this.Game, infoJoueurMultijoueur.InfoAvatar);
             GamerTag = infoJoueurMultijoueur.Gamertag;
-            //ImageJoueur = new RessourcesManager<Texture2D>(this.Game, "Texture").Find(infoJoueurMultijoueur.ImageJoueur);
             GestionnaireDeLaPartie = new GestionPartie(this.Game, infoJoueurMultijoueur.InfoGestionnairePartie);
             EstActif = infoJoueurMultijoueur.EstActif;
-            //IP = new NetConnection();
-            //Client = (NetworkClient)Game.Components.Where(x => x is NetworkClient) as NetworkClient;
             Client = (NetworkClient)Game.Components[4]; // indice du client slave
         }
 
@@ -65,7 +54,6 @@ namespace AtelierXNA
 
         public InfoJoueurMultijoueur(Personnage avatar, string gamertag, Texture2D imageJoueur, GestionPartie gestionnairePartie, bool estActif, NetConnection ip)
         {
-            //InfoAvatar = new InfoPersonnage(avatar.NomModèle, avatar.NomTexture, avatar.NomEffet, avatar.Échelle, avatar.Rotation, avatar.Position);
             Gamertag = gamertag;
             if(imageJoueur != null)
                 ImageJoueur = imageJoueur.Name;

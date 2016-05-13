@@ -35,25 +35,12 @@ namespace AtelierXNA
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
             MediaPlayer.Stop();
-            //PositionTest = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
-            //BoutonTest = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, SecondNiveau);
-            //PositionTest2 = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
-            //BoutonTest2 = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, TroisièmeNiveau);
-            //PositionTest3 = new Vector2(MARGE_BOUTONS + 100, Game.Window.ClientBounds.Height - MARGE_BOUTONS + 20);
-            //BoutonTest3 = new BoutonDeCommande(Game, "Next Level", "Impact20", "BoutonBleu", "BoutonBleuPale", PositionTest, true, RetourAuMenu);
-            //Game.Components.Add(BoutonTest);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
             base.Initialize();
         }
         void ChangerDeNiveau()
         {
-           if (Game.Components.Where(item => item is EnvironnementDeBase).Count() == 1)
-           {
-              foreach (EnvironnementDeBase env in Game.Components.Where(item => item is EnvironnementDeBase))
-              {
-                 Environnement = env;
-              }
-           }
+           Environnement = Game.Components.ToList().Find(item => item is EnvironnementDeBase) as EnvironnementDeBase;
            if (Environnement.VerresJoueur.Count == 0 || Environnement.VerresAdversaire.Count == 0)
            {
               ChangerNiveau += 1;
@@ -82,8 +69,7 @@ namespace AtelierXNA
             }
             Game.Services.RemoveService(typeof(Caméra));
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SalleManger, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), TypePartie.Histoire);
-            //Game.Components.Add(EnvironnementPartie);
-            //Game.Components.Add(BoutonTest3);
+            Game.Components.Add(EnvironnementPartie);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
         }
         void SecondNiveau()
@@ -93,11 +79,9 @@ namespace AtelierXNA
                 Game.Components.RemoveAt(i);
                 i--;
             }
-            Game.Components.Remove(ath);
             Game.Services.RemoveService(typeof(Caméra));
             EnvironnementPartie = new GestionEnvironnement(Game, Environnements.SousSol, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(), TypePartie.Histoire);
-            //Game.Components.Add(EnvironnementPartie);
-            //Game.Components.Add(BoutonTest2);
+            Game.Components.Add(EnvironnementPartie);
             Game.Components.Add(new ATH(Game, JoueurPrincipal));
             
         }
@@ -108,7 +92,6 @@ namespace AtelierXNA
               Game.Components.RemoveAt(i);
               i--;
            }
-           Game.Components.Remove(ath);
            Game.Services.RemoveService(typeof(Caméra));
            Menu = new Menu(Game);
            Game.Components.Add(Menu);

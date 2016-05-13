@@ -106,7 +106,6 @@ namespace AtelierXNA
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
             MediaPlayer.Stop();
-
         }
 
         void InitialiserSousSol()

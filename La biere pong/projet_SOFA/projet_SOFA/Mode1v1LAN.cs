@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Net;
+using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
@@ -118,13 +119,7 @@ namespace AtelierXNA
             #endregion
 
             EnvironnementDeBase Enviro = null;
-            if (Game.Components.Where(item => item is EnvironnementDeBase).Count() == 1)
-            {
-                foreach (EnvironnementDeBase env in Game.Components.Where(item => item is EnvironnementDeBase))
-                {
-                    Enviro = env;
-                }
-            }
+            Enviro = Game.Components.ToList().Find(item => item is EnvironnementDeBase) as EnvironnementDeBase;
             if (Enviro != null && (Enviro.VerresJoueur.Count == 0 || Enviro.VerresAdversaire.Count == 0))
                 RetourAuMenu();
 
@@ -152,6 +147,7 @@ namespace AtelierXNA
                 EnvironnementPartie = new GestionEnvironnement(this.Game, Environnement, SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex2.ToString(), SuperboyPersonnage.superBoy.ToString(), SuperboyPersonnage.superBoyTex.ToString(),TypePartie.LAN);
                 EnleverMenuSelectionEnvironnement();
                 Game.Components.Add(EnvironnementPartie);
+                MediaPlayer.Stop();
 
                 ListePerso = new List<Personnage>();
                 foreach (Personnage perso in Game.Components.Where(item => item is Personnage))

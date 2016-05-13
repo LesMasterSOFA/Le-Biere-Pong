@@ -47,7 +47,7 @@ namespace AtelierXNA
 
             if (Game.Components.Where(client => client is NetworkClient).Count() == 1)
             {
-                NetworkClient Client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+                NetworkClient Client = Game.Components.ToList().Find(item => item is NetworkClient) as NetworkClient;
                 if (Client != null && !Client.EstMaster)
                 {
                     BoutonLancer.EstActif = false;

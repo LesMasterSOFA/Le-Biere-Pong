@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+
 
 
 namespace AtelierXNA
@@ -88,6 +90,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
+            MediaPlayer.Stop();
         }
 
         void InitialiserSalle()
@@ -104,7 +107,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
-
+            MediaPlayer.Stop();
         }
 
         void InitialiserSousSol()
@@ -121,6 +124,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Remove(this);
             Game.Components.Add(new GestionPartie(Game));
+            MediaPlayer.Stop();
         }
 
         public override void Draw(GameTime gameTime)

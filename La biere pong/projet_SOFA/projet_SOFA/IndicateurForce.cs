@@ -42,18 +42,11 @@ namespace AtelierXNA
         public override void Initialize()
         {
             ListePerso = new List<Personnage>();
-            foreach (CaméraJoueur camera in Game.Components.Where(item => item is Caméra))
-            {
-                cam = camera;
-            }
-
+            cam = Game.Components.ToList().Find(item => item is CaméraJoueur) as CaméraJoueur;
+            ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
             foreach (Personnage perso in Game.Components.Where(item => item is Personnage))
             {
                 ListePerso.Add(perso);
-            }
-            foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
-            {
-                ath = hud;
             }
 
             estActifBarre = true;
