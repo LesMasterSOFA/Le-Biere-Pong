@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace AtelierXNA
 {
-    public class CaméraJoueur : Caméra
+    public class CaméraJoueur : Caméra, IActivable
     {
         const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
         const float VITESSE_INITIALE_ROTATION = 0.15f;
@@ -302,6 +302,12 @@ namespace AtelierXNA
         {
             float rayon = (float)Math.Sqrt(Position.Z * Position.Z + Position.X * Position.X);
             Déplacer(new Vector3(bord1OuMoins1 * rayon * (float)Math.Sin(TempsTotal - 2 * TEMPS_LANCER), Position.Y, bord1OuMoins1 * rayon * (float)Math.Cos(TempsTotal - 2 * TEMPS_LANCER)), Cible, Vector3.Up);
+        }
+
+        public void ModifierActivation()
+        {
+            if ((Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement).TypeDePartie != TypePartie.LAN)
+                Enabled = !Enabled;
         }
     }
 }

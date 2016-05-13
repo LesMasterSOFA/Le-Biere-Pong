@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>Sphere</Name>
     <Identity>
-      <SourceFilename>C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\balle.fbx</SourceFilename>
+      <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\balle.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1.528256E-09 0 -0.0202423669 0 -0.0202423651 0 -1.528256E-09 0 0 0.02003148 0 0 0 0 0 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material</Name>
       <Identity>
-        <SourceFilename>C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\balle.fbx</SourceFilename>
+        <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\balle.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>

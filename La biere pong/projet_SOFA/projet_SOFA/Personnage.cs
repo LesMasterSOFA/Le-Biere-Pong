@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 
 namespace AtelierXNA
 {
-    public class Personnage : ObjetDeBase
+    public class Personnage : ObjetDeBase, IActivable
     {
         AnimationPlayer animationPlayer { get; set; }
         Joueur joueur { get; set; }
@@ -97,6 +98,11 @@ namespace AtelierXNA
 
                 mesh.Draw();
             }
+        }
+        public void ModifierActivation()
+        {
+            if ((Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement).TypeDePartie != TypePartie.LAN)
+                Enabled = !Enabled;
         }
     }
 

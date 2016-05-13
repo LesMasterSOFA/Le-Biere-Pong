@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using System.Linq;
 
 
 namespace AtelierXNA
 {
-   public class BallePhysique : ObjetDeBase
+   public class BallePhysique : ObjetDeBase, IActivable
    {
       const float INCERTITUDE = 0.000001f;
       const float CONSTANTE_RESTITUTION_VERT = 0.8f; 
@@ -285,6 +286,11 @@ namespace AtelierXNA
       public override void Draw(GameTime gameTime)
       {
          base.Draw(gameTime);
+      }
+      public void ModifierActivation()
+      {
+          if ((Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement).TypeDePartie != TypePartie.LAN)
+              Enabled = !Enabled;
       }
    }
 }
