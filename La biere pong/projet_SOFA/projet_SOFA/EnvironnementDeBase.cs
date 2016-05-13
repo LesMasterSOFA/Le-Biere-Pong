@@ -230,19 +230,16 @@ namespace AtelierXNA
          TempsÉcouléDepuisMAJ += TempsÉcoulé;
          if (TempsÉcouléDepuisMAJ >= INTERVALLE_MAJ_STANDARD)
          {
-            TempsTotal += TempsÉcouléDepuisMAJ; 
-            
-            foreach (ATH hud in Game.Components.Where(hud => hud is ATH))
-            {
-               ath = hud;
-            }
+            TempsTotal += TempsÉcouléDepuisMAJ;
+
+            ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
 
             EffectuerÉvénementLocal();
             EffectuerÉvénementHistoire();
 
             if (Game.Components.Where(net => net is NetworkClient).Count() == 1)
             {
-               NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+               NetworkClient client = Game.Components.ToList().Find(net => net is NetworkClient)as NetworkClient;
                EffectuerÉvénementLAN(client);
             }
             TempsÉcouléDepuisMAJ = 0;
@@ -287,7 +284,7 @@ namespace AtelierXNA
               Console.WriteLine(tableauInfoLancer[0]);
               if (Game.Components.Where(affinfo => affinfo is AffichageInfoLancer).Count() != 0)
               {
-                  Game.Components.Remove(Game.Components.Where(affinfo => affinfo is AffichageInfoLancer).ElementAt(0));
+                  Game.Components.Remove(Game.Components.ToList().Find(item => item is AffichageInfoLancer));
               }
               Game.Components.Add(new AffichageInfoLancer(Game, tableauInfoLancer[0], tableauInfoLancer[1], tableauInfoLancer[2]));
               Joueur joueur = new Joueur(Game);
@@ -317,15 +314,12 @@ namespace AtelierXNA
             {
                TempsTotal = 0;
                ActiverLancer = false;
-               foreach (AffichageInfoLancer info in Game.Components.Where(info => info is AffichageInfoLancer))
-               {
-                  infoLancer = info;
-               }
+               infoLancer = Game.Components.ToList().Find(item => item is AffichageInfoLancer) as AffichageInfoLancer;
                #region //Pour réseau
                
                if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
                {
-                   NetworkClient client = (NetworkClient)Game.Components.Where(net => net is NetworkClient).ElementAt(0);
+                   NetworkClient client = Game.Components.ToList().Find(item => item is NetworkClient) as NetworkClient;
                    client.EnvoyerInfoLancerBalle(infoLancer.Force, infoLancer.InfoAngleHor, infoLancer.InfoAngleVert);
                }
                ath.BoutonLancer.EstActif =false;
@@ -349,7 +343,7 @@ namespace AtelierXNA
                                            ListePositionVerres, RAYON_VERRE, HAUTEUR_VERRE, DimensionTable.Y, DIMENSION_TERRAIN, false, INTERVALLE_MAJ_STANDARD);
                }
                Game.Components.Insert(13, Balle);
-               Game.Components.Remove(Game.Components.Where(info => info is AffichageInfoLancer).ElementAt(0));
+               Game.Components.Remove(Game.Components.ToList().Find(item=>item is AffichageInfoLancer));
                int noDrawOrder = 0;
                foreach (DrawableGameComponent item in Game.Components.Where(x => x is DrawableGameComponent))
                {
