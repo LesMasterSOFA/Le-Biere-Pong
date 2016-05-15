@@ -18,7 +18,7 @@ namespace AtelierXNA
         List<JoueurMultijoueur> ListeJoueurs;
 
         // indique si le client roule
-        public bool EstEnMarche { get; set; }
+        public bool EstEnMarche { get; private set; }
 
         //Serveur auquel le client est connecté
         NetworkServer Serveur { get; set; }
@@ -33,8 +33,10 @@ namespace AtelierXNA
         TimeSpan IntervalleRafraichissement { get; set; }
         
         public bool EstMaster { get; private set; }
-        public bool EstMessageReçuLancerBalle { get; set; } //Doit pouvoir être changé dans la gestion d'évènements
+        public bool EstMessageReçuLancerBalle { get; set; } //Doit pouvoir être changé dans la gestion d'évènements alors public get et set
         public float[] InfoBalle { get; private set; } //sert a stocker les infos de la balle pour la gestion d'événements
+        
+        //Pour menu
         SpriteBatch GestionSprites { get; set; }
         RessourcesManager<Texture2D> gestionnaireTexture { get; set; }
         RessourcesManager<SpriteFont> gestionnaireFont { get; set; }
@@ -78,6 +80,7 @@ namespace AtelierXNA
             Create(NomJeu, Port);
             Connect();
         }
+
         protected override void LoadContent()
         {
             RectangleFondÉcran = new Rectangle(0, 0, Game.Window.ClientBounds.Width, Game.Window.ClientBounds.Height + 15);
@@ -88,9 +91,10 @@ namespace AtelierXNA
             Impact40 = gestionnaireFont.Find("Impact40");
             base.LoadContent();
         }
+
         void Create(string nomJeu, int port)
         {
-            // Demande l'ip si aucune adresse a été fournie
+            // Demande l'ip si aucune adresse n'a été fournie
             if (HostIP == null)
             {
                 ConsoleWindow.ShowConsoleWindow();
@@ -164,7 +168,6 @@ namespace AtelierXNA
             {
                 //Court-circuite la fonction update du serveur étant donné qu'elle ne sera pas appelée 
                 //tant que nous serons dans cette fonction 
-                //Doit avoir une condition pour faire sur que le serveur soit intancié
                 if (Serveur != null)
                     Serveur.UpdateServeur();
 
@@ -202,7 +205,7 @@ namespace AtelierXNA
 
         #endregion
 
-        #region Update
+        #region Update et draw
 
         public override void Update(GameTime gameTime)
         {
@@ -305,11 +308,20 @@ namespace AtelierXNA
             }
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            GestionSprites.Begin();
+            string statut = "Votre adversaire crée la partie...";
+            GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
+            GestionSprites.DrawString(Impact40, statut, new Vector2(Game.Window.ClientBounds.Center.X - Impact40.MeasureString(statut).X / 2, Game.Window.ClientBounds.Center.Y - Impact40.MeasureString(statut).Y / 2), Color.White);
+            GestionSprites.End();
+            base.Draw(gameTime);
+        }
+
         #endregion
 
         #region Envoie et réception de messages
 
-        //Inutilisée, utile pour envoyer un string
         public void EnvoyerMessageServeur(PacketTypes typeInfo, string messageToSend)
         {
             if (messageToSend != null)
@@ -339,7 +351,7 @@ namespace AtelierXNA
 
         public void EnvoyerInfoPartieToServeur_StartGame(Mode1v1LAN partieToSend)
         {
-            Console.WriteLine("Essaie Sérialisation");
+            Console.WriteLine("Essaie Sérialisation partie");
             try
             {
                 InfoMode1v1LAN infoMode1v1LAN = new InfoMode1v1LAN((JoueurMultijoueur)partieToSend.JoueurPrincipal, (JoueurMultijoueur)partieToSend.JoueurSecondaire, partieToSend.gestionnairePartie, partieToSend.EstPartieActive, partieToSend.EnvironnementPartie, partieToSend.Serveur);
@@ -357,7 +369,7 @@ namespace AtelierXNA
 
         public void RecevoirInfoPartieToClient_Joining(byte[] infoPartie)
         {
-            Console.WriteLine("Essai Désérialisation");
+            Console.WriteLine("Essai Désérialisation partie");
             try
             {
                 InfoMode1v1LAN infoMode1v1LAN = Serialiseur.ByteArrayToObj<InfoMode1v1LAN>(infoPartie);
@@ -542,14 +554,6 @@ namespace AtelierXNA
         }
 
         #endregion
-        public override void Draw(GameTime gameTime)
-        {
-            GestionSprites.Begin();
-            string allo = "Votre adversaire crée la partie...";
-            GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
-            GestionSprites.DrawString(Impact40, allo, new Vector2(Game.Window.ClientBounds.Center.X - Impact40.MeasureString(allo).X / 2, Game.Window.ClientBounds.Center.Y - Impact40.MeasureString(allo).Y / 2), Color.White);
-            GestionSprites.End();
-            base.Draw(gameTime);
-        }
+
     }
 }
