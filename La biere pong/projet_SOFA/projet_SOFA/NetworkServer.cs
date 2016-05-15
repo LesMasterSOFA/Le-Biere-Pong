@@ -20,7 +20,7 @@ namespace AtelierXNA
         NetIncomingMessage MessageInc { get; set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         byte[] message { get; set; }
-        public Mode1v1LAN PartieEnCours { get; set; } //doit pouvoir être modifié dans le mode de jeu
+        public Mode1v1LAN PartieEnCours { get; set; } //doit pouvoir être modifié dans le mode de jeu donc public get et set
         public long TempsServeurMaster { get; private set; }
 
         #endregion
@@ -45,7 +45,6 @@ namespace AtelierXNA
             Port = port;
             IntervalleRafraichissement = new TimeSpan(0, 0, 0, 0, 30); //30 ms
             TempsServeurMaster = tempsServeurMaster;
-            Console.WriteLine("Waiting for new connections and updateing world state to current ones");
             ListeJoueurs = new List<JoueurMultijoueur>();
         }
 
@@ -82,7 +81,6 @@ namespace AtelierXNA
                 switch (MessageInc.MessageType)
                 {
                     //message reçu lors de la connection initiale
-                    //Initialisation de joueur et de partie à faire ici
                     case NetIncomingMessageType.ConnectionApproval:
 
                         if (MessageInc.ReadByte() == (byte)PacketTypes.LOGIN)
@@ -217,7 +215,6 @@ namespace AtelierXNA
             MessageInc.SenderConnection.Approve();
 
             //Initialisation de joueur
-            //Reste à ajouter le joueur dans le WorldState
             var joueur = new JoueurMultijoueur(Game, MessageInc.SenderConnection);
             ListeJoueurs.Add(joueur);
 
@@ -227,7 +224,6 @@ namespace AtelierXNA
 
             // Tout d'abord on dit quel sorte de message on envoie en Byte
             //Envoie d'un message renvoyant l'état du monde
-            //Update la liste de joueurs
             MessageSortant.Write((byte)PacketTypes.WORLDSTATE);
 
             // Ensuite on écrit l'information à être envoyée
@@ -240,13 +236,11 @@ namespace AtelierXNA
                 MessageSortant.WriteAllProperties(j);
             }
 
-            //// Le message contient: le type d'information, le nombre de joueurs et l'information 
-
             //Envoie du message à la connection dans l'ordre qu'il a été envoyé
             Serveur.SendMessage(MessageSortant, MessageInc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
 
             // Debug
-            Console.WriteLine("Approved new connection and updated the world status");
+            Console.WriteLine("Nouvelle connection acceptée et update WorldState");
         }
 
         void GérerStartGameInfo()

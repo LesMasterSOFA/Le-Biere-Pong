@@ -11,13 +11,17 @@ namespace AtelierXNA
 {
     public class Mode1v1LAN : PartieMultijoueur
     {
-        BoutonDeCommande BoutonJouer { get; set; }
+        //Pour mécanique jeu
         public ATH ath { get; private set; }
         public NetworkServer Serveur { get; private set; }
         public List<JoueurMultijoueur> ListeJoueurs { get; private set; }
         public Environnements Environnement { get; private set; }
         public NetworkManager GestionNetwork { get; private set; }
+        InputManager GestionInput { get; set; }
+        List<Personnage> ListePerso { get; set; }
 
+        //Pour menu
+        BoutonDeCommande BoutonJouer { get; set; }
         BoutonDeCommande BoutonGarage { get; set; }
         BoutonDeCommande BoutonSalleManger { get; set; }
         BoutonDeCommande BoutonSousSol { get; set; }
@@ -33,10 +37,8 @@ namespace AtelierXNA
         Texture2D ImageMenuSalleManger { get; set; }
         Texture2D ImageMenuSousSol { get; set; }
         Texture2D BoutonBleu { get; set; }
-        bool MenuActif { get; set; }
-        InputManager GestionInput { get; set; }
-        List<Personnage> ListePerso { get; set; }
         SpriteFont Impact40 { get; set; }
+        bool MenuActif { get; set; }
         
         public Mode1v1LAN(Game game, NetworkServer serveur, NetworkManager gestionNetwork)
             : base(game)
@@ -62,7 +64,7 @@ namespace AtelierXNA
 
         protected override void LoadContent()
         {
-
+            GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
             GestionSprites = Game.Services.GetService(typeof(SpriteBatch)) as SpriteBatch;
             gestionnaireFont = Game.Services.GetService(typeof(RessourcesManager<SpriteFont>)) as RessourcesManager<SpriteFont>;
             gestionnaireTexture = Game.Services.GetService(typeof(RessourcesManager<Texture2D>)) as RessourcesManager<Texture2D>;
@@ -71,7 +73,6 @@ namespace AtelierXNA
             ImageMenuSalleManger = gestionnaireTexture.Find("MenuSalle");
             ImageMenuSousSol = gestionnaireTexture.Find("MenuSousSol");
             BoutonBleu = gestionnaireTexture.Find("BoutonBleu");
-            GestionInput = Game.Services.GetService(typeof(InputManager)) as InputManager;
             Impact40 = gestionnaireFont.Find("Impact40");
             base.LoadContent();
         }
@@ -224,6 +225,7 @@ namespace AtelierXNA
             Game.Components.Remove(BoutonSousSol);
             Game.Components.Add(new Afficheur3D(Game));
         }
+
         string TrouverAdresseIPLocale()
         {
             IPHostEntry host;
@@ -238,12 +240,12 @@ namespace AtelierXNA
             }
             return localIP;
         }
+
         public override void Draw(GameTime gameTime)
         {
             GestionSprites.Begin();
             if (MenuActif)
             {
-                //L'image de fond d'écran se dessine par dessus les boutons
                 GestionSprites.Draw(ImageFondÉcran, RectangleFondÉcran, Color.White);
                 GestionSprites.Draw(ImageMenuGarage, RectangleGarage, Color.White);
                 GestionSprites.Draw(ImageMenuSalleManger, RectangleSalleManger, Color.White);
@@ -254,8 +256,6 @@ namespace AtelierXNA
             base.Draw(gameTime);
         }
     }
-
-
 
     [Serializable]
     class InfoMode1v1LAN

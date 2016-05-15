@@ -60,7 +60,6 @@ namespace AtelierXNA
             {
                 CréerSlaveClient(nomJoueur);
             }
-            //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)
             {
                 Console.WriteLine("Problème lors du rejoignement de partie");
@@ -80,7 +79,6 @@ namespace AtelierXNA
                 PartieEnCours = new Mode1v1LAN(Game, Serveur, this);
                 Game.Components.Insert(6,PartieEnCours);
             }
-            //Doit ajouter d'autre exception et leur traitement
             catch(Exception e)
             {
                 Console.WriteLine("Problème dans l'hébergement de la partie");
