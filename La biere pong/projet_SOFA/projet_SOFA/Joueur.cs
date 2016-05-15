@@ -47,8 +47,6 @@ namespace AtelierXNA
       public override void Initialize()
       {
          GestionnaireInput = new InputManager(this.Game);
-         //ath = new ATH(Game, this);
-         //Game.Components.Add(ath);
          base.Initialize();
       }
 

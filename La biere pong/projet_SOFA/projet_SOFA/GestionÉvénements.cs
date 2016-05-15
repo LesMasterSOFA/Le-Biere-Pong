@@ -1,104 +1,254 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Linq;
 
 
 namespace AtelierXNA
 {
-    static public class GestionÉvénements
+    public class GestionÉvénements : Microsoft.Xna.Framework.GameComponent
     {
-        static Random randGen { get; set; }
-        static GestionÉvénements()
+        const int DIMENSION_TERRAIN = 7;
+        const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
+        const float DIAMÈTRE_VERRE = 0.09225f;
+        const float RAYON_VERRE = DIAMÈTRE_VERRE / 2;
+        const float HAUTEUR_VERRE = 0.1199f;
+
+        BoundingBox BoundingTable { get; set; }
+        BoundingBox BoundingBonhommePrincipal { get; set; }
+        BoundingBox BoundingBonhommeSecondaire { get; set; }
+        Vector3 PositionIniBalle { get; set; }
+        Vector3 PositionIniBalleAdv { get; set; }
+        protected Vector3 DimensionTable { get; set; }
+        BallePhysique Balle { get; set; }
+
+        List<Vector3> ListePositionVerres { get; set; }
+        List<Vector3> ListePositionVerresAdv { get; set; }
+        List<ObjetDeBase> ListeBiereJoueur { get; set; }
+        List<ObjetDeBase> ListeBiereAdv { get; set; }
+        List<VerreJoueurPrincipal> VerresJoueur { get; set; }
+        List<VerreAdversaire> VerresAdversaire { get; set; }
+
+        AffichageInfoLancer infoLancer { get; set; }
+        bool ActiverLancer { get; set; }
+        bool ActiverInfo { get; set; }
+        AI Ai { get; set; }
+        TypePartie TypeDePartie { get; set; }
+        ATH ath { get; set; }
+
+        float TempsÉcouléDepuisMAJ { get; set; }
+        float TempsTotal { get; set; }
+
+        GestionEnvironnement gestionEnviro { get; set; }
+
+        public GestionÉvénements(Game game, List<Vector3> listeVerreJ, List<Vector3> listeVerreA, List<ObjetDeBase> listeBiereJ, 
+            List<ObjetDeBase> listeBiereA,List<VerreJoueurPrincipal> verresJ,List<VerreAdversaire> verresA,Vector3 dimensionTable,
+            BoundingBox boundingTable,BoundingBox boundingJ,BoundingBox boundingA)
+            : base(game)
         {
+            ListePositionVerres = listeVerreJ;
+            ListePositionVerresAdv = listeVerreA;
+            ListeBiereJoueur = listeBiereJ;
+            ListeBiereAdv = listeBiereA;
+            VerresJoueur = verresJ;
+            VerresAdversaire = verresA;
+            DimensionTable = dimensionTable;
+            BoundingTable = boundingTable;
+            BoundingBonhommePrincipal = boundingJ;
+            BoundingBonhommeSecondaire = boundingA;
         }
-        
-        //J'ai fait des fonctions mais je savais pas ou les appeler alors il n'y a pas de references
-
-
-        //public static void GérerMode1v1Local(Game jeu, bool estTourJoueur, GestionEnvironnement environnement, ATH ath,
-        //    List<VerreAdversaire> listeVerresAdv, List<VerreJoueurPrincipal> listeVerresJoueur)
-        //{
-        //    const float INTERVALLE_MAJ_STANDARD = 1f / 60f;
-        //    bool estPartieActive = true;
-        //    estTourJoueur = !estTourJoueur;
-
-        //    if (estTourJoueur)
-        //    {
-        //        //Caméra sur joueur
-        //        Vector3 positionCaméra = new Vector3(0, 1.5f, 2f);
-        //        Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-        //        environnement.CaméraJeu = new CaméraJoueur(jeu, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
-
-        //        // Activer lancer
-        //        ath.BoutonLancer.Enabled = true;
-
-        //        if (estLancerTerminé)
-        //        {
-        //            //Vérifier si lancer est bon, comment?
-        //            VerreAdversaire leVerre = listeVerresAdv[0]; // trouver quel est leVerre qui est rentré.
-        //            bool estBalleDansVerre = VérifierRésultatLancer();
-        //            bool estBalleRebond = false; //Frank va faire une fonction pour déterminer si c'est un rebond.
-        //            EnleverVerres(listeVerresAdv, jeu, leVerre, estBalleDansVerre, estBalleRebond);
-
-        //            //Vérifier si la partie est finie
-        //            VérifierNombreDeVerres(listeVerresAdv);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        //Caméra sur adversaire
-        //        Vector3 positionCaméra = new Vector3(0, 1.5f, -2f);
-        //        Vector3 cibleCaméra = new Vector3(0, 1f, 0);
-        //        environnement.CaméraJeu = new CaméraJoueur(jeu, positionCaméra, cibleCaméra, Vector3.Up, INTERVALLE_MAJ_STANDARD);
-
-        //        // Activer lancer
-        //        ath.BoutonLancer.Enabled = true;
-
-        //        if (estLancerTerminé)
-        //        {
-        //            //Vérifier si lancer est bon, comment?
-        //            VerreJoueurPrincipal leVerre = listeVerresJoueur[0]; // trouver quel est leVerre qui est rentré.
-        //            bool estBalleDansVerre = VérifierRésultatLancer();
-        //            bool estBalleRebond = false; //Frank va faire une fonction pour déterminer si c'est un rebond.
-        //            EnleverVerres(listeVerresJoueur, jeu, leVerre, estBalleDansVerre, estBalleRebond);
-
-        //            //Vérifier si la partie est finie
-        //            VérifierNombreDeVerres(listeVerresJoueur);
-        //        }
-
-        //    }
-
-        //    TerminerPartie();
-        //}
-
-
-
-
-
-        public static void EnleverVerres<T>(List<T> listeDeVerres, Game jeu, T verreCible, bool estBalleDansVerre, bool estBalleRebond)
+        public override void Initialize()
         {
-            GameComponent verreComponent = verreCible as GameComponent;
-            randGen = new Random();
-            if (estBalleDansVerre)
+            Ai = new AI(ModeDifficulté.Difficile);
+            ActiverLancer = true;
+            ActiverInfo = true;
+
+            PositionIniBalle = new Vector3(0, 1.4f, DimensionTable.Z / 2 + 0.1f);
+            PositionIniBalleAdv = new Vector3(0, 1.4f, -DimensionTable.Z / 2 - 0.1f);
+            Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
+
+            gestionEnviro = Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement;
+
+            base.Initialize();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            float TempsÉcoulé = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            TempsÉcouléDepuisMAJ += TempsÉcoulé;
+            if (TempsÉcouléDepuisMAJ >= INTERVALLE_MAJ_STANDARD)
             {
-                listeDeVerres.Remove(verreCible);
-                jeu.Components.Remove(verreComponent);
-                if (estBalleRebond)
+                TempsTotal += TempsÉcouléDepuisMAJ;
+                EffectuerÉvénementLocal();
+                EffectuerÉvénementHistoire();
+
+                ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
+
+                if (Game.Components.Where(net => net is NetworkClient).Count() == 1)
                 {
-                    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
-                    GameComponent verreRandComponent = verreRand1 as GameComponent;
-                    listeDeVerres.Remove(verreRand1);
-                    jeu.Components.Remove(verreRandComponent);
+                    NetworkClient client = Game.Components.ToList().Find(net => net is NetworkClient) as NetworkClient;
+                    EffectuerÉvénementLAN(client);
                 }
-                //if (estTrickShot)
-                //{
-                //    T verreRand1 = listeDeVerres[randGen.Next(listeDeVerres.Count)];
-                //    GameComponent verreRandComponent = verreRand1 as GameComponent;
-                //    listeDeVerres.Remove(verreRand1);
-                //    jeu.Components.Remove(verreRandComponent);
-                //}
+                TempsÉcouléDepuisMAJ = 0;
+                base.Update(gameTime);
             }
         }
-      
+
+        void EffectuerÉvénementHistoire()
+        {
+            if (TypeDePartie == TypePartie.Histoire)
+            {
+                if (!ath.EstTourJoueurPrincipal && ath.BoutonLancer.EstActif)
+                {
+                    ath.BoutonLancer.EstActif = false;
+                    float[] tab = Ai.GérerAI();
+
+                    Game.Components.Add(new AffichageInfoLancer(Game, tab[0], tab[1], tab[2]));//selon les infos de l'AI
+
+                    ChangerAnimationPersonnage(TypeActionPersonnage.Lancer);
+
+                    gestionEnviro.CaméraJeu.TempsTotal = 0;
+                    gestionEnviro.CaméraJeu.EstMouvCamActif = true;
+                }
+            }
+        }
+
+        void EffectuerÉvénementLAN(NetworkClient client)
+        {
+            if (client.EstMessageReçuLancerBalle)
+            {
+                client.EstMessageReçuLancerBalle = false;
+                float[] tableauInfoLancer = client.InfoBalle;
+                Console.WriteLine(tableauInfoLancer[0]);
+
+                Game.Components.Add(new AffichageInfoLancer(Game, tableauInfoLancer[0], tableauInfoLancer[1], tableauInfoLancer[2]));//selon infos reçues
+
+                ChangerAnimationPersonnage(TypeActionPersonnage.Lancer);
+
+                gestionEnviro.CaméraJeu.TempsTotal = 0;
+                gestionEnviro.CaméraJeu.EstMouvCamActif = true;
+            }
+        }
+
+        void EffectuerÉvénementLocal()
+        {
+            if (Game.Components.Where(info => info is AffichageInfoLancer).Count() == 1) //S'il existe un AffichageInfoLancer dans Game.Components
+            {
+                if (ActiverLancer)
+                {
+                    TempsTotal = 0;
+                    ActiverLancer = false;
+                    infoLancer = Game.Components.ToList().Find(item => item is AffichageInfoLancer) as AffichageInfoLancer;
+                    EnvoyerInfoClient();//Pour Réseau
+                    ath.BoutonLancer.EstActif = false;
+                }
+                else if (ActiverInfo && TempsTotal >= 2.5f)
+                {
+                    ActiverInfo = false;
+                    LancerBalle();
+                    Game.Components.Remove(Game.Components.ToList().Find(item => item is AffichageInfoLancer));
+                }
+            }
+            if (Balle.RetirerBalle)
+            {
+                Game.Components.Remove(Balle);
+                Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
+
+                ActiverLancer = true;
+                ActiverInfo = true;
+            }
+            if (Balle.EstDansVerre)
+            {
+                EnleverVerres();
+                ChangerAnimationPersonnage(TypeActionPersonnage.Boire);
+
+                Game.Components.Remove(Balle);
+                Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
+
+                ActiverLancer = true;
+                ActiverInfo = true;
+            }
+        }
+
+        #region fonctions pour update
+        void EnvoyerInfoClient()
+        {
+            if (Game.Components.Where(net => net is NetworkClient).Count() == 1 && ath.BoutonLancer.EstActif)
+            {
+                NetworkClient client = Game.Components.ToList().Find(item => item is NetworkClient) as NetworkClient;
+                client.EnvoyerInfoLancerBalle(infoLancer.Force, infoLancer.InfoAngleHor, infoLancer.InfoAngleVert);
+            }
+        }
+        void LancerBalle()
+        {
+            if (gestionEnviro.CaméraJeu.Position.Z > 0)
+            {
+                Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalle,
+                                         -(4f * infoLancer.Force) / 100f - 0.5f, (float)MathHelper.ToRadians(infoLancer.InfoAngleHor),
+                                         (float)MathHelper.ToRadians(infoLancer.InfoAngleVert), BoundingTable, BoundingBonhommePrincipal,
+                                         ListePositionVerresAdv, RAYON_VERRE, HAUTEUR_VERRE, DimensionTable.Y, DIMENSION_TERRAIN, true, INTERVALLE_MAJ_STANDARD);
+            }
+            else
+            {
+                Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), PositionIniBalleAdv,
+                                         (4f * infoLancer.Force) / 100f + 0.5f, (float)MathHelper.ToRadians(infoLancer.InfoAngleHor),
+                                         (float)MathHelper.ToRadians(infoLancer.InfoAngleVert), BoundingTable, BoundingBonhommeSecondaire,
+                                         ListePositionVerres, RAYON_VERRE, HAUTEUR_VERRE, DimensionTable.Y, DIMENSION_TERRAIN, false, INTERVALLE_MAJ_STANDARD);
+            }
+            Game.Components.Insert(13, Balle);
+        }
+        void EnleverVerres()
+        {
+            if (Balle.EstJoueurPrincipal)
+            {
+                Game.Components.Remove(ListeBiereAdv[Balle.IndexÀRetirer]);
+                Game.Components.Remove(VerresAdversaire[Balle.IndexÀRetirer]);
+                ListeBiereAdv.RemoveAt(Balle.IndexÀRetirer);
+                VerresAdversaire.RemoveAt(Balle.IndexÀRetirer);
+                ListePositionVerresAdv.RemoveAt(Balle.IndexÀRetirer);
+                if (Balle.RebondSurTable && ListeBiereAdv.Count >= 1)
+                {
+                    Game.Components.Remove(ListeBiereAdv[0]);
+                    Game.Components.Remove(VerresAdversaire[0]);
+                    ListeBiereAdv.RemoveAt(0);
+                    VerresAdversaire.RemoveAt(0);
+                    ListePositionVerresAdv.RemoveAt(0);
+                }
+            }
+            else
+            {
+                Game.Components.Remove(ListeBiereJoueur[Balle.IndexÀRetirer]);
+                Game.Components.Remove(VerresJoueur[Balle.IndexÀRetirer]);
+                ListeBiereJoueur.RemoveAt(Balle.IndexÀRetirer);
+                VerresJoueur.RemoveAt(Balle.IndexÀRetirer);
+                ListePositionVerres.RemoveAt(Balle.IndexÀRetirer);
+                if (Balle.RebondSurTable && ListeBiereJoueur.Count >= 1)
+                {
+                    Game.Components.Remove(ListeBiereJoueur[0]);
+                    Game.Components.Remove(VerresJoueur[0]);
+                    ListeBiereJoueur.RemoveAt(0);
+                    VerresJoueur.RemoveAt(0);
+                    ListePositionVerres.RemoveAt(0);
+                }
+            }
+        }
+        void ChangerAnimationPersonnage(TypeActionPersonnage action)
+        {
+            Joueur joueur = new Joueur(Game);
+            List<Personnage> ListePerso = new List<Personnage>();
+            foreach (Personnage perso in Game.Components.Where(person => person is Personnage))
+            {
+                ListePerso.Add(perso);
+            }
+            if (gestionEnviro.CaméraJeu.Position.Z > 0)
+            {
+                joueur.ChangerAnimation(action, ListePerso.Find(peros => peros.Position.Z < 0));
+            }
+            else
+            {
+                joueur.ChangerAnimation(action, ListePerso.Find(peros => peros.Position.Z > 0));
+            }
+        }
+        #endregion
     }
 }
