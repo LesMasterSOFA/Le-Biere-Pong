@@ -1,5 +1,0 @@
-B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Release\projet_SOFAContent.contentprojResolveAssemblyReference.cache
-C:\Users\Olivier\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Release\projet_SOFAContent.contentprojResolveAssemblyReference.cache
-C:\Users\201432418\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Release\projet_SOFAContent.contentprojResolveAssemblyReference.cache
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Release\projet_SOFAContent.contentprojResolveAssemblyReference.cache
-C:\Users\Francis\Documents\GitHub\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\obj\x86\Release\projet_SOFAContent.contentprojResolveAssemblyReference.cache

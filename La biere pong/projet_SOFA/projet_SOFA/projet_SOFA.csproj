@@ -207,6 +207,7 @@
     <Compile Include="NetworkManager.cs" />
     <Compile Include="NetworkServer.cs" />
     <Compile Include="Outils\Afficheur3D.cs" />
+    <Compile Include="Outils\AfficheurFPS.cs" />
     <Compile Include="Outils\BoutonDeCommande.cs" />
     <Compile Include="Outils\Caméra.cs" />
     <Compile Include="EnvironnementGarage.cs" />
