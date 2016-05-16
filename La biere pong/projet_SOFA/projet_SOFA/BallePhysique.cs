@@ -16,6 +16,7 @@ namespace AtelierXNA
       const float CHANGEMENT_DIRECTION = -1f;
       const float GRAVITÉ = 9.81f;
       const float RAYON_BALLE = 0.01f;
+      const float TEMPS_LANCER = 2.71f;
       BoundingSphere SphèreBalle { get; set; }
       float VitesseInitiale { get; set; }
       float VitesseEnX { get; set; }
@@ -114,6 +115,7 @@ namespace AtelierXNA
          }
          base.Update(gameTime);
       }
+
       void EffectuerDéplacement()
       {
          GérerCollisionVerres();
@@ -145,6 +147,7 @@ namespace AtelierXNA
 
          return cpt > 1;
       }
+
       void GérerCollisionVerres()
       {
          if (Position.Y <= HauteurTable + HauteurVerre + RAYON_BALLE && Position.Y >= HauteurTable - RAYON_BALLE)
@@ -152,8 +155,11 @@ namespace AtelierXNA
             for (int i = 0; i < ListePositionVerresAdv.Count; ++i)
             {
                Vector3 vecteurDétectionAngle = Position - ListePositionVerresAdv[i];
+
+               //Est ce que la balle est dans le cylindre du verre?
                if (Vector3.Cross(vecteurDétectionAngle, Vector3.Up).Length() / Vector3.Up.Length() <= RayonVerre + RAYON_BALLE)
                {
+                  //Est-elle dans 2 cylindres en même temps?
                   if (CollisionEntreDeuxVerres() == true)
                   {
                      Pong.Play();
@@ -166,8 +172,10 @@ namespace AtelierXNA
                   {
                      float angleDirection = (float)Math.Acos(Vector3.Dot(vecteurDétectionAngle, Vector3.Up) / (vecteurDétectionAngle.Length() * Vector3.Up.Length()));
 
+                     //Est-elle en haut ou sur le côté?
                      if (angleDirection <= AngleLimiteVert + 0.01f)
                      {
+                        //Est-elle sur la bordure?
                         if (Math.Abs(angleDirection - AngleLimiteVert) <= 0.1f)
                         {
                            Pong.Play();
@@ -176,6 +184,7 @@ namespace AtelierXNA
                            VitesseEnY = CONSTANTE_RESTITUTION_VERT * Math.Abs(VitesseEnY - GRAVITÉ * TempsTotal);
                            PositionInitiale = new Vector3(Position.X, HauteurTable + HauteurVerre + RAYON_BALLE + INCERTITUDE, Position.Z);
                         }
+                        //Oui! On a réussi le lancer
                         else
                         {
                            int index = RandGen.Next(EffetSonore.Length);
@@ -269,7 +278,7 @@ namespace AtelierXNA
 
       void GérerTempsRetirerBaller()
       {
-         if (TempsRetirerBalle >= 2.71f)
+         if (TempsRetirerBalle >= TEMPS_LANCER)
          {
             RetirerBalle = true;
          }
@@ -283,10 +292,7 @@ namespace AtelierXNA
          Monde *= Matrix.CreateTranslation(Position);
          return base.GetMonde();
       }
-      public override void Draw(GameTime gameTime)
-      {
-         base.Draw(gameTime);
-      }
+
       public void ModifierActivation()
       {
           if ((Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement).TypeDePartie != TypePartie.LAN)
