@@ -19,10 +19,10 @@ namespace AtelierXNA
         const float MIN_MOUV_VERT = -MathHelper.Pi / 6;
         const float MAX_MOUV_VERT = 0.5f;
 
-        Vector3 MouvCamLancerJoueur1 { get; set; }
-        Vector3 MouvCamLancerJoueur2 { get; set; }
-        Vector3 PositionLancerJoueur1 { get; set; }
-        Vector3 PositionLancerJoueur2 { get; set; }
+        Vector3 MouvCamLancerJoueur1 = new Vector3(0, 0.005f, 0.007f);
+        Vector3 MouvCamLancerJoueur2 = new Vector3(0, 0.005f, -0.007f);
+        Vector3 PositionLancerJoueur1 = new Vector3(0, 1.5f, -1.0f);
+        Vector3 PositionLancerJoueur2 = new Vector3(0, 1.5f, 1.0f);
 
 
         Vector3 Direction { get; set; }
@@ -57,10 +57,6 @@ namespace AtelierXNA
             gestionEnviro = (Game.Components.ToList().Find(item => item is GestionEnvironnement) as GestionEnvironnement);
 
             Cible = new Vector3(0, 1f, 0);
-            MouvCamLancerJoueur1 = new Vector3(0, 0.005f, 0.007f);
-            MouvCamLancerJoueur2 = new Vector3(0, 0.005f, -0.007f);
-            PositionLancerJoueur1 = new Vector3(0, 1.5f, -1.0f);
-            PositionLancerJoueur2 = new Vector3(0, 1.5f, 1.0f);
 
             TempsTotal = 0;
             EstMouvCamActif = false;
@@ -103,7 +99,7 @@ namespace AtelierXNA
                 TempsTotal += TempsÉcouléDepuisMAJ;
                 GérerRotation();
                 CréerPointDeVue();
-                MouvJoueurPrincipal();
+                MouvJoueur();
                 TempsÉcouléDepuisMAJ = 0;
             }
             base.Update(gameTime);
@@ -137,15 +133,15 @@ namespace AtelierXNA
             {
                 matriceTangage = Matrix.CreateFromAxisAngle(Latéral, -DELTA_TANGAGE * VitesseRotationBas);
             }
-            if (Position.Z > 0)
+            if (Position.Z > 0)//lorsque c'est joueur principal
             {
                 if (Vue.Forward.Y <= MIN_MOUV_VERT)
                 {
-                    VitesseRotationHaut = 0f;
+                    VitesseRotationHaut = 0f; //bloque mouvement vertical
                 }
                 else if (Vue.Forward.Y >= MAX_MOUV_VERT)
                 {
-                    VitesseRotationBas = 0f;
+                    VitesseRotationBas = 0f; //bloque mouvement vertical
                 }
                 else
                 {
@@ -158,11 +154,11 @@ namespace AtelierXNA
 
                 if (Vue.Forward.Y >= -MIN_MOUV_VERT)
                 {
-                    VitesseRotationHaut = 0f;
+                    VitesseRotationHaut = 0f; //bloque mouvement vertical
                 }
                 else if (Vue.Forward.Y <= -MAX_MOUV_VERT)
                 {
-                    VitesseRotationBas = 0f;
+                    VitesseRotationBas = 0f; //bloque mouvement vertical
                 }
                 else
                 {
@@ -185,15 +181,15 @@ namespace AtelierXNA
             {
                 matriceLacet = Matrix.CreateFromAxisAngle(OrientationVerticale, DELTA_LACET * VitesseRotationGauche);
             }
-            if (Position.Z > 0)
+            if (Position.Z > 0)//lorsque c'est joueur principal
             {
                 if (Vue.Forward.X <= MIN_MOUV_HOR)
                 {
-                    VitesseRotationDroite = 0f;
+                    VitesseRotationDroite = 0f;//bloque mouvement horizontal
                 }
                 else if (Vue.Forward.X >= MAX_MOUV_HOR)
                 {
-                    VitesseRotationGauche = 0f;
+                    VitesseRotationGauche = 0f;//bloque mouvement horizontal
                 }
                 else
                 {
@@ -205,11 +201,11 @@ namespace AtelierXNA
             {
                 if (Vue.Forward.X >= -MIN_MOUV_HOR)
                 {
-                    VitesseRotationDroite = 0f;
+                    VitesseRotationDroite = 0f;//bloque mouvement horizontal
                 }
                 else if (Vue.Forward.X <= -MAX_MOUV_HOR)
                 {
-                    VitesseRotationGauche = 0f;
+                    VitesseRotationGauche = 0f;//bloque mouvement horizontal
                 }
                 else
                 {
@@ -223,13 +219,13 @@ namespace AtelierXNA
             Latéral = Vector3.Normalize(Latéral);
         }
 
-        void MouvJoueurPrincipal()
+        void MouvJoueur()
         {
             ath = Game.Components.ToList().Find(item => item is ATH) as ATH;
 
-            if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)
+            if (EstMouvCamActif && TempsTotal <= TEMPS_LANCER)//mouvement de reculons avant le lancer
             {
-                if (Position.Z > 0)
+                if (Position.Z > 0)//lorsque c'est joueur principal
                 {
                     EffectuerMouvLancerCam(MouvCamLancerJoueur1);
                 }
@@ -239,7 +235,7 @@ namespace AtelierXNA
                     RotationAntiHoraire = false;
                 }
             }
-            if (EstMouvCamActif && TempsTotal >= 2 * TEMPS_LANCER && TempsTotal <= TEMPS_TOURNER)
+            if (EstMouvCamActif && TempsTotal >= 2 * TEMPS_LANCER && TempsTotal <= TEMPS_TOURNER)//mouvement changer de côté
             {
                 ath.BoutonLancer.EstActif = false;
                 if (RotationAntiHoraire)
@@ -251,7 +247,7 @@ namespace AtelierXNA
                     EffectuerMouvTournerCam(-1);
                 }
             }
-            if (EstMouvCamActif && TempsTotal >= TEMPS_TOURNER)
+            if (EstMouvCamActif && TempsTotal >= TEMPS_TOURNER)//mouvement pour revenir au point de vue pour lancer
             {
                 if (Position.Z < 0)
                 {
@@ -266,23 +262,23 @@ namespace AtelierXNA
             {
                 EstMouvCamActif = false;
                 RotationAntiHoraire = true;
-                if (gestionEnviro.TypeDePartie == TypePartie.Local || gestionEnviro.TypeDePartie == TypePartie.Pratique||gestionEnviro.TypeDePartie ==TypePartie.Histoire)
+                if (gestionEnviro.TypeDePartie != TypePartie.LAN)
                 {
                     ath.BoutonLancer.EstActif = true;
                     ath.EstTourJoueurPrincipal = !ath.EstTourJoueurPrincipal;
                 }
-                else if (gestionEnviro.TypeDePartie == TypePartie.LAN)
+                else
                 {
                     ath.EstTourJoueurPrincipal = !ath.EstTourJoueurPrincipal;
                     ath.BoutonLancer.EstActif = ath.EstTourJoueurPrincipal;
                 }
                 if (Position.Z < 0)
                 {
-                    Déplacer(PositionLancerJoueur1, Cible, Vector3.Up);
+                    Déplacer(PositionLancerJoueur1, Cible, Vector3.Up);//pour remettre le point de vue exactement à la même place
                 }
                 else
                 {
-                    Déplacer(PositionLancerJoueur2, Cible, Vector3.Up);
+                    Déplacer(PositionLancerJoueur2, Cible, Vector3.Up);//pour remettre le point de vue exactement à la même place
                 }
             }
         }

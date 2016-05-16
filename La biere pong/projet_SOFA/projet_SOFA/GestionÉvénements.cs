@@ -105,7 +105,7 @@ namespace AtelierXNA
 
                     Game.Components.Add(new AffichageInfoLancer(Game, tab[0], tab[1], tab[2]));//selon les infos de l'AI
 
-                    ChangerAnimationPersonnage(TypeActionPersonnage.Lancer);
+                    ChangerAnimationPersonnage(TypeActionPersonnage.Lancer, -1);
 
                     gestionEnviro.CaméraJeu.TempsTotal = 0;
                     gestionEnviro.CaméraJeu.EstMouvCamActif = true;
@@ -123,7 +123,7 @@ namespace AtelierXNA
 
                 Game.Components.Add(new AffichageInfoLancer(Game, tableauInfoLancer[0], tableauInfoLancer[1], tableauInfoLancer[2]));//selon infos reçues
 
-                ChangerAnimationPersonnage(TypeActionPersonnage.Lancer);
+                ChangerAnimationPersonnage(TypeActionPersonnage.Lancer,-1);
 
                 gestionEnviro.CaméraJeu.TempsTotal = 0;
                 gestionEnviro.CaméraJeu.EstMouvCamActif = true;
@@ -160,7 +160,7 @@ namespace AtelierXNA
             if (Balle.EstDansVerre)
             {
                 EnleverVerres();
-                ChangerAnimationPersonnage(TypeActionPersonnage.Boire);
+                ChangerAnimationPersonnage(TypeActionPersonnage.Boire, 1);
 
                 Game.Components.Remove(Balle);
                 Balle = new BallePhysique(Game, "balle", "couleur_Balle", "Shader", 1, new Vector3(0, 0, 0), new Vector3(0, 1.4f, 1.7f));
@@ -232,7 +232,7 @@ namespace AtelierXNA
                 }
             }
         }
-        void ChangerAnimationPersonnage(TypeActionPersonnage action)
+        void ChangerAnimationPersonnage(TypeActionPersonnage action,int bord1ouMoins1)
         {
             Joueur joueur = new Joueur(Game);
             List<Personnage> ListePerso = new List<Personnage>();
@@ -240,7 +240,7 @@ namespace AtelierXNA
             {
                 ListePerso.Add(perso);
             }
-            if (gestionEnviro.CaméraJeu.Position.Z > 0)
+            if (bord1ouMoins1 * gestionEnviro.CaméraJeu.Position.Z > 0)
             {
                 joueur.ChangerAnimation(action, ListePerso.Find(peros => peros.Position.Z < 0));
             }
