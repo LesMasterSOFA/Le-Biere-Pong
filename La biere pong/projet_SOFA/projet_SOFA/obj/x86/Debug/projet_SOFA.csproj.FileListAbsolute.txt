@@ -164,7 +164,6 @@ C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\verre.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\urinoir.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Models\etabli.xnb
-C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.dll
 C:\Users\simon\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\OutilsXNA.pdb
 C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact20.xnb
 C:\Users\simon\Desktop\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\Le-Biere-Pong-e50ef4eaada7d251917fb13e8b443c8e7b83ccfb\La biere pong\projet_SOFA\projet_SOFA\bin\x86\Debug\Content\Fonts\Impact40.xnb

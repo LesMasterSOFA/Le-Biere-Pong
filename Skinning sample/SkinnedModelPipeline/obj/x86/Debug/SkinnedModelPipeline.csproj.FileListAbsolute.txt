@@ -26,3 +26,10 @@ B:\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\Skin
 B:\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.csprojResolveAssemblyReference.cache
 B:\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.dll
 B:\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\SkinnedModel.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\bin\x86\Debug\SkinnedModel.pdb
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.csprojResolveAssemblyReference.cache
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.dll
+C:\Users\simon\Desktop\Le-Biere-Pong\Skinning sample\SkinnedModelPipeline\obj\x86\Debug\SkinnedModelPipeline.pdb
