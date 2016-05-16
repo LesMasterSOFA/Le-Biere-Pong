@@ -3,7 +3,7 @@
   <Asset Type="Graphics:NodeContent">
     <Name>RootNode</Name>
     <Identity>
-      <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoySwing.fbx</SourceFilename>
+      <SourceFilename>C:\Users\Francis\Documents\GitHub\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoySwing.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</Transform>
@@ -3302,7 +3302,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material_001</Name>
       <Identity>
-        <SourceFilename>B:\Desktop\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoySwing.fbx</SourceFilename>
+        <SourceFilename>C:\Users\Francis\Documents\GitHub\Le-Biere-Pong\La biere pong\projet_SOFA\projet_SOFAContent\Models\superBoySwing.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>
